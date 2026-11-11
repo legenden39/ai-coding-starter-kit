@@ -273,6 +273,12 @@ for (const [f, tabel] of [["README.md", "## Codex or Claude Code?"], ["README.da
 }
 for (const f of ["CHANGELOG.md", "CHANGELOG.da.md", "TEACHING.md", "UNDERVISNING.md"]) tjek(`${f}: nævner udgaven til Claude Code`, /Claude Code/.test(laes(ROD, f) || "") && /installer-claude\.cmd|install-claude-english\.cmd/.test(laes(ROD, f) || ""));
 
+// En linje "run: ..." må ikke rumme kolon efterfulgt af mellemrum: så kan GitHub ikke læse filen, og udgivelsen fejler uden at køre.
+for (const f of ["release.yml", "test.yml"]) {
+  const daarlige = (laes(ROD, ".github", "workflows", f) || "").split("\n").filter((l) => /^\s*(- )?(run|name): [^|>"']/.test(l) && /: /.test(l.replace(/^\s*(- )?(run|name): /, "")));
+  tjek(`${f}: ingen linje, som GitHub ikke kan læse (kolon og mellemrum midt i en kommando)`, daarlige.length === 0, daarlige.join(" | ").slice(0, 300));
+}
+
 if (process.platform === "win32") {
   for (const [sprog, svarJa, skillFil, naeste] of [["da", "j", ["claude", "SKILL.claude.md"], /Naeste skridt/], ["en", "y", ["claude", "en", "SKILL.claude.en.md"], /Next steps/]]) {
     const maal = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "startkit-install-claude-")), "skills", "startkit");
