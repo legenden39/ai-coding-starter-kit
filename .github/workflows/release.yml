@@ -31,10 +31,10 @@ jobs:
         if: steps.v.outputs.findes == 'nej'
         run: |
           mkdir -p pakke/ai-coding-starter-kit
-          cp -r startkit installer.cmd install-english.cmd install.ps1 README.md README.da.md CHANGELOG.md CHANGELOG.da.md TEACHING.md UNDERVISNING.md LICENSE pakke/ai-coding-starter-kit/
+          cp -r startkit installer.cmd install-english.cmd installer-claude.cmd install-claude-english.cmd install.ps1 README.md README.da.md CHANGELOG.md CHANGELOG.da.md TEACHING.md UNDERVISNING.md LICENSE pakke/ai-coding-starter-kit/
           cd pakke && zip -q -r ../ai-coding-starter-kit.zip ai-coding-starter-kit
       - name: Læg udgivelsen ud
         if: steps.v.outputs.findes == 'nej'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "v${{ steps.v.outputs.version }}" ai-coding-starter-kit.zip --title "${{ steps.v.outputs.version }}" --notes "Download ai-coding-starter-kit.zip below, unzip it, and double-click install-english.cmd (English) or installer.cmd (Danish). What is new is in CHANGELOG.md."
+        run: gh release create "v${{ steps.v.outputs.version }}" ai-coding-starter-kit.zip --title "${{ steps.v.outputs.version }}" --notes "Download ai-coding-starter-kit.zip below, unzip it, and double-click the installer for your tool: for Codex install-english.cmd (English) or installer.cmd (Danish), for Claude Code install-claude-english.cmd (English) or installer-claude.cmd (Danish). What is new is in CHANGELOG.md."

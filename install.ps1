@@ -1,24 +1,30 @@
-# Installerer startkittet som en skill til Codex.
-# Det eneste, scriptet goer, er at kopiere mappen "startkit" til din brugermappe under .agents\skills.
+# Installerer startkittet som en skill til Codex eller til Claude Code.
+# Det eneste, scriptet goer, er at kopiere mappen "startkit" til din brugermappe:
+# under .agents\skills (Codex) eller under .claude\skills (Claude Code).
 # Det henter ikke noget fra nettet og aendrer ingen indstillinger.
 # (Teksten er skrevet uden danske bogstaver med vilje, saa den vises rigtigt i alle terminaler.)
 #
 # -Til <mappe> bruges kun af testene, saa de ikke roerer din rigtige brugermappe.
 # -Sprog en    installerer den engelske udgave (det er det, install-english.cmd goer). Uden den er det dansk.
-param([string]$Til, [string]$Sprog = "da")
+# -Vaerktoej claude    installerer udgaven til Claude Code (det er det, installer-claude.cmd goer). Uden den er det Codex.
+param([string]$Til, [string]$Sprog = "da", [string]$Vaerktoej = "codex")
 $ErrorActionPreference = "Stop"
 
 $en = ($Sprog -eq "en")
+$claude = ($Vaerktoej -eq "claude")
+$navn = if ($claude) { "Claude Code" } else { "Codex" }
+$skillsMappe = if ($claude) { ".claude\skills\startkit" } else { ".agents\skills\startkit" }
+$start = if ($claude) { "/startkit" } else { "`$startkit" }
 # Sig <dansk> <engelsk>: skriver teksten paa det valgte sprog.
 function Sig([string]$da, [string]$eng) { if ($en) { Write-Host $eng } else { Write-Host $da } }
 
 $fra = Join-Path $PSScriptRoot "startkit"
-$til = if ($Til) { $Til } else { Join-Path $HOME ".agents\skills\startkit" }
+$til = if ($Til) { $Til } else { Join-Path $HOME $skillsMappe }
 $version = if ($en) { "unknown" } else { "ukendt" }
 if (Test-Path (Join-Path $fra "VERSION")) { $version = (Get-Content (Join-Path $fra "VERSION") -TotalCount 1).Trim() }
 
 Write-Host ""
-Sig "Startkit (version $version) - installation" "Starter kit (version $version) - installation"
+Sig "Startkit til $navn (version $version) - installation" "Starter kit for $navn (version $version) - installation"
 Write-Host "==========================================="
 
 if (-not (Test-Path (Join-Path $fra "SKILL.md"))) {
@@ -30,7 +36,7 @@ if (-not (Test-Path (Join-Path $fra "SKILL.md"))) {
 Write-Host ""
 Sig "Det her sker, hvis du siger ja:" "This happens if you say yes:"
 Sig "  1. Mappen 'startkit' kopieres hertil: $til" "  1. The folder 'startkit' is copied to: $til"
-Sig "     Det er der, Codex leder efter den slags." "     That is where Codex looks for this kind of thing."
+Sig "     Det er der, $navn leder efter den slags." "     That is where $navn looks for this kind of thing."
 Sig "  2. Intet andet. Der hentes ikke noget fra nettet, og ingen indstillinger aendres." "  2. Nothing else. Nothing is downloaded from the internet, and no settings are changed."
 if (Test-Path $til) {
   Write-Host ""
@@ -54,6 +60,13 @@ if ($en) {
   Copy-Item -Force (Join-Path $til "en\openai.en.yaml") (Join-Path $til "agents\openai.yaml")
   Set-Content -Path (Join-Path $til "scripts\projekt\sprog.json") -Value '{"sprog": "en"}' -Encoding ASCII
 }
+if ($claude) {
+  # Udgaven til Claude Code: dens instruktioner laegges oeverst (paa det valgte sprog), og kittets programmer
+  # faar at vide, at vaerktoejet er Claude Code. Programmerne og reglerne er de samme som i udgaven til Codex.
+  $skill = if ($en) { "claude\en\SKILL.claude.en.md" } else { "claude\SKILL.claude.md" }
+  Copy-Item -Force (Join-Path $til $skill) (Join-Path $til "SKILL.md")
+  Set-Content -Path (Join-Path $til "scripts\projekt\vaerktoej.json") -Value '{"vaerktoej": "claude"}' -Encoding ASCII
+}
 
 Write-Host ""
 Sig "Faerdig. Startkittet ligger nu i: $til" "Done. The starter kit is now in: $til"
@@ -67,8 +80,8 @@ foreach ($program in @("git", "node")) {
 
 Write-Host ""
 Sig "Naeste skridt:" "Next steps:"
-Sig "  1. Aabn Codex. Var Codex allerede aaben, saa luk den, og aabn den igen." "  1. Open Codex. If Codex was already open, close it, and open it again."
+Sig "  1. Aabn $navn. Var $navn allerede aaben, saa luk den, og aabn den igen." "  1. Open $navn. If $navn was already open, close it, and open it again."
 Sig "  2. Aabn den mappe, du vil bygge i, som projekt. En tom mappe er helt fin." "  2. Open the folder you want to build in as a project. An empty folder is perfectly fine."
-Sig "  3. Skriv dette i chatten, og tryk Enter:   `$startkit" "  3. Type this in the chat, and press Enter:   `$startkit"
+Sig "  3. Skriv dette i chatten, og tryk Enter:   $start" "  3. Type this in the chat, and press Enter:   $start"
 Write-Host ""
-Sig "Dukker den ikke op, saa skriv /skills i Codex, og vaelg 'Startkit' paa listen." "If it does not show up, type /skills in Codex, and choose 'Startkit' in the list."
+Sig "Dukker den ikke op, saa skriv /skills i $navn, og vaelg 'Startkit' paa listen." "If it does not show up, type /skills in $navn, and choose 'Startkit' in the list."

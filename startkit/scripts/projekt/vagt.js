@@ -1,5 +1,5 @@
-// Vagten: Codex kører dette script, før den bruger et værktøj (hook: PreToolUse).
-// Den læser, hvad Codex er ved at gøre, og afviser det, reglerne i regler.js forbyder.
+// Vagten: AI-værktøjet (Codex eller Claude Code) kører dette script, før det bruger et værktøj (hook: PreToolUse).
+// Den læser, hvad AI'en er ved at gøre, og afviser det, reglerne i regler.js forbyder.
 // Intet svar = tilladt. Kører aldrig noget selv og bruger ikke internettet.
 const fs = require("fs");
 const { decide } = require("./regler");

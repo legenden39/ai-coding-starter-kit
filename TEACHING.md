@@ -8,6 +8,7 @@ This page is for you if you want to use the starter kit with a class, for exampl
 
 - **It is a beta.** Some things will not work as described.
 - **The kit has not been tried in Codex** by the person who made it. The individual parts are tested automatically, but the whole flow has not been run through in Codex by a human. See the table "What has been tried, and what has not?" in the [README](README.md).
+- **The kit exists for Codex and for Claude Code.** This page is written with Codex's names. If the class uses Claude Code, the participants need a Claude account with access to Claude Code, they install with `install-claude-english.cmd`, start with `/startkit` and see usage with `/usage`. The table "Codex or Claude Code?" in the [README](README.md) shows the rest. The edition for Claude Code is new and has not been tried on Windows. Preferably have the whole class use the same tool; that makes it easier to help.
 - **It has not been tried with a class.** The schedule below is an estimate, not experience.
 - **The kit speaks English or Danish.** Participants choose when they install: `install-english.cmd` for English, `installer.cmd` for Danish. The English edition is new and has been tried by fewer people than the Danish one.
 - The kit is made for Windows. Mac and Linux are untested.

@@ -3,6 +3,9 @@
 //
 // Sproget står i filen sprog.json ved siden af denne fil ({"sprog": "en"}). Mangler den, er det dansk.
 // Installationen skriver den i skill-mappen, og opsætningen skriver den i projektet.
+//
+// Hvilket AI-værktøj kittet er sat op til, står på samme måde i vaerktoej.json ({"vaerktoej": "claude"}).
+// Mangler den, er det Codex. Reglerne er de samme; kun navne på filer og kommandoer er forskellige.
 const fs = require("fs");
 const path = require("path");
 
@@ -12,6 +15,22 @@ function sprog() {
   try { return JSON.parse(fs.readFileSync(path.join(__dirname, "sprog.json"), "utf8")).sprog === "en" ? "en" : "da"; }
   catch { return "da"; }
 }
+
+function vaerktoej() {
+  const miljoe = process.env.STARTKIT_VAERKTOEJ;
+  if (miljoe === "claude" || miljoe === "codex") return miljoe;
+  try { return JSON.parse(fs.readFileSync(path.join(__dirname, "vaerktoej.json"), "utf8")).vaerktoej === "claude" ? "claude" : "codex"; }
+  catch { return "codex"; }
+}
+
+// Det, der hedder noget forskelligt i de to værktøjer. Sættes ind i beskederne, hvor der står {V}, {regelfil}, {hookfil} og {forbrug}.
+//   hookvaerktoejer: de værktøjer, vagten skal kaldes før. Claude Code læser filer med sit eget værktøj (Read),
+//   så dér skal vagten også med, ellers kunne en .env-fil læses uden om den.
+const VAERKTOEJER = {
+  codex: { V: "Codex", regelfil: "AGENTS.md", hookfil: ".codex/hooks.json", forbrug: "/status", start: "$startkit", hookvaerktoejer: "Bash|apply_patch|Edit|Write" },
+  claude: { V: "Claude Code", regelfil: "CLAUDE.md", hookfil: ".claude/settings.local.json", forbrug: "/usage", start: "/startkit", hookvaerktoejer: "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|Read|Grep" },
+};
+const vt = (navn) => (navn ? VAERKTOEJER[vaerktoej()][navn] : VAERKTOEJER[vaerktoej()]);
 
 // De filer i projektet, personen selv ser, hedder noget forskelligt på de to sprog.
 const FILER = {
@@ -71,12 +90,12 @@ const TEKSTER = {
     "ov.groent": "grønt",
     "ov.roedt": "rødt",
     "ov.seneste.bevis": "Seneste bevis:",
-    "ov.ingen.tal": "Ingen tal gemt endnu. Skriv <code>/status</code> i Codex, og gem tallene med <code>node scripts/startkit/forbrug-gem.js --5t 40 --uge 12</code>.",
+    "ov.ingen.tal": "Ingen tal gemt endnu. Skriv <code>{forbrug}</code> i {V}, og gem tallene med <code>node scripts/startkit/forbrug-gem.js --5t 40 --uge 12</code>.",
     "ov.over.graense": "over din grænse på {graense} %",
     "ov.5t": "5 timer",
     "ov.uge": "Uge",
     "ov.gemt": "Gemt {tid}",
-    "ov.gamle.tal": " (gamle tal: tjek /status, og gem igen)",
+    "ov.gamle.tal": " (gamle tal: tjek {forbrug}, og gem igen)",
     "ov.ingen.gren": "(ingen gren)",
     "ov.opdaterer": "Opdaterer sig selv hvert 15. sekund. Kun læsning.",
     "ov.ikke.git.endnu": "Mappen er ikke et git-projekt endnu.",
@@ -112,7 +131,7 @@ const TEKSTER = {
     "ops.ved.tvivl": "spørg ejeren",
     "ops.status.hook1": "Startkit: vagten tjekker",
     "ops.status.hook2": "Startkit: færdig-tjek",
-    "ops.hooks.json": ".codex/hooks.json findes, men kan ikke læses som JSON. Ret filen (eller flyt den), og kør opsætningen igen.",
+    "ops.hooks.json": "{hookfil} findes, men kan ikke læses som JSON. Ret filen (eller flyt den), og kør opsætningen igen.",
     "ops.gitignore": "# Tilføjet af startkittet",
     "ops.ukendt": "ukendt",
     "ops.h.ny": "ny",
@@ -138,7 +157,7 @@ const TEKSTER = {
     "ops.mangler": "Profilen mangler noget:",
     "ops.vil": "Det her vil blive sat op i {root} (intet er skrevet endnu):\n",
     "ops.saetter": "Sætter op i {root}:\n",
-    "ops.lang": "\nBemærk: AGENTS.md bliver på {linjer} linjer (højst 80). Flyt dine egne lange afsnit til docs/, ellers stopper længdelåsen næste commit.",
+    "ops.lang": "\nBemærk: {regelfil} bliver på {linjer} linjer (højst 80). Flyt dine egne lange afsnit til docs/, ellers stopper længdelåsen næste commit.",
     "ops.ingen.tjek": "\nBemærk: der er ingen tjek-kommandoer i profilen, så beviset kan ikke afprøve noget endnu. Tag en første test med i planen.",
     "ops.naeste": "\nNæste skridt: tænd nøgletjekket (git config core.hooksPath .githooks), godkend hooks med /hooks i Codex, og start en ny chat.",
 
@@ -161,12 +180,12 @@ const TEKSTER = {
     "tj.node": "Node er version 18 eller nyere",
     "tj.node.h": "Installer Node LTS fra nodejs.org",
     "tj.igen": "Kør opsætningen igen",
-    "tj.agents": "AGENTS.md findes og har startkittets blok",
-    "tj.agents.kort": "AGENTS.md er højst 80 linjer",
+    "tj.agents": "{regelfil} findes og har startkittets blok",
+    "tj.agents.kort": "{regelfil} er højst 80 linjer",
     "tj.agents.kort.h": "Flyt lange afsnit til docs/",
     "tj.findes": "{fil} findes",
     "tj.genvej": "Genvejen til overblikket findes ({fil})",
-    "tj.hooks": ".codex/hooks.json kan læses",
+    "tj.hooks": "{hookfil} kan læses",
     "tj.hooks.h": "Filen mangler eller er ikke gyldig JSON. Kør opsætningen igen",
     "tj.vagt": "Vagten er koblet til og peger på en fil, der findes",
     "tj.faerdig": "Færdig-tjekket er koblet til og peger på en fil, der findes",
@@ -230,12 +249,12 @@ const TEKSTER = {
     "ov.groent": "green",
     "ov.roedt": "red",
     "ov.seneste.bevis": "Latest proof:",
-    "ov.ingen.tal": "No numbers saved yet. Type <code>/status</code> in Codex, and save the numbers with <code>node scripts/startkit/forbrug-gem.js --5h 40 --week 12</code>.",
+    "ov.ingen.tal": "No numbers saved yet. Type <code>{forbrug}</code> in {V}, and save the numbers with <code>node scripts/startkit/forbrug-gem.js --5h 40 --week 12</code>.",
     "ov.over.graense": "above your limit of {graense} %",
     "ov.5t": "5 hours",
     "ov.uge": "Week",
     "ov.gemt": "Saved {tid}",
-    "ov.gamle.tal": " (old numbers: check /status, and save again)",
+    "ov.gamle.tal": " (old numbers: check {forbrug}, and save again)",
     "ov.ingen.gren": "(no branch)",
     "ov.opdaterer": "Refreshes itself every 15 seconds. Read-only.",
     "ov.ikke.git.endnu": "The folder is not a git project yet.",
@@ -270,7 +289,7 @@ const TEKSTER = {
     "ops.ved.tvivl": "ask the owner",
     "ops.status.hook1": "Starter kit: the guard is checking",
     "ops.status.hook2": "Starter kit: done-check",
-    "ops.hooks.json": ".codex/hooks.json exists, but cannot be read as JSON. Fix the file (or move it), and run the setup again.",
+    "ops.hooks.json": "{hookfil} exists, but cannot be read as JSON. Fix the file (or move it), and run the setup again.",
     "ops.gitignore": "# Added by the starter kit",
     "ops.ukendt": "unknown",
     "ops.h.ny": "new",
@@ -296,7 +315,7 @@ const TEKSTER = {
     "ops.mangler": "The profile is missing something:",
     "ops.vil": "This will be set up in {root} (nothing has been written yet):\n",
     "ops.saetter": "Setting up in {root}:\n",
-    "ops.lang": "\nNote: AGENTS.md will be {linjer} lines long (80 at most). Move your own long sections to docs/, or the length lock will stop the next commit.",
+    "ops.lang": "\nNote: {regelfil} will be {linjer} lines long (80 at most). Move your own long sections to docs/, or the length lock will stop the next commit.",
     "ops.ingen.tjek": "\nNote: there are no check commands in the profile, so the proof cannot try anything yet. Include a first test in the plan.",
     "ops.naeste": "\nNext step: switch on the key check (git config core.hooksPath .githooks), approve the hooks with /hooks in Codex, and start a new chat.",
 
@@ -316,12 +335,12 @@ const TEKSTER = {
     "tj.node": "Node is version 18 or newer",
     "tj.node.h": "Install Node LTS from nodejs.org",
     "tj.igen": "Run the setup again",
-    "tj.agents": "AGENTS.md exists and has the starter kit's block",
-    "tj.agents.kort": "AGENTS.md is 80 lines at most",
+    "tj.agents": "{regelfil} exists and has the starter kit's block",
+    "tj.agents.kort": "{regelfil} is 80 lines at most",
     "tj.agents.kort.h": "Move long sections to docs/",
     "tj.findes": "{fil} exists",
     "tj.genvej": "The shortcut to the overview exists ({fil})",
-    "tj.hooks": ".codex/hooks.json can be read",
+    "tj.hooks": "{hookfil} can be read",
     "tj.hooks.h": "The file is missing or is not valid JSON. Run the setup again",
     "tj.vagt": "The guard is connected and points to a file that exists",
     "tj.faerdig": "The done-check is connected and points to a file that exists",
@@ -341,11 +360,27 @@ const TEKSTER = {
   },
 };
 
+// De få beskeder, hvor Claude Code ikke bare hedder noget andet, men virker anderledes:
+// Claude Code har ingen godkendelse af hver enkelt hook. Den kører dem, når mappen er betroet.
+const TEKSTER_CLAUDE = {
+  da: {
+    "ops.n.hooks": "tænder vagten og færdig-tjekket i Claude Code (se dem med /hooks)",
+    "ops.naeste": "\nNæste skridt: tænd nøgletjekket (git config core.hooksPath .githooks), se med /hooks i Claude Code, at vagten og færdig-tjekket står der, og start en ny chat.",
+    "tj.husk": "Husk: om Claude Code faktisk kører hooks'ene, kan dette tjek ikke se. Skriv /hooks for at se, at de er indlæst, og prøv det ved at lade Claude Code forsøge et forbudt kald.",
+  },
+  en: {
+    "ops.n.hooks": "switches on the guard and the done-check in Claude Code (see them with /hooks)",
+    "ops.naeste": "\nNext step: switch on the key check (git config core.hooksPath .githooks), check with /hooks in Claude Code that the guard and the done-check are listed, and start a new chat.",
+    "tj.husk": "Remember: this check cannot see whether Claude Code actually runs the hooks. Type /hooks to see that they are loaded, and try it by letting Claude Code attempt a forbidden call.",
+  },
+};
+
 // Henter en tekst på det aktuelle sprog og sætter værdier ind, hvor der står {navn}.
 function t(noegle, vaerdier = {}) {
-  const tekst = TEKSTER[sprog()][noegle] ?? TEKSTER.da[noegle];
+  const tekst = (vaerktoej() === "claude" ? TEKSTER_CLAUDE[sprog()][noegle] : undefined) ?? TEKSTER[sprog()][noegle] ?? TEKSTER.da[noegle];
   if (tekst === undefined) throw new Error(`Ukendt tekst: ${noegle}`);
-  return tekst.replace(/\{(\w+)\}/g, (hele, k) => (k in vaerdier ? String(vaerdier[k]) : hele));
+  const alle = { ...vt(), ...vaerdier };
+  return tekst.replace(/\{(\w+)\}/g, (hele, k) => (k in alle ? String(alle[k]) : hele));
 }
 
 // Indstillingerne (.startkit/config.json) har danske eller engelske navne. Her får de ét sæt navne.
@@ -354,4 +389,4 @@ function laesConfig(raa) {
   return { tjek: c.tjek ?? c.checks, modelguide: c.modelguide ?? c.model_guide, graense_procent: c.graense_procent ?? c.limit_percent };
 }
 
-module.exports = { t, sprog, fil, laesConfig, TEKSTER, FILER };
+module.exports = { t, sprog, fil, laesConfig, vaerktoej, vt, TEKSTER, TEKSTER_CLAUDE, FILER, VAERKTOEJER };

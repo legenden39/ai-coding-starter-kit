@@ -1,8 +1,8 @@
-# AI Coding Starter Kit (ChatGPT / Codex edition)
+# AI Coding Starter Kit (for ChatGPT / Codex and for Claude Code)
 
 English · [Dansk](README.da.md)
 
-> **Beta, version 0.3.0-beta.** This is a trial edition. It has not been tried in Codex by the person who made it, and there will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md).
+> **Beta, version 0.4.0-beta.** This is a trial edition. The edition for Codex has not been tried in Codex by the person who made it. The edition for Claude Code is new: its safety nets have been tried in Claude Code on Linux, but not on Windows, and the whole flow has not been run through by a human. There will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md).
 
 **Do you want to build something with AI but don't know where to start, or are you tired of the AI making the same mistakes over and over? Then this is for you.**
 
@@ -51,9 +51,28 @@ Afterwards you can start building without having to worry about the mistakes lis
 | An overview page | One page in your browser that shows where the project stands right now. |
 | A private backup | Your project also lives on GitHub, where only you can see it. |
 
+## Codex or Claude Code?
+
+The kit exists for two AI tools: **Codex** (from OpenAI, the company behind ChatGPT) and **Claude Code** (from Anthropic, the company behind Claude). You choose when you install. The flow, the rules and the programs are the same; only the names of some files and commands differ.
+
+The rest of this page is written with Codex's names. If you use Claude Code, read "Codex" as "Claude Code", and use this table:
+
+| Thing | Codex | Claude Code |
+|---|---|---|
+| File you double-click to install (English) | `install-english.cmd` | `install-claude-english.cmd` |
+| File you double-click to install (Danish) | `installer.cmd` | `installer-claude.cmd` |
+| The folder the kit is copied to | `C:\Users\<you>\.agents\skills\startkit` | `C:\Users\<you>\.claude\skills\startkit` |
+| What you type to start the kit | `$startkit` | `/startkit` |
+| The file with the fixed rules in your project | `AGENTS.md` | `CLAUDE.md` |
+| The file that switches on the guard and the done-check | `.codex/hooks.json` | `.claude/settings.local.json` |
+| See your usage | `/status` | `/usage` |
+| New chat | `/new` | `/clear` |
+
 ## Read this first (honest caveat)
 
 The kit was rebuilt from an edition made for Claude. The person who made it does not use ChatGPT and has therefore **not been able to try it in Codex**. The individual parts are tested separately (see below), but the whole flow has not been run through in Codex by a human. So there may be bugs, and buttons may be in a different place than described here.
+
+The edition for Claude Code is built from the edition for Codex. Its safety nets (the guard, the done-check and the rules in `CLAUDE.md`) and the start with `/startkit` have been tried in Claude Code in a terminal on Linux. It has not been tried on Windows or in the Claude app, and there too the whole flow has not been run through by a human.
 
 If you hit a bug, ask Codex to write it down (it knows where), and please report it. See "Report a bug" below. That makes the kit better for the next person.
 
@@ -65,13 +84,24 @@ There are four things you have to do yourself before the starter kit can take ov
 
 Going to use the kit with a class? See the [guide for teachers](TEACHING.md).
 
-### Step 1: Get Codex
+### Step 1: Get Codex or Claude Code
+
+You only need one of them. If you already have a ChatGPT or Claude subscription, choose the tool that goes with it.
+
+**Codex**
 
 Codex is OpenAI's tool for building with AI. It is from the same company as ChatGPT, and you sign in with your ChatGPT account. The difference is that Codex can work in the folders on your computer. The ordinary ChatGPT chat in the browser cannot, which is why the starter kit does not work there.
 
 - Get the Windows app through OpenAI's own guide: [learn.chatgpt.com/codex/quickstart](https://learn.chatgpt.com/codex/quickstart).
 - Open it and sign in with your ChatGPT account.
 - Which plans give access, and how much usage you get, is on OpenAI's pricing page. It changes, so check it there.
+
+**Claude Code**
+
+Claude Code is Anthropic's tool for building with AI. It is from the same company as Claude, and you sign in with your Claude account. Like Codex, Claude Code can work in the folders on your computer. The ordinary Claude chat in the browser cannot, which is why the starter kit does not work there.
+
+- Get the Windows app at [claude.com/download](https://claude.com/download), open it, and sign in with your Claude account. Claude Code is the **Code** tab in the app.
+- Claude Code requires a paid subscription. Which plans give access, and how much usage you get, is on [claude.com/pricing](https://claude.com/pricing). It changes, so check it there.
 
 ### Step 2: Get Git and Node
 
@@ -86,8 +116,8 @@ Not sure whether you have them? Just move on. The starter kit checks and helps y
 
 1. Download the kit: **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**. The link always gives you the newest edition.
 2. Find the file in your "Downloads" folder, right-click it, and choose **Extract All**. Put the folder somewhere you can find again, for example in Documents.
-3. Open the extracted folder, and **double-click the file `install-english.cmd`** (it may show as just `install-english`). The file next to it called `installer.cmd` installs the Danish edition instead.
-4. A window with text appears. It tells you what will happen: the folder `startkit` is copied to `C:\Users\<you>\.agents\skills\startkit`, which is where Codex looks for this kind of thing. Nothing else. Type `y` and press Enter to agree.
+3. Open the extracted folder, and **double-click the file `install-english.cmd`** (it may show as just `install-english`). If you use Claude Code, double-click **`install-claude-english.cmd`** instead. The two files called `installer.cmd` and `installer-claude.cmd` install the Danish edition.
+4. A window with text appears. It tells you what will happen: the folder `startkit` is copied to `C:\Users\<you>\.agents\skills\startkit`, which is where Codex looks for this kind of thing (for Claude Code: `C:\Users\<you>\.claude\skills\startkit`). Nothing else. Type `y` and press Enter to agree.
 5. At the end, the window tells you what the next step is.
 
 Does Windows say "Windows protected your PC"? That happens with files downloaded from the internet. You can press **More info** and **Run anyway** if you trust the file. It is short, and you can open it in Notepad and read what it does.
@@ -95,16 +125,16 @@ Does Windows say "Windows protected your PC"? That happens with files downloaded
 <details>
 <summary>Rather not double-click? Two other ways</summary>
 
-- **In the terminal:** right-click an empty spot in the folder, choose **Open in Terminal**, and run `powershell -ExecutionPolicy Bypass -File install.ps1 -Sprog en` ("sprog" is Danish for language; without `-Sprog en` you get the Danish edition). The terminal is a window where you type commands instead of clicking. The part `-ExecutionPolicy Bypass` lets Windows run this one file, this one time; it changes no settings.
-- **By hand:** copy the folder `startkit` to `C:\Users\<you>\.agents\skills\`. For the English edition, then copy `startkit\en\SKILL.en.md` over `startkit\SKILL.md`, and create the file `startkit\scripts\projekt\sprog.json` with the content `{"sprog": "en"}`.
+- **In the terminal:** right-click an empty spot in the folder, choose **Open in Terminal**, and run `powershell -ExecutionPolicy Bypass -File install.ps1 -Sprog en` ("sprog" is Danish for language; without `-Sprog en` you get the Danish edition; for Claude Code, add `-Vaerktoej claude` at the end, "vaerktoej" being Danish for tool). The terminal is a window where you type commands instead of clicking. The part `-ExecutionPolicy Bypass` lets Windows run this one file, this one time; it changes no settings.
+- **By hand:** copy the folder `startkit` to `C:\Users\<you>\.agents\skills\`. For the English edition, then copy `startkit\en\SKILL.en.md` over `startkit\SKILL.md`, and create the file `startkit\scripts\projekt\sprog.json` with the content `{"sprog": "en"}`. For Claude Code: copy the folder to `C:\Users\<you>\.claude\skills\` instead, copy `startkit\claude\en\SKILL.claude.en.md` over `startkit\SKILL.md`, create `sprog.json` as above, and create the file `startkit\scripts\projekt\vaerktoej.json` with the content `{"vaerktoej": "claude"}`.
 
 </details>
 
 ### Step 4: Start the starter kit
 
 1. Make a folder for what you want to build (or use one you already have). If you don't have an idea yet, just make an empty folder called, for example, `my-first-project`.
-2. Open Codex, and open that folder as a project.
-3. Type this in the chat and press Enter:
+2. Open Codex, and open that folder as a project. In Claude Code: choose the folder before you start a chat (in a terminal: open the folder, and type `claude`).
+3. Type this in the chat and press Enter (in Claude Code you type `/startkit` instead):
 
    ```
    $startkit
@@ -166,6 +196,7 @@ Everything in the kit is open, so anyone can read what it does.
 | Word | Means |
 |---|---|
 | **Codex** | OpenAI's tool for building with AI. It can work in the folders on your computer. |
+| **Claude Code** | Anthropic's tool for building with AI. It can also work in the folders on your computer. |
 | **Terminal** | A window where you type commands instead of clicking. |
 | **Git** | A program that saves every version of your files, so you can go back. |
 | **Commit** | Saving a version in git. Like pressing "save" for the whole project at once. |
@@ -183,7 +214,7 @@ Everything in the kit is open, so anyone can read what it does.
 
 | File | What it does |
 |---|---|
-| `AGENTS.md` | Short, fixed rules that the AI reads in every chat. Your own lines are not touched. |
+| `AGENTS.md` (in Claude Code: `CLAUDE.md`) | Short, fixed rules that the AI reads in every chat. Your own lines are not touched. |
 | `STATUS.md` | Where you are: now, last done, next step, open problems. |
 | `docs/recurring-mistakes.md` | Mistakes that must not happen again, and whether they are locked by a hook or a test. |
 | `scripts/startkit/vagt.js` | The guard: stops keys in code, deletion of work, and skipping of checks. |
@@ -191,7 +222,7 @@ Everything in the kit is open, so anyone can read what it does.
 | `.githooks/pre-commit` | Key check before every commit, and a lock on the length of `AGENTS.md`. |
 | `scripts/startkit/overblik.js` | The overview page on your own computer. |
 | `overview.cmd` | Shortcut: double-click to open the overview page in your browser. |
-| `.codex/hooks.json` | Tells Codex to run the guard and the done-check. |
+| `.codex/hooks.json` (in Claude Code: `.claude/settings.local.json`) | Tells Codex or Claude Code to run the guard and the done-check. |
 | `.startkit/` | Your profile, the plan, settings, your feedback, and the explanation "why was I stopped". |
 
 ### The file names are Danish
@@ -212,11 +243,11 @@ In the Danish edition, three files in your project have Danish names too: `docs/
 
 There are two status files, and they are not the same: `STATUS.md` is about your project and is used every day. `.startkit/status.md` is only about how far you are in the kit's own flow, and that is where bugs in the kit are written down.
 
-`.codex/hooks.json` contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). The starter kit therefore keeps the file out of git, so it does not come along if you share the project. The path only fits your own computer anyway. `.startkit/profile.json` holds your answers from the interview; you are asked whether it should be part of the backup.
+`.codex/hooks.json` (and `.claude/settings.local.json` in Claude Code) contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). The starter kit therefore keeps the file out of git, so it does not come along if you share the project. The path only fits your own computer anyway. `.startkit/profile.json` holds your answers from the interview; you are asked whether it should be part of the backup.
 
 ## Remove it again
 
-Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
+Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Users\<you>\.claude\skills\startkit`). Codex's file names are used below; in Claude Code the two files are called `.claude/settings.local.json` and `CLAUDE.md`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
 
 ## What has been tried, and what has not?
 
@@ -231,6 +262,14 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete
 | The check of the feedback file (finds keys, email addresses and paths with user names) | Tested automatically |
 | The English edition: the setup, the guard, the key check, the proof and the overview page with English text | Tested automatically |
 | The installation in both languages, run on Windows at GitHub every time something changes | Tested automatically |
+| The edition for Claude Code: the setup, the guard and the done-check with the kind of input Claude Code sends, in both languages | Tested automatically |
+| That the guides for Claude Code match those for Codex (they are made from them) | Tested automatically |
+| The installation for Claude Code in both languages, run on Windows at GitHub | Tested automatically |
+| That Claude Code actually runs the guard (for commands, when it edits files, and when it wants to read a `.env` file) and the done-check | Tried in Claude Code 2.1.322 in a terminal on Linux |
+| That `/startkit` shows up in Claude Code and begins with the introduction | Tried in Claude Code 2.1.322 in a terminal on Linux |
+| The edition for Claude Code on Windows and in the Claude app | **Not tried** |
+| Double-clicking `installer-claude.cmd` and `install-claude-english.cmd` on a real computer | **Not tried** |
+| The help with installing Superpowers in Claude Code | **Not tried** |
 | Double-clicking `install-english.cmd` on a real computer | **Not tried** |
 | The English edition run through Codex with a real person | **Not tried** |
 | Double-clicking `installer.cmd` and `overblik.cmd` on someone else's computer (Windows may warn) | **Not tried** |
@@ -242,12 +281,12 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete
 | The help with installing Git, Node and Superpowers, as it looks in Codex | **Not tried** |
 | The help with a GitHub backup, run through Codex | **Not tried** |
 | Installation on a computer other than the one the kit was made on | **Not tried** |
-| The whole flow with a real person | **Not tried** |
+| The whole flow with a real person (neither in Codex nor in Claude Code) | **Not tried** |
 | Mac and Linux | **Not tried** |
 
 Run the tests yourself with `node tests/run.js` (requires git and Node).
 
-Facts about Codex, GitHub and Superpowers (where skills and hooks live, how a hook responds, limits for `AGENTS.md`, where the buttons are) were looked up in the publishers' own documentation in November 2026. If they change something, parts of the kit may stop matching.
+Facts about Codex, Claude Code, GitHub and Superpowers (where skills and hooks live, how a hook responds, limits for `AGENTS.md`, where the buttons are) were looked up in the publishers' own documentation in November 2026. If they change something, parts of the kit may stop matching.
 
 ## Report a bug
 
@@ -263,4 +302,4 @@ If it saved you time, and you would like to help more tools like this get made, 
 
 ## License
 
-MIT. You may use, change and share the kit freely, as long as the license text is included. See the file `LICENSE`. The kit comes with no warranty. It is an unofficial hobby project and is not affiliated with OpenAI.
+MIT. You may use, change and share the kit freely, as long as the license text is included. See the file `LICENSE`. The kit comes with no warranty. It is an unofficial hobby project and is not affiliated with OpenAI or Anthropic.

@@ -4,18 +4,28 @@
 //   node opsaet.js <projektmappe>            skriver filerne
 //
 // Samme profil giver altid samme resultat, og scriptet kan køres igen uden at lave dubletter.
-// Personens egne filer overskrives ikke: i AGENTS.md røres kun blokken mellem startkittets mærker,
-// i .codex/hooks.json røres kun startkittets egne poster, og STATUS.md m.fl. laves kun, hvis de mangler.
+// Personens egne filer overskrives ikke: i regelfilen (AGENTS.md i Codex, CLAUDE.md i Claude Code) røres kun blokken
+// mellem startkittets mærker, i hook-filen (.codex/hooks.json eller .claude/settings.local.json) røres kun
+// startkittets egne poster, og STATUS.md m.fl. laves kun, hvis de mangler.
 const fs = require("fs");
 const path = require("path");
 const { harNoegle } = require("./projekt/regler");
-const { t, sprog, fil } = require("./projekt/tekster");
+const { t, sprog, fil, vaerktoej, vt } = require("./projekt/tekster");
 
 const ASSETS = path.join(__dirname, "..", "assets");
 // De engelske skabeloner ligger i en/assets og hedder noget andet. Resten (nøgletjekket, .gitignore-tillægget) er fælles.
 const EN_ASSETS = path.join(__dirname, "..", "en", "assets");
 const EN_NAVNE = { "AGENTS.skabelon.md": "AGENTS.template.md", "projektstatus.skabelon.md": "project-status.template.md", "gentagne-fejl.md": "recurring-mistakes.md", "hvorfor-blev-jeg-stoppet.md": "why-was-i-stopped.md", "forloeb.skabelon.md": "progress.template.md", "feedback.skabelon.md": "feedback.template.md", "overblik.cmd": "overview.cmd" };
-const skabelon = (navn) => (sprog() === "en" && EN_NAVNE[navn] ? laes(path.join(EN_ASSETS, EN_NAVNE[navn])) : laes(path.join(ASSETS, navn)));
+// Udgaven til Claude Code har sine egne udgaver af de få skabeloner, der nævner værktøjet (mappen claude). Resten er fælles.
+const CLAUDE = path.join(__dirname, "..", "claude");
+function skabelon(navn) {
+  const en = sprog() === "en" && EN_NAVNE[navn];
+  const steder = [];
+  if (vaerktoej() === "claude") steder.push(en ? path.join(CLAUDE, "en", "assets", EN_NAVNE[navn]) : path.join(CLAUDE, "assets", navn));
+  steder.push(en ? path.join(EN_ASSETS, EN_NAVNE[navn]) : path.join(ASSETS, navn));
+  for (const sted of steder) { const tekst = laes(sted); if (tekst !== null) return tekst; }
+  return null;
+}
 const PROJEKT_SCRIPTS = path.join(__dirname, "projekt");
 const START = "<!-- startkit:start", SLUT = "<!-- startkit:slut -->";
 const lf = (s) => String(s).replace(/\r\n/g, "\n");
@@ -78,11 +88,11 @@ function flettAgents(eksisterende, blok) {
   return eksisterende.replace(/\s*$/, "") + "\n\n" + blok + "\n";
 }
 
-// Startkittets hooks peger på scripts i projektet med fuld sti, så de virker, uanset hvilken mappe Codex står i.
+// Startkittets hooks peger på scripts i projektet med fuld sti, så de virker, uanset hvilken mappe AI-værktøjet står i.
 function voresHooks(root) {
   const sti = (fil) => `node "${path.join(root, "scripts", "startkit", fil).replace(/\\/g, "/")}"`;
   return {
-    PreToolUse: { matcher: "Bash|apply_patch|Edit|Write", hooks: [{ type: "command", command: sti("vagt.js"), timeout: 30, statusMessage: t("ops.status.hook1") }] },
+    PreToolUse: { matcher: vt("hookvaerktoejer"), hooks: [{ type: "command", command: sti("vagt.js"), timeout: 30, statusMessage: t("ops.status.hook1") }] },
     Stop: { hooks: [{ type: "command", command: sti("faerdig.js"), timeout: 60, statusMessage: t("ops.status.hook2") }] },
   };
 }
@@ -132,20 +142,23 @@ function plan(root, raa) {
 
   const tjek = profil.tjek_kommandoer || [];
   const config = en ? { checks: tjek, model_guide: [], limit_percent: 85 } : { tjek, modelguide: [], graense_procent: 85 };
-  saet("AGENTS.md", flettAgents(laes(p("AGENTS.md")), agentsBlok(profil)), t("ops.n.agents"));
+  const regelfil = vt("regelfil"), hookfil = vt("hookfil");
+  saet(regelfil, flettAgents(laes(p(regelfil)), agentsBlok(profil)), t("ops.n.agents"));
   kunHvisMangler("STATUS.md", skabelon("projektstatus.skabelon.md").replace(/\{\{PROJEKT\}\}/g, enLinje(valgt.navn)), t("ops.n.status"));
   kunHvisMangler(fil("fejl"), skabelon("gentagne-fejl.md"), t("ops.n.fejl"));
   saet(fil("hvorfor"), skabelon("hvorfor-blev-jeg-stoppet.md"), t("ops.n.hvorfor"));
   kunHvisMangler(".startkit/status.md", skabelon("forloeb.skabelon.md"), t("ops.n.forloeb"));
   kunHvisMangler(".startkit/config.json", JSON.stringify(config, null, 2) + "\n", t("ops.n.config"));
-  for (const navn of fs.readdirSync(PROJEKT_SCRIPTS).filter((f) => f !== "sprog.json").sort()) saet(`scripts/startkit/${navn}`, laes(path.join(PROJEKT_SCRIPTS, navn)), t("ops.n.scripts"));
+  for (const navn of fs.readdirSync(PROJEKT_SCRIPTS).filter((f) => f !== "sprog.json" && f !== "vaerktoej.json").sort()) saet(`scripts/startkit/${navn}`, laes(path.join(PROJEKT_SCRIPTS, navn)), t("ops.n.scripts"));
   // Projektets scripts skal tale samme sprog som kittet. Dansk er standard og behøver ingen fil.
   if (en || fs.existsSync(p("scripts", "startkit", "sprog.json"))) saet("scripts/startkit/sprog.json", JSON.stringify({ sprog: sprog() }) + "\n", t("ops.n.scripts"));
+  // ... og vide, hvilket AI-værktøj de er sat op til. Codex er standard og behøver ingen fil.
+  if (vaerktoej() === "claude" || fs.existsSync(p("scripts", "startkit", "vaerktoej.json"))) saet("scripts/startkit/vaerktoej.json", JSON.stringify({ vaerktoej: vaerktoej() }) + "\n", t("ops.n.scripts"));
   // Windows-genvej (dobbeltklik). Skrives med CRLF, som .cmd-filer forventer.
   saet(fil("genvej"), skabelon("overblik.cmd").replace(/\n/g, "\r\n"), t("ops.n.genvej"));
   kunHvisMangler(".startkit/feedback.md", feedbackSkabelon(), t("ops.n.feedback"));
   saet(".githooks/pre-commit", laes(path.join(ASSETS, "pre-commit")), t("ops.n.precommit"));
-  saet(".codex/hooks.json", flettHooks(laes(p(".codex/hooks.json")), root), t("ops.n.hooks"));
+  saet(hookfil, flettHooks(laes(p(hookfil)), root), t("ops.n.hooks"));
   const gi = flettGitignore(laes(p(".gitignore")));
   if (gi !== laes(p(".gitignore"))) saet(".gitignore", gi, t("ops.n.ignore"));
   return trin;
@@ -180,7 +193,7 @@ function main() {
     // Mac og Linux kører kun en hook, der er markeret som kørbar. Windows er ligeglad.
     if (!toer && x.rel === ".githooks/pre-commit" && fs.existsSync(path.join(root, x.rel))) fs.chmodSync(path.join(root, x.rel), 0o755);
   }
-  const agents = trin.find((x) => x.rel === "AGENTS.md").indhold.split("\n").length;
+  const agents = trin.find((x) => x.rel === vt("regelfil")).indhold.split("\n").length;
   if (agents > 80) console.log(t("ops.lang", { linjer: agents }));
   if (!(profil.tjek_kommandoer || []).length) console.log(t("ops.ingen.tjek"));
   if (!toer) console.log(t("ops.naeste"));
