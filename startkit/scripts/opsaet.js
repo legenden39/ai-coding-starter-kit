@@ -146,6 +146,8 @@ function main() {
       fs.mkdirSync(path.dirname(path.join(root, t.rel)), { recursive: true });
       fs.writeFileSync(path.join(root, t.rel), t.indhold);
     }
+    // Mac og Linux kører kun en hook, der er markeret som kørbar. Windows er ligeglad.
+    if (!toer && t.rel === ".githooks/pre-commit" && fs.existsSync(path.join(root, t.rel))) fs.chmodSync(path.join(root, t.rel), 0o755);
   }
   const agents = trin.find((t) => t.rel === "AGENTS.md").indhold.split("\n").length;
   if (agents > 80) console.log(`\nBemærk: AGENTS.md bliver på ${agents} linjer (højst 80). Flyt dine egne lange afsnit til docs/, ellers stopper længdelåsen næste commit.`);
