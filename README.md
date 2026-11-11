@@ -230,7 +230,8 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete
 | The installation (`install.ps1`): asks first, copies only the folder, and does nothing on a no | Tested automatically |
 | The check of the feedback file (finds keys, email addresses and paths with user names) | Tested automatically |
 | The English edition: the setup, the guard, the key check, the proof and the overview page with English text | Tested automatically |
-| The English installation (`install-english.cmd`) | **Not tried** |
+| The installation in both languages, run on Windows at GitHub every time something changes | Tested automatically |
+| Double-clicking `install-english.cmd` on a real computer | **Not tried** |
 | The English edition run through Codex with a real person | **Not tried** |
 | Double-clicking `installer.cmd` and `overblik.cmd` on someone else's computer (Windows may warn) | **Not tried** |
 | The short path, the feedback questions and the notes along the way, run through Codex | **Not tried** |
@@ -253,6 +254,12 @@ Facts about Codex, GitHub and Superpowers (where skills and hooks live, how a ho
 Press the **Issues** tab at the top of this page, and press **New issue**. Write three things: what you did, what happened, and what you expected. Feel free to copy what Codex wrote under "Bugs in the kit" in the file `.startkit/status.md`. English and Danish are both fine.
 
 Never write keys, passwords or personal information in an issue; everything there is public. Also check that what you paste does not contain paths with your user name, if you do not want to share it.
+
+## Support the work
+
+The kit is free, and it stays free. You do not have to pay anything to use it, and nothing is held back.
+
+If it saved you time, and you would like to help more tools like this get made, you can leave a donation here: [paypal.me/KasperJensen798](https://paypal.me/KasperJensen798). Feedback helps just as much.
 
 ## License
 
