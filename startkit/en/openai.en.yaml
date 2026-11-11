@@ -1,0 +1,5 @@
+interface:
+  display_name: "Startkit"
+  short_description: "Interview, research and a foundation that fits you"
+policy:
+  allow_implicit_invocation: false

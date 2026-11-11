@@ -9,20 +9,22 @@ const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
 const { rod, fingeraftryk } = require("./tilstand");
+const { t, laesConfig } = require("./tekster");
 
 const r = rod(process.cwd());
-if (!r) { console.error("Ikke et git-projekt. Kør først: git init"); process.exit(2); }
+if (!r) { console.error(t("ikke.git")); process.exit(2); }
 
 let config = {};
 try { config = JSON.parse(fs.readFileSync(path.join(r, ".startkit", "config.json"), "utf8")); } catch { /* ingen indstillinger endnu */ }
-const tjek = Array.isArray(config.tjek) ? config.tjek.filter((k) => typeof k === "string" && k.trim()) : [];
+const kommandoer = laesConfig(config).tjek;
+const tjek = Array.isArray(kommandoer) ? kommandoer.filter((k) => typeof k === "string" && k.trim()) : [];
 
 const resultater = [];
 for (const kommando of tjek) {
   console.log(`\n▶ ${kommando}`);
   let ok = true;
   try { execSync(kommando, { cwd: r, stdio: "inherit", timeout: 9 * 60 * 1000 }); } catch { ok = false; }
-  console.log(ok ? "  ✅ grøn" : "  ❌ rød");
+  console.log(t(ok ? "bevis.groen" : "bevis.roed"));
   resultater.push({ kommando, ok });
   if (!ok) break;
 }
@@ -34,9 +36,9 @@ fs.writeFileSync(path.join(r, ".startkit", "bevis.json"), JSON.stringify(bevis, 
 
 console.log("");
 if (bevis.ingenTjek) {
-  console.log("Bevis gemt, men der er INGEN tjek-kommandoer sat op, så intet er afprøvet automatisk.");
-  console.log("Sig det ærligt til ejeren, og foreslå en første test. Kommandoer tilføjes i .startkit/config.json (det gør ejeren selv).");
+  console.log(t("bevis.ingen1"));
+  console.log(t("bevis.ingen2"));
 } else {
-  console.log(ok ? "Bevis: GRØNT. Alle tjek gik igennem." : "Bevis: RØDT. Find og ret årsagen, og kør beviset igen.");
+  console.log(t(ok ? "bevis.groent" : "bevis.roedt"));
 }
 process.exit(ok ? 0 : 1);

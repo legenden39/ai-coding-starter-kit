@@ -5,6 +5,7 @@
 const fs = require("fs");
 const path = require("path");
 const { rod, fingeraftryk, laesStart } = require("./tilstand");
+const { t } = require("./tekster");
 
 function fortsaet(reason) { fs.writeSync(1, JSON.stringify({ decision: "block", reason })); }
 
@@ -22,10 +23,8 @@ try {
   try { bevis = JSON.parse(fs.readFileSync(path.join(r, ".startkit", "bevis.json"), "utf8")); } catch { /* intet bevis endnu */ }
   if (bevis && bevis.ok === true && bevis.fingeraftryk === nu) process.exit(0);
 
-  const hvorfor = !bevis ? "Der findes ikke noget bevis endnu."
-    : bevis.ok !== true ? "Det seneste bevis er rødt."
-    : "Koden er ændret, siden beviset blev taget.";
-  fortsaet(`Koden er ændret i denne chat, og det er ikke bevist, at den virker. ${hvorfor} Kør: node scripts/startkit/bevis.js. Er den rød, så find og ret årsagen (ikke symptomet), og kør den igen. Fortæl derefter ejeren kort: hvad der er lavet, hvad beviset viste, og hvad du IKKE har afprøvet.`);
+  const hvorfor = t(!bevis ? "faerdig.intet" : bevis.ok !== true ? "faerdig.roedt" : "faerdig.aendret");
+  fortsaet(t("faerdig.besked", { hvorfor }));
 } catch {
   process.exit(0); // et defekt færdig-tjek må ikke låse chatten
 }

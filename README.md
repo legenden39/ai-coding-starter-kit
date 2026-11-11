@@ -2,13 +2,13 @@
 
 English · [Dansk](README.da.md)
 
-> **Beta, version 0.2.0-beta.** This is a trial edition. It has not been tried in Codex by the person who made it, and there will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md) (in Danish).
+> **Beta, version 0.3.0-beta.** This is a trial edition. It has not been tried in Codex by the person who made it, and there will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md) (in Danish).
 
 **Do you want to build something with AI but don't know where to start, or are you tired of the AI making the same mistakes over and over? Then this is for you.**
 
 You don't need to know how to code, and you don't need to know the words used below. They are explained along the way, and there is a glossary at the bottom.
 
-> **The kit itself speaks Danish for now.** This page is in English, but the interview, the rules it writes, and the messages from its programs are in Danish. An English edition is planned. Until then, the kit is only useful if you read Danish.
+> **The kit speaks English or Danish.** You choose when you install it: `install-english.cmd` gives you the English edition, `installer.cmd` the Danish one. The English edition is new in this version. It was translated from the Danish one and has been tried by fewer people. A few file names in the kit are still Danish; they are explained [further down](#the-file-names-are-danish).
 
 ## What is the problem?
 
@@ -86,8 +86,8 @@ Not sure whether you have them? Just move on. The starter kit checks and helps y
 
 1. Press the green **Code** button at the top of this page, and choose **Download ZIP**.
 2. Find the file in your "Downloads" folder, right-click it, and choose **Extract All**. Put the folder somewhere you can find again, for example in Documents.
-3. Open the extracted folder, and **double-click the file `installer.cmd`** (it may show as just `installer`).
-4. A window with text appears. It tells you what will happen: the folder `startkit` is copied to `C:\Users\<you>\.agents\skills\startkit`, which is where Codex looks for this kind of thing. Nothing else. Type `j` (for "ja", yes) and press Enter to agree.
+3. Open the extracted folder, and **double-click the file `install-english.cmd`** (it may show as just `install-english`). The file next to it called `installer.cmd` installs the Danish edition instead.
+4. A window with text appears. It tells you what will happen: the folder `startkit` is copied to `C:\Users\<you>\.agents\skills\startkit`, which is where Codex looks for this kind of thing. Nothing else. Type `y` and press Enter to agree.
 5. At the end, the window tells you what the next step is.
 
 Does Windows say "Windows protected your PC"? That happens with files downloaded from the internet. You can press **More info** and **Run anyway** if you trust the file. It is short, and you can open it in Notepad and read what it does.
@@ -95,8 +95,8 @@ Does Windows say "Windows protected your PC"? That happens with files downloaded
 <details>
 <summary>Rather not double-click? Two other ways</summary>
 
-- **In the terminal:** right-click an empty spot in the folder, choose **Open in Terminal**, and run `powershell -ExecutionPolicy Bypass -File install.ps1`. The terminal is a window where you type commands instead of clicking. The part `-ExecutionPolicy Bypass` lets Windows run this one file, this one time; it changes no settings.
-- **By hand:** copy the folder `startkit` to `C:\Users\<you>\.agents\skills\`.
+- **In the terminal:** right-click an empty spot in the folder, choose **Open in Terminal**, and run `powershell -ExecutionPolicy Bypass -File install.ps1 -Sprog en` ("sprog" is Danish for language; without `-Sprog en` you get the Danish edition). The terminal is a window where you type commands instead of clicking. The part `-ExecutionPolicy Bypass` lets Windows run this one file, this one time; it changes no settings.
+- **By hand:** copy the folder `startkit` to `C:\Users\<you>\.agents\skills\`. For the English edition, then copy `startkit\en\SKILL.en.md` over `startkit\SKILL.md`, and create the file `startkit\scripts\projekt\sprog.json` with the content `{"sprog": "en"}`.
 
 </details>
 
@@ -124,7 +124,7 @@ The starter kit asks at most 2-3 things at a time.
 5. **Mapping** of what you already have. Nothing is changed.
 6. **Research and plan.** You say yes or no to each proposal.
 7. **The foundation** is set up and tried out in front of you, so you see that the safety nets actually stop something.
-8. **The overview page** is shown, and you get suggestions for what it should show for you in particular. Afterwards you open it by double-clicking the file `overblik.cmd` in your project folder.
+8. **The overview page** is shown, and you get suggestions for what it should show for you in particular. Afterwards you open it by double-clicking the file `overview.cmd` in your project folder (`overblik.cmd` in the Danish edition).
 9. **Private backup on GitHub.** You are helped with an account, a hidden email and signing in. You can opt out.
 10. **Feedback.** Five short questions, two minutes. See "Give feedback" below.
 
@@ -185,22 +185,38 @@ Everything in the kit is open, so anyone can read what it does.
 |---|---|
 | `AGENTS.md` | Short, fixed rules that the AI reads in every chat. Your own lines are not touched. |
 | `STATUS.md` | Where you are: now, last done, next step, open problems. |
-| `docs/gentagne-fejl.md` | Mistakes that must not happen again, and whether they are locked by a hook or a test. |
+| `docs/recurring-mistakes.md` | Mistakes that must not happen again, and whether they are locked by a hook or a test. |
 | `scripts/startkit/vagt.js` | The guard: stops keys in code, deletion of work, and skipping of checks. |
 | `scripts/startkit/faerdig.js` and `bevis.js` | The done-check: "done" requires green proof for the code as it is right now. |
 | `.githooks/pre-commit` | Key check before every commit, and a lock on the length of `AGENTS.md`. |
 | `scripts/startkit/overblik.js` | The overview page on your own computer. |
-| `overblik.cmd` | Shortcut: double-click to open the overview page in your browser. |
+| `overview.cmd` | Shortcut: double-click to open the overview page in your browser. |
 | `.codex/hooks.json` | Tells Codex to run the guard and the done-check. |
 | `.startkit/` | Your profile, the plan, settings, your feedback, and the explanation "why was I stopped". |
 
+### The file names are Danish
+
+The kit was first written in Danish. Everything you read, and everything the AI is told, is in English in the English edition, but the programs kept their Danish file names, because the two editions share them:
+
+| File | Danish word | What it is |
+|---|---|---|
+| `vagt.js` | vagt = guard | The guard |
+| `faerdig.js` | færdig = done | The done-check |
+| `bevis.js` | bevis = proof | The proof |
+| `overblik.js` | overblik = overview | The overview page |
+| `forbrug-gem.js` | gem forbrug = save usage | Saves the usage numbers you read off |
+| `regler.js`, `tekster.js`, `tilstand.js` | rules, texts, state | Shared parts the others use |
+| `opsaet.js`, `noeglescan.js`, `tjek-opsaetning.js`, `feedback-tjek.js` | setup, key scan, check of the setup, check of the feedback | Programs in the kit's own folder |
+
+In the Danish edition, three files in your project have Danish names too: `docs/gentagne-fejl.md`, `.startkit/hvorfor-blev-jeg-stoppet.md` and `overblik.cmd`.
+
 There are two status files, and they are not the same: `STATUS.md` is about your project and is used every day. `.startkit/status.md` is only about how far you are in the kit's own flow, and that is where bugs in the kit are written down.
 
-`.codex/hooks.json` contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). The starter kit therefore keeps the file out of git, so it does not come along if you share the project. The path only fits your own computer anyway. `.startkit/profil.json` holds your answers from the interview; you are asked whether it should be part of the backup.
+`.codex/hooks.json` contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). The starter kit therefore keeps the file out of git, so it does not come along if you share the project. The path only fits your own computer anyway. `.startkit/profile.json` holds your answers from the interview; you are asked whether it should be part of the backup.
 
 ## Remove it again
 
-Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overblik.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` and the lines under "Tilføjet af startkittet" in `.gitignore` are yours now; keep them or delete them as you like.
+Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
 
 ## What has been tried, and what has not?
 
@@ -213,6 +229,9 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete
 | The overview page | Tested automatically and seen in a browser |
 | The installation (`install.ps1`): asks first, copies only the folder, and does nothing on a no | Tested automatically |
 | The check of the feedback file (finds keys, email addresses and paths with user names) | Tested automatically |
+| The English edition: the setup, the guard, the key check, the proof and the overview page with English text | Tested automatically |
+| The English installation (`install-english.cmd`) | **Not tried** |
+| The English edition run through Codex with a real person | **Not tried** |
 | Double-clicking `installer.cmd` and `overblik.cmd` on someone else's computer (Windows may warn) | **Not tried** |
 | The short path, the feedback questions and the notes along the way, run through Codex | **Not tried** |
 | The kit used with a class | **Not tried** |
@@ -231,7 +250,7 @@ Facts about Codex, GitHub and Superpowers (where skills and hooks live, how a ho
 
 ## Report a bug
 
-Press the **Issues** tab at the top of this page, and press **New issue**. Write three things: what you did, what happened, and what you expected. Feel free to copy what Codex wrote under "Fejl i kittet" ("Bugs in the kit") in the file `.startkit/status.md`. English and Danish are both fine.
+Press the **Issues** tab at the top of this page, and press **New issue**. Write three things: what you did, what happened, and what you expected. Feel free to copy what Codex wrote under "Bugs in the kit" in the file `.startkit/status.md`. English and Danish are both fine.
 
 Never write keys, passwords or personal information in an issue; everything there is public. Also check that what you paste does not contain paths with your user name, if you do not want to share it.
 

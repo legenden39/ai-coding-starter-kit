@@ -1,6 +1,6 @@
 // Sætter det faste fundament op i et projekt ud fra profilen (.startkit/profil.json).
 //
-//   node opsaet.js <projektmappe> --toer     viser, hvad der vil ske, uden at skrive noget
+//   node opsaet.js <projektmappe> --toer     viser, hvad der vil ske, uden at skrive noget (på engelsk: --dry-run)
 //   node opsaet.js <projektmappe>            skriver filerne
 //
 // Samme profil giver altid samme resultat, og scriptet kan køres igen uden at lave dubletter.
@@ -9,32 +9,54 @@
 const fs = require("fs");
 const path = require("path");
 const { harNoegle } = require("./projekt/regler");
+const { t, sprog, fil } = require("./projekt/tekster");
 
 const ASSETS = path.join(__dirname, "..", "assets");
+// De engelske skabeloner ligger i en/assets og hedder noget andet. Resten (nøgletjekket, .gitignore-tillægget) er fælles.
+const EN_ASSETS = path.join(__dirname, "..", "en", "assets");
+const EN_NAVNE = { "AGENTS.skabelon.md": "AGENTS.template.md", "projektstatus.skabelon.md": "project-status.template.md", "gentagne-fejl.md": "recurring-mistakes.md", "hvorfor-blev-jeg-stoppet.md": "why-was-i-stopped.md", "forloeb.skabelon.md": "progress.template.md", "feedback.skabelon.md": "feedback.template.md", "overblik.cmd": "overview.cmd" };
+const skabelon = (navn) => (sprog() === "en" && EN_NAVNE[navn] ? laes(path.join(EN_ASSETS, EN_NAVNE[navn])) : laes(path.join(ASSETS, navn)));
 const PROJEKT_SCRIPTS = path.join(__dirname, "projekt");
 const START = "<!-- startkit:start", SLUT = "<!-- startkit:slut -->";
 const lf = (s) => String(s).replace(/\r\n/g, "\n");
 const laes = (p) => { try { return lf(fs.readFileSync(p, "utf8")); } catch { return null; } };
 
-function valider(profil) {
+// En profil skrevet af den engelske udgave har engelske feltnavne. Her får de de navne, resten af scriptet bruger.
+function normaliser(profil) {
+  if (!profil || typeof profil !== "object" || Array.isArray(profil)) return profil;
+  const p = { ...profil };
+  const flyt = (obj, fra, til) => { if (obj[til] === undefined && obj[fra] !== undefined) obj[til] = obj[fra]; };
+  if (p.person && typeof p.person === "object") { p.person = { ...p.person }; flyt(p.person, "name", "navn"); }
+  flyt(p, "chosen_project", "valgt_projekt");
+  flyt(p, "projects", "projekter");
+  flyt(p, "rules", "regler");
+  flyt(p, "check_commands", "tjek_kommandoer");
+  if (Array.isArray(p.projekter)) p.projekter = p.projekter.map((x) => { if (!x || typeof x !== "object") return x; const y = { ...x }; flyt(y, "name", "navn"); flyt(y, "description", "beskrivelse"); return y; });
+  if (p.regler && typeof p.regler === "object") { p.regler = { ...p.regler }; flyt(p.regler, "never_without_ok", "aldrig_uden_ok"); flyt(p.regler, "answer_style", "svarform"); flyt(p.regler, "when_in_doubt", "ved_tvivl"); }
+  return p;
+}
+
+function valider(raa) {
+  const profil = normaliser(raa);
   const fejl = [];
   const tekst = (v) => typeof v === "string" && v.trim().length > 0;
-  if (!profil || typeof profil !== "object") return ["Profilen er ikke et JSON-objekt."];
-  if (!tekst(profil.person && profil.person.navn)) fejl.push("person.navn mangler.");
+  if (!profil || typeof profil !== "object") return [t("ops.ikke.objekt")];
+  if (!tekst(profil.person && profil.person.navn)) fejl.push(t("ops.navn"));
   const projekter = Array.isArray(profil.projekter) ? profil.projekter : [];
   const valgt = projekter.find((p) => p && p.navn === profil.valgt_projekt) || projekter[0];
-  if (!valgt || !tekst(valgt.navn) || !tekst(valgt.beskrivelse)) fejl.push("Der mangler et projekt med navn og beskrivelse (projekter[] og valgt_projekt).");
+  if (!valgt || !tekst(valgt.navn) || !tekst(valgt.beskrivelse)) fejl.push(t("ops.projekt"));
   const regler = profil.regler || {};
-  if (!Array.isArray(regler.aldrig_uden_ok) || !regler.aldrig_uden_ok.filter(tekst).length) fejl.push("regler.aldrig_uden_ok skal være en liste med mindst én ting.");
-  if (!tekst(regler.svarform)) fejl.push("regler.svarform mangler.");
-  if (profil.tjek_kommandoer !== undefined && !(Array.isArray(profil.tjek_kommandoer) && profil.tjek_kommandoer.every((k) => typeof k === "string"))) fejl.push("tjek_kommandoer skal være en liste af tekster.");
-  if (harNoegle(JSON.stringify(profil))) fejl.push("Profilen indeholder noget, der ligner en nøgle. Fjern den (og skift nøglen hos udbyderen); nøgler må aldrig stå i profilen.");
+  if (!Array.isArray(regler.aldrig_uden_ok) || !regler.aldrig_uden_ok.filter(tekst).length) fejl.push(t("ops.aldrig"));
+  if (!tekst(regler.svarform)) fejl.push(t("ops.svarform"));
+  if (profil.tjek_kommandoer !== undefined && !(Array.isArray(profil.tjek_kommandoer) && profil.tjek_kommandoer.every((k) => typeof k === "string"))) fejl.push(t("ops.tjek"));
+  if (harNoegle(JSON.stringify(profil))) fejl.push(t("ops.noegle"));
   return fejl;
 }
 
 const enLinje = (s) => String(s).replace(/\s+/g, " ").trim();
 
-function agentsBlok(profil) {
+function agentsBlok(raa) {
+  const profil = normaliser(raa);
   const projekter = profil.projekter || [];
   const valgt = projekter.find((p) => p.navn === profil.valgt_projekt) || projekter[0];
   const regler = profil.regler;
@@ -43,10 +65,10 @@ function agentsBlok(profil) {
     BESKRIVELSE: enLinje(valgt.beskrivelse),
     NAVN: enLinje(profil.person.navn),
     ALDRIG_UDEN_OK: regler.aldrig_uden_ok.map(enLinje).filter(Boolean).join("; "),
-    VED_TVIVL: enLinje(regler.ved_tvivl || "spørg ejeren"),
+    VED_TVIVL: enLinje(regler.ved_tvivl || t("ops.ved.tvivl")),
     SVARFORM: enLinje(regler.svarform),
   };
-  return laes(path.join(ASSETS, "AGENTS.skabelon.md")).replace(/\{\{(\w+)\}\}/g, (_, k) => udfyld[k] ?? "").trim();
+  return skabelon("AGENTS.skabelon.md").replace(/\{\{(\w+)\}\}/g, (_, k) => udfyld[k] ?? "").trim();
 }
 
 function flettAgents(eksisterende, blok) {
@@ -60,8 +82,8 @@ function flettAgents(eksisterende, blok) {
 function voresHooks(root) {
   const sti = (fil) => `node "${path.join(root, "scripts", "startkit", fil).replace(/\\/g, "/")}"`;
   return {
-    PreToolUse: { matcher: "Bash|apply_patch|Edit|Write", hooks: [{ type: "command", command: sti("vagt.js"), timeout: 30, statusMessage: "Startkit: vagten tjekker" }] },
-    Stop: { hooks: [{ type: "command", command: sti("faerdig.js"), timeout: 60, statusMessage: "Startkit: færdig-tjek" }] },
+    PreToolUse: { matcher: "Bash|apply_patch|Edit|Write", hooks: [{ type: "command", command: sti("vagt.js"), timeout: 30, statusMessage: t("ops.status.hook1") }] },
+    Stop: { hooks: [{ type: "command", command: sti("faerdig.js"), timeout: 60, statusMessage: t("ops.status.hook2") }] },
   };
 }
 const erVores = (gruppe) => Array.isArray(gruppe && gruppe.hooks) && gruppe.hooks.some((h) => /scripts\/startkit\//.test(String((h && h.command) || "").replace(/\\/g, "/")));
@@ -69,7 +91,7 @@ const erVores = (gruppe) => Array.isArray(gruppe && gruppe.hooks) && gruppe.hook
 function flettHooks(eksisterendeTekst, root) {
   let data = {};
   if (eksisterendeTekst !== null && eksisterendeTekst.trim()) {
-    try { data = JSON.parse(eksisterendeTekst); } catch { throw new Error(".codex/hooks.json findes, men kan ikke læses som JSON. Ret filen (eller flyt den), og kør opsætningen igen."); }
+    try { data = JSON.parse(eksisterendeTekst); } catch { throw new Error(t("ops.hooks.json")); }
   }
   if (!data || typeof data !== "object" || Array.isArray(data)) data = {};
   if (!data.hooks || typeof data.hooks !== "object") data.hooks = {};
@@ -84,77 +106,86 @@ function flettGitignore(eksisterende) {
   const har = new Set((eksisterende || "").split("\n").map((l) => l.trim()));
   const mangler = laes(path.join(ASSETS, "gitignore-tillaeg.txt")).split("\n").map((l) => l.trim()).filter((l) => l && !har.has(l));
   if (!mangler.length) return eksisterende;
-  return (eksisterende ? eksisterende.replace(/\s*$/, "") + "\n\n" : "") + "# Tilføjet af startkittet\n" + mangler.join("\n") + "\n";
+  return (eksisterende ? eksisterende.replace(/\s*$/, "") + "\n\n" : "") + t("ops.gitignore") + "\n" + mangler.join("\n") + "\n";
 }
 
 // Kittets version står ét sted (filen VERSION) og skrives i feedback-filen, så man kan se, hvilken udgave feedbacken gælder.
-const version = () => (laes(path.join(__dirname, "..", "VERSION")) || "ukendt").trim();
-const feedbackSkabelon = () => laes(path.join(ASSETS, "feedback.skabelon.md")).replace(/\{\{VERSION\}\}/g, version());
+const version = () => (laes(path.join(__dirname, "..", "VERSION")) || t("ops.ukendt")).trim();
+const feedbackSkabelon = () => skabelon("feedback.skabelon.md").replace(/\{\{VERSION\}\}/g, version());
 
 // Regner ud, hvad der skal skrives. Skriver intet selv.
-function plan(root, profil) {
+function plan(root, raa) {
+  const profil = normaliser(raa);
+  const en = sprog() === "en";
   const trin = [];
   const p = (...dele) => path.join(root, ...dele);
   const saet = (rel, indhold, note) => {
     const foer = laes(p(rel));
-    trin.push({ rel, indhold, handling: foer === null ? "ny" : foer === lf(indhold) ? "uændret" : "opdateres", note });
+    trin.push({ rel, indhold, handling: foer === null ? "ny" : foer === lf(indhold) ? "uaendret" : "opdateres", note });
   };
   const kunHvisMangler = (rel, indhold, note) => {
-    if (fs.existsSync(p(rel))) trin.push({ rel, indhold: null, handling: "findes (røres ikke)", note });
+    if (fs.existsSync(p(rel))) trin.push({ rel, indhold: null, handling: "findes", note });
     else trin.push({ rel, indhold, handling: "ny", note });
   };
   const projekter = profil.projekter || [];
   const valgt = projekter.find((x) => x.navn === profil.valgt_projekt) || projekter[0];
 
-  saet("AGENTS.md", flettAgents(laes(p("AGENTS.md")), agentsBlok(profil)), "korte, faste regler; kun startkittets blok ændres");
-  kunHvisMangler("STATUS.md", laes(path.join(ASSETS, "projektstatus.skabelon.md")).replace(/\{\{PROJEKT\}\}/g, enLinje(valgt.navn)), "hvor vi er, fra gang til gang");
-  kunHvisMangler("docs/gentagne-fejl.md", laes(path.join(ASSETS, "gentagne-fejl.md")), "fejl, der ikke må ske igen");
-  saet(".startkit/hvorfor-blev-jeg-stoppet.md", laes(path.join(ASSETS, "hvorfor-blev-jeg-stoppet.md")), "forklaring af kontrollerne");
-  kunHvisMangler(".startkit/status.md", laes(path.join(ASSETS, "forloeb.skabelon.md")), "hvor langt startkittet er");
-  kunHvisMangler(".startkit/config.json", JSON.stringify({ tjek: profil.tjek_kommandoer || [], modelguide: [], graense_procent: 85 }, null, 2) + "\n", "hvilke kommandoer beviser, at det virker");
-  for (const fil of fs.readdirSync(PROJEKT_SCRIPTS).sort()) saet(`scripts/startkit/${fil}`, laes(path.join(PROJEKT_SCRIPTS, fil)), "vagt, færdig-tjek, bevis og overblik");
+  const tjek = profil.tjek_kommandoer || [];
+  const config = en ? { checks: tjek, model_guide: [], limit_percent: 85 } : { tjek, modelguide: [], graense_procent: 85 };
+  saet("AGENTS.md", flettAgents(laes(p("AGENTS.md")), agentsBlok(profil)), t("ops.n.agents"));
+  kunHvisMangler("STATUS.md", skabelon("projektstatus.skabelon.md").replace(/\{\{PROJEKT\}\}/g, enLinje(valgt.navn)), t("ops.n.status"));
+  kunHvisMangler(fil("fejl"), skabelon("gentagne-fejl.md"), t("ops.n.fejl"));
+  saet(fil("hvorfor"), skabelon("hvorfor-blev-jeg-stoppet.md"), t("ops.n.hvorfor"));
+  kunHvisMangler(".startkit/status.md", skabelon("forloeb.skabelon.md"), t("ops.n.forloeb"));
+  kunHvisMangler(".startkit/config.json", JSON.stringify(config, null, 2) + "\n", t("ops.n.config"));
+  for (const navn of fs.readdirSync(PROJEKT_SCRIPTS).filter((f) => f !== "sprog.json").sort()) saet(`scripts/startkit/${navn}`, laes(path.join(PROJEKT_SCRIPTS, navn)), t("ops.n.scripts"));
+  // Projektets scripts skal tale samme sprog som kittet. Dansk er standard og behøver ingen fil.
+  if (en || fs.existsSync(p("scripts", "startkit", "sprog.json"))) saet("scripts/startkit/sprog.json", JSON.stringify({ sprog: sprog() }) + "\n", t("ops.n.scripts"));
   // Windows-genvej (dobbeltklik). Skrives med CRLF, som .cmd-filer forventer.
-  saet("overblik.cmd", laes(path.join(ASSETS, "overblik.cmd")).replace(/\n/g, "\r\n"), "dobbeltklik for at åbne overblikket i browseren");
-  kunHvisMangler(".startkit/feedback.md", feedbackSkabelon(), "din feedback på startkittet (sendes aldrig automatisk)");
-  saet(".githooks/pre-commit", laes(path.join(ASSETS, "pre-commit")), "nøgletjek og længdelås før commit");
-  saet(".codex/hooks.json", flettHooks(laes(p(".codex/hooks.json")), root), "tænder vagten og færdig-tjekket i Codex (skal godkendes med /hooks)");
+  saet(fil("genvej"), skabelon("overblik.cmd").replace(/\n/g, "\r\n"), t("ops.n.genvej"));
+  kunHvisMangler(".startkit/feedback.md", feedbackSkabelon(), t("ops.n.feedback"));
+  saet(".githooks/pre-commit", laes(path.join(ASSETS, "pre-commit")), t("ops.n.precommit"));
+  saet(".codex/hooks.json", flettHooks(laes(p(".codex/hooks.json")), root), t("ops.n.hooks"));
   const gi = flettGitignore(laes(p(".gitignore")));
-  if (gi !== laes(p(".gitignore"))) saet(".gitignore", gi, "holder nøglefiler ude af git");
+  if (gi !== laes(p(".gitignore"))) saet(".gitignore", gi, t("ops.n.ignore"));
   return trin;
 }
 
 function main() {
   const args = process.argv.slice(2);
-  const toer = args.includes("--toer");
+  const toer = args.includes("--toer") || args.includes("--dry-run");
   const mappe = args.find((a) => !a.startsWith("--"));
-  if (!mappe) { console.error("Brug: node opsaet.js <projektmappe> [--toer]"); return 2; }
+  if (!mappe) { console.error(t("ops.brug")); return 2; }
   const root = path.resolve(mappe);
-  if (!fs.existsSync(root) || !fs.statSync(root).isDirectory()) { console.error(`Mappen findes ikke: ${root}`); return 2; }
-  const profilTekst = laes(path.join(root, ".startkit", "profil.json"));
-  if (profilTekst === null) { console.error("Der er ingen profil endnu (.startkit/profil.json). Lav interviewet først."); return 2; }
+  if (!fs.existsSync(root) || !fs.statSync(root).isDirectory()) { console.error(t("mappe.findes.ikke", { mappe: root })); return 2; }
+  // Profilen hedder profil.json på dansk og profile.json på engelsk. Begge navne læses, uanset sprog.
+  const profilTekst = laes(path.join(root, fil("profil"))) ?? laes(path.join(root, ".startkit", "profil.json")) ?? laes(path.join(root, ".startkit", "profile.json"));
+  if (profilTekst === null) { console.error(t("ops.ingen.profil")); return 2; }
   let profil;
-  try { profil = JSON.parse(profilTekst); } catch { console.error(".startkit/profil.json kan ikke læses som JSON."); return 2; }
+  try { profil = JSON.parse(profilTekst); } catch { console.error(t("ops.profil.json")); return 2; }
+  profil = normaliser(profil);
   const fejl = valider(profil);
-  if (fejl.length) { console.error("Profilen mangler noget:\n" + fejl.map((f) => "  - " + f).join("\n")); return 2; }
+  if (fejl.length) { console.error(t("ops.mangler") + "\n" + fejl.map((f) => "  - " + f).join("\n")); return 2; }
 
   let trin;
   try { trin = plan(root, profil); } catch (e) { console.error(e.message); return 2; }
-  console.log(toer ? `Det her vil blive sat op i ${root} (intet er skrevet endnu):\n` : `Sætter op i ${root}:\n`);
-  for (const t of trin) {
-    console.log(`  ${t.handling.padEnd(20)} ${t.rel}  (${t.note})`);
-    if (!toer && t.indhold !== null && t.handling !== "uændret") {
-      fs.mkdirSync(path.dirname(path.join(root, t.rel)), { recursive: true });
-      fs.writeFileSync(path.join(root, t.rel), t.indhold);
+  console.log(t(toer ? "ops.vil" : "ops.saetter", { root }));
+  const etiket = { ny: "ops.h.ny", uaendret: "ops.h.uaendret", opdateres: "ops.h.opdateres", findes: "ops.h.findes" };
+  for (const x of trin) {
+    console.log(`  ${t(etiket[x.handling]).padEnd(20)} ${x.rel}  (${x.note})`);
+    if (!toer && x.indhold !== null && x.handling !== "uaendret") {
+      fs.mkdirSync(path.dirname(path.join(root, x.rel)), { recursive: true });
+      fs.writeFileSync(path.join(root, x.rel), x.indhold);
     }
     // Mac og Linux kører kun en hook, der er markeret som kørbar. Windows er ligeglad.
-    if (!toer && t.rel === ".githooks/pre-commit" && fs.existsSync(path.join(root, t.rel))) fs.chmodSync(path.join(root, t.rel), 0o755);
+    if (!toer && x.rel === ".githooks/pre-commit" && fs.existsSync(path.join(root, x.rel))) fs.chmodSync(path.join(root, x.rel), 0o755);
   }
-  const agents = trin.find((t) => t.rel === "AGENTS.md").indhold.split("\n").length;
-  if (agents > 80) console.log(`\nBemærk: AGENTS.md bliver på ${agents} linjer (højst 80). Flyt dine egne lange afsnit til docs/, ellers stopper længdelåsen næste commit.`);
-  if (!(profil.tjek_kommandoer || []).length) console.log("\nBemærk: der er ingen tjek-kommandoer i profilen, så beviset kan ikke afprøve noget endnu. Tag en første test med i planen.");
-  if (!toer) console.log("\nNæste skridt: tænd nøgletjekket (git config core.hooksPath .githooks), godkend hooks med /hooks i Codex, og start en ny chat.");
+  const agents = trin.find((x) => x.rel === "AGENTS.md").indhold.split("\n").length;
+  if (agents > 80) console.log(t("ops.lang", { linjer: agents }));
+  if (!(profil.tjek_kommandoer || []).length) console.log(t("ops.ingen.tjek"));
+  if (!toer) console.log(t("ops.naeste"));
   return 0;
 }
 
 if (require.main === module) process.exit(main());
-module.exports = { valider, agentsBlok, flettAgents, flettHooks, flettGitignore, plan, voresHooks, version, feedbackSkabelon };
+module.exports = { valider, normaliser, agentsBlok, flettAgents, flettHooks, flettGitignore, plan, voresHooks, version, feedbackSkabelon };

@@ -9,7 +9,7 @@ This page is for you if you want to use the starter kit with a class, for exampl
 - **It is a beta.** Some things will not work as described.
 - **The kit has not been tried in Codex** by the person who made it. The individual parts are tested automatically, but the whole flow has not been run through in Codex by a human. See the table "What has been tried, and what has not?" in the [README](README.md).
 - **It has not been tried with a class.** The schedule below is an estimate, not experience.
-- **The kit itself speaks Danish for now.** It is only useful for participants who read Danish.
+- **The kit speaks English or Danish.** Participants choose when they install: `install-english.cmd` for English, `installer.cmd` for Danish. The English edition is new and has been tried by fewer people than the Danish one.
 - The kit is made for Windows. Mac and Linux are untested.
 
 So the most important advice: **run the whole flow yourself, on your own computer, before you stand in front of a class.** Then you know where it is rough, and you can report it before the participants hit it.
@@ -21,7 +21,7 @@ Installation is what most often derails a session. Ask participants to have this
 1. **A ChatGPT account** they can sign in to, with access to Codex. Check OpenAI's pricing page for which plans give access and how much usage is included. It changes.
 2. **Codex installed** and opened at least once, so sign-in is done.
 3. **Git and Node installed.** Step 2 in the [README](README.md) shows how. The kit can also help with it, but that takes time in a room.
-4. **The starter kit downloaded and installed** (step 3 in the README: download the ZIP, extract, double-click `installer.cmd`).
+4. **The starter kit downloaded and installed** (step 3 in the README: download the ZIP, extract, double-click `install-english.cmd`, or `installer.cmd` for the Danish edition).
 5. **Their own computer, with permission to install programs.** A work computer locked down by an IT department often cannot install Git and Node, and Windows may refuse to run the installer file.
 6. **Access to their own email and phone,** if they want to create a GitHub account along the way (it asks for a verification code).
 
@@ -39,7 +39,7 @@ The short path fits a single session best. The full path has an interview of typ
 | 10 min | Break. Use it for those who are behind. |
 | 30 min | The small interview, the foundation is set up, and the hooks are approved. |
 | 15 min | The safety net is tried: watch the guard stop something. This is where it clicks for most people. |
-| 10 min | The overview page is opened with `overblik.cmd`. |
+| 10 min | The overview page is opened with `overview.cmd` (`overblik.cmd` in the Danish edition). |
 | 5 min | The five feedback questions. |
 
 **The GitHub backup** needs an account, verification codes and sign-in, and easily takes 20-30 minutes with a class. Make it a separate session or homework.

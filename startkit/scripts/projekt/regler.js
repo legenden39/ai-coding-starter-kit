@@ -6,10 +6,10 @@
 // Hver afvisning siger, hvordan ejeren selv gør det, hvis det er med vilje.
 // Ærlig grænse: mønstre på kommandotekst kan omgås. Vagten er et sikkerhedsnet, ikke en mur.
 const path = require("path");
+const { t, fil } = require("./tekster");
 
-const HVORFOR = " Se .startkit/hvorfor-blev-jeg-stoppet.md.";
 const allow = () => ({ decision: "allow", reason: "" });
-const deny = (reason) => ({ decision: "deny", reason: reason + HVORFOR });
+const deny = (noegle, vaerdier) => ({ decision: "deny", reason: t(noegle, vaerdier) + t("vagt.se", { fil: fil("hvorfor") }) });
 const skraa = (s) => String(s || "").replace(/\\/g, "/");
 
 function normSti(p) {
@@ -80,8 +80,8 @@ function regelGit(args) {
   let i = 0;
   while (i < args.length && args[i].startsWith("-")) {
     if ((args[i] === "-c" || args[i] === "-C") && i + 1 < args.length) {
-      if (args[i] === "-c" && /^core\.hookspath=/i.test(args[i + 1])) return deny("Man må ikke flytte git-hooks (core.hooksPath): nøgletjekket skal køre.");
-      if (args[i] === "-c" && /^alias\./i.test(args[i + 1])) return deny("Et git-alias kan skjule --no-verify eller --force. Ejeren kører selv kommandoen, hvis det er med vilje.");
+      if (args[i] === "-c" && /^core\.hookspath=/i.test(args[i + 1])) return deny("vagt.hookspath.flyt");
+      if (args[i] === "-c" && /^alias\./i.test(args[i + 1])) return deny("vagt.alias");
       i++;
     }
     i++;
@@ -92,14 +92,14 @@ function regelGit(args) {
     const vaerdi = rest.filter((t) => !t.startsWith("-") && !/^core\.hookspath$/i.test(t));
     if (!vaerdi.length && !rest.some((t) => /^--(unset|unset-all|replace-all|add)$/.test(t))) return null; // ren læsning
     if (vaerdi.length === 1 && /^\.githooks\/?$/.test(vaerdi[0])) return null; // tænder nøgletjekket
-    return deny("Man må ikke flytte eller slukke git-hooks (core.hooksPath): nøgletjekket skal køre.");
+    return deny("vagt.hookspath.sluk");
   }
   const flag = [];
   for (let k = 0; k < rest.length; k++) { if (/^(-m|--message|-F|--file|-c|-C)$/.test(rest[k])) { k++; continue; } flag.push(rest[k]); }
-  if (sub === "commit" && flag.some((f) => /^--no-v/.test(f) || klynge(f, "n"))) return deny("git commit --no-verify springer nøgletjekket over. Stopper tjekket en commit, så find årsagen i stedet.");
-  if (sub === "push" && flag.some((f) => /^--for/.test(f) || klynge(f, "f") || f.startsWith("+"))) return deny("git push --force kan overskrive arbejde, der ikke kan hentes igen. Ejeren kører selv kommandoen, hvis det er med vilje.");
-  if (sub === "reset" && flag.includes("--hard")) return deny("git reset --hard sletter ændringer, der ikke er gemt. Ejeren kører selv kommandoen, hvis det er med vilje.");
-  if (sub === "clean" && flag.some((f) => /^--force$/.test(f) || klynge(f, "f"))) return deny("git clean sletter filer, der ikke er gemt i git. Ejeren kører selv kommandoen, hvis det er med vilje.");
+  if (sub === "commit" && flag.some((f) => /^--no-v/.test(f) || klynge(f, "n"))) return deny("vagt.noverify");
+  if (sub === "push" && flag.some((f) => /^--for/.test(f) || klynge(f, "f") || f.startsWith("+"))) return deny("vagt.force");
+  if (sub === "reset" && flag.includes("--hard")) return deny("vagt.reset");
+  if (sub === "clean" && flag.some((f) => /^--force$/.test(f) || klynge(f, "f"))) return deny("vagt.clean");
   return null;
 }
 
@@ -130,12 +130,12 @@ function regelKommando(command, dybde = 0) {
 }
 
 function shellRegler(command) {
-  if (naevnerEnvFil(command)) return deny("Kommandoen rører en .env-fil. Nøgler læses og skrives aldrig af AI'en; ejeren lægger dem selv ind.");
-  if (harNoegle(command)) return deny("Kommandoen indeholder noget, der ligner en nøgle. Skriv aldrig rigtige nøgler.");
+  if (naevnerEnvFil(command)) return deny("vagt.env.kommando");
+  if (harNoegle(command)) return deny("vagt.noegle.kommando");
   const hit = regelKommando(command);
   if (hit) return hit;
   if (BESKYTTET_I_TEKST.some((re) => re.test(skraa(command).toLowerCase())) && !kunLaesning(command)) {
-    return deny("Kommandoen rører en af startkittets kontroller (vagt, færdig-tjek, nøgletjek eller deres indstillinger). Ejeren ændrer dem selv, eller kører startkittets opsætning igen.");
+    return deny("vagt.kontrol.kommando");
   }
   return null;
 }
@@ -151,10 +151,10 @@ const patchTilfoejet = (tekst) => String(tekst).split("\n").filter((l) => l.star
 
 function filRegler(filer, indhold) {
   for (const f of filer) {
-    if (erEnvFil(f)) return deny(`${f} er en .env-fil. Nøgler læses og skrives aldrig af AI'en; ejeren lægger dem selv ind.`);
-    if (BESKYTTET.some((re) => re.test(normSti(f)))) return deny(`${f} er en af startkittets kontroller. Ejeren ændrer den selv, eller kører startkittets opsætning igen.`);
+    if (erEnvFil(f)) return deny("vagt.env.fil", { f });
+    if (BESKYTTET.some((re) => re.test(normSti(f)))) return deny("vagt.kontrol.fil", { f });
   }
-  if (harNoegle(indhold)) return deny("Indholdet ligner en nøgle eller en hemmelighed. Skriv aldrig rigtige nøgler i filer.");
+  if (harNoegle(indhold)) return deny("vagt.noegle.fil");
   return null;
 }
 
