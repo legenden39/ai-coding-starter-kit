@@ -16,6 +16,7 @@ The kit is now available in English too.
 - The programs also understand English flags: `--dry-run`, `--history`, `--5h`, `--week` and `--open`.
 - Fixed: on Mac and Linux the key check before commit did not run, because the file was not marked as executable.
 - The tests now run automatically on Windows and Linux at GitHub every time something changes.
+- The kit is now published as a ZIP file under Releases, and the README links straight to it. GitHub counts the downloads; the kit itself still sends nothing.
 - A section about supporting the work at the bottom of the README, and a Sponsor button on GitHub.
 - The English edition and both installations are tested automatically (the installation on Windows at GitHub), but the English edition has not been tried in Codex, and nobody has double-clicked `install-english.cmd` on a real computer.
 

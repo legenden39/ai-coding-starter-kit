@@ -16,6 +16,7 @@ Kittet findes nu også på engelsk.
 - Programmerne forstår også engelske flag: `--dry-run`, `--history`, `--5h`, `--week` og `--open`.
 - Rettet: på Mac og Linux blev nøgletjekket før commit ikke kørt, fordi filen ikke var markeret som kørbar.
 - Testene kører nu automatisk på Windows og Linux hos GitHub, hver gang der kommer en ændring.
+- Kittet bliver nu lagt ud som en ZIP-fil under Releases, og README linker direkte til den. GitHub tæller, hvor mange gange den hentes; kittet selv sender stadig ingenting.
 - Afsnit om at støtte arbejdet nederst i README, og en Sponsor-knap på GitHub.
 - Den engelske udgave og begge installationer er testet automatisk (installationen på Windows hos GitHub), men den engelske udgave er ikke afprøvet i Codex, og ingen har dobbeltklikket på `install-english.cmd` på en rigtig computer.
 
