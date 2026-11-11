@@ -251,7 +251,7 @@ const TEKSTER = {
     "ov.h.fejl": "Recurring mistakes",
     "ov.ingen.liste": "No list yet.",
     "ov.fejl.antal": "{antal} mistakes written down",
-    "ov.fejl.ulaast": ", of which <b>{ulaast}</b> have no lock",
+    "ov.fejl.ulaast": ", <b>{ulaast}</b> of them without a lock",
     "ov.h.model": "Which model for what?",
     "ov.ingen.guide": "No model guide yet. It is made in phase 5 of the starter kit.",
     "ov.h.forbrug": "Usage",
