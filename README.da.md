@@ -212,7 +212,8 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit`. I et projekt: slet `script
 | Installationen (`install.ps1`): spørger først, kopierer kun mappen, og gør intet ved et nej | Testet automatisk |
 | Tjekket af feedback-filen (finder nøgler, e-mailadresser og stier med brugernavn) | Testet automatisk |
 | Den engelske udgave: opsætningen, vagten, nøgletjekket, beviset og overblikssiden med engelsk tekst | Testet automatisk |
-| Den engelske installation (`install-english.cmd`) | **Ikke afprøvet** |
+| Installationen på begge sprog, kørt på Windows hos GitHub, hver gang noget ændres | Testet automatisk |
+| Dobbeltklik på `install-english.cmd` på en rigtig computer | **Ikke afprøvet** |
 | Den engelske udgave kørt gennem Codex med et rigtigt menneske | **Ikke afprøvet** |
 | Dobbeltklik på `installer.cmd` og `overblik.cmd` på en fremmed computer (Windows kan advare) | **Ikke afprøvet** |
 | Den korte vej, feedback-spørgsmålene og noterne undervejs, kørt gennem Codex | **Ikke afprøvet** |
@@ -235,6 +236,12 @@ Fakta om Codex, GitHub og Superpowers (hvor skills og hooks ligger, hvordan en h
 Tryk på fanen **Issues** øverst på denne side, og tryk **New issue**. Skriv tre ting: hvad du gjorde, hvad der skete, og hvad du havde forventet. Kopiér gerne det, Codex har skrevet under "Fejl i kittet" i filen `.startkit/status.md`.
 
 Skriv aldrig nøgler, adgangskoder eller personlige oplysninger i en sag; alt dér er offentligt. Tjek også, at det, du kopierer ind, ikke indeholder stier med dit brugernavn, hvis du ikke vil dele det.
+
+## Støt arbejdet
+
+Kittet er gratis, og det bliver ved med at være gratis. Du skal ikke betale noget for at bruge det, og intet er holdt tilbage.
+
+Har det sparet dig tid, og vil du gerne hjælpe med, at der kommer flere værktøjer som dette, kan du give en donation her: [paypal.me/KasperJensen798](https://paypal.me/KasperJensen798). Feedback hjælper lige så meget.
 
 ## Licens
 

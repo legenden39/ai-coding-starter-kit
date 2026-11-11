@@ -13,7 +13,9 @@ Kittet findes nu også på engelsk.
 - I den engelske udgave hedder tre filer i projektet noget andet: `docs/recurring-mistakes.md`, `.startkit/why-was-i-stopped.md` og `overview.cmd`. Programmerne i `scripts/startkit/` har beholdt deres danske navne.
 - Programmerne forstår også engelske flag: `--dry-run`, `--history`, `--5h`, `--week` og `--open`.
 - Rettet: på Mac og Linux blev nøgletjekket før commit ikke kørt, fordi filen ikke var markeret som kørbar.
-- Den engelske udgave er testet automatisk, men ikke afprøvet i Codex, og den engelske installation er ikke afprøvet på Windows.
+- Testene kører nu automatisk på Windows og Linux hos GitHub, hver gang der kommer en ændring.
+- Afsnit om at støtte arbejdet nederst i README, og en Sponsor-knap på GitHub.
+- Den engelske udgave og begge installationer er testet automatisk (installationen på Windows hos GitHub), men den engelske udgave er ikke afprøvet i Codex, og ingen har dobbeltklikket på `install-english.cmd` på en rigtig computer.
 
 ## 0.2.0-beta (november 2026)
 
