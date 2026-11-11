@@ -1,0 +1,8 @@
+.claude/
+.startkit/
+node_modules/
+*.zip
+.env
+.env.*
+*.log
+.privat-ordliste.txt

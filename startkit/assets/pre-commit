@@ -1,0 +1,97 @@
+#!/bin/sh
+# Nøgletjek og længdelås. Kræver kun git og grep (ingen Node). Viser aldrig selve nøglen, kun fil og slags.
+#
+#   Som hook (automatisk før hver commit): kigger på de linjer, der er ved at blive tilføjet.
+#       Slå til med:  git config core.hooksPath .githooks
+#   sh .githooks/pre-commit --scan       Scanner ALLE filer i mappen (også dem, der ikke er committet endnu).
+#   sh .githooks/pre-commit --historik   Scanner hele git-historikken (finder nøgler, der allerede er committet).
+
+mode="${1:-hook}"
+gitdir="$(git rev-parse --git-dir 2>/dev/null)" || { echo "Ikke et git-projekt. Kør først: git init" >&2; exit 2; }
+tmp="$gitdir/nogletjek.$$"
+trap 'rm -f "$tmp".*' EXIT
+: > "$tmp.fund"
+
+# Hver linje er: navn|mønster
+cat > "$tmp.moenstre" <<'EOF'
+Anthropic-nøgle|sk-ant-[A-Za-z0-9_-]{20,}
+OpenAI-nøgle|sk-(proj|svcacct|admin)-[A-Za-z0-9_-]{32,}|sk-[A-Za-z0-9]{40,}
+Stripe-nøgle|[sr]k_(live|test)_[A-Za-z0-9]{20,}
+Supabase hemmelig nøgle|sb_secret_[A-Za-z0-9_-]{20,}
+Google API-nøgle|AIza[0-9A-Za-z_-]{35}
+Google client secret|GOCSPX-[A-Za-z0-9_-]{20,}
+GitHub-token|gh[pousr]_[A-Za-z0-9]{30,}
+AWS-nøgle|AKIA[0-9A-Z]{16}
+Slack-token|xox[baprs]-[A-Za-z0-9-]{20,}
+Resend-nøgle|re_[A-Za-z0-9]{24,}
+Privat nøgle|-----BEGIN [A-Z ]*PRIVATE KEY-----
+Hemmelighed med værdi|(SECRET|TOKEN|PASSWORD|API_?KEY|PRIVATE_?KEY)[A-Z_]*[ ]*[=:][ ]*["']?[A-Za-z0-9/+_.-]{16,}
+EOF
+
+ikke_tekst='\.(png|jpe?g|gif|webp|ico|pdf|zip|woff2?|ttf|mp4|mov)$'
+
+# Filer, der aldrig må i git (efter navn)
+navnetjek() {
+  while IFS= read -r f; do
+    case "$f" in
+      .env.example|*/.env.example) ;;
+      .env|.env.*|*/.env|*/.env.*|*.pem|*.key) echo "$f: filtypen må ikke i git (hemmelighedsfil)" >> "$tmp.fund" ;;
+    esac
+  done
+}
+
+if [ "$mode" = "--historik" ]; then
+  git log --all -p > "$tmp.historik" 2>/dev/null
+  while IFS='|' read -r navn moenster; do
+    grep -Eq -- "$moenster" "$tmp.historik" && echo "i historikken: $navn" >> "$tmp.fund"
+  done < "$tmp.moenstre"
+else
+  if [ "$mode" = "--scan" ]; then
+    git -c core.quotepath=off ls-files --cached --others --exclude-standard > "$tmp.filer"
+  else
+    git -c core.quotepath=off diff --cached --name-only --diff-filter=ACM > "$tmp.filer"
+  fi
+  navnetjek < "$tmp.filer"
+  while IFS= read -r f; do
+    echo "$f" | grep -Eiq "$ikke_tekst" && continue
+    [ -f "$f" ] || [ "$mode" != "--scan" ] || continue
+    if [ "$mode" = "--scan" ]; then
+      grep -I '' -- "$f" > "$tmp.indhold" 2>/dev/null
+    else
+      git diff --cached -U0 -- "$f" | grep '^+' | grep -v '^+++' > "$tmp.indhold"
+    fi
+    while IFS='|' read -r navn moenster; do
+      grep -Eq -- "$moenster" "$tmp.indhold" && echo "$f: $navn" >> "$tmp.fund"
+    done < "$tmp.moenstre"
+  done < "$tmp.filer"
+
+  # Længdelås: en lang AGENTS.md koster tokens i hver chat, og de vigtige regler drukner.
+  if [ "$mode" = "hook" ] && grep -qx 'AGENTS.md' "$tmp.filer"; then
+    linjer=$(git show :AGENTS.md | wc -l | tr -d ' ')
+    if [ "$linjer" -gt 80 ]; then
+      echo "" >&2
+      echo "COMMIT STOPPET: AGENTS.md er på $linjer linjer (højst 80)." >&2
+      echo "Flyt forklaringer til docs/, og lad kun de faste regler blive. Se .startkit/hvorfor-blev-jeg-stoppet.md." >&2
+      echo "" >&2
+      exit 1
+    fi
+  fi
+fi
+
+if [ -s "$tmp.fund" ]; then
+  echo "" >&2
+  if [ "$mode" = "hook" ]; then
+    echo "COMMIT STOPPET: det ser ud til, at der er en nøgle eller adgangskode i det, du er ved at committe." >&2
+  else
+    echo "FUNDET: det ser ud til, at der ligger nøgler eller adgangskoder her." >&2
+  fi
+  echo "" >&2
+  sed 's/^/  /' "$tmp.fund" >&2
+  echo "" >&2
+  echo "Hvad nu? Skift nøglen hos udbyderen, FØR du retter koden (en nøgle, der har været i git eller delt, er brændt)." >&2
+  echo "Læg nøglen i en .env-fil (som er i .gitignore) i stedet." >&2
+  echo "" >&2
+  exit 1
+fi
+[ "$mode" = "hook" ] || echo "Ingen nøgler fundet (${mode#--})."
+exit 0

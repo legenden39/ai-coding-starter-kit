@@ -1,0 +1,5 @@
+interface:
+  display_name: "Startkit"
+  short_description: "Interview, research og et fundament, der passer til dig"
+policy:
+  allow_implicit_invocation: false

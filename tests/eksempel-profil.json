@@ -1,0 +1,16 @@
+{
+  "person": { "navn": "Prøveperson", "niveau": "lidt" },
+  "valgt_projekt": "Kortspil-log",
+  "projektmappe": "(sættes af testen)",
+  "projekter": [
+    { "navn": "Kortspil-log", "beskrivelse": "Man kan gemme sine spil og se statistik over tid.", "start_kommando": "npm start" }
+  ],
+  "regler": {
+    "aldrig_uden_ok": ["sletter filer", "lægger noget på nettet", "tilføjer nye pakker"],
+    "svarform": "Korte svar. Forklar kun det, der er nyt eller risikabelt.",
+    "ved_tvivl": "spørg ejeren"
+  },
+  "tjek_kommandoer": ["node -e \"process.exit(0)\""],
+  "vaerktoej": { "modeller": [] },
+  "aabne": ["F2"]
+}
