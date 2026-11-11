@@ -2,83 +2,176 @@
 
 English · [Dansk](README.da.md)
 
-A starter kit that helps you get AI to work properly for you: better quality, a faster workflow, a clear overview at all times, and fewer wasted tokens.
+**Do you want to build something with AI but don't know where to start, or are you tired of the AI making the same mistakes over and over? Then this is for you.**
 
-It is not a ready-made package. The kit interviews you, researches the best solutions to your particular problems, and builds a foundation from your answers.
+You don't need to know how to code, and you don't need to know the words used below. They are explained along the way, and there is a glossary at the bottom.
 
-This is an unofficial hobby project. It is not affiliated with OpenAI.
+> **The kit itself speaks Danish for now.** This page is in English, but the interview, the rules it writes, and the messages from its programs are in Danish. An English edition is planned. Until then, the kit is only useful if you read Danish.
 
-## Read this first (honest caveats)
+## What is the problem?
 
-**The kit itself speaks Danish.** This README is in English, but the interview, the rules it writes, and the messages from its scripts are in Danish for now. An English edition is planned. Until then, the kit is only useful if you read Danish.
+When you build something together with an AI, almost everyone runs into the same things:
 
-**It has not been tried in Codex.** The kit was rebuilt from an edition made for Claude. The person who made it does not use ChatGPT and has therefore **not been able to try it in Codex**. The individual parts are tested separately (see below), but the whole flow has not been run through in Codex by a human. So there may be bugs.
+- **It forgets.** You agreed on something yesterday. Today you have to explain it all again.
+- **It repeats mistakes.** You have said it three times, and it still does it.
+- **It says "done", and it doesn't work.** It never tried what it made.
+- **You lose track.** What works? What is half finished? Which folder is the newest?
+- **Something disappears.** A file gets deleted or overwritten, and you can't get it back.
+- **You burn through your usage** without knowing why.
 
-If you hit one, ask Codex to write it down in `.startkit/status.md` under "Fejl i kittet" ("Bugs in the kit"), and please report it (see "Report a bug" below) so the kit can get better.
+This is rarely because you are doing something wrong. It is because a foundation is missing: some fixed rules and safety nets that the AI has to work within. Most people only discover that after months of frustration.
 
-## What you need
+## What does the starter kit do about it?
 
-- **Codex** (OpenAI's tool for building with AI; it comes with your ChatGPT subscription). Either the desktop app or the terminal version. The kit does not work in the ordinary ChatGPT chat in the browser, because that cannot work in your folders.
-- **Git** (git-scm.com) and **Node** (nodejs.org, choose LTS). If they are missing, the kit helps you install them.
-- The kit is made for Windows. Mac and Linux are untested.
+The starter kit is a helper you start inside your AI tool. It takes you by the hand from A to Z:
 
-## Install (3 steps)
+1. **It helps you get the tools in place.** If something is missing on your computer, it shows you how to install it, one step at a time.
+2. **It interviews you.** What do you want to build? What annoys you? How do you want the AI to talk to you?
+3. **It researches solutions** to your particular problems and presents a plan. You say yes or no to each proposal.
+4. **It sets up the foundation** in your project and tries out, together with you, that it works.
+5. **It shows you an overview page** that you open in your browser, and extends it to your wishes.
+6. **It helps you make a private backup** online, so your work does not live on one computer only.
 
-1. Get the project: press the green **Code** button at the top of the GitHub page, choose **Download ZIP**, and unpack the file somewhere, for example in Documents. (If you know git, you can clone it instead.)
-2. Right-click in the folder, choose "Open in Terminal", and run:
+Afterwards you can start building without having to worry about the mistakes listed above.
+
+### What you get
+
+| This | means for you |
+|---|---|
+| Short, fixed rules | The AI reads them at the start of every conversation, so you don't have to explain the same things again. |
+| A status file | It always says where you are: what has been done, and what the next step is. |
+| A guard | It stops the AI before it deletes your work or puts a secret code in the wrong place. |
+| A done-check | The AI may only say "done" once it has been tried that it works. |
+| A key check | Secret codes (keys) are stopped before they are saved somewhere others can see them. |
+| A list of repeated mistakes | Mistakes that happened twice are written down and locked, so they don't happen a third time. |
+| An overview page | One page in your browser that shows where the project stands right now. |
+| A private backup | Your project also lives on GitHub, where only you can see it. |
+
+## Read this first (honest caveat)
+
+The kit was rebuilt from an edition made for Claude. The person who made it does not use ChatGPT and has therefore **not been able to try it in Codex**. The individual parts are tested separately (see below), but the whole flow has not been run through in Codex by a human. So there may be bugs, and buttons may be in a different place than described here.
+
+If you hit a bug, ask Codex to write it down (it knows where), and please report it. See "Report a bug" below. That makes the kit better for the next person.
+
+The kit is made for Windows. Mac and Linux are untested.
+
+## Get started
+
+There are four things you have to do yourself before the starter kit can take over. Expect 15-30 minutes if you start from scratch.
+
+### Step 1: Get Codex
+
+Codex is OpenAI's tool for building with AI. It is from the same company as ChatGPT, and you sign in with your ChatGPT account. The difference is that Codex can work in the folders on your computer. The ordinary ChatGPT chat in the browser cannot, which is why the starter kit does not work there.
+
+- Get the Windows app through OpenAI's own guide: [learn.chatgpt.com/codex/quickstart](https://learn.chatgpt.com/codex/quickstart).
+- Open it and sign in with your ChatGPT account.
+- Which plans give access, and how much usage you get, is on OpenAI's pricing page. It changes, so check it there.
+
+### Step 2: Get Git and Node
+
+These are two free programs the starter kit uses behind the scenes.
+
+- **Git** saves every version of your files. It is your undo button. Get it at [git-scm.com](https://git-scm.com) (choose Windows), run the file, and press "Next" to every question.
+- **Node** runs the starter kit's small programs (the guard, the done-check, the overview). Get it at [nodejs.org](https://nodejs.org) (choose the one called **LTS**), and run the file.
+
+Not sure whether you have them? Just move on. The starter kit checks and helps you if something is missing.
+
+### Step 3: Download and install the starter kit
+
+1. Press the green **Code** button at the top of this page, and choose **Download ZIP**.
+2. Find the file in your "Downloads" folder, right-click it, and choose **Extract All**. Put the folder somewhere you can find again, for example in Documents.
+3. Open the extracted folder. Right-click an empty spot in the folder and choose **Open in Terminal**. A window with text appears. That is the terminal: a place where you type commands instead of clicking.
+4. Copy this line, paste it into the terminal, and press Enter:
 
    ```
    powershell -ExecutionPolicy Bypass -File install.ps1
    ```
 
-   The script copies the folder `startkit` to `C:\Users\<you>\.agents\skills\startkit`. That is all it does. `-ExecutionPolicy Bypass` lets Windows run this one script, this one time; it changes no settings. The script is short, so feel free to read it first. You can also just copy the folder there yourself.
-3. Open Codex in the project folder you want to work in, and type:
+   All it does is copy the folder `startkit` to `C:\Users\<you>\.agents\skills\startkit`, which is where Codex looks for this kind of thing. The part `-ExecutionPolicy Bypass` lets Windows run this one file, this one time; it changes no settings. If you would rather avoid the terminal, you can copy the `startkit` folder there by hand.
+
+### Step 4: Start the starter kit
+
+1. Make a folder for what you want to build (or use one you already have). If you don't have an idea yet, just make an empty folder called, for example, `my-first-project`.
+2. Open Codex, and open that folder as a project.
+3. Type this in the chat and press Enter:
 
    ```
    $startkit
    ```
 
-   If it does not show up, restart Codex, or find it under Skills (`/skills`).
+Now the starter kit takes over and tells you what will happen. If it does not show up, close Codex, open it again, and try once more. You can also type `/skills` and pick it from the list.
 
-**Recommended:** also install Superpowers, if you can find it in your Codex (in the app: Plugins in the side menu; in the terminal: `/plugins`). It gives better brainstorming and planning, and the kit uses it if it is there. The kit also works without it.
+## What happens then?
 
-## What happens when you start
+The starter kit asks at most 2-3 things at a time.
 
 1. **Introduction.** You are told what you are about to go through, and why, before a single question is asked.
-2. **Check of your computer** (git, Node, which models you have).
-3. **Interview** on 8 topics, 2-3 questions at a time. It is a conversation, not a form: the number of questions is not fixed. If you answer thoroughly there are fewer, and if you say something worth understanding better, you get follow-up questions. Typically 30-60 minutes. You can pause at any time; `$startkit` continues where you left off.
-4. **Mapping** of what you already have. Nothing is changed.
-5. **Research and plan.** The kit researches solutions to your problems and presents proposals. You say yes or no to each.
-6. **The fixed foundation** is set up and tried out together with you.
-7. **Your overview** is built to your wishes.
+2. **Check of your computer.** If Git, Node or anything else is missing, you are helped through it. You also get help choosing the name and email that are stamped on your work, so you don't end up sharing something you did not mean to.
+3. **Superpowers.** A free add-on for Codex that makes the AI ask questions and make a plan before it builds. The starter kit shows you how to install it. You can do without it.
+4. **Interview** on 8 topics. It is a conversation, not a form: the number of questions is not fixed. If you answer thoroughly, there are fewer. Typically 30-60 minutes.
+5. **Mapping** of what you already have. Nothing is changed.
+6. **Research and plan.** You say yes or no to each proposal.
+7. **The foundation** is set up and tried out in front of you, so you see that the safety nets actually stop something.
+8. **The overview page** is shown, and you get suggestions for what it should show for you in particular.
+9. **Private backup on GitHub.** You are helped with an account, a hidden email and signing in. You can opt out.
 
-The more detailed your answers, the better the result fits you.
+You can pause at any time. Type `$startkit` again another day, and it continues where you left off. The more detailed your answers, the better the result fits you.
 
-## It costs tokens, and that is on purpose
+## It costs usage, and that is on purpose
 
-Running the kit uses a fair share of your usage: the interview is a long conversation, and the research afterwards reads sources on the web. See it as an investment. You spend tokens once on building the foundation, and afterwards you save them every day, because you do not have to explain the same things again, fix the same mistakes again, or use an expensive model for a simple task.
+An AI subscription has a limit on how much you can use. It is measured in "tokens", which is roughly the amount of text the AI reads and writes.
 
-Check your usage (`/status`) before you start. You can spread the flow over several days; everything is saved, so nothing has to be repeated.
+Running the starter kit uses a fair share of your usage: the interview is a long conversation, and the research afterwards reads sources on the web. See it as an investment. You spend usage once on building the foundation, and afterwards you save it every day, because you don't have to explain the same things again or fix the same mistakes again. No number can be promised for how much you save.
 
-## What you get in your project
+Type `/status` in Codex to see your usage before you start. You can spread the flow over several days; everything is saved.
+
+## Is it safe?
+
+- **The kit sends nothing anywhere.** Its programs run only on your own computer.
+- **It never stores your secret codes.** The key check reads your files on your own computer to find codes that are in the wrong place, but it only shows the file's name and the kind of code.
+- **You decide.** Nothing is changed without you having seen it and said yes.
+- **The backup is private.** The starter kit only creates private copies on GitHub. If you want to share something publicly, that is your own choice, and you press the button yourself.
+- **You sign in yourself.** The starter kit never asks for passwords.
+- During research, Codex searches the web the way Codex normally does. That happens through your own Codex, not through the kit.
+- The safety nets are nets, not walls. They catch the common mistakes, but they cannot guarantee that nothing goes wrong.
+
+Everything in the kit is open, so anyone can read what it does.
+
+## Glossary
+
+| Word | Means |
+|---|---|
+| **Codex** | OpenAI's tool for building with AI. It can work in the folders on your computer. |
+| **Terminal** | A window where you type commands instead of clicking. |
+| **Git** | A program that saves every version of your files, so you can go back. |
+| **Commit** | Saving a version in git. Like pressing "save" for the whole project at once. |
+| **GitHub** | A place online where git can put a copy of your project. |
+| **Repository** | A project that git keeps track of. |
+| **Node** | A program that runs small scripts. The starter kit's guard and overview use it. |
+| **Skill** | A recipe that Codex can follow. The starter kit is a skill. |
+| **Plugin** | An add-on that gives Codex more abilities. Superpowers is a plugin. |
+| **Hook** | A small program Codex runs automatically at certain moments, for example before it changes a file. The guard is a hook. |
+| **Key** (API key) | A secret code that gives access to a service, often one you pay for. Must never be shared. |
+| **Token** | The unit for how much text the AI reads and writes. Your usage is counted in tokens. |
+| **Model** | The AI itself. There are several: some are fast and cheap, others smarter and more expensive. |
+
+## For the curious: what does the kit put in your project?
 
 | File | What it does |
 |---|---|
 | `AGENTS.md` | Short, fixed rules that the AI reads in every chat. Your own lines are not touched. |
-| `STATUS.md` | Where you are: now, last done, next step, open problems. Carries knowledge from one session to the next. |
+| `STATUS.md` | Where you are: now, last done, next step, open problems. |
 | `docs/gentagne-fejl.md` | Mistakes that must not happen again, and whether they are locked by a hook or a test. |
 | `scripts/startkit/vagt.js` | The guard: stops keys in code, deletion of work, and skipping of checks. |
 | `scripts/startkit/faerdig.js` and `bevis.js` | The done-check: "done" requires green proof for the code as it is right now. |
 | `.githooks/pre-commit` | Key check before every commit, and a lock on the length of `AGENTS.md`. |
-| `scripts/startkit/overblik.js` | A small page on your own computer that shows where the project stands. |
+| `scripts/startkit/overblik.js` | The overview page on your own computer. |
 | `.codex/hooks.json` | Tells Codex to run the guard and the done-check. |
 | `.startkit/` | Your profile, the plan, settings, and the explanation "why was I stopped". |
 
 There are two status files, and they are not the same: `STATUS.md` is about your project and is used every day. `.startkit/status.md` is only about how far you are in the kit's own flow, and that is where bugs in the kit are written down.
 
-**What the kit does with your data:** The kit's scripts send nothing anywhere. The key check reads your files on your own computer to find keys that are in the wrong place, but it only shows the file name and the kind of key, and it never stores or sends a key. In the research phase, Codex searches the web the way Codex normally does; that happens through your own Codex, not through the kit.
-
-**If you put your project on GitHub:** `.codex/hooks.json` contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). If you do not want to share that, keep the file out of git by adding `.codex/hooks.json` to your `.gitignore`. The path only fits your own computer anyway.
+`.codex/hooks.json` contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). The starter kit therefore keeps the file out of git, so it does not come along if you share the project. The path only fits your own computer anyway. `.startkit/profil.json` holds your answers from the interview; you are asked whether it should be part of the backup.
 
 ## Remove it again
 
@@ -96,20 +189,22 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete
 | That Codex actually runs the hooks the way the documentation describes | **Not tried** |
 | That the guard is also called when Codex edits files (and not only for commands) | **Not tried** |
 | That `$startkit` shows up and follows the phases in Codex | **Not tried** |
+| The help with installing Git, Node and Superpowers, as it looks in Codex | **Not tried** |
+| The help with a GitHub backup, run through Codex | **Not tried** |
 | Installation on a computer other than the one the kit was made on | **Not tried** |
 | The whole flow with a real person | **Not tried** |
 | Mac and Linux | **Not tried** |
 
 Run the tests yourself with `node tests/run.js` (requires git and Node).
 
-Facts about Codex (where skills and hooks live, how a hook responds, limits for `AGENTS.md`) were looked up in OpenAI's own documentation in November 2026. If OpenAI changes something, parts of the kit may stop working.
+Facts about Codex, GitHub and Superpowers (where skills and hooks live, how a hook responds, limits for `AGENTS.md`, where the buttons are) were looked up in the publishers' own documentation in November 2026. If they change something, parts of the kit may stop matching.
 
 ## Report a bug
 
-Open an issue under the **Issues** tab here on the GitHub page. Write three things: what you did, what happened, and what you expected. Feel free to copy what is under "Fejl i kittet" in your `.startkit/status.md`. English and Danish are both fine.
+Press the **Issues** tab at the top of this page, and press **New issue**. Write three things: what you did, what happened, and what you expected. Feel free to copy what Codex wrote under "Fejl i kittet" ("Bugs in the kit") in the file `.startkit/status.md`. English and Danish are both fine.
 
 Never write keys, passwords or personal information in an issue; everything there is public. Also check that what you paste does not contain paths with your user name, if you do not want to share it.
 
 ## License
 
-MIT. You may use, change and share the kit freely, as long as the license text is included. See the file `LICENSE`. The kit comes with no warranty.
+MIT. You may use, change and share the kit freely, as long as the license text is included. See the file `LICENSE`. The kit comes with no warranty. It is an unofficial hobby project and is not affiliated with OpenAI.

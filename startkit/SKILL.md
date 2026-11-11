@@ -37,11 +37,12 @@ Læs `references/intro.md`, og giv personen introduktionen med dine egne ord, ko
 
 ## Fase 2: Er maskinen klar?
 
-Tjek stille, og forklar kun det, der mangler:
-- `git --version` og `node --version`. Mangler git: forklar ("en uendelig fortryd-knap for dine filer"), og henvis til git-scm.com. Mangler Node: henvis til nodejs.org (LTS). Vent, til det er på plads. Uden Node kan vagten og færdig-tjekket ikke køre.
+Tjek stille, og forklar kun det, der mangler. Mangler noget, så læs `references/vaerktoejer.md`, og hjælp personen igennem ét skridt ad gangen; den har trinene for hvert værktøj. Personen kan være helt ny: forklar, hvad hvert værktøj er, før I installerer det.
+- `git --version` og `node --version`. Uden git er der ingen fortryd-knap, og uden Node kan vagten og færdig-tjekket ikke køre. Vent, til begge er på plads.
+- `git config user.name` og `git config user.email`. Mangler de, kan intet gemmes; og det, der står der, bliver synligt, hvis projektet en dag deles. Lad personen vælge (kaldenavn og skjult adresse er i orden), før første commit.
 - Er mappen et git-projekt? Hvis ikke: forklar, og tilbyd `git init` uden at committe noget endnu.
 - Bed personen skrive `/status` (forbrug og grænser) og `/model` (hvilke modeller der findes), og fortælle dig, hvad der står. Gem modellisten i profilen under `vaerktoej.modeller`. Du bruger den i fase 5.
-- Spørg, om Superpowers er installeret (Plugins i appens sidemenu, eller `/plugins` i terminalen). Hvis ikke: forklar, at det giver bedre brainstorming og planlægning, og vis, hvordan personen selv installerer det. Kan personen ikke finde det, så gå videre uden; kittet virker også uden. Du installerer ikke plugins selv.
+- Spørg, om Superpowers er installeret. Hvis ikke: forklar, at det giver bedre brainstorming og planlægning, og guid installationen. Lykkes det ikke, så gå videre uden; kittet virker også uden. Du installerer ikke plugins selv.
 
 ## Fase 2b: Nøglescan (før noget gemmes i git)
 
@@ -88,7 +89,7 @@ Stopper noget ikke, så sig det ærligt, find årsagen (er hooken godkendt i `/h
 
 Sæt nu de forslag op, personen sagde ja til i fase 5, ét ad gangen, med et tjek efter hvert.
 
-Overblikket (kontrolpanelet) bygges efter personens ønsker fra runde H, ikke kopieret: start fra `scripts/startkit/overblik.js` i projektet (`node scripts/startkit/overblik.js`, og åbn adressen), vis det, og spørg, hvad der mangler, og hvad der er i vejen. Tilføj kun det, personen har bedt om, og vis kun målte fakta, aldrig gæt.
+Overblikket (kontrolpanelet) er en side, personen åbner i sin browser for at se, hvor projektet står. Vis den altid, også selvom personen ikke har bedt om den: start `node scripts/startkit/overblik.js` i projektet, og bed personen åbne adressen. Forklar hvert felt med én sætning. Foreslå derefter selv 2-3 konkrete forbedringer ud fra det, personen sagde i runde C og H (fx "du sagde, du mister overblik over, hvad der er halvt færdigt: skal det stå øverst?"), og spørg, hvad der mangler, og hvad der er i vejen. Byg kun det, personen siger ja til, og vis kun målte fakta, aldrig gæt.
 
 ## Fase 9: Afslutning
 
@@ -97,6 +98,7 @@ Overblikket (kontrolpanelet) bygges efter personens ønsker fra runde H, ikke ko
 3. Vis de tre vaner, der gør den største forskel (fra `references/viden.md`): ny opgave = ny chat, `STATUS.md` opdateres til sidst, og "den fejl igen" bliver til en lås.
 4. Giv en startbesked til næste chat: opgave, hvad der er lavet, færdig når, og hvilken model der passer.
 5. Første commit, efter et ja: kør nøglescan igen, vis med `git status`, hvad der gemmes, og commit.
+6. Sikkerhedskopi på GitHub (anbefales; personen må sige nej): følg `references/github.md`. Den hjælper med konto, skjult e-mail, login og en **privat** kopi. Du opretter kun private lagre, beder aldrig om adgangskoder, og lægger intet op uden et ja.
 
 ## Hvis personen går i stå eller bliver træt
 

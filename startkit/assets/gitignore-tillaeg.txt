@@ -6,3 +6,4 @@
 node_modules/
 .startkit/bevis.json
 .startkit/forbrug.json
+.codex/hooks.json

@@ -126,6 +126,18 @@ for (const m of skill.matchAll(/`(?:<skill-mappen>\/)?((?:references|assets|scri
   tjek(`SKILL.md peger på en fil, der findes: ${m[1]}`, fs.existsSync(path.join(KIT, m[1])));
 }
 tjek("SKILL.md: introduktion før interview, og forbeholdet er med", skill.indexOf("Fase 1: Introduktion") < skill.indexOf("Fase 3: Interview") && /ikke afprøvet i Codex/.test(skill));
+// Hjælpen til nybegyndere: værktøjer og sikkerhedskopi på GitHub, med de faste sikkerhedsregler.
+const ref = (f) => fs.readFileSync(path.join(KIT, "references", f), "utf8");
+tjek("SKILL.md: fase 2 bruger vaerktoejer.md, og fase 9 bruger github.md", /references\/vaerktoejer\.md/.test(skill) && /references\/github\.md/.test(skill));
+tjek("SKILL.md: navn og e-mail i git tjekkes før første commit", skill.indexOf("git config user.email") > 0 && skill.indexOf("git config user.email") < skill.indexOf("Fase 3: Interview"));
+tjek("SKILL.md: overblikket vises altid, og forbedringer foreslås", /Vis den altid/.test(skill) && /Foreslå derefter selv/.test(skill));
+tjek("vaerktoejer: dækker git, navn og e-mail, Node og Superpowers", ["## Git", "## Navn og e-mail i git", "## Node", "## Superpowers"].every((o) => ref("vaerktoejer.md").includes(o)));
+tjek("github: kun private lagre, og AI'en gør aldrig et lager offentligt", /--private/.test(ref("github.md")) && !/--public/.test(ref("github.md")) && /Du gør aldrig et lager offentligt/.test(ref("github.md")));
+tjek("github: aldrig adgangskoder, og personen logger selv ind", /Bed aldrig om adgangskoder/.test(ref("github.md")) && /det gør personen selv/.test(ref("github.md")));
+tjek("github: e-mailen skjules, og nøglescan køres, før noget lægges op", ref("github.md").indexOf("Keep my email addresses private") < ref("github.md").indexOf("noeglescan.js") && ref("github.md").indexOf("noeglescan.js") < ref("github.md").indexOf("gh repo create"));
+tjek("github: beskyttelsen slås ikke fra for at komme videre", /Slå ikke GitHubs beskyttelse fra/.test(ref("github.md")));
+tjek("opsætningen holder .codex/hooks.json ude af git (stien rummer brugernavnet)", fs.readFileSync(path.join(KIT, "assets", "gitignore-tillaeg.txt"), "utf8").split(/\r?\n/).includes(".codex/hooks.json"));
+
 tjek("intro: forbeholdet siges tydeligt", /ikke kunnet afprøve det i Codex/.test(fs.readFileSync(path.join(KIT, "references", "intro.md"), "utf8")));
 
 tjek("intro: siger, at forløbet koster tokens og er en investering", /koster tokens/.test(fs.readFileSync(path.join(KIT, "references", "intro.md"), "utf8")) && /investering/.test(fs.readFileSync(path.join(KIT, "references", "intro.md"), "utf8")));
@@ -134,7 +146,7 @@ tjek("intro: siger, at forløbet koster tokens og er en investering", /koster to
 // ingen e-mailadresser, ingen rigtige brugermapper, og ingen af ordene på den private ordliste.
 // Den private ordliste (.privat-ordliste.txt, ét ord pr. linje) ligger kun på din egen computer og
 // gemmes aldrig i git. Dér skriver du navne, der ikke må slippe med ud. Findes filen ikke, springes den del over.
-const EMAIL = /[A-Za-z0-9._%+-]+@(?!example\.com|users\.noreply\.github\.com)[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}/;
+const EMAIL = /[A-Za-z0-9._%+-]+@(?!example\.|users\.noreply\.github\.com)[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}/;
 const BRUGERMAPPE = /[A-Za-z]:[\\/]Users[\\/](?!<dig>|<you>)[^\\/\s]|\/home\/[A-Za-z0-9]/;
 const ORDLISTE = ".privat-ordliste.txt";
 let privateOrd = [];

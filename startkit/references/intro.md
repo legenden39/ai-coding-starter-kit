@@ -11,12 +11,13 @@ Et startkit, der hjælper dig med at få AI til at arbejde ordentligt for dig: b
 De fleste, der bygger med AI, løber ind i de samme ting: AI'en glemmer aftaler fra gang til gang, gentager de samme fejl, siger "færdig" uden at have prøvet det, mapperne roder til, og man ved ikke, hvilken model man skal vælge. Det skyldes sjældent, at man gør noget forkert. Det skyldes, at fundamentet mangler. Det bygger vi nu, én gang.
 
 **Hvad skal du igennem?**
-1. Et tjek af, at din computer har det, der skal til (5 minutter).
+1. Et tjek af, at din computer har det, der skal til. Mangler noget, hjælper jeg dig med at installere det, ét skridt ad gangen (5 minutter, hvis alt er der; mere, hvis noget skal installeres).
 2. Et interview om 8 emner (typisk 30-60 minutter; du kan holde pause når som helst). Det er en samtale, ikke et skema: der er ikke et fast antal spørgsmål. Svarer du grundigt, bliver der færre, og siger du noget, der er værd at forstå bedre, spørger jeg ind til det.
 3. Jeg ser på det, du allerede har, uden at ændre noget.
 4. Jeg undersøger de bedste løsninger til netop dine problemer og lægger en plan frem. Du siger ja eller nej til hvert forslag.
 5. Vi sætter fundamentet op og prøver sammen, at det virker.
-6. Vi bygger dit overblik, så du altid kan se, hvor du er.
+6. Vi bygger dit overblik: en side, du åbner i din browser, så du altid kan se, hvor du er.
+7. Vi lægger en privat sikkerhedskopi af projektet på GitHub, så arbejdet ikke kun ligger på én computer. Den kan du vælge fra.
 
 **Hvorfor så mange spørgsmål?**
 Fordi resultatet bliver præcis så godt som dine svar. Et kort svar giver en standardløsning. Et uddybende svar giver en løsning, der passer til dig. Jeg spørger højst 2-3 ting ad gangen, og jeg siger hver gang, hvorfor jeg spørger. Er et svar for tyndt til, at jeg kan bruge det, spørger jeg én gang til med et eksempel. "Det ved jeg ikke" er et helt fint svar; så noterer jeg det som et åbent punkt.
