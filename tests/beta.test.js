@@ -19,6 +19,11 @@ for (const f of ["CHANGELOG.md", "CHANGELOG.da.md"]) tjek(`${f}: har den aktuell
 tjek("intro: siger tidligt, at det er en beta", kit("references/intro.md").indexOf("Det er en beta") > 0 && kit("references/intro.md").indexOf("Det er en beta") < kit("references/intro.md").indexOf("Hvad skal du igennem"));
 tjek("forbeholdet står uændret i begge README'er", /\*\*ikke kunnet afprøve det i Codex\*\*/.test(rod("README.da.md")) && /\*\*not been able to try it in Codex\*\*/.test(rod("README.md")));
 
+// ---- download ----
+const ZIP = "releases/latest/download/ai-coding-starter-kit.zip";
+const udgiv = rod(".github/workflows/release.yml");
+tjek("download: begge README'er linker til den samme ZIP-fil, som udgivelsen laver", rod("README.md").includes(ZIP) && rod("README.da.md").includes(ZIP) && udgiv.includes("ai-coding-starter-kit.zip") && ["startkit", "installer.cmd", "install-english.cmd", "install.ps1", "LICENSE"].every((f) => udgiv.includes(f)));
+
 // ---- installation ----
 const cmd = rod("installer.cmd");
 tjek("installer.cmd: starter install.ps1 ved siden af sig selv og intet andet", /-File "%~dp0install\.ps1"/.test(cmd) && !/curl|Invoke-WebRequest|http/i.test(cmd));

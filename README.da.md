@@ -82,7 +82,7 @@ Er du i tvivl, om du har dem? Spring bare videre. Startkittet tjekker det og hj�
 
 ### Trin 3: Hent og installér startkittet
 
-1. Tryk på den grønne knap **Code** øverst på denne side, og vælg **Download ZIP**.
+1. Hent kittet: **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**. Linket giver dig altid den nyeste udgave.
 2. Find filen i din mappe "Overførsler", højreklik på den, og vælg **Udpak alle**. Læg mappen et sted, du kan finde igen, fx i Dokumenter.
 3. Åbn den udpakkede mappe, og **dobbeltklik på filen `installer.cmd`** (den kan også hedde bare `installer`). Filen ved siden af, `install-english.cmd`, installerer den engelske udgave i stedet.
 4. Der kommer et vindue med tekst. Det fortæller, hvad der sker: mappen `startkit` bliver kopieret til `C:\Users\<dig>\.agents\skills\startkit`, som er dér, Codex leder efter den slags. Intet andet. Skriv `j`, og tryk Enter for at sige ja.

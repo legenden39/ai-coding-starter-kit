@@ -84,7 +84,7 @@ Not sure whether you have them? Just move on. The starter kit checks and helps y
 
 ### Step 3: Download and install the starter kit
 
-1. Press the green **Code** button at the top of this page, and choose **Download ZIP**.
+1. Download the kit: **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**. The link always gives you the newest edition.
 2. Find the file in your "Downloads" folder, right-click it, and choose **Extract All**. Put the folder somewhere you can find again, for example in Documents.
 3. Open the extracted folder, and **double-click the file `install-english.cmd`** (it may show as just `install-english`). The file next to it called `installer.cmd` installs the Danish edition instead.
 4. A window with text appears. It tells you what will happen: the folder `startkit` is copied to `C:\Users\<you>\.agents\skills\startkit`, which is where Codex looks for this kind of thing. Nothing else. Type `y` and press Enter to agree.
