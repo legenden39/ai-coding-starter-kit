@@ -2,7 +2,7 @@
 
 [English](README.md) · Dansk
 
-> **Beta, version 0.2.0-beta.** Det her er en prøveudgave. Den er ikke afprøvet i Codex af den, der har lavet den, og der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.md).
+> **Beta, version 0.3.0-beta.** Det her er en prøveudgave. Den er ikke afprøvet i Codex af den, der har lavet den, og der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.md).
 
 **Vil du bygge noget med AI, men ved ikke, hvor du skal starte, eller er du træt af, at AI'en laver de samme fejl igen og igen? Så er det her til dig.**
 
@@ -84,7 +84,7 @@ Er du i tvivl, om du har dem? Spring bare videre. Startkittet tjekker det og hj�
 
 1. Tryk på den grønne knap **Code** øverst på denne side, og vælg **Download ZIP**.
 2. Find filen i din mappe "Overførsler", højreklik på den, og vælg **Udpak alle**. Læg mappen et sted, du kan finde igen, fx i Dokumenter.
-3. Åbn den udpakkede mappe, og **dobbeltklik på filen `installer.cmd`** (den kan også hedde bare `installer`).
+3. Åbn den udpakkede mappe, og **dobbeltklik på filen `installer.cmd`** (den kan også hedde bare `installer`). Filen ved siden af, `install-english.cmd`, installerer den engelske udgave i stedet.
 4. Der kommer et vindue med tekst. Det fortæller, hvad der sker: mappen `startkit` bliver kopieret til `C:\Users\<dig>\.agents\skills\startkit`, som er dér, Codex leder efter den slags. Intet andet. Skriv `j`, og tryk Enter for at sige ja.
 5. Vinduet fortæller dig til sidst, hvad næste skridt er.
 
@@ -211,6 +211,9 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit`. I et projekt: slet `script
 | Overblikssiden | Testet automatisk og set i en browser |
 | Installationen (`install.ps1`): spørger først, kopierer kun mappen, og gør intet ved et nej | Testet automatisk |
 | Tjekket af feedback-filen (finder nøgler, e-mailadresser og stier med brugernavn) | Testet automatisk |
+| Den engelske udgave: opsætningen, vagten, nøgletjekket, beviset og overblikssiden med engelsk tekst | Testet automatisk |
+| Den engelske installation (`install-english.cmd`) | **Ikke afprøvet** |
+| Den engelske udgave kørt gennem Codex med et rigtigt menneske | **Ikke afprøvet** |
 | Dobbeltklik på `installer.cmd` og `overblik.cmd` på en fremmed computer (Windows kan advare) | **Ikke afprøvet** |
 | Den korte vej, feedback-spørgsmålene og noterne undervejs, kørt gennem Codex | **Ikke afprøvet** |
 | Kittet brugt på et hold | **Ikke afprøvet** |

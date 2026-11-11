@@ -4,6 +4,17 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## 0.3.0-beta (november 2026)
+
+Kittet findes nu også på engelsk.
+
+- **Engelsk udgave:** dobbeltklik på `install-english.cmd`. Interviewet, vejledningerne, reglerne i `AGENTS.md`, skabelonerne og alle beskeder fra programmerne er på engelsk. `installer.cmd` giver stadig den danske udgave, og den er uændret.
+- De to udgaver deler de samme programmer og de samme regler, så en rettelse gælder begge. Kun teksten er forskellig.
+- I den engelske udgave hedder tre filer i projektet noget andet: `docs/recurring-mistakes.md`, `.startkit/why-was-i-stopped.md` og `overview.cmd`. Programmerne i `scripts/startkit/` har beholdt deres danske navne.
+- Programmerne forstår også engelske flag: `--dry-run`, `--history`, `--5h`, `--week` og `--open`.
+- Rettet: på Mac og Linux blev nøgletjekket før commit ikke kørt, fordi filen ikke var markeret som kørbar.
+- Den engelske udgave er testet automatisk, men ikke afprøvet i Codex, og den engelske installation er ikke afprøvet på Windows.
+
 ## 0.2.0-beta (november 2026)
 
 Første udgave til flere testere og til undervisning.

@@ -5,27 +5,38 @@
 #       Slå til med:  git config core.hooksPath .githooks
 #   sh .githooks/pre-commit --scan       Scanner ALLE filer i mappen (også dem, der ikke er committet endnu).
 #   sh .githooks/pre-commit --historik   Scanner hele git-historikken (finder nøgler, der allerede er committet).
+#
+# Beskederne findes på dansk og engelsk. Sproget kommer fra STARTKIT_SPROG eller fra scripts/startkit/sprog.json.
 
 mode="${1:-hook}"
-gitdir="$(git rev-parse --git-dir 2>/dev/null)" || { echo "Ikke et git-projekt. Kør først: git init" >&2; exit 2; }
+[ "$mode" = "--history" ] && mode="--historik"
+lang="${STARTKIT_SPROG:-}"
+if [ -z "$lang" ]; then
+  top="$(git rev-parse --show-toplevel 2>/dev/null)"
+  grep -qs '"en"' "$top/scripts/startkit/sprog.json" && lang="en"
+fi
+# sig <dansk> <engelsk>: skriver teksten på det valgte sprog
+sig() { if [ "$lang" = "en" ]; then printf '%s\n' "$2"; else printf '%s\n' "$1"; fi; }
+
+gitdir="$(git rev-parse --git-dir 2>/dev/null)" || { sig "Ikke et git-projekt. Kør først: git init" "Not a git project. Run this first: git init" >&2; exit 2; }
 tmp="$gitdir/nogletjek.$$"
 trap 'rm -f "$tmp".*' EXIT
 : > "$tmp.fund"
 
-# Hver linje er: navn|mønster
+# Hver linje er: dansk navn|engelsk navn|mønster
 cat > "$tmp.moenstre" <<'EOF'
-Anthropic-nøgle|sk-ant-[A-Za-z0-9_-]{20,}
-OpenAI-nøgle|sk-(proj|svcacct|admin)-[A-Za-z0-9_-]{32,}|sk-[A-Za-z0-9]{40,}
-Stripe-nøgle|[sr]k_(live|test)_[A-Za-z0-9]{20,}
-Supabase hemmelig nøgle|sb_secret_[A-Za-z0-9_-]{20,}
-Google API-nøgle|AIza[0-9A-Za-z_-]{35}
-Google client secret|GOCSPX-[A-Za-z0-9_-]{20,}
-GitHub-token|gh[pousr]_[A-Za-z0-9]{30,}
-AWS-nøgle|AKIA[0-9A-Z]{16}
-Slack-token|xox[baprs]-[A-Za-z0-9-]{20,}
-Resend-nøgle|re_[A-Za-z0-9]{24,}
-Privat nøgle|-----BEGIN [A-Z ]*PRIVATE KEY-----
-Hemmelighed med værdi|(SECRET|TOKEN|PASSWORD|API_?KEY|PRIVATE_?KEY)[A-Z_]*[ ]*[=:][ ]*["']?[A-Za-z0-9/+_.-]{16,}
+Anthropic-nøgle|Anthropic key|sk-ant-[A-Za-z0-9_-]{20,}
+OpenAI-nøgle|OpenAI key|sk-(proj|svcacct|admin)-[A-Za-z0-9_-]{32,}|sk-[A-Za-z0-9]{40,}
+Stripe-nøgle|Stripe key|[sr]k_(live|test)_[A-Za-z0-9]{20,}
+Supabase hemmelig nøgle|Supabase secret key|sb_secret_[A-Za-z0-9_-]{20,}
+Google API-nøgle|Google API key|AIza[0-9A-Za-z_-]{35}
+Google client secret|Google client secret|GOCSPX-[A-Za-z0-9_-]{20,}
+GitHub-token|GitHub token|gh[pousr]_[A-Za-z0-9]{30,}
+AWS-nøgle|AWS key|AKIA[0-9A-Z]{16}
+Slack-token|Slack token|xox[baprs]-[A-Za-z0-9-]{20,}
+Resend-nøgle|Resend key|re_[A-Za-z0-9]{24,}
+Privat nøgle|Private key|-----BEGIN [A-Z ]*PRIVATE KEY-----
+Hemmelighed med værdi|Secret with a value|(SECRET|TOKEN|PASSWORD|API_?KEY|PRIVATE_?KEY)[A-Z_]*[ ]*[=:][ ]*["']?[A-Za-z0-9/+_.-]{16,}
 EOF
 
 ikke_tekst='\.(png|jpe?g|gif|webp|ico|pdf|zip|woff2?|ttf|mp4|mov)$'
@@ -35,15 +46,15 @@ navnetjek() {
   while IFS= read -r f; do
     case "$f" in
       .env.example|*/.env.example) ;;
-      .env|.env.*|*/.env|*/.env.*|*.pem|*.key) echo "$f: filtypen må ikke i git (hemmelighedsfil)" >> "$tmp.fund" ;;
+      .env|.env.*|*/.env|*/.env.*|*.pem|*.key) sig "$f: filtypen må ikke i git (hemmelighedsfil)" "$f: this kind of file must not go into git (secrets file)" >> "$tmp.fund" ;;
     esac
   done
 }
 
 if [ "$mode" = "--historik" ]; then
   git log --all -p > "$tmp.historik" 2>/dev/null
-  while IFS='|' read -r navn moenster; do
-    grep -Eq -- "$moenster" "$tmp.historik" && echo "i historikken: $navn" >> "$tmp.fund"
+  while IFS='|' read -r navn name moenster; do
+    grep -Eq -- "$moenster" "$tmp.historik" && sig "i historikken: $navn" "in the history: $name" >> "$tmp.fund"
   done < "$tmp.moenstre"
 else
   if [ "$mode" = "--scan" ]; then
@@ -60,8 +71,8 @@ else
     else
       git diff --cached -U0 -- "$f" | grep '^+' | grep -v '^+++' > "$tmp.indhold"
     fi
-    while IFS='|' read -r navn moenster; do
-      grep -Eq -- "$moenster" "$tmp.indhold" && echo "$f: $navn" >> "$tmp.fund"
+    while IFS='|' read -r navn name moenster; do
+      grep -Eq -- "$moenster" "$tmp.indhold" && sig "$f: $navn" "$f: $name" >> "$tmp.fund"
     done < "$tmp.moenstre"
   done < "$tmp.filer"
 
@@ -70,8 +81,8 @@ else
     linjer=$(git show :AGENTS.md | wc -l | tr -d ' ')
     if [ "$linjer" -gt 80 ]; then
       echo "" >&2
-      echo "COMMIT STOPPET: AGENTS.md er på $linjer linjer (højst 80)." >&2
-      echo "Flyt forklaringer til docs/, og lad kun de faste regler blive. Se .startkit/hvorfor-blev-jeg-stoppet.md." >&2
+      sig "COMMIT STOPPET: AGENTS.md er på $linjer linjer (højst 80)." "COMMIT STOPPED: AGENTS.md is $linjer lines long (80 at most)." >&2
+      sig "Flyt forklaringer til docs/, og lad kun de faste regler blive. Se .startkit/hvorfor-blev-jeg-stoppet.md." "Move explanations to docs/, and keep only the fixed rules. See .startkit/why-was-i-stopped.md." >&2
       echo "" >&2
       exit 1
     fi
@@ -81,17 +92,19 @@ fi
 if [ -s "$tmp.fund" ]; then
   echo "" >&2
   if [ "$mode" = "hook" ]; then
-    echo "COMMIT STOPPET: det ser ud til, at der er en nøgle eller adgangskode i det, du er ved at committe." >&2
+    sig "COMMIT STOPPET: det ser ud til, at der er en nøgle eller adgangskode i det, du er ved at committe." "COMMIT STOPPED: it looks like there is a key or a password in what you are about to commit." >&2
   else
-    echo "FUNDET: det ser ud til, at der ligger nøgler eller adgangskoder her." >&2
+    sig "FUNDET: det ser ud til, at der ligger nøgler eller adgangskoder her." "FOUND: it looks like there are keys or passwords here." >&2
   fi
   echo "" >&2
   sed 's/^/  /' "$tmp.fund" >&2
   echo "" >&2
-  echo "Hvad nu? Skift nøglen hos udbyderen, FØR du retter koden (en nøgle, der har været i git eller delt, er brændt)." >&2
-  echo "Læg nøglen i en .env-fil (som er i .gitignore) i stedet." >&2
+  sig "Hvad nu? Skift nøglen hos udbyderen, FØR du retter koden (en nøgle, der har været i git eller delt, er brændt)." "What now? Change the key at the provider BEFORE you fix the code (a key that has been in git or shared is burnt)." >&2
+  sig "Læg nøglen i en .env-fil (som er i .gitignore) i stedet." "Put the key in a .env file (which is in .gitignore) instead." >&2
   echo "" >&2
   exit 1
 fi
-[ "$mode" = "hook" ] || echo "Ingen nøgler fundet (${mode#--})."
+if [ "$mode" != "hook" ]; then
+  if [ "$mode" = "--historik" ]; then sig "Ingen nøgler fundet (historik)." "No keys found (history)."; else sig "Ingen nøgler fundet (scan)." "No keys found (scan)."; fi
+fi
 exit 0
