@@ -2,7 +2,7 @@
 
 English · [Dansk](README.da.md)
 
-> **Beta, version 0.3.0-beta.** This is a trial edition. It has not been tried in Codex by the person who made it, and there will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md) (in Danish).
+> **Beta, version 0.3.0-beta.** This is a trial edition. It has not been tried in Codex by the person who made it, and there will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md).
 
 **Do you want to build something with AI but don't know where to start, or are you tired of the AI making the same mistakes over and over? Then this is for you.**
 

@@ -1,37 +1,39 @@
-# Ændringer
+# Changelog
 
-Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil, så man kan se, hvilken udgave feedbacken gælder.
+English · [Dansk](CHANGELOG.da.md)
 
-Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
+The version number is in `startkit/VERSION` and is written into your feedback file, so it is clear which edition the feedback is about.
 
-## 0.3.0-beta (november 2026)
+All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
-Kittet findes nu også på engelsk.
+## 0.3.0-beta (November 2026)
 
-- **Engelsk udgave:** dobbeltklik på `install-english.cmd`. Interviewet, vejledningerne, reglerne i `AGENTS.md`, skabelonerne og alle beskeder fra programmerne er på engelsk. `installer.cmd` giver stadig den danske udgave, og den er uændret.
-- De to udgaver deler de samme programmer og de samme regler, så en rettelse gælder begge. Kun teksten er forskellig.
-- I den engelske udgave hedder tre filer i projektet noget andet: `docs/recurring-mistakes.md`, `.startkit/why-was-i-stopped.md` og `overview.cmd`. Programmerne i `scripts/startkit/` har beholdt deres danske navne.
-- Programmerne forstår også engelske flag: `--dry-run`, `--history`, `--5h`, `--week` og `--open`.
-- Rettet: på Mac og Linux blev nøgletjekket før commit ikke kørt, fordi filen ikke var markeret som kørbar.
-- Testene kører nu automatisk på Windows og Linux hos GitHub, hver gang der kommer en ændring.
-- Afsnit om at støtte arbejdet nederst i README, og en Sponsor-knap på GitHub.
-- Den engelske udgave og begge installationer er testet automatisk (installationen på Windows hos GitHub), men den engelske udgave er ikke afprøvet i Codex, og ingen har dobbeltklikket på `install-english.cmd` på en rigtig computer.
+The kit is now available in English too.
 
-## 0.2.0-beta (november 2026)
+- **English edition:** double-click `install-english.cmd`. The interview, the guides, the rules in `AGENTS.md`, the templates and all messages from the programs are in English. `installer.cmd` still gives the Danish edition, and it is unchanged.
+- The two editions share the same programs and the same rules, so a fix applies to both. Only the text is different.
+- In the English edition, three files in the project have different names: `docs/recurring-mistakes.md`, `.startkit/why-was-i-stopped.md` and `overview.cmd`. The programs in `scripts/startkit/` have kept their Danish names.
+- The programs also understand English flags: `--dry-run`, `--history`, `--5h`, `--week` and `--open`.
+- Fixed: on Mac and Linux the key check before commit did not run, because the file was not marked as executable.
+- The tests now run automatically on Windows and Linux at GitHub every time something changes.
+- A section about supporting the work at the bottom of the README, and a Sponsor button on GitHub.
+- The English edition and both installations are tested automatically (the installation on Windows at GitHub), but the English edition has not been tried in Codex, and nobody has double-clicked `install-english.cmd` on a real computer.
 
-Første udgave til flere testere og til undervisning.
+## 0.2.0-beta (November 2026)
 
-- **Installation med dobbeltklik:** `installer.cmd`. Den fortæller, hvad der sker, og spørger om ja, før noget kopieres.
-- **Genvej til overblikket:** `overblik.cmd` i dit projekt åbner overblikssiden i browseren med et dobbeltklik.
-- **Feedback bygget ind:** kittet noterer undervejs, når noget er uklart, stiller fem korte spørgsmål til sidst og samler det i `.startkit/feedback.md`. Det sender aldrig noget selv.
-- **Kort eller fuld vej:** du vælger selv efter introduktionen.
-- **Hjælp fra A til Z:** Git, navn og e-mail i git, Node, Superpowers og en privat sikkerhedskopi på GitHub.
-- **Overblikket vises altid,** og kittet foreslår selv forbedringer ud fra dine svar.
-- `.codex/hooks.json` holdes ude af git, fordi stien i den rummer dit brugernavn på computeren.
-- README skrevet om til nybegyndere, på dansk og engelsk, med ordliste.
-- Vejledning til undervisning: `UNDERVISNING.md` (engelsk: `TEACHING.md`).
-- Skabelon til feedback som sag på GitHub.
+First edition for more testers and for teaching.
 
-## 0.1.0-beta (november 2026)
+- **Installation with a double-click:** `installer.cmd`. It says what will happen, and asks for a yes, before anything is copied.
+- **Shortcut to the overview:** `overblik.cmd` in your project opens the overview page in the browser with a double-click.
+- **Feedback built in:** the kit makes notes along the way when something is unclear, asks five short questions at the end and collects it in `.startkit/feedback.md`. It never sends anything itself.
+- **Short or full path:** you choose yourself after the introduction.
+- **Help from A to Z:** Git, name and email in git, Node, Superpowers and a private backup on GitHub.
+- **The overview is always shown,** and the kit suggests improvements itself based on your answers.
+- `.codex/hooks.json` is kept out of git, because the path in it contains your user name on the computer.
+- README rewritten for beginners, in Danish and English, with a glossary.
+- Guide for teaching: `TEACHING.md` (Danish: `UNDERVISNING.md`).
+- Template for feedback as an issue on GitHub.
 
-Første udgave: introduktion, interview om 8 emner, undersøgelse og plan, det faste fundament (regler, vagt, færdig-tjek, nøgletjek, statusfil) og overblikssiden.
+## 0.1.0-beta (November 2026)
+
+First edition: introduction, interview about 8 topics, research and plan, the fixed foundation (rules, guard, done-check, key check, status file) and the overview page.
