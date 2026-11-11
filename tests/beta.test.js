@@ -15,7 +15,7 @@ tjek("VERSION: findes og er en beta", /^\d+\.\d+\.\d+-beta$/.test(version), vers
 for (const f of ["README.md", "README.da.md"]) {
   tjek(`${f}: siger Beta og versionen øverst`, rod(f).split("\n").slice(0, 8).join("\n").includes(`Beta, version ${version}`));
 }
-tjek("CHANGELOG.md: har den aktuelle version", rod("CHANGELOG.md").includes(`## ${version}`));
+for (const f of ["CHANGELOG.md", "CHANGELOG.da.md"]) tjek(`${f}: har den aktuelle version`, rod(f).includes(`## ${version}`));
 tjek("intro: siger tidligt, at det er en beta", kit("references/intro.md").indexOf("Det er en beta") > 0 && kit("references/intro.md").indexOf("Det er en beta") < kit("references/intro.md").indexOf("Hvad skal du igennem"));
 tjek("forbeholdet står uændret i begge README'er", /\*\*ikke kunnet afprøve det i Codex\*\*/.test(rod("README.da.md")) && /\*\*not been able to try it in Codex\*\*/.test(rod("README.md")));
 
