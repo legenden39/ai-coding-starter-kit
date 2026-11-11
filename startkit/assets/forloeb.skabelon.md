@@ -1,6 +1,8 @@
 # Startkit: hvor langt er vi?
 
-- ⬜ 1 Introduktion
+Vej: (kort eller fuld; ⏳ betyder "venter til den fulde vej")
+
+- ⬜ 1 Introduktion og valg af vej
 - ⬜ 2 Maskinen er klar (git, navn og e-mail i git, Node, modelliste, Superpowers)
 - ⬜ 2b Nøglescan
 - ⬜ 3 Interview (runde A-H)
@@ -11,6 +13,7 @@
 - ⬜ 8 Skræddersyet lag og overblik
 - ⬜ 9 Afslutning og første commit
 - ⬜ 9b Privat sikkerhedskopi på GitHub (kan vælges fra)
+- ⬜ 9c Feedback: fem korte spørgsmål (.startkit/feedback.md)
 
 ## Åbne spørgsmål
 

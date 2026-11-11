@@ -26,6 +26,9 @@ Skill-mappen er den mappe, denne fil ligger i (normalt `~/.agents/skills/startki
 6. **Ærlighed om grænser.** Kittet er bygget om fra en Claude-udgave og er ikke afprøvet i Codex af den, der har lavet det. Virker noget ikke, som der står her, så sig det højt, find årsagen, og notér det i `.startkit/status.md` under "Fejl i kittet".
 7. **Spar selv på tokens.** Læs kun den reference-fil, den aktuelle fase har brug for. Læs ikke hele personens projekt; læs oversigter og de filer, svarene peger på.
 8. **Opdatér `.startkit/status.md`** efter hver fase, så I kan fortsætte en anden dag.
+9. **Gør arbejdet for personen, men vælg aldrig for personen.** Alt, du kan køre selv, kører du selv, så personen skal gøre så lidt som muligt. Men vis altid først, hvad der sker, og få et ja, før noget ændres. Ingen skjulte valg: er der flere muligheder, så læg dem frem, sig hvad du ville vælge og hvorfor, og lad personen bestemme.
+10. **Sig altid næste skridt.** Slut hver besked med, hvad der sker nu, eller hvad personen skal gøre. Skal personen selv gøre noget, så sig præcis hvor der skal klikkes, og hvad der skal skrives.
+11. **Sidder personen fast, så stop op.** Skriver personen "jeg sidder fast", "det forstod jeg ikke" eller noget i den stil, så forklar det igen på en anden måde med et eksempel, og notér det i `.startkit/feedback.md` (se `references/feedback.md`). Kittet er en beta, og de noter er det, der gør det bedre. Du sender aldrig feedback selv.
 
 ## Genoptag (gør altid dette først)
 
@@ -34,6 +37,14 @@ Find projektmappen (arbejdsmappen), sig hvilken, og få et ja. Findes `.startkit
 ## Fase 1: Introduktion (før noget spørgsmål)
 
 Læs `references/intro.md`, og giv personen introduktionen med dine egne ord, kort. Den skal altid nævne, at forløbet koster tokens, og at det er en investering. Interviewet starter først, når personen har sagt ja. Spring aldrig denne fase over.
+
+## Fase 1b: Kort eller fuld vej (personen vælger)
+
+Læg de to veje frem, og lad personen vælge. Du må sige, hvad du ville vælge i personens situation, men du vælger ikke.
+- **Fuld vej** (typisk 1-2 timer, kan deles over flere dage): alt herunder. Giver regler og forslag, der passer til netop denne person.
+- **Kort vej** (typisk 20-40 minutter): tjek af computeren, det faste fundament og overblikket nu; interviewet og undersøgelsen senere. Følg `references/kort-vej.md`.
+
+Skriv valget i `.startkit/status.md`. Personen kan altid skifte til den fulde vej senere med `$startkit`.
 
 ## Fase 2: Er maskinen klar?
 
@@ -89,7 +100,7 @@ Stopper noget ikke, så sig det ærligt, find årsagen (er hooken godkendt i `/h
 
 Sæt nu de forslag op, personen sagde ja til i fase 5, ét ad gangen, med et tjek efter hvert.
 
-Overblikket (kontrolpanelet) er en side, personen åbner i sin browser for at se, hvor projektet står. Vis den altid, også selvom personen ikke har bedt om den: start `node scripts/startkit/overblik.js` i projektet, og bed personen åbne adressen. Forklar hvert felt med én sætning. Foreslå derefter selv 2-3 konkrete forbedringer ud fra det, personen sagde i runde C og H (fx "du sagde, du mister overblik over, hvad der er halvt færdigt: skal det stå øverst?"), og spørg, hvad der mangler, og hvad der er i vejen. Byg kun det, personen siger ja til, og vis kun målte fakta, aldrig gæt.
+Overblikket (kontrolpanelet) er en side, personen åbner i sin browser for at se, hvor projektet står. Vis den altid, også selvom personen ikke har bedt om den: start `node scripts/startkit/overblik.js` i projektet, og bed personen åbne adressen. Vis også genvejen: filen `overblik.cmd` i projektmappen åbner siden med et dobbeltklik, så personen ikke skal huske en kommando. Forklar hvert felt med én sætning. Foreslå derefter selv 2-3 konkrete forbedringer ud fra det, personen sagde i runde C og H (fx "du sagde, du mister overblik over, hvad der er halvt færdigt: skal det stå øverst?"), og spørg, hvad der mangler, og hvad der er i vejen. Byg kun det, personen siger ja til, og vis kun målte fakta, aldrig gæt.
 
 ## Fase 9: Afslutning
 
@@ -99,6 +110,7 @@ Overblikket (kontrolpanelet) er en side, personen åbner i sin browser for at se
 4. Giv en startbesked til næste chat: opgave, hvad der er lavet, færdig når, og hvilken model der passer.
 5. Første commit, efter et ja: kør nøglescan igen, vis med `git status`, hvad der gemmes, og commit.
 6. Sikkerhedskopi på GitHub (anbefales; personen må sige nej): følg `references/github.md`. Den hjælper med konto, skjult e-mail, login og en **privat** kopi. Du opretter kun private lagre, beder aldrig om adgangskoder, og lægger intet op uden et ja.
+7. Feedback (to minutter): følg `references/feedback.md`. Stil de fem korte spørgsmål, saml alt i `.startkit/feedback.md`, kør `node <skill-mappen>/scripts/feedback-tjek.js <projektmappe>`, vis filen, og forklar, hvordan personen selv kan sende den. Du sender aldrig noget selv.
 
 ## Hvis personen går i stå eller bliver træt
 

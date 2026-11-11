@@ -2,6 +2,8 @@
 
 English · [Dansk](README.da.md)
 
+> **Beta, version 0.2.0-beta.** This is a trial edition. It has not been tried in Codex by the person who made it, and there will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md) (in Danish).
+
 **Do you want to build something with AI but don't know where to start, or are you tired of the AI making the same mistakes over and over? Then this is for you.**
 
 You don't need to know how to code, and you don't need to know the words used below. They are explained along the way, and there is a glossary at the bottom.
@@ -32,6 +34,8 @@ The starter kit is a helper you start inside your AI tool. It takes you by the h
 5. **It shows you an overview page** that you open in your browser, and extends it to your wishes.
 6. **It helps you make a private backup** online, so your work does not live on one computer only.
 
+The kit does the work for you, but it never chooses for you. It always shows what will happen first, and waits for your yes.
+
 Afterwards you can start building without having to worry about the mistakes listed above.
 
 ### What you get
@@ -59,6 +63,8 @@ The kit is made for Windows. Mac and Linux are untested.
 
 There are four things you have to do yourself before the starter kit can take over. Expect 15-30 minutes if you start from scratch.
 
+Going to use the kit with a class? See the [guide for teachers](TEACHING.md).
+
 ### Step 1: Get Codex
 
 Codex is OpenAI's tool for building with AI. It is from the same company as ChatGPT, and you sign in with your ChatGPT account. The difference is that Codex can work in the folders on your computer. The ordinary ChatGPT chat in the browser cannot, which is why the starter kit does not work there.
@@ -80,14 +86,19 @@ Not sure whether you have them? Just move on. The starter kit checks and helps y
 
 1. Press the green **Code** button at the top of this page, and choose **Download ZIP**.
 2. Find the file in your "Downloads" folder, right-click it, and choose **Extract All**. Put the folder somewhere you can find again, for example in Documents.
-3. Open the extracted folder. Right-click an empty spot in the folder and choose **Open in Terminal**. A window with text appears. That is the terminal: a place where you type commands instead of clicking.
-4. Copy this line, paste it into the terminal, and press Enter:
+3. Open the extracted folder, and **double-click the file `installer.cmd`** (it may show as just `installer`).
+4. A window with text appears. It tells you what will happen: the folder `startkit` is copied to `C:\Users\<you>\.agents\skills\startkit`, which is where Codex looks for this kind of thing. Nothing else. Type `j` (for "ja", yes) and press Enter to agree.
+5. At the end, the window tells you what the next step is.
 
-   ```
-   powershell -ExecutionPolicy Bypass -File install.ps1
-   ```
+Does Windows say "Windows protected your PC"? That happens with files downloaded from the internet. You can press **More info** and **Run anyway** if you trust the file. It is short, and you can open it in Notepad and read what it does.
 
-   All it does is copy the folder `startkit` to `C:\Users\<you>\.agents\skills\startkit`, which is where Codex looks for this kind of thing. The part `-ExecutionPolicy Bypass` lets Windows run this one file, this one time; it changes no settings. If you would rather avoid the terminal, you can copy the `startkit` folder there by hand.
+<details>
+<summary>Rather not double-click? Two other ways</summary>
+
+- **In the terminal:** right-click an empty spot in the folder, choose **Open in Terminal**, and run `powershell -ExecutionPolicy Bypass -File install.ps1`. The terminal is a window where you type commands instead of clicking. The part `-ExecutionPolicy Bypass` lets Windows run this one file, this one time; it changes no settings.
+- **By hand:** copy the folder `startkit` to `C:\Users\<you>\.agents\skills\`.
+
+</details>
 
 ### Step 4: Start the starter kit
 
@@ -106,16 +117,29 @@ Now the starter kit takes over and tells you what will happen. If it does not sh
 The starter kit asks at most 2-3 things at a time.
 
 1. **Introduction.** You are told what you are about to go through, and why, before a single question is asked.
+   Then you choose your own path: the **short** one (the computer is checked, the safety nets and the overview are set up; typically 20-40 minutes) or the **full** one (everything below; typically 1-2 hours, which can be spread over several days). You can always do the rest later.
 2. **Check of your computer.** If Git, Node or anything else is missing, you are helped through it. You also get help choosing the name and email that are stamped on your work, so you don't end up sharing something you did not mean to.
 3. **Superpowers.** A free add-on for Codex that makes the AI ask questions and make a plan before it builds. The starter kit shows you how to install it. You can do without it.
 4. **Interview** on 8 topics. It is a conversation, not a form: the number of questions is not fixed. If you answer thoroughly, there are fewer. Typically 30-60 minutes.
 5. **Mapping** of what you already have. Nothing is changed.
 6. **Research and plan.** You say yes or no to each proposal.
 7. **The foundation** is set up and tried out in front of you, so you see that the safety nets actually stop something.
-8. **The overview page** is shown, and you get suggestions for what it should show for you in particular.
+8. **The overview page** is shown, and you get suggestions for what it should show for you in particular. Afterwards you open it by double-clicking the file `overblik.cmd` in your project folder.
 9. **Private backup on GitHub.** You are helped with an account, a hidden email and signing in. You can opt out.
+10. **Feedback.** Five short questions, two minutes. See "Give feedback" below.
+
+**Stuck?** Just write "jeg sidder fast" ("I am stuck") or say that you did not understand. The kit then explains it another way.
 
 You can pause at any time. Type `$startkit` again another day, and it continues where you left off. The more detailed your answers, the better the result fits you.
+
+## Give feedback (that is why it is a beta)
+
+The kit takes notes along the way when something is unclear or goes wrong, and at the end it asks five short questions: where did you get stuck, what did you not understand, what was unnecessary, how long did it take, and would you recommend it.
+
+Everything is collected in one file in your project: `.startkit/feedback.md`. **The kit never sends it itself.** You see it first, you may edit it, and you decide whether to send it. There are two ways:
+
+- Send the file (or paste the text) to whoever you got the kit from.
+- Open an issue on GitHub: the **Issues** tab at the top of this page, **New issue**, choose "Beta-feedback". Everything there is public.
 
 ## It costs usage, and that is on purpose
 
@@ -166,8 +190,9 @@ Everything in the kit is open, so anyone can read what it does.
 | `scripts/startkit/faerdig.js` and `bevis.js` | The done-check: "done" requires green proof for the code as it is right now. |
 | `.githooks/pre-commit` | Key check before every commit, and a lock on the length of `AGENTS.md`. |
 | `scripts/startkit/overblik.js` | The overview page on your own computer. |
+| `overblik.cmd` | Shortcut: double-click to open the overview page in your browser. |
 | `.codex/hooks.json` | Tells Codex to run the guard and the done-check. |
-| `.startkit/` | Your profile, the plan, settings, and the explanation "why was I stopped". |
+| `.startkit/` | Your profile, the plan, settings, your feedback, and the explanation "why was I stopped". |
 
 There are two status files, and they are not the same: `STATUS.md` is about your project and is used every day. `.startkit/status.md` is only about how far you are in the kit's own flow, and that is where bugs in the kit are written down.
 
@@ -175,7 +200,7 @@ There are two status files, and they are not the same: `STATUS.md` is about your
 
 ## Remove it again
 
-Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` and the lines under "Tilføjet af startkittet" in `.gitignore` are yours now; keep them or delete them as you like.
+Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overblik.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` and the lines under "Tilføjet af startkittet" in `.gitignore` are yours now; keep them or delete them as you like.
 
 ## What has been tried, and what has not?
 
@@ -186,6 +211,11 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete
 | The setup on an empty project, and that it preserves your own files | Tested automatically |
 | The key check and the length lock with real git | Tested automatically |
 | The overview page | Tested automatically and seen in a browser |
+| The installation (`install.ps1`): asks first, copies only the folder, and does nothing on a no | Tested automatically |
+| The check of the feedback file (finds keys, email addresses and paths with user names) | Tested automatically |
+| Double-clicking `installer.cmd` and `overblik.cmd` on someone else's computer (Windows may warn) | **Not tried** |
+| The short path, the feedback questions and the notes along the way, run through Codex | **Not tried** |
+| The kit used with a class | **Not tried** |
 | That Codex actually runs the hooks the way the documentation describes | **Not tried** |
 | That the guard is also called when Codex edits files (and not only for commands) | **Not tried** |
 | That `$startkit` shows up and follows the phases in Codex | **Not tried** |

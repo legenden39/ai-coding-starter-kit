@@ -87,13 +87,17 @@ function flettGitignore(eksisterende) {
   return (eksisterende ? eksisterende.replace(/\s*$/, "") + "\n\n" : "") + "# Tilføjet af startkittet\n" + mangler.join("\n") + "\n";
 }
 
+// Kittets version står ét sted (filen VERSION) og skrives i feedback-filen, så man kan se, hvilken udgave feedbacken gælder.
+const version = () => (laes(path.join(__dirname, "..", "VERSION")) || "ukendt").trim();
+const feedbackSkabelon = () => laes(path.join(ASSETS, "feedback.skabelon.md")).replace(/\{\{VERSION\}\}/g, version());
+
 // Regner ud, hvad der skal skrives. Skriver intet selv.
 function plan(root, profil) {
   const trin = [];
   const p = (...dele) => path.join(root, ...dele);
   const saet = (rel, indhold, note) => {
     const foer = laes(p(rel));
-    trin.push({ rel, indhold, handling: foer === null ? "ny" : foer === indhold ? "uændret" : "opdateres", note });
+    trin.push({ rel, indhold, handling: foer === null ? "ny" : foer === lf(indhold) ? "uændret" : "opdateres", note });
   };
   const kunHvisMangler = (rel, indhold, note) => {
     if (fs.existsSync(p(rel))) trin.push({ rel, indhold: null, handling: "findes (røres ikke)", note });
@@ -109,6 +113,9 @@ function plan(root, profil) {
   kunHvisMangler(".startkit/status.md", laes(path.join(ASSETS, "forloeb.skabelon.md")), "hvor langt startkittet er");
   kunHvisMangler(".startkit/config.json", JSON.stringify({ tjek: profil.tjek_kommandoer || [], modelguide: [], graense_procent: 85 }, null, 2) + "\n", "hvilke kommandoer beviser, at det virker");
   for (const fil of fs.readdirSync(PROJEKT_SCRIPTS).sort()) saet(`scripts/startkit/${fil}`, laes(path.join(PROJEKT_SCRIPTS, fil)), "vagt, færdig-tjek, bevis og overblik");
+  // Windows-genvej (dobbeltklik). Skrives med CRLF, som .cmd-filer forventer.
+  saet("overblik.cmd", laes(path.join(ASSETS, "overblik.cmd")).replace(/\n/g, "\r\n"), "dobbeltklik for at åbne overblikket i browseren");
+  kunHvisMangler(".startkit/feedback.md", feedbackSkabelon(), "din feedback på startkittet (sendes aldrig automatisk)");
   saet(".githooks/pre-commit", laes(path.join(ASSETS, "pre-commit")), "nøgletjek og længdelås før commit");
   saet(".codex/hooks.json", flettHooks(laes(p(".codex/hooks.json")), root), "tænder vagten og færdig-tjekket i Codex (skal godkendes med /hooks)");
   const gi = flettGitignore(laes(p(".gitignore")));
@@ -148,4 +155,4 @@ function main() {
 }
 
 if (require.main === module) process.exit(main());
-module.exports = { valider, agentsBlok, flettAgents, flettHooks, flettGitignore, plan, voresHooks };
+module.exports = { valider, agentsBlok, flettAgents, flettHooks, flettGitignore, plan, voresHooks, version, feedbackSkabelon };

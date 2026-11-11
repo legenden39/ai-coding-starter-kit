@@ -29,6 +29,8 @@ for (const fil of ["regler.js", "tilstand.js", "vagt.js", "faerdig.js", "bevis.j
   t(`scripts/startkit/${fil} findes`, laes(`scripts/startkit/${fil}`) !== null, "Kør opsætningen igen");
 }
 
+t("Genvejen til overblikket findes (overblik.cmd)", laes("overblik.cmd") !== null, "Kør opsætningen igen");
+
 let hooks = null;
 try { hooks = JSON.parse(laes(".codex/hooks.json")); } catch { /* håndteres nedenfor */ }
 const kommandoer = (event) => ((hooks && hooks.hooks && hooks.hooks[event]) || []).flatMap((g) => (g.hooks || []).map((h) => String(h.command || "")));

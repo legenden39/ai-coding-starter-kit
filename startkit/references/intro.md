@@ -10,7 +10,14 @@ Et startkit, der hjælper dig med at få AI til at arbejde ordentligt for dig: b
 **Hvorfor findes det?**
 De fleste, der bygger med AI, løber ind i de samme ting: AI'en glemmer aftaler fra gang til gang, gentager de samme fejl, siger "færdig" uden at have prøvet det, mapperne roder til, og man ved ikke, hvilken model man skal vælge. Det skyldes sjældent, at man gør noget forkert. Det skyldes, at fundamentet mangler. Det bygger vi nu, én gang.
 
-**Hvad skal du igennem?**
+**Det er en beta (sig det tidligt):**
+Startkittet er en prøveudgave. Du er blandt de første, der bruger det, og din oplevelse er det, der gør det bedre. Skriv når som helst "jeg sidder fast" eller "det her forstod jeg ikke". Så forklarer jeg det på en anden måde, og jeg noterer det. Til sidst stiller jeg fem korte spørgsmål. Intet bliver sendt nogen steder hen uden dig: du ser det hele og bestemmer selv, om du vil sende det.
+
+**Kort eller fuld vej (du vælger):**
+- Fuld vej: alt herunder. Typisk 1-2 timer i alt, og du kan dele det over flere dage. Giver regler og forslag, der passer til netop dig.
+- Kort vej: computeren tjekkes, sikkerhedsnettene og overblikket sættes op, og interviewet venter til senere. Typisk 20-40 minutter, og det bruger langt mindre af dit forbrug.
+
+**Hvad skal du igennem? (den fulde vej)**
 1. Et tjek af, at din computer har det, der skal til. Mangler noget, hjælper jeg dig med at installere det, ét skridt ad gangen (5 minutter, hvis alt er der; mere, hvis noget skal installeres).
 2. Et interview om 8 emner (typisk 30-60 minutter; du kan holde pause når som helst). Det er en samtale, ikke et skema: der er ikke et fast antal spørgsmål. Svarer du grundigt, bliver der færre, og siger du noget, der er værd at forstå bedre, spørger jeg ind til det.
 3. Jeg ser på det, du allerede har, uden at ændre noget.
@@ -47,4 +54,4 @@ Kittet er bygget om fra en udgave til Claude. Den, der har lavet det, bruger ikk
 **Du bestemmer.**
 Jeg ændrer ingenting uden at vise det først og få dit ja. Du kan stoppe når som helst; alt er gemt, og `$startkit` fortsætter, hvor vi slap.
 
-Spørg til sidst: "Skal vi gå i gang?"
+Spørg til sidst: "Skal vi gå i gang, og vil du tage den korte eller den fulde vej?"

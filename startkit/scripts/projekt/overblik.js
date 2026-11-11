@@ -88,8 +88,20 @@ if (require.main === module) {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" });
     res.end(side());
   });
-  server.on("error", (e) => { console.error(e.code === "EADDRINUSE" ? `Port ${PORT} er optaget. Kører overblikket allerede? Prøv http://${HOST}:${PORT}` : e.message); process.exit(1); });
-  server.listen(PORT, HOST, () => console.log(`Overblik kører: http://${HOST}:${PORT}   (stop med Ctrl+C)`));
+  // --aabn: åbn siden i browseren (bruges af genvejen overblik.cmd). Fejler det, står adressen stadig på skærmen.
+  const adresse = `http://${HOST}:${PORT}`;
+  const aabn = () => {
+    if (!process.argv.includes("--aabn")) return;
+    const { spawn } = require("child_process");
+    const [program, args] = process.platform === "win32" ? ["cmd", ["/c", "start", "", adresse]] : process.platform === "darwin" ? ["open", [adresse]] : ["xdg-open", [adresse]];
+    try { spawn(program, args, { stdio: "ignore", detached: true }).on("error", () => {}).unref(); } catch { /* adressen står på skærmen */ }
+  };
+  server.on("error", (e) => {
+    if (e.code === "EADDRINUSE") { console.error(`Port ${PORT} er optaget. Kører overblikket allerede? Prøv ${adresse}`); aabn(); }
+    else console.error(e.message);
+    process.exit(1);
+  });
+  server.listen(PORT, HOST, () => { console.log(`Overblik kører: ${adresse}   (luk vinduet, eller tryk Ctrl+C, for at stoppe)`); aabn(); });
 }
 
 module.exports = { side };

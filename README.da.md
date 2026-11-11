@@ -2,6 +2,8 @@
 
 [English](README.md) · Dansk
 
+> **Beta, version 0.2.0-beta.** Det her er en prøveudgave. Den er ikke afprøvet i Codex af den, der har lavet den, og der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.md).
+
 **Vil du bygge noget med AI, men ved ikke, hvor du skal starte, eller er du træt af, at AI'en laver de samme fejl igen og igen? Så er det her til dig.**
 
 Du behøver ikke kunne kode, og du behøver ikke kende de ord, der bliver brugt herunder. De bliver forklaret undervejs, og der er en ordliste nederst.
@@ -30,6 +32,8 @@ Startkittet er en hjælper, du starter inde i dit AI-værktøj. Den tager dig i 
 5. **Den viser dig en overbliksside,** som du åbner i din browser, og bygger den til efter dine ønsker.
 6. **Den hjælper dig med en privat sikkerhedskopi** på nettet, så dit arbejde ikke kun ligger på én computer.
 
+Kittet gør arbejdet for dig, men det vælger aldrig for dig. Det viser altid først, hvad der sker, og venter på dit ja.
+
 Bagefter kan du gå i gang med at bygge, uden at skulle være bange for de fejl, der står øverst.
 
 ### Det får du
@@ -57,6 +61,8 @@ Kittet er lavet til Windows. Mac og Linux er ikke afprøvet.
 
 Der er fire ting, du selv skal gøre, før startkittet kan tage over. Regn med 15-30 minutter, hvis du starter helt fra bunden.
 
+Skal du bruge kittet på et hold? Se [vejledningen til undervisere](UNDERVISNING.md).
+
 ### Trin 1: Få Codex
 
 Codex er OpenAI's værktøj til at bygge med AI. Det er det samme firma som ChatGPT, og du logger ind med din ChatGPT-konto. Forskellen er, at Codex kan arbejde i mapperne på din computer. Det kan den almindelige ChatGPT-chat i browseren ikke, og derfor virker startkittet ikke dér.
@@ -78,14 +84,19 @@ Er du i tvivl, om du har dem? Spring bare videre. Startkittet tjekker det og hj�
 
 1. Tryk på den grønne knap **Code** øverst på denne side, og vælg **Download ZIP**.
 2. Find filen i din mappe "Overførsler", højreklik på den, og vælg **Udpak alle**. Læg mappen et sted, du kan finde igen, fx i Dokumenter.
-3. Åbn den udpakkede mappe. Højreklik et tomt sted i mappen, og vælg **Åbn i Terminal**. Der kommer et vindue med tekst. Det er terminalen: et sted, hvor man skriver kommandoer i stedet for at klikke.
-4. Kopiér denne linje, sæt den ind i terminalen, og tryk Enter:
+3. Åbn den udpakkede mappe, og **dobbeltklik på filen `installer.cmd`** (den kan også hedde bare `installer`).
+4. Der kommer et vindue med tekst. Det fortæller, hvad der sker: mappen `startkit` bliver kopieret til `C:\Users\<dig>\.agents\skills\startkit`, som er dér, Codex leder efter den slags. Intet andet. Skriv `j`, og tryk Enter for at sige ja.
+5. Vinduet fortæller dig til sidst, hvad næste skridt er.
 
-   ```
-   powershell -ExecutionPolicy Bypass -File install.ps1
-   ```
+Siger Windows "Windows beskyttede din pc"? Det sker med filer, der er hentet fra nettet. Du kan trykke **Flere oplysninger** og **Kør alligevel**, hvis du stoler på filen. Den er kort, og du kan åbne den i Notesblok og læse, hvad den gør.
 
-   Det eneste, den gør, er at kopiere mappen `startkit` til `C:\Users\<dig>\.agents\skills\startkit`, som er dér, Codex leder efter den slags. Delen `-ExecutionPolicy Bypass` giver Windows lov til at køre netop denne ene fil, denne ene gang; den ændrer ingen indstillinger. Vil du hellere undgå terminalen, kan du kopiere mappen `startkit` derhen i hånden.
+<details>
+<summary>Hellere uden dobbeltklik? To andre måder</summary>
+
+- **I terminalen:** højreklik et tomt sted i mappen, vælg **Åbn i Terminal**, og kør `powershell -ExecutionPolicy Bypass -File install.ps1`. Terminalen er et vindue, hvor man skriver kommandoer i stedet for at klikke. Delen `-ExecutionPolicy Bypass` giver Windows lov til at køre netop denne ene fil, denne ene gang; den ændrer ingen indstillinger.
+- **I hånden:** kopiér mappen `startkit` til `C:\Users\<dig>\.agents\skills\`.
+
+</details>
 
 ### Trin 4: Start startkittet
 
@@ -104,16 +115,29 @@ Nu tager startkittet over og fortæller dig, hvad der skal ske. Dukker den ikke 
 Startkittet taler dansk og spørger højst om 2-3 ting ad gangen.
 
 1. **Introduktion.** Du får at vide, hvad du skal igennem, og hvorfor, før der kommer et eneste spørgsmål.
+   Derefter vælger du selv vej: den **korte** (computeren tjekkes, sikkerhedsnettene og overblikket sættes op; typisk 20-40 minutter) eller den **fulde** (alt herunder; typisk 1-2 timer, som kan deles over flere dage). Du kan altid tage resten senere.
 2. **Tjek af computeren.** Mangler Git, Node eller noget andet, bliver du hjulpet igennem. Du får også hjælp til at vælge det navn og den e-mail, der bliver stemplet på dit arbejde, så du ikke kommer til at dele noget, du ikke ville.
 3. **Superpowers.** Det er en gratis tilføjelse til Codex, som får AI'en til at stille spørgsmål og lægge en plan, før den bygger. Startkittet viser dig, hvordan du installerer den. Den kan undværes.
 4. **Interview** om 8 emner. Det er en samtale, ikke et skema: antallet af spørgsmål er ikke fast. Svarer du grundigt, bliver der færre. Typisk 30-60 minutter.
 5. **Kortlægning** af det, du allerede har. Der bliver ikke ændret noget.
 6. **Undersøgelse og plan.** Du siger ja eller nej til hvert forslag.
 7. **Fundamentet** sættes op og prøves for øjnene af dig, så du ser, at sikkerhedsnettene faktisk stopper noget.
-8. **Overblikssiden** vises, og du får forslag til, hvad den skal vise for netop dig.
+8. **Overblikssiden** vises, og du får forslag til, hvad den skal vise for netop dig. Bagefter åbner du den ved at dobbeltklikke på filen `overblik.cmd` i din projektmappe.
 9. **Privat sikkerhedskopi på GitHub.** Du bliver hjulpet med konto, skjult e-mail og login. Den kan vælges fra.
+10. **Feedback.** Fem korte spørgsmål, to minutter. Se "Giv feedback" herunder.
+
+**Sidder du fast?** Skriv bare "jeg sidder fast" eller "det her forstod jeg ikke". Så forklarer kittet det på en anden måde.
 
 Du kan holde pause når som helst. Skriv `$startkit` igen en anden dag, så fortsætter den, hvor du slap. Jo mere uddybende du svarer, jo bedre passer resultatet til dig.
+
+## Giv feedback (det er derfor, det er en beta)
+
+Kittet noterer undervejs, når noget er uklart eller går galt, og til sidst stiller det fem korte spørgsmål: hvor gik du i stå, hvad forstod du ikke, hvad var overflødigt, hvor lang tid tog det, og ville du anbefale det.
+
+Det hele samles i én fil i dit projekt: `.startkit/feedback.md`. **Kittet sender den aldrig selv.** Du ser den først, du må rette i den, og du bestemmer, om du vil sende den. Der er to måder:
+
+- Send filen (eller kopiér teksten) til den, du fik kittet fra.
+- Opret en sag på GitHub: fanen **Issues** øverst på denne side, **New issue**, vælg "Beta-feedback". Alt dér er offentligt.
 
 ## Det koster forbrug, og det er meningen
 
@@ -164,8 +188,9 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 | `scripts/startkit/faerdig.js` og `bevis.js` | Færdig-tjekket: "færdig" kræver et grønt bevis for den kode, der ligger der nu. |
 | `.githooks/pre-commit` | Nøgletjek før hver commit, og en lås på længden af `AGENTS.md`. |
 | `scripts/startkit/overblik.js` | Overblikssiden på din egen computer. |
+| `overblik.cmd` | Genvej: dobbeltklik for at åbne overblikssiden i browseren. |
 | `.codex/hooks.json` | Fortæller Codex, at vagten og færdig-tjekket skal køres. |
-| `.startkit/` | Din profil, planen, indstillinger og forklaringen "hvorfor blev jeg stoppet". |
+| `.startkit/` | Din profil, planen, indstillinger, din feedback og forklaringen "hvorfor blev jeg stoppet". |
 
 Der er to statusfiler, og de er ikke det samme: `STATUS.md` handler om dit projekt og bliver brugt hver dag. `.startkit/status.md` handler kun om, hvor langt du er i startkittets eget forløb, og det er dér, fejl i kittet skrives ned.
 
@@ -173,7 +198,7 @@ Der er to statusfiler, og de er ikke det samme: `STATUS.md` handler om dit proje
 
 ## Fjern det igen
 
-Slet mappen `C:\Users\<dig>\.agents\skills\startkit`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json`, fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
+Slet mappen `C:\Users\<dig>\.agents\skills\startkit`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json`, fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, slet `overblik.cmd`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
 
 ## Hvad er afprøvet, og hvad er ikke?
 
@@ -184,6 +209,11 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit`. I et projekt: slet `script
 | Opsætningen på et tomt projekt, og at den bevarer dine egne filer | Testet automatisk |
 | Nøgletjekket og længdelåsen med rigtig git | Testet automatisk |
 | Overblikssiden | Testet automatisk og set i en browser |
+| Installationen (`install.ps1`): spørger først, kopierer kun mappen, og gør intet ved et nej | Testet automatisk |
+| Tjekket af feedback-filen (finder nøgler, e-mailadresser og stier med brugernavn) | Testet automatisk |
+| Dobbeltklik på `installer.cmd` og `overblik.cmd` på en fremmed computer (Windows kan advare) | **Ikke afprøvet** |
+| Den korte vej, feedback-spørgsmålene og noterne undervejs, kørt gennem Codex | **Ikke afprøvet** |
+| Kittet brugt på et hold | **Ikke afprøvet** |
 | At Codex faktisk kører hooks'ene, som dokumentationen beskriver | **Ikke afprøvet** |
 | At vagten også bliver kaldt, når Codex retter filer (og ikke kun ved kommandoer) | **Ikke afprøvet** |
 | At `$startkit` dukker op og følger faserne i Codex | **Ikke afprøvet** |
