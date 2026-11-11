@@ -1,0 +1,22 @@
+# Kører alle kittets test på Windows og Linux, hver gang der kommer en ændring.
+# Windows-kørslen afprøver også selve installationen (install.ps1) på dansk og engelsk.
+name: Test
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tests/run.js
