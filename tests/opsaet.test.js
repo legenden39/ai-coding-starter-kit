@@ -135,7 +135,7 @@ tjek("intro: siger, at forløbet koster tokens og er en investering", /koster to
 // Den private ordliste (.privat-ordliste.txt, ét ord pr. linje) ligger kun på din egen computer og
 // gemmes aldrig i git. Dér skriver du navne, der ikke må slippe med ud. Findes filen ikke, springes den del over.
 const EMAIL = /[A-Za-z0-9._%+-]+@(?!example\.com|users\.noreply\.github\.com)[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}/;
-const BRUGERMAPPE = /[A-Za-z]:[\\/]Users[\\/](?!<dig>)[^\\/\s]|\/home\/[A-Za-z0-9]/;
+const BRUGERMAPPE = /[A-Za-z]:[\\/]Users[\\/](?!<dig>|<you>)[^\\/\s]|\/home\/[A-Za-z0-9]/;
 const ORDLISTE = ".privat-ordliste.txt";
 let privateOrd = [];
 try { privateOrd = fs.readFileSync(path.join(KIT, "..", ORDLISTE), "utf8").split(/\r?\n/).map((l) => l.trim().toLowerCase()).filter((l) => l && !l.startsWith("#")); } catch { /* ingen privat ordliste */ }

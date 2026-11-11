@@ -1,111 +1,115 @@
-# Startkit til ChatGPT (Codex)
+# AI Coding Starter Kit (ChatGPT / Codex edition)
 
-Et startkit, der hjælper dig med at få AI til at arbejde ordentligt for dig: bedre kvalitet, en hurtigere arbejdsgang, overblik hele tiden og færre spildte tokens.
+English · [Dansk](README.da.md)
 
-Det er ikke en færdig pakke. Kittet interviewer dig, undersøger de bedste løsninger til netop dine problemer, og bygger et fundament ud fra dine svar.
+A starter kit that helps you get AI to work properly for you: better quality, a faster workflow, a clear overview at all times, and fewer wasted tokens.
 
-Det er et uofficielt hobbyprojekt. Det har ikke noget med OpenAI at gøre.
+It is not a ready-made package. The kit interviews you, researches the best solutions to your particular problems, and builds a foundation from your answers.
 
-## Læs det her først (ærligt forbehold)
+This is an unofficial hobby project. It is not affiliated with OpenAI.
 
-Kittet er bygget om fra en udgave til Claude. Den, der har lavet det, bruger ikke ChatGPT og har derfor **ikke kunnet afprøve det i Codex**. De enkelte dele er testet hver for sig (se nederst), men hele forløbet er ikke kørt igennem i Codex af et menneske. Der kan derfor være fejl.
+## Read this first (honest caveats)
 
-Støder du på en, så bed Codex skrive den i `.startkit/status.md` under "Fejl i kittet", og meld den gerne tilbage (se "Meld en fejl" nederst), så kittet kan blive bedre.
+**The kit itself speaks Danish.** This README is in English, but the interview, the rules it writes, and the messages from its scripts are in Danish for now. An English edition is planned. Until then, the kit is only useful if you read Danish.
 
-## Hvad du skal bruge
+**It has not been tried in Codex.** The kit was rebuilt from an edition made for Claude. The person who made it does not use ChatGPT and has therefore **not been able to try it in Codex**. The individual parts are tested separately (see below), but the whole flow has not been run through in Codex by a human. So there may be bugs.
 
-- **Codex** (OpenAI's værktøj til at bygge med; det følger med dit ChatGPT-abonnement). Enten appen på computeren eller terminal-udgaven. Kittet virker ikke i den almindelige ChatGPT-chat i browseren, fordi den ikke kan arbejde i dine mapper.
-- **Git** (git-scm.com) og **Node** (nodejs.org, vælg LTS). Mangler de, hjælper kittet dig med det.
-- Windows er det, kittet er lavet til. Mac og Linux er ikke afprøvet.
+If you hit one, ask Codex to write it down in `.startkit/status.md` under "Fejl i kittet" ("Bugs in the kit"), and please report it (see "Report a bug" below) so the kit can get better.
 
-## Installér (3 trin)
+## What you need
 
-1. Hent projektet: tryk på den grønne knap **Code** øverst på GitHub-siden, vælg **Download ZIP**, og pak filen ud et sted, fx i Dokumenter. (Kender du git, kan du klone det i stedet.)
-2. Højreklik i mappen, vælg "Åbn i Terminal", og kør:
+- **Codex** (OpenAI's tool for building with AI; it comes with your ChatGPT subscription). Either the desktop app or the terminal version. The kit does not work in the ordinary ChatGPT chat in the browser, because that cannot work in your folders.
+- **Git** (git-scm.com) and **Node** (nodejs.org, choose LTS). If they are missing, the kit helps you install them.
+- The kit is made for Windows. Mac and Linux are untested.
+
+## Install (3 steps)
+
+1. Get the project: press the green **Code** button at the top of the GitHub page, choose **Download ZIP**, and unpack the file somewhere, for example in Documents. (If you know git, you can clone it instead.)
+2. Right-click in the folder, choose "Open in Terminal", and run:
 
    ```
    powershell -ExecutionPolicy Bypass -File install.ps1
    ```
 
-   Scriptet kopierer mappen `startkit` til `C:\Users\<dig>\.agents\skills\startkit`. Det er det eneste, det gør. `-ExecutionPolicy Bypass` giver Windows lov til at køre netop dette ene script, denne ene gang; det ændrer ingen indstillinger. Scriptet er kort, så læs det gerne først. Du kan også bare kopiere mappen derhen selv.
-3. Åbn Codex i den projektmappe, du vil arbejde i, og skriv:
+   The script copies the folder `startkit` to `C:\Users\<you>\.agents\skills\startkit`. That is all it does. `-ExecutionPolicy Bypass` lets Windows run this one script, this one time; it changes no settings. The script is short, so feel free to read it first. You can also just copy the folder there yourself.
+3. Open Codex in the project folder you want to work in, and type:
 
    ```
    $startkit
    ```
 
-   Dukker den ikke op, så genstart Codex, eller find den under Skills (`/skills`).
+   If it does not show up, restart Codex, or find it under Skills (`/skills`).
 
-**Anbefalet:** installér også Superpowers, hvis du kan finde det hos dig (i appen: Plugins i sidemenuen; i terminalen: `/plugins`). Det giver bedre brainstorming og planlægning, og kittet bruger det, hvis det er der. Kittet virker også uden.
+**Recommended:** also install Superpowers, if you can find it in your Codex (in the app: Plugins in the side menu; in the terminal: `/plugins`). It gives better brainstorming and planning, and the kit uses it if it is there. The kit also works without it.
 
-## Hvad der sker, når du starter
+## What happens when you start
 
-1. **Introduktion.** Du får at vide, hvad du skal igennem, og hvorfor, før der kommer et eneste spørgsmål.
-2. **Tjek af computeren** (git, Node, hvilke modeller du har).
-3. **Interview** om 8 emner, 2-3 spørgsmål ad gangen. Det er en samtale, ikke et skema: antallet af spørgsmål er ikke fast. Svarer du grundigt, bliver der færre, og siger du noget, der er værd at forstå bedre, bliver der spurgt ind til det. Typisk 30-60 minutter. Du kan holde pause når som helst; `$startkit` fortsætter, hvor du slap.
-4. **Kortlægning** af det, du allerede har. Der bliver ikke ændret noget.
-5. **Undersøgelse og plan.** Kittet undersøger løsninger på dine problemer og lægger forslag frem. Du siger ja eller nej til hvert.
-6. **Det faste fundament** sættes op og prøves sammen med dig.
-7. **Dit overblik** bygges efter dine ønsker.
+1. **Introduction.** You are told what you are about to go through, and why, before a single question is asked.
+2. **Check of your computer** (git, Node, which models you have).
+3. **Interview** on 8 topics, 2-3 questions at a time. It is a conversation, not a form: the number of questions is not fixed. If you answer thoroughly there are fewer, and if you say something worth understanding better, you get follow-up questions. Typically 30-60 minutes. You can pause at any time; `$startkit` continues where you left off.
+4. **Mapping** of what you already have. Nothing is changed.
+5. **Research and plan.** The kit researches solutions to your problems and presents proposals. You say yes or no to each.
+6. **The fixed foundation** is set up and tried out together with you.
+7. **Your overview** is built to your wishes.
 
-Jo mere uddybende du svarer, jo bedre passer resultatet til dig.
+The more detailed your answers, the better the result fits you.
 
-## Det koster tokens, og det er meningen
+## It costs tokens, and that is on purpose
 
-At køre kittet igennem bruger en del af dit forbrug: interviewet er en lang samtale, og undersøgelsen bagefter læser kilder på nettet. Se det som en investering. Du bruger tokens én gang på at bygge fundamentet, og bagefter sparer du dem hver dag, fordi du ikke skal forklare det samme forfra, rette de samme fejl igen eller bruge en dyr model til en enkel opgave.
+Running the kit uses a fair share of your usage: the interview is a long conversation, and the research afterwards reads sources on the web. See it as an investment. You spend tokens once on building the foundation, and afterwards you save them every day, because you do not have to explain the same things again, fix the same mistakes again, or use an expensive model for a simple task.
 
-Tjek dit forbrug (`/status`), før du starter. Du kan dele forløbet over flere dage; alt bliver gemt, så intet skal gentages.
+Check your usage (`/status`) before you start. You can spread the flow over several days; everything is saved, so nothing has to be repeated.
 
-## Hvad du får i dit projekt
+## What you get in your project
 
-| Fil | Hvad den gør |
+| File | What it does |
 |---|---|
-| `AGENTS.md` | Korte, faste regler, som AI'en læser i hver chat. Dine egne linjer røres ikke. |
-| `STATUS.md` | Hvor du er: nu, sidst lavet, næste skridt, åbne problemer. Bærer viden fra gang til gang. |
-| `docs/gentagne-fejl.md` | Fejl, der ikke må ske igen, og om de er låst af en hook eller test. |
-| `scripts/startkit/vagt.js` | Vagten: stopper nøgler i kode, sletning af arbejde, og at kontroller springes over. |
-| `scripts/startkit/faerdig.js` og `bevis.js` | Færdig-tjekket: "færdig" kræver et grønt bevis for den kode, der ligger der nu. |
-| `.githooks/pre-commit` | Nøgletjek før hver commit, og en lås på længden af `AGENTS.md`. |
-| `scripts/startkit/overblik.js` | En lille side på din egen computer, der viser, hvor projektet står. |
-| `.codex/hooks.json` | Fortæller Codex, at vagten og færdig-tjekket skal køres. |
-| `.startkit/` | Din profil, planen, indstillinger og forklaringen "hvorfor blev jeg stoppet". |
+| `AGENTS.md` | Short, fixed rules that the AI reads in every chat. Your own lines are not touched. |
+| `STATUS.md` | Where you are: now, last done, next step, open problems. Carries knowledge from one session to the next. |
+| `docs/gentagne-fejl.md` | Mistakes that must not happen again, and whether they are locked by a hook or a test. |
+| `scripts/startkit/vagt.js` | The guard: stops keys in code, deletion of work, and skipping of checks. |
+| `scripts/startkit/faerdig.js` and `bevis.js` | The done-check: "done" requires green proof for the code as it is right now. |
+| `.githooks/pre-commit` | Key check before every commit, and a lock on the length of `AGENTS.md`. |
+| `scripts/startkit/overblik.js` | A small page on your own computer that shows where the project stands. |
+| `.codex/hooks.json` | Tells Codex to run the guard and the done-check. |
+| `.startkit/` | Your profile, the plan, settings, and the explanation "why was I stopped". |
 
-Der er to statusfiler, og de er ikke det samme: `STATUS.md` handler om dit projekt og bliver brugt hver dag. `.startkit/status.md` handler kun om, hvor langt du er i startkittets eget forløb, og det er dér, fejl i kittet skrives ned.
+There are two status files, and they are not the same: `STATUS.md` is about your project and is used every day. `.startkit/status.md` is only about how far you are in the kit's own flow, and that is where bugs in the kit are written down.
 
-**Hvad kittet gør med dine data:** Kittets scripts sender ingenting nogen steder hen. Nøgletjekket læser dine filer på din egen computer for at finde nøgler, der ligger forkert, men det viser kun filnavn og slags, og det gemmer eller sender aldrig en nøgle. I undersøgelsesfasen søger Codex på nettet, sådan som Codex ellers gør; det sker gennem din egen Codex og ikke gennem kittet.
+**What the kit does with your data:** The kit's scripts send nothing anywhere. The key check reads your files on your own computer to find keys that are in the wrong place, but it only shows the file name and the kind of key, and it never stores or sends a key. In the research phase, Codex searches the web the way Codex normally does; that happens through your own Codex, not through the kit.
 
-**Lægger du dit projekt på GitHub:** `.codex/hooks.json` indeholder den fulde sti til projektmappen, og den rummer typisk dit brugernavn på computeren (`C:\Users\<dig>\...`). Vil du ikke dele det, så hold filen ude af git ved at skrive `.codex/hooks.json` i din `.gitignore`. Stien passer alligevel kun til din egen computer.
+**If you put your project on GitHub:** `.codex/hooks.json` contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). If you do not want to share that, keep the file out of git by adding `.codex/hooks.json` to your `.gitignore`. The path only fits your own computer anyway.
 
-## Fjern det igen
+## Remove it again
 
-Slet mappen `C:\Users\<dig>\.agents\skills\startkit`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json`, fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
+Delete the folder `C:\Users\<you>\.agents\skills\startkit`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` and the lines under "Tilføjet af startkittet" in `.gitignore` are yours now; keep them or delete them as you like.
 
-## Hvad er afprøvet, og hvad er ikke?
+## What has been tried, and what has not?
 
-| Del | Status |
+| Part | Status |
 |---|---|
-| Vagtens regler (hvad tillades og afvises) | Testet automatisk |
-| Vagten og færdig-tjekket kørt som programmer med den slags input, Codex ifølge dokumentationen sender | Testet automatisk |
-| Opsætningen på et tomt projekt, og at den bevarer dine egne filer | Testet automatisk |
-| Nøgletjekket og længdelåsen med rigtig git | Testet automatisk |
-| Overblikssiden | Testet automatisk og set i en browser |
-| At Codex faktisk kører hooks'ene, som dokumentationen beskriver | **Ikke afprøvet** |
-| At vagten også bliver kaldt, når Codex retter filer (og ikke kun ved kommandoer) | **Ikke afprøvet** |
-| At `$startkit` dukker op og følger faserne i Codex | **Ikke afprøvet** |
-| Installationen på en anden computer end den, kittet er lavet på | **Ikke afprøvet** |
-| Hele forløbet med et rigtigt menneske | **Ikke afprøvet** |
-| Mac og Linux | **Ikke afprøvet** |
+| The guard's rules (what is allowed and what is refused) | Tested automatically |
+| The guard and the done-check run as programs with the kind of input Codex sends according to the documentation | Tested automatically |
+| The setup on an empty project, and that it preserves your own files | Tested automatically |
+| The key check and the length lock with real git | Tested automatically |
+| The overview page | Tested automatically and seen in a browser |
+| That Codex actually runs the hooks the way the documentation describes | **Not tried** |
+| That the guard is also called when Codex edits files (and not only for commands) | **Not tried** |
+| That `$startkit` shows up and follows the phases in Codex | **Not tried** |
+| Installation on a computer other than the one the kit was made on | **Not tried** |
+| The whole flow with a real person | **Not tried** |
+| Mac and Linux | **Not tried** |
 
-Kør testene selv med `node tests/run.js` (kræver git og Node).
+Run the tests yourself with `node tests/run.js` (requires git and Node).
 
-Fakta om Codex (hvor skills og hooks ligger, hvordan en hook svarer, grænser for `AGENTS.md`) er slået op i OpenAI's egen dokumentation i november 2026. Ændrer OpenAI noget, kan dele af kittet holde op med at virke.
+Facts about Codex (where skills and hooks live, how a hook responds, limits for `AGENTS.md`) were looked up in OpenAI's own documentation in November 2026. If OpenAI changes something, parts of the kit may stop working.
 
-## Meld en fejl
+## Report a bug
 
-Opret en sag under fanen **Issues** her på GitHub-siden. Skriv tre ting: hvad du gjorde, hvad der skete, og hvad du havde forventet. Kopiér gerne det, der står under "Fejl i kittet" i din `.startkit/status.md`.
+Open an issue under the **Issues** tab here on the GitHub page. Write three things: what you did, what happened, and what you expected. Feel free to copy what is under "Fejl i kittet" in your `.startkit/status.md`. English and Danish are both fine.
 
-Skriv aldrig nøgler, adgangskoder eller personlige oplysninger i en sag; alt dér er offentligt. Tjek også, at det, du kopierer ind, ikke indeholder stier med dit brugernavn, hvis du ikke vil dele det.
+Never write keys, passwords or personal information in an issue; everything there is public. Also check that what you paste does not contain paths with your user name, if you do not want to share it.
 
-## Licens
+## License
 
-MIT. Du må bruge, ændre og dele kittet frit, så længe licensteksten følger med. Se filen `LICENSE`. Kittet kommer uden garanti.
+MIT. You may use, change and share the kit freely, as long as the license text is included. See the file `LICENSE`. The kit comes with no warranty.
