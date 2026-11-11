@@ -1,8 +1,8 @@
-// Vagtens regler. Rene funktioner uden bivirkninger, så de kan testes uden Codex.
+// Vagtens regler. Rene funktioner uden bivirkninger, så de kan testes uden et AI-værktøj.
 //
 //   decide({tool_name, tool_input}) → {decision: "allow" | "deny", reason}
 //
-// Codex kan ikke vise en godkend-knap fra en hook, så der findes kun "tillad" og "afvis".
+// Der findes kun "tillad" og "afvis" (Codex kan ikke vise en godkend-knap fra en hook, og reglerne er fælles for Codex og Claude Code).
 // Hver afvisning siger, hvordan ejeren selv gør det, hvis det er med vilje.
 // Ærlig grænse: mønstre på kommandotekst kan omgås. Vagten er et sikkerhedsnet, ikke en mur.
 const path = require("path");
@@ -20,6 +20,7 @@ function normSti(p) {
 // Kittets egne kontroller: AI'en må ikke ændre dem (så kunne den slå dem fra).
 const BESKYTTET = [
   /(^|\/)\.codex\/(hooks\.json|config\.toml)$/,
+  /(^|\/)\.claude\/settings(\.local)?\.json$/,
   /(^|\/)scripts\/startkit(\/|$)/,
   /(^|\/)\.githooks(\/|$)/,
   /(^|\/)\.git\/hooks(\/|$)/,
@@ -27,6 +28,7 @@ const BESKYTTET = [
 ];
 const BESKYTTET_I_TEKST = [
   /\.codex\/(hooks\.json|config\.toml)/,
+  /\.claude\/settings(\.local)?\.json/,
   /scripts\/startkit\b/,
   /\.githooks\b/,
   /\.git\/hooks\b/,
@@ -140,7 +142,7 @@ function shellRegler(command) {
   return null;
 }
 
-// ---------- filændringer (apply_patch) ----------
+// ---------- filændringer (apply_patch i Codex; Edit, Write m.fl. i Claude Code) ----------
 
 function patchFiler(tekst) {
   const filer = [];
@@ -168,10 +170,16 @@ function decide(input = {}) {
   const ti = input.tool_input || {};
   const tekst = somTekst(ti.command ?? ti.input ?? ti.patch ?? "");
   const fund = [];
-  const erPatchVaerktoej = /^(apply_patch|Edit|Write)$/.test(navn);
+  // Claude Code læser og søger med egne værktøjer. De må gerne se kittets kontroller, men aldrig en .env-fil.
+  if (/^(Read|Grep|Glob)$/.test(navn)) {
+    const f = [ti.file_path, ti.path].filter(Boolean).find(erEnvFil);
+    return f ? deny("vagt.env.fil", { f }) : allow();
+  }
+  const erPatchVaerktoej = /^(apply_patch|Edit|Write|MultiEdit|NotebookEdit)$/.test(navn);
   if (erPatchVaerktoej || /^\*\*\* Begin Patch/m.test(tekst) || ti.file_path) {
-    const filer = [...patchFiler(tekst), ti.file_path].filter(Boolean);
-    const indhold = [patchTilfoejet(tekst), ti.content, ti.new_string].filter(Boolean).join("\n");
+    const filer = [...patchFiler(tekst), ti.file_path, ti.notebook_path].filter(Boolean);
+    const flere = Array.isArray(ti.edits) ? ti.edits.map((e) => e && e.new_string) : [];
+    const indhold = [patchTilfoejet(tekst), ti.content, ti.new_string, ti.new_source, ...flere].filter(Boolean).join("\n");
     fund.push(filRegler(filer, indhold));
   }
   if (!erPatchVaerktoej) fund.push(shellRegler(tekst));

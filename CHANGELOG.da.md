@@ -6,6 +6,17 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## 0.4.0-beta (november 2026)
+
+Kittet findes nu også til Claude Code.
+
+- **Udgave til Claude Code:** dobbeltklik på `installer-claude.cmd` (dansk) eller `install-claude-english.cmd` (engelsk). Kittet lægges i `.claude\skills`, startes med `/startkit`, og sætter `CLAUDE.md` og `.claude/settings.local.json` op i stedet for `AGENTS.md` og `.codex/hooks.json`. `installer.cmd` og `install-english.cmd` giver stadig udgaven til Codex, og den er uændret.
+- De to udgaver deler de samme programmer og de samme regler, så en rettelse gælder begge. Vejledningerne til Claude Code laves ud fra dem til Codex (`node tools/byg-claude.js`), og en test stopper, hvis de kommer ud af trit.
+- I Claude Code kaldes vagten også, når AI'en vil læse en fil med sit eget værktøj, så en `.env`-fil ikke kan læses uden om den.
+- Vagten beskytter nu også Claude Codes indstillinger (`.claude/settings.json` og `.claude/settings.local.json`), i begge udgaver. I udgaven til Claude Code gælder længdelåsen `CLAUDE.md` i stedet for `AGENTS.md`.
+- Prøvet i Claude Code 2.1.322 i en terminal på Linux: vagten stopper `git commit --no-verify`, skrivning og læsning af `.env`, færdig-tjekket kræver et bevis, og `/startkit` begynder med introduktionen.
+- Ikke afprøvet: udgaven til Claude Code på Windows og i Claudes app, dobbeltklik på de to nye installationsfiler, og hele forløbet med et rigtigt menneske.
+
 ## 0.3.0-beta (november 2026)
 
 Kittet findes nu også på engelsk.

@@ -1,8 +1,8 @@
-# AI Coding Starter Kit (udgaven til ChatGPT / Codex)
+# AI Coding Starter Kit (til ChatGPT / Codex og til Claude Code)
 
 [English](README.md) · Dansk
 
-> **Beta, version 0.3.0-beta.** Det her er en prøveudgave. Den er ikke afprøvet i Codex af den, der har lavet den, og der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
+> **Beta, version 0.4.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
 
 **Vil du bygge noget med AI, men ved ikke, hvor du skal starte, eller er du træt af, at AI'en laver de samme fejl igen og igen? Så er det her til dig.**
 
@@ -49,9 +49,28 @@ Bagefter kan du gå i gang med at bygge, uden at skulle være bange for de fejl,
 | En overbliksside | Én side i din browser, der viser, hvor projektet står lige nu. |
 | En privat sikkerhedskopi | Dit projekt ligger også på GitHub, hvor kun du kan se det. |
 
+## Codex eller Claude Code?
+
+Kittet findes til to AI-værktøjer: **Codex** (fra OpenAI, firmaet bag ChatGPT) og **Claude Code** (fra Anthropic, firmaet bag Claude). Du vælger, når du installerer. Forløbet, reglerne og programmerne er de samme; kun navnene på nogle filer og kommandoer er forskellige.
+
+Resten af denne side er skrevet med Codex' navne. Bruger du Claude Code, så læs "Codex" som "Claude Code", og brug denne tabel:
+
+| Ting | Codex | Claude Code |
+|---|---|---|
+| Fil, du dobbeltklikker på for at installere (dansk) | `installer.cmd` | `installer-claude.cmd` |
+| Fil, du dobbeltklikker på for at installere (engelsk) | `install-english.cmd` | `install-claude-english.cmd` |
+| Mappen, kittet bliver kopieret til | `C:\Users\<dig>\.agents\skills\startkit` | `C:\Users\<dig>\.claude\skills\startkit` |
+| Det, du skriver for at starte kittet | `$startkit` | `/startkit` |
+| Filen med de faste regler i dit projekt | `AGENTS.md` | `CLAUDE.md` |
+| Filen, der tænder vagten og færdig-tjekket | `.codex/hooks.json` | `.claude/settings.local.json` |
+| Se dit forbrug | `/status` | `/usage` |
+| Ny chat | `/new` | `/clear` |
+
 ## Læs det her først (ærligt forbehold)
 
 Kittet er bygget om fra en udgave til Claude. Den, der har lavet det, bruger ikke ChatGPT og har derfor **ikke kunnet afprøve det i Codex**. De enkelte dele er testet hver for sig (se nederst), men hele forløbet er ikke kørt igennem i Codex af et menneske. Der kan derfor være fejl, og knapper kan sidde et andet sted, end der står her.
+
+Udgaven til Claude Code er bygget ud fra udgaven til Codex. Dens sikkerhedsnet (vagten, færdig-tjekket og reglerne i `CLAUDE.md`) og selve starten med `/startkit` er prøvet i Claude Code i en terminal på Linux. Den er ikke prøvet på Windows eller i Claudes app, og heller ikke dér er hele forløbet kørt igennem af et menneske.
 
 Støder du på en fejl, så bed Codex skrive den ned (den ved, hvor), og meld den gerne tilbage. Se "Meld en fejl" nederst. Det gør kittet bedre for den næste.
 
@@ -63,13 +82,24 @@ Der er fire ting, du selv skal gøre, før startkittet kan tage over. Regn med 1
 
 Skal du bruge kittet på et hold? Se [vejledningen til undervisere](UNDERVISNING.md).
 
-### Trin 1: Få Codex
+### Trin 1: Få Codex eller Claude Code
+
+Du skal kun bruge det ene. Har du allerede et abonnement på ChatGPT eller Claude, så vælg det værktøj, der hører til.
+
+**Codex**
 
 Codex er OpenAI's værktøj til at bygge med AI. Det er det samme firma som ChatGPT, og du logger ind med din ChatGPT-konto. Forskellen er, at Codex kan arbejde i mapperne på din computer. Det kan den almindelige ChatGPT-chat i browseren ikke, og derfor virker startkittet ikke dér.
 
 - Hent appen til Windows via OpenAI's egen vejledning: [learn.chatgpt.com/codex/quickstart](https://learn.chatgpt.com/codex/quickstart).
 - Åbn den, og log ind med din ChatGPT-konto.
 - Hvilke abonnementer der giver adgang, og hvor meget forbrug du har, står på OpenAI's prisside. Det ændrer sig, så tjek det dér.
+
+**Claude Code**
+
+Claude Code er Anthropics værktøj til at bygge med AI. Det er det samme firma som Claude, og du logger ind med din Claude-konto. Ligesom Codex kan Claude Code arbejde i mapperne på din computer. Det kan den almindelige Claude-chat i browseren ikke, og derfor virker startkittet ikke dér.
+
+- Hent appen til Windows på [claude.com/download](https://claude.com/download), åbn den, og log ind med din Claude-konto. Claude Code er fanen **Code** i appen.
+- Claude Code kræver et betalt abonnement. Hvilke der giver adgang, og hvor meget forbrug du har, står på [claude.com/pricing](https://claude.com/pricing). Det ændrer sig, så tjek det dér.
 
 ### Trin 2: Få Git og Node
 
@@ -84,8 +114,8 @@ Er du i tvivl, om du har dem? Spring bare videre. Startkittet tjekker det og hj�
 
 1. Hent kittet: **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**. Linket giver dig altid den nyeste udgave.
 2. Find filen i din mappe "Overførsler", højreklik på den, og vælg **Udpak alle**. Læg mappen et sted, du kan finde igen, fx i Dokumenter.
-3. Åbn den udpakkede mappe, og **dobbeltklik på filen `installer.cmd`** (den kan også hedde bare `installer`). Filen ved siden af, `install-english.cmd`, installerer den engelske udgave i stedet.
-4. Der kommer et vindue med tekst. Det fortæller, hvad der sker: mappen `startkit` bliver kopieret til `C:\Users\<dig>\.agents\skills\startkit`, som er dér, Codex leder efter den slags. Intet andet. Skriv `j`, og tryk Enter for at sige ja.
+3. Åbn den udpakkede mappe, og **dobbeltklik på filen `installer.cmd`** (den kan også hedde bare `installer`). Bruger du Claude Code, så dobbeltklik på **`installer-claude.cmd`** i stedet. De to filer, der hedder noget med `english`, installerer den engelske udgave.
+4. Der kommer et vindue med tekst. Det fortæller, hvad der sker: mappen `startkit` bliver kopieret til `C:\Users\<dig>\.agents\skills\startkit`, som er dér, Codex leder efter den slags (til Claude Code: `C:\Users\<dig>\.claude\skills\startkit`). Intet andet. Skriv `j`, og tryk Enter for at sige ja.
 5. Vinduet fortæller dig til sidst, hvad næste skridt er.
 
 Siger Windows "Windows beskyttede din pc"? Det sker med filer, der er hentet fra nettet. Du kan trykke **Flere oplysninger** og **Kør alligevel**, hvis du stoler på filen. Den er kort, og du kan åbne den i Notesblok og læse, hvad den gør.
@@ -93,16 +123,16 @@ Siger Windows "Windows beskyttede din pc"? Det sker med filer, der er hentet fra
 <details>
 <summary>Hellere uden dobbeltklik? To andre måder</summary>
 
-- **I terminalen:** højreklik et tomt sted i mappen, vælg **Åbn i Terminal**, og kør `powershell -ExecutionPolicy Bypass -File install.ps1`. Terminalen er et vindue, hvor man skriver kommandoer i stedet for at klikke. Delen `-ExecutionPolicy Bypass` giver Windows lov til at køre netop denne ene fil, denne ene gang; den ændrer ingen indstillinger.
-- **I hånden:** kopiér mappen `startkit` til `C:\Users\<dig>\.agents\skills\`.
+- **I terminalen:** højreklik et tomt sted i mappen, vælg **Åbn i Terminal**, og kør `powershell -ExecutionPolicy Bypass -File install.ps1` (til Claude Code: tilføj `-Vaerktoej claude` til sidst). Terminalen er et vindue, hvor man skriver kommandoer i stedet for at klikke. Delen `-ExecutionPolicy Bypass` giver Windows lov til at køre netop denne ene fil, denne ene gang; den ændrer ingen indstillinger.
+- **I hånden:** kopiér mappen `startkit` til `C:\Users\<dig>\.agents\skills\`. Til Claude Code: kopiér den til `C:\Users\<dig>\.claude\skills\` i stedet, kopiér så `startkit\claude\SKILL.claude.md` hen over `startkit\SKILL.md`, og lav filen `startkit\scripts\projekt\vaerktoej.json` med indholdet `{"vaerktoej": "claude"}`.
 
 </details>
 
 ### Trin 4: Start startkittet
 
 1. Lav en mappe til det, du vil bygge (eller brug en, du allerede har). Har du ikke en idé endnu, så lav bare en tom mappe, der hedder fx `mit-foerste-projekt`.
-2. Åbn Codex, og åbn den mappe som projekt.
-3. Skriv dette i chatten, og tryk Enter:
+2. Åbn Codex, og åbn den mappe som projekt. I Claude Code: vælg mappen, før du starter en chat (i en terminal: åbn mappen, og skriv `claude`).
+3. Skriv dette i chatten, og tryk Enter (i Claude Code skriver du `/startkit` i stedet):
 
    ```
    $startkit
@@ -164,6 +194,7 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 | Ord | Betyder |
 |---|---|
 | **Codex** | OpenAI's værktøj til at bygge med AI. Kan arbejde i mapperne på din computer. |
+| **Claude Code** | Anthropics værktøj til at bygge med AI. Kan også arbejde i mapperne på din computer. |
 | **Terminal** | Et vindue, hvor man skriver kommandoer i stedet for at klikke. |
 | **Git** | Et program, der gemmer hver udgave af dine filer, så du kan gå tilbage. |
 | **Commit** | At gemme en udgave i git. Som at trykke "gem" for hele projektet på én gang. |
@@ -181,7 +212,7 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 
 | Fil | Hvad den gør |
 |---|---|
-| `AGENTS.md` | Korte, faste regler, som AI'en læser i hver chat. Dine egne linjer røres ikke. |
+| `AGENTS.md` (i Claude Code: `CLAUDE.md`) | Korte, faste regler, som AI'en læser i hver chat. Dine egne linjer røres ikke. |
 | `STATUS.md` | Hvor du er: nu, sidst lavet, næste skridt, åbne problemer. |
 | `docs/gentagne-fejl.md` | Fejl, der ikke må ske igen, og om de er låst af en hook eller test. |
 | `scripts/startkit/vagt.js` | Vagten: stopper nøgler i kode, sletning af arbejde, og at kontroller springes over. |
@@ -189,16 +220,16 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 | `.githooks/pre-commit` | Nøgletjek før hver commit, og en lås på længden af `AGENTS.md`. |
 | `scripts/startkit/overblik.js` | Overblikssiden på din egen computer. |
 | `overblik.cmd` | Genvej: dobbeltklik for at åbne overblikssiden i browseren. |
-| `.codex/hooks.json` | Fortæller Codex, at vagten og færdig-tjekket skal køres. |
+| `.codex/hooks.json` (i Claude Code: `.claude/settings.local.json`) | Fortæller Codex eller Claude Code, at vagten og færdig-tjekket skal køres. |
 | `.startkit/` | Din profil, planen, indstillinger, din feedback og forklaringen "hvorfor blev jeg stoppet". |
 
 Der er to statusfiler, og de er ikke det samme: `STATUS.md` handler om dit projekt og bliver brugt hver dag. `.startkit/status.md` handler kun om, hvor langt du er i startkittets eget forløb, og det er dér, fejl i kittet skrives ned.
 
-`.codex/hooks.json` indeholder den fulde sti til projektmappen, og den rummer typisk dit brugernavn på computeren (`C:\Users\<dig>\...`). Startkittet holder derfor filen ude af git, så den ikke kommer med, hvis du deler projektet. Stien passer alligevel kun til din egen computer. `.startkit/profil.json` rummer dine svar fra interviewet; du bliver spurgt, om den skal med i sikkerhedskopien.
+`.codex/hooks.json` (og `.claude/settings.local.json` i Claude Code) indeholder den fulde sti til projektmappen, og den rummer typisk dit brugernavn på computeren (`C:\Users\<dig>\...`). Startkittet holder derfor filen ude af git, så den ikke kommer med, hvis du deler projektet. Stien passer alligevel kun til din egen computer. `.startkit/profil.json` rummer dine svar fra interviewet; du bliver spurgt, om den skal med i sikkerhedskopien.
 
 ## Fjern det igen
 
-Slet mappen `C:\Users\<dig>\.agents\skills\startkit`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json`, fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, slet `overblik.cmd`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
+Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<dig>\.claude\skills\startkit`). Herunder står Codex' filnavne; i Claude Code hedder de to filer `.claude/settings.local.json` og `CLAUDE.md`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json`, fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, slet `overblik.cmd`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
 
 ## Hvad er afprøvet, og hvad er ikke?
 
@@ -213,6 +244,14 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit`. I et projekt: slet `script
 | Tjekket af feedback-filen (finder nøgler, e-mailadresser og stier med brugernavn) | Testet automatisk |
 | Den engelske udgave: opsætningen, vagten, nøgletjekket, beviset og overblikssiden med engelsk tekst | Testet automatisk |
 | Installationen på begge sprog, kørt på Windows hos GitHub, hver gang noget ændres | Testet automatisk |
+| Udgaven til Claude Code: opsætningen, vagten og færdig-tjekket med den slags input, Claude Code sender, på begge sprog | Testet automatisk |
+| At vejledningerne til Claude Code passer til dem til Codex (de laves ud fra dem) | Testet automatisk |
+| Installationen til Claude Code på begge sprog, kørt på Windows hos GitHub | Testet automatisk |
+| At Claude Code faktisk kører vagten (ved kommandoer, når den retter filer, og når den vil læse en `.env`-fil) og færdig-tjekket | Prøvet i Claude Code 2.1.322 i en terminal på Linux |
+| At `/startkit` dukker op i Claude Code og begynder med introduktionen | Prøvet i Claude Code 2.1.322 i en terminal på Linux |
+| Udgaven til Claude Code på Windows og i Claudes app | **Ikke afprøvet** |
+| Dobbeltklik på `installer-claude.cmd` og `install-claude-english.cmd` på en rigtig computer | **Ikke afprøvet** |
+| Hjælpen til at installere Superpowers i Claude Code | **Ikke afprøvet** |
 | Dobbeltklik på `install-english.cmd` på en rigtig computer | **Ikke afprøvet** |
 | Den engelske udgave kørt gennem Codex med et rigtigt menneske | **Ikke afprøvet** |
 | Dobbeltklik på `installer.cmd` og `overblik.cmd` på en fremmed computer (Windows kan advare) | **Ikke afprøvet** |
@@ -224,12 +263,12 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit`. I et projekt: slet `script
 | Hjælpen til at installere Git, Node og Superpowers, sådan som den ser ud i Codex | **Ikke afprøvet** |
 | Hjælpen til sikkerhedskopi på GitHub, kørt gennem Codex | **Ikke afprøvet** |
 | Installationen på en anden computer end den, kittet er lavet på | **Ikke afprøvet** |
-| Hele forløbet med et rigtigt menneske | **Ikke afprøvet** |
+| Hele forløbet med et rigtigt menneske (hverken i Codex eller i Claude Code) | **Ikke afprøvet** |
 | Mac og Linux | **Ikke afprøvet** |
 
 Kør testene selv med `node tests/run.js` (kræver git og Node).
 
-Fakta om Codex, GitHub og Superpowers (hvor skills og hooks ligger, hvordan en hook svarer, grænser for `AGENTS.md`, hvor knapperne sidder) er slået op i udgivernes egen dokumentation i november 2026. Ændrer de noget, kan dele af kittet holde op med at passe.
+Fakta om Codex, Claude Code, GitHub og Superpowers (hvor skills og hooks ligger, hvordan en hook svarer, grænser for `AGENTS.md`, hvor knapperne sidder) er slået op i udgivernes egen dokumentation i november 2026. Ændrer de noget, kan dele af kittet holde op med at passe.
 
 ## Meld en fejl
 
@@ -245,4 +284,4 @@ Har det sparet dig tid, og vil du gerne hjælpe med, at der kommer flere værkt�
 
 ## Licens
 
-MIT. Du må bruge, ændre og dele kittet frit, så længe licensteksten følger med. Se filen `LICENSE`. Kittet kommer uden garanti. Det er et uofficielt hobbyprojekt og har ikke noget med OpenAI at gøre.
+MIT. Du må bruge, ændre og dele kittet frit, så længe licensteksten følger med. Se filen `LICENSE`. Kittet kommer uden garanti. Det er et uofficielt hobbyprojekt og har ikke noget med OpenAI eller Anthropic at gøre.

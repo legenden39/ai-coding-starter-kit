@@ -8,6 +8,7 @@ Denne side er til dig, der vil bruge startkittet med et hold, fx 10-20 deltagere
 
 - **Det er en beta.** Der vil være ting, der ikke virker som beskrevet.
 - **Kittet er ikke afprøvet i Codex** af den, der har lavet det. De enkelte dele er testet automatisk, men hele forløbet er ikke kørt igennem i Codex af et menneske. Se tabellen "Hvad er afprøvet, og hvad er ikke?" i [README](README.da.md).
+- **Kittet findes til Codex og til Claude Code.** Denne side er skrevet med Codex' navne. Bruger holdet Claude Code, så skal deltagerne have en Claude-konto med adgang til Claude Code, de installerer med `installer-claude.cmd`, starter med `/startkit` og ser forbrug med `/usage`. Tabellen "Codex eller Claude Code?" i [README](README.da.md) viser resten. Udgaven til Claude Code er ny og er ikke afprøvet på Windows. Lad helst hele holdet bruge det samme værktøj, så er det lettere at hjælpe.
 - **Det er ikke afprøvet på et hold.** Tidsplanen herunder er et skøn, ikke en erfaring.
 - Kittet er lavet til Windows. Mac og Linux er ikke afprøvet.
 

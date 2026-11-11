@@ -1,6 +1,6 @@
-// Færdig-tjekket: Codex kører dette script, når den vil stoppe (hook: Stop).
+// Færdig-tjekket: AI-værktøjet (Codex eller Claude Code) kører dette script, når AI'en vil stoppe (hook: Stop).
 // Er koden ændret i denne chat, og findes der ikke et grønt bevis for netop den kode,
-// bliver Codex bedt om at køre beviset først. Den bliver højst bedt om det én gang pr. stop,
+// bliver AI'en bedt om at køre beviset først. Den bliver højst bedt om det én gang pr. stop,
 // så den aldrig kan hænge fast i en løkke.
 const fs = require("fs");
 const path = require("path");

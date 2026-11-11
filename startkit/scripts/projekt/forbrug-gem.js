@@ -1,4 +1,4 @@
-// Gemmer de forbrugstal, du selv læser af (skriv /status i Codex), så overblikket kan vise dem.
+// Gemmer de forbrugstal, du selv læser af (skriv /status i Codex eller /usage i Claude Code), så overblikket kan vise dem.
 //
 //   node scripts/startkit/forbrug-gem.js --5t 40 --uge 12
 //

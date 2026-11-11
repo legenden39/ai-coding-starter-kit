@@ -12,7 +12,7 @@ function git(cwd, ...args) {
 const rod = (cwd) => git(cwd || process.cwd(), "rev-parse", "--show-toplevel");
 
 // Det her tæller ikke som kode: tekst, billeder, kittets egne mapper og låsefiler.
-const IKKE_KODE = /(^|\/)(docs|\.startkit|\.codex|\.githooks|node_modules)\/|\.(md|txt|png|jpe?g|gif|webp|svg|ico|pdf|lock)$|(^|\/)package-lock\.json$/i;
+const IKKE_KODE = /(^|\/)(docs|\.startkit|\.codex|\.claude|\.githooks|node_modules)\/|\.(md|txt|png|jpe?g|gif|webp|svg|ico|pdf|lock)$|(^|\/)package-lock\.json$/i;
 
 // Et fingeraftryk af al kode i projektet (gemt og ikke gemt). Det er det samme før og efter en commit,
 // så et grønt bevis ikke bliver ugyldigt, bare fordi arbejdet bliver gemt i git.

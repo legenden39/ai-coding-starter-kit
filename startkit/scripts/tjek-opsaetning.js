@@ -2,12 +2,12 @@
 //
 //   node tjek-opsaetning.js <projektmappe>
 //
-// Det her kan scriptet IKKE se: om hooks er godkendt i Codex (/hooks), og om de faktisk bliver kørt.
+// Det her kan scriptet IKKE se: om hooks er godkendt (Codex) eller indlæst (Claude Code), og om de faktisk bliver kørt.
 // Det prøves i startkittets fase 7.
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
-const { t: tekst, fil, laesConfig } = require("./projekt/tekster");
+const { t: tekst, fil, laesConfig, vt } = require("./projekt/tekster");
 
 const root = path.resolve(process.argv[2] || process.cwd());
 const p = (...dele) => path.join(root, ...dele);
@@ -21,7 +21,7 @@ const t = (navn, ok, hjaelp) => tjek.push({ navn, ok: !!ok, hjaelp });
 t(tekst("tj.git"), git("rev-parse", "--is-inside-work-tree") === "true", tekst("tj.git.h"));
 t(tekst("tj.node"), Number(process.versions.node.split(".")[0]) >= 18, tekst("tj.node.h"));
 
-const agents = laes("AGENTS.md");
+const agents = laes(vt("regelfil"));
 t(tekst("tj.agents"), agents && agents.includes("<!-- startkit:start") && agents.includes("<!-- startkit:slut -->"), igen);
 t(tekst("tj.agents.kort"), agents && agents.split("\n").length <= 80, tekst("tj.agents.kort.h"));
 t(tekst("tj.findes", { fil: "STATUS.md" }), laes("STATUS.md") !== null, igen);
@@ -34,7 +34,7 @@ for (const navn of ["regler.js", "tekster.js", "tilstand.js", "vagt.js", "faerdi
 t(tekst("tj.genvej", { fil: fil("genvej") }), laes(fil("genvej")) !== null, igen);
 
 let hooks = null;
-try { hooks = JSON.parse(laes(".codex/hooks.json")); } catch { /* håndteres nedenfor */ }
+try { hooks = JSON.parse(laes(vt("hookfil"))); } catch { /* håndteres nedenfor */ }
 const kommandoer = (event) => ((hooks && hooks.hooks && hooks.hooks[event]) || []).flatMap((g) => (g.hooks || []).map((h) => String(h.command || "")));
 const peger = (event, fil) => kommandoer(event).some((k) => { const m = k.match(/"([^"]+)"/); return m && m[1].endsWith(`scripts/startkit/${fil}`) && fs.existsSync(m[1]); });
 t(tekst("tj.hooks"), hooks, tekst("tj.hooks.h"));
