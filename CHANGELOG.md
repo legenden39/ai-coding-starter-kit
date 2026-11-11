@@ -13,7 +13,7 @@ The kit is now available for Claude Code too.
 - **Edition for Claude Code:** double-click `install-claude-english.cmd` (English) or `installer-claude.cmd` (Danish). The kit goes into `.claude\skills`, is started with `/startkit`, and sets up `CLAUDE.md` and `.claude/settings.local.json` instead of `AGENTS.md` and `.codex/hooks.json`. `install-english.cmd` and `installer.cmd` still give the edition for Codex, and it is unchanged.
 - The two editions share the same programs and the same rules, so a fix applies to both. The guides for Claude Code are made from those for Codex (`node tools/byg-claude.js`), and a test stops if they drift apart.
 - In Claude Code the guard is also called when the AI wants to read a file with its own tool, so a `.env` file cannot be read around it.
-- The guard now also protects Claude Code's settings (`.claude/settings.json` and `.claude/settings.local.json`), and the length lock also covers `CLAUDE.md`. This applies to both editions.
+- The guard now also protects Claude Code's settings (`.claude/settings.json` and `.claude/settings.local.json`), in both editions. In the edition for Claude Code the length lock covers `CLAUDE.md` instead of `AGENTS.md`.
 - Tried in Claude Code 2.1.322 in a terminal on Linux: the guard stops `git commit --no-verify`, writing and reading of `.env`, the done-check requires proof, and `/startkit` begins with the introduction.
 - Not tried: the edition for Claude Code on Windows and in the Claude app, double-clicking the two new installation files, and the whole flow with a real person.
 

@@ -248,6 +248,12 @@ r = koer("node", [OPSAET, rod], { vaerktoej: "ingen" });
 const codexHooks = JSON.parse(laes(rod, ".codex/hooks.json") || "{}");
 tjek("Codex er standard: AGENTS.md og .codex/hooks.json som før, og ingen Claude-filer", r.kode === 0 && laes(rod, "AGENTS.md") !== null && codexHooks.hooks.PreToolUse[0].matcher === "Bash|apply_patch|Edit|Write" && laes(rod, "CLAUDE.md") === null && laes(rod, ".claude/settings.local.json") === null && laes(rod, "scripts/startkit/vaerktoej.json") === null && /Codex/.test(laes(rod, ".startkit/hvorfor-blev-jeg-stoppet.md")), r.ud + r.fejl);
 
+skriv(rod, "CLAUDE.md", Array.from({ length: 120 }, (_, i) => `- min egen regel ${i}`).join("\n") + "\n");
+git(rod, "config", "core.hooksPath", ".githooks");
+git(rod, "add", "-A");
+r = koer("git", ["commit", "-q", "-m", "egen lang CLAUDE.md"], { cwd: rod, vaerktoej: "ingen" });
+tjek("Codex-projekt: personens egen lange CLAUDE.md stopper ikke en commit (kun kittets egen regelfil låses)", r.kode === 0, r.ud + r.fejl);
+
 // ---- installationen ----
 const ps1 = laes(ROD, "install.ps1") || "";
 const cmdDa = laes(ROD, "installer-claude.cmd") || "", cmdEn = laes(ROD, "install-claude-english.cmd") || "";

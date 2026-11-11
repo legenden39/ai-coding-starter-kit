@@ -77,18 +77,19 @@ else
   done < "$tmp.filer"
 
   # Længdelås: en lang regelfil (AGENTS.md i Codex, CLAUDE.md i Claude Code) koster tokens i hver chat, og de vigtige regler drukner.
-  for regelfil in AGENTS.md CLAUDE.md; do
-    if [ "$mode" = "hook" ] && grep -qx "$regelfil" "$tmp.filer"; then
-      linjer=$(git show ":$regelfil" | wc -l | tr -d ' ')
-      if [ "$linjer" -gt 80 ]; then
-        echo "" >&2
-        sig "COMMIT STOPPET: $regelfil er på $linjer linjer (højst 80)." "COMMIT STOPPED: $regelfil is $linjer lines long (80 at most)." >&2
-        sig "Flyt forklaringer til docs/, og lad kun de faste regler blive. Se .startkit/hvorfor-blev-jeg-stoppet.md." "Move explanations to docs/, and keep only the fixed rules. See .startkit/why-was-i-stopped.md." >&2
-        echo "" >&2
-        exit 1
-      fi
+  # Kun kittets egen regelfil låses: en CLAUDE.md i et Codex-projekt (eller omvendt) er personens egen.
+  regelfil="AGENTS.md"
+  grep -qs '"claude"' "$(git rev-parse --show-toplevel 2>/dev/null)/scripts/startkit/vaerktoej.json" && regelfil="CLAUDE.md"
+  if [ "$mode" = "hook" ] && grep -qx "$regelfil" "$tmp.filer"; then
+    linjer=$(git show ":$regelfil" | wc -l | tr -d ' ')
+    if [ "$linjer" -gt 80 ]; then
+      echo "" >&2
+      sig "COMMIT STOPPET: $regelfil er på $linjer linjer (højst 80)." "COMMIT STOPPED: $regelfil is $linjer lines long (80 at most)." >&2
+      sig "Flyt forklaringer til docs/, og lad kun de faste regler blive. Se .startkit/hvorfor-blev-jeg-stoppet.md." "Move explanations to docs/, and keep only the fixed rules. See .startkit/why-was-i-stopped.md." >&2
+      echo "" >&2
+      exit 1
     fi
-  done
+  fi
 fi
 
 if [ -s "$tmp.fund" ]; then
