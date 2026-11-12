@@ -15,7 +15,9 @@ A self-test of the guard, an extra layer for secret files, and installation as a
 - **Plugin for Claude Code:** the kit can be installed with two commands inside Claude Code (`/plugin marketplace add legenden39/ai-coding-starter-kit` and `/plugin install startkit@ai-coding-starter-kit`), without the ZIP file. The double-click installation works as before. The plugin folders are made from the source (`node tools/byg-plugin.js`), and a test stops if they drift apart.
 - If you set the kit up with an older version, run the setup again in the project to get the self-test and the deny rules.
 - Tried in Claude Code 2.1.322 on Linux: the self-test, the deny rules, and plugin installation from a local copy of the repository.
-- Not tried: plugin installation straight from GitHub, and everything new on Windows.
+- Tried after the release, in Claude Code 2.1.322 on Linux: plugin installation straight from GitHub, in both languages.
+- Tested automatically after the release: plugin installation in the real Claude Code at GitHub, on Windows and Linux (`node tests/plugin-installation.js`).
+- Not tried: the self-test and the deny rules in Claude Code on Windows, and `/startkit` from the plugin on Windows.
 
 ## 0.4.0-beta (November 2026)
 

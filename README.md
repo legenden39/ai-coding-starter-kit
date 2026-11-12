@@ -282,7 +282,9 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Use
 | That Claude Code's own deny rules stop reading of `.env`, even without the guard | Tried in Claude Code 2.1.322 on Linux |
 | The plugin edition: that the folders match the source, and that an installed copy sets up correctly in both languages | Tested automatically |
 | The plugin edition installed with `/plugin` from a local copy of the repository, and started with `/startkit` | Tried in Claude Code 2.1.322 on Linux |
-| The plugin edition installed straight from GitHub, and the plugin edition on Windows | **Not tried** |
+| The plugin edition installed straight from GitHub with `claude plugin marketplace add` and `claude plugin install`, both languages: the installed folders are identical to the ones in the repository | Tried in Claude Code 2.1.322 on Linux |
+| The plugin edition installed in the real Claude Code at GitHub, on Windows and Linux, every time something changes: both plugins install, and a project is set up from the installed copy | Tested automatically |
+| The plugin edition started with `/startkit` on Windows | **Not tried** |
 | The edition for Claude Code on Windows and in the Claude app | **Not tried** |
 | Double-clicking `installer-claude.cmd` and `install-claude-english.cmd` on a real computer | **Not tried** |
 | The help with installing Superpowers in Claude Code | **Not tried** |
