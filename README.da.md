@@ -2,7 +2,7 @@
 
 [English](README.md) · Dansk
 
-> **Beta, version 0.6.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
+> **Beta, version 0.7.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
 
 **Vil du bygge noget med AI, men ved ikke, hvor du skal starte, eller er du træt af, at AI'en laver de samme fejl igen og igen? Så er det her til dig.**
 
@@ -232,6 +232,7 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 | `scripts/startkit/overblik.js` | Overblikssiden på din egen computer. |
 | `overblik.cmd` | Genvej: dobbeltklik for at åbne overblikssiden i browseren. |
 | `.codex/hooks.json` (i Claude Code: `.claude/settings.local.json`) | Fortæller Codex eller Claude Code, at vagten og færdig-tjekket skal køres. |
+| `scripts/startkit/fortryd.js` og `.startkit/saadan-fortryder-du.md` | Fortryd-hjælpen: i starten af hver chat tages der automatisk et gemmepunkt af dine filer, og programmet henter dem tilbage. Siden forklarer hvordan. |
 | `.startkit/` | Din profil, planen, indstillinger, din feedback og forklaringen "hvorfor blev jeg stoppet". |
 
 Der er to statusfiler, og de er ikke det samme: `STATUS.md` handler om dit projekt og bliver brugt hver dag. `.startkit/status.md` handler kun om, hvor langt du er i startkittets eget forløb, og det er dér, fejl i kittet skrives ned.
@@ -260,6 +261,10 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<di
 | Installationen til Claude Code på begge sprog, kørt på Windows hos GitHub | Testet automatisk |
 | At Claude Code faktisk kører vagten (ved kommandoer, når den retter filer, og når den vil læse en `.env`-fil) og færdig-tjekket | Prøvet i Claude Code 2.1.322 i en terminal på Linux |
 | At `/startkit` dukker op i Claude Code og begynder med introduktionen | Prøvet i Claude Code 2.1.322 i en terminal på Linux |
+| Gemmepunkter og fortryd: at arbejde, der ikke er gemt i git, kommer med, at `.env` aldrig gør, at intet slettes, og at en fortrydelse kan fortrydes | Testet automatisk |
+| At Claude Code selv finder gemmepunktet og henter en ødelagt fil tilbage ved at følge fortryd-siden | Prøvet i Claude Code 2.1.322 på Linux |
+| At statusfilen læses ind automatisk, når en chat begynder i Claude Code | Testet automatisk, og prøvet i Claude Code 2.1.322 på Linux |
+| Gemmepunkter og fortryd på Windows, og gemmepunkter i Codex | **Ikke afprøvet** |
 | Selvtesten: at tjekket af opsætningen viser, om Claude Code faktisk kalder vagten | Testet automatisk, og prøvet i Claude Code 2.1.322 på Linux |
 | At Claude Codes egne forbudsregler stopper læsning af `.env`, også uden vagten | Prøvet i Claude Code 2.1.322 på Linux |
 | Plugin-udgaven: at mapperne passer til kilden, og at en installeret kopi sætter op rigtigt på begge sprog | Testet automatisk |

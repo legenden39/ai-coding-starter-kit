@@ -12,6 +12,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { git, rod, laesPuls } = require("./tilstand");
+const gemmepunkt = require("./gemmepunkt");
 const { t, fil, laesConfig } = require("./tekster");
 
 const HOST = "127.0.0.1";
@@ -38,6 +39,11 @@ function bevis() {
   if (!b) return `<p class="lille">${t("ov.intet.bevis")}</p>`;
   const farve = t(b.ok ? (b.ingenTjek ? "ov.gult" : "ov.groent") : "ov.roedt");
   return `<p>${t("ov.seneste.bevis")} <b>${esc(farve)}</b> <span class="lille">(${esc(tid(b.at))})</span></p>${liste((b.resultater || []).map((x) => `${x.ok ? "✅" : "❌"} ${x.kommando}`), "")}`;
+}
+
+function gemmepunkter() {
+  const alle = gemmepunkt.liste(REPO);
+  return `<p class="lille">${alle.length ? t("ov.gp.ja", { tid: esc(tid(alle[0].at)), antal: alle.length }) : t("ov.gp.nej")}</p>`;
 }
 
 // Har AI-værktøjet faktisk kaldt vagten? (Se tilstand.js: pulsen.)
@@ -78,7 +84,7 @@ code,pre{background:#eee;padding:1px 4px;border-radius:3px}ul{margin:.3rem 0;pad
 ${erGit ? "" : `<p class="advarsel">${t("ov.ikke.git.endnu")}</p>`}
 ${erGit && !hookTil ? `<p class="advarsel">${t("ov.hook.fra")}</p>` : ""}
 <h2>${t("ov.h.hvor")}</h2><div class="kort">${status()}</div>
-<h2>${t("ov.h.aendringer")}</h2><div class="kort">${erGit ? `<p>${t("ov.gren")} <b>${esc(gren)}</b></p>${liste(aendret, t("ov.alt.gemt"))}` : `<p class="lille">${t("ov.ikke.git")}</p>`}</div>
+<h2>${t("ov.h.aendringer")}</h2><div class="kort">${erGit ? `<p>${t("ov.gren")} <b>${esc(gren)}</b></p>${liste(aendret, t("ov.alt.gemt"))}${gemmepunkter()}` : `<p class="lille">${t("ov.ikke.git")}</p>`}</div>
 <h2>${t("ov.h.seneste")}</h2><div class="kort">${liste(log, t("ov.ingen.commits"))}</div>
 <h2>${t("ov.h.virker")}</h2><div class="kort">${bevis()}${puls()}</div>
 <h2>${t("ov.h.fejl")}</h2><div class="kort"><p>${fejl === null ? t("ov.ingen.liste") : `${t("ov.fejl.antal", { antal: raekker.length })}${raekker.length ? t("ov.fejl.ulaast", { ulaast }) : ""}.`}</p></div>

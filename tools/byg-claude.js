@@ -45,7 +45,7 @@ const SAERLIGE = {
     ["Kittet er bygget om fra en Claude-udgave og er ikke afprøvet i Codex af den, der har lavet det.", "Udgaven til Claude Code er bygget ud fra udgaven til @@CODEX@@. Delene er testet automatisk, men hele forløbet er ikke kørt igennem i Claude Code af et menneske."],
     ["og `/model` (hvilke modeller der findes)", "og `/model` (hvilke modeller der kan vælges)"],
     ["**Hooks skal godkendes af personen selv.** Codex kører ikke nye hooks, før de er set igennem: bed personen skrive `/hooks` og godkende de to fra startkittet, og sige ja til, at projektmappen er betroet. Start derefter en ny chat, så de bliver indlæst.",
-      "**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de to fra startkittet står der: vagten under PreToolUse og færdig-tjekket under Stop. Start derefter en ny chat, så de helt sikkert er indlæst. Opsætningen har også skrevet Claude Codes egne forbudsregler for `.env`-filer i samme fil (`permissions.deny`). De er et ekstra lag, hvis en hook en dag ikke bliver kørt."],
+      "**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de tre fra startkittet står der: vagten under PreToolUse, færdig-tjekket under Stop, og indlæsningen af statusfilen under SessionStart. Start derefter en ny chat, så de helt sikkert er indlæst. Opsætningen har også skrevet Claude Codes egne forbudsregler for `.env`-filer i samme fil (`permissions.deny`). De er et ekstra lag, hvis en hook en dag ikke bliver kørt."],
     ["(er hooken godkendt i `/hooks`? er det en ny chat?)", "(står hooken i `/hooks`? er mappen betroet? er det en ny chat?)"],
   ],
   "references/intro.md": [
@@ -72,6 +72,14 @@ const SAERLIGE = {
   "assets/hvorfor-blev-jeg-stoppet.md": [
     ["- Nye eller ændrede hooks kører først, når du har godkendt dem med `/hooks`.", "- Claude Code har ingen godkendelse af hver enkelt hook. Skriv `/hooks` for at se, hvilke der er indlæst.\n- Som ekstra lag er `.env`-filer også spærret med Claude Codes egne forbudsregler (`permissions.deny` i `.claude/settings.local.json`)."],
   ],
+  "assets/fortryd.md": [
+    ["## 1. Fortryd i selve Codex\n\nOm Codex har en fortryd-knap, skifter fra udgave til udgave. Regn ikke med den. Brug gemmepunkterne herunder.",
+      "## 1. Fortryd i selve Claude Code\n\nSkriv `/rewind` (eller tryk Esc to gange). Så kan du vælge et tidligere sted i chatten og få filerne tilbage, som de var dér.\n\nDet skal du vide: `/rewind` henter kun det tilbage, Claude har rettet med sine egne redigeringsværktøjer. Har en kommando ændret eller slettet filer (fx en sletning i terminalen), henter den dem ikke. Så brug gemmepunkterne herunder."],
+  ],
+  "en/assets/undo.md": [
+    ["## 1. Undo in Codex itself\n\nWhether Codex has an undo button changes from one edition to the next. Do not count on it. Use the save points below.",
+      "## 1. Undo in Claude Code itself\n\nType `/rewind` (or press Esc twice). Then you can choose an earlier point in the chat and get the files back as they were there.\n\nWhat you should know: `/rewind` only restores what Claude changed with its own editing tools. If a command changed or deleted files (for example a deletion in the terminal), it does not restore them. Then use the save points below."],
+  ],
   "assets/forloeb.skabelon.md": [
     ["hooks godkendt med /hooks", "hooks set med /hooks"],
   ],
@@ -83,7 +91,7 @@ const SAERLIGE = {
     ["The kit was rebuilt from a Claude edition and has not been tried in Codex by the person who made it.", "The edition for Claude Code is built from the edition for @@CODEX@@. The parts are tested automatically, but the whole run has not been taken through Claude Code by a human."],
     ["and `/model` (which models exist)", "and `/model` (which models can be chosen)"],
     ["**The hooks must be approved by the person.** Codex does not run new hooks until they have been looked through: ask the person to type `/hooks` and approve the two from the starter kit, and say yes to trusting the project folder. Then start a new chat, so they are loaded.",
-      "**The person must see that the hooks are loaded.** Claude Code has no approval of each single hook: it runs the ones listed in the project's settings. If Claude Code asks whether the person trusts the folder, explain what that means (Claude Code may run the project's own settings and hooks), and let the person answer. Ask the person to type `/hooks` and see that the two from the starter kit are listed: the guard under PreToolUse and the done-check under Stop. Then start a new chat, so they are certain to be loaded. The setup has also written Claude Code's own deny rules for `.env` files in the same file (`permissions.deny`). They are an extra layer in case a hook one day is not run."],
+      "**The person must see that the hooks are loaded.** Claude Code has no approval of each single hook: it runs the ones listed in the project's settings. If Claude Code asks whether the person trusts the folder, explain what that means (Claude Code may run the project's own settings and hooks), and let the person answer. Ask the person to type `/hooks` and see that the three from the starter kit are listed: the guard under PreToolUse, the done-check under Stop, and the loading of the status file under SessionStart. Then start a new chat, so they are certain to be loaded. The setup has also written Claude Code's own deny rules for `.env` files in the same file (`permissions.deny`). They are an extra layer in case a hook one day is not run."],
     ["(is the hook approved in `/hooks`? is it a new chat?)", "(is the hook listed in `/hooks`? is the folder trusted? is it a new chat?)"],
   ],
   "en/references/intro.md": [
@@ -125,8 +133,8 @@ function filer() {
   const ud = [{ fra: "SKILL.md", til: "claude/SKILL.claude.md", sprog: "da" }, { fra: "en/SKILL.en.md", til: "claude/en/SKILL.claude.en.md", sprog: "en" }];
   for (const f of fs.readdirSync(path.join(KIT, "references")).sort()) ud.push({ fra: `references/${f}`, til: `claude/references/${f}`, sprog: "da" });
   for (const f of fs.readdirSync(path.join(KIT, "en", "references")).sort()) ud.push({ fra: `en/references/${f}`, til: `claude/en/references/${f}`, sprog: "en" });
-  for (const f of ["hvorfor-blev-jeg-stoppet.md", "forloeb.skabelon.md", "overblik.cmd"]) ud.push({ fra: `assets/${f}`, til: `claude/assets/${f}`, sprog: "da" });
-  for (const f of ["why-was-i-stopped.md", "progress.template.md", "overview.cmd"]) ud.push({ fra: `en/assets/${f}`, til: `claude/en/assets/${f}`, sprog: "en" });
+  for (const f of ["hvorfor-blev-jeg-stoppet.md", "fortryd.md", "forloeb.skabelon.md", "overblik.cmd"]) ud.push({ fra: `assets/${f}`, til: `claude/assets/${f}`, sprog: "da" });
+  for (const f of ["why-was-i-stopped.md", "undo.md", "progress.template.md", "overview.cmd"]) ud.push({ fra: `en/assets/${f}`, til: `claude/en/assets/${f}`, sprog: "en" });
   return ud;
 }
 

@@ -80,7 +80,8 @@ Vis først, hvad der sker: `node <skill-mappen>/scripts/opsaet.js <projektmappe>
 - `STATUS.md` (hvor vi er; læses i starten af hver chat), `docs/gentagne-fejl.md` og `docs/foer-du-deler.md` (tjekliste, som AI'en går igennem, før noget deles med andre),
 - vagten og færdig-tjekket (`scripts/startkit/` og `.codex/hooks.json`),
 - nøgletjekket før commit (`.githooks/pre-commit`),
-- `.startkit/config.json` (hvilke kommandoer der beviser, at tingene virker) og `.startkit/hvorfor-blev-jeg-stoppet.md`.
+- `.startkit/config.json` (hvilke kommandoer der beviser, at tingene virker) og `.startkit/hvorfor-blev-jeg-stoppet.md`,
+- fortryd-hjælpen: `.startkit/saadan-fortryder-du.md`. Forklar den: i starten af hver chat tages der automatisk et gemmepunkt (et øjebliksbillede af filerne, kun på personens egen computer), og `node scripts/startkit/fortryd.js` viser dem og henter filer tilbage.
 
 Derefter, med personens ok: `git config core.hooksPath .githooks` (tænder nøgletjekket).
 

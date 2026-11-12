@@ -34,10 +34,12 @@ function fingeraftryk(root) {
 
 // Hver chat får en lille fil i systemets midlertidige mappe med, hvordan koden så ud, da chatten begyndte.
 const sessionFil = (id) => path.join(os.tmpdir(), `startkit-${String(id || "ukendt").replace(/[^\w-]/g, "_").slice(0, 80)}.json`);
+// Svarer true første gang i en chat (så vagten kan tage et gemmepunkt, før AI'en ændrer noget).
 function huskStart(id, root) {
   const fil = sessionFil(id);
-  if (fs.existsSync(fil)) return;
+  if (fs.existsSync(fil)) return false;
   fs.writeFileSync(fil, JSON.stringify({ start: fingeraftryk(root), at: new Date().toISOString() }));
+  return true;
 }
 function laesStart(id) {
   try { return JSON.parse(fs.readFileSync(sessionFil(id), "utf8")).start || null; } catch { return null; }

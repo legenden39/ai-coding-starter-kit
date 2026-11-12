@@ -83,11 +83,12 @@ Show first what will happen: `node <skill folder>/scripts/opsaet.js <project fol
 - `STATUS.md` (where we are; read at the start of every chat), `docs/recurring-mistakes.md` and `docs/before-you-share.md` (a checklist the AI goes through before something is shared with others),
 - the guard and the done-check (`scripts/startkit/` and `.claude/settings.local.json`),
 - the key check before commit (`.githooks/pre-commit`),
-- `.startkit/config.json` (which commands prove that things work) and `.startkit/why-was-i-stopped.md`.
+- `.startkit/config.json` (which commands prove that things work) and `.startkit/why-was-i-stopped.md`,
+- the undo help: `.startkit/how-to-undo.md`. Explain it: at the start of every chat a save point is taken automatically (a snapshot of the files, only on the person's own computer), and `node scripts/startkit/fortryd.js` shows them and restores files.
 
 Then, with the person's ok: `git config core.hooksPath .githooks` (switches on the key check).
 
-**The person must see that the hooks are loaded.** Claude Code has no approval of each single hook: it runs the ones listed in the project's settings. If Claude Code asks whether the person trusts the folder, explain what that means (Claude Code may run the project's own settings and hooks), and let the person answer. Ask the person to type `/hooks` and see that the two from the starter kit are listed: the guard under PreToolUse and the done-check under Stop. Then start a new chat, so they are certain to be loaded. The setup has also written Claude Code's own deny rules for `.env` files in the same file (`permissions.deny`). They are an extra layer in case a hook one day is not run.
+**The person must see that the hooks are loaded.** Claude Code has no approval of each single hook: it runs the ones listed in the project's settings. If Claude Code asks whether the person trusts the folder, explain what that means (Claude Code may run the project's own settings and hooks), and let the person answer. Ask the person to type `/hooks` and see that the three from the starter kit are listed: the guard under PreToolUse, the done-check under Stop, and the loading of the status file under SessionStart. Then start a new chat, so they are certain to be loaded. The setup has also written Claude Code's own deny rules for `.env` files in the same file (`permissions.deny`). They are an extra layer in case a hook one day is not run.
 
 ## Phase 7: Try the safety net in front of the person
 

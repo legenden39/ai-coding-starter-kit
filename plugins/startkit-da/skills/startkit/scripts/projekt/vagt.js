@@ -17,7 +17,15 @@ catch { afvis(t("vagt.ulaeselig")); process.exit(0); }
 // Husk, hvordan koden så ud, da chatten begyndte (bruges af færdig-tjekket). Må aldrig vælte vagten.
 // Slå også pulsen, så det kan ses, at AI-værktøjet faktisk kalder vagten. Kun rigtige kald har et chat-id.
 let projektrod = null;
-try { projektrod = rod(input.cwd); if (projektrod && input.session_id) { huskStart(input.session_id, projektrod); slaaPuls(projektrod, input.tool_name); } } catch { /* ikke vigtigt nok til at stoppe noget */ }
+// Første værktøjskald i en chat: tag også et gemmepunkt af projektet, før AI'en ændrer noget (se gemmepunkt.js).
+try {
+  projektrod = rod(input.cwd);
+  if (projektrod && input.session_id) {
+    const foerste = huskStart(input.session_id, projektrod);
+    slaaPuls(projektrod, input.tool_name);
+    if (foerste && fs.existsSync(require("path").join(projektrod, ".startkit"))) require("./gemmepunkt").lav(projektrod, "start på chat");
+  }
+} catch { /* ikke vigtigt nok til at stoppe noget */ }
 
 try {
   const svar = decide({ ...input, projektrod: projektrod || undefined }); // reglerne bruger projektmappen til at se, hvad der ligger uden for den

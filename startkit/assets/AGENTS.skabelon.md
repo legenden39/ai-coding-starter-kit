@@ -23,6 +23,7 @@ Ejer: {{NAVN}}. Kun ejeren godkender nye eller ændrede aftaler.
 - Skriver ejeren "hvad nu?": læs `STATUS.md`, kør `git status`, og se de seneste commits. Svar kort med: hvor vi er, ét forslag til næste opgave, om der er åbne problemer eller ugemte ændringer, der skal først, og hvilken model der passer (billig til det enkle, stærk til det svære). Start ikke, før ejeren har sagt ja.
 - Skal noget deles med andre (et link, en hjemmeside, en app på nettet): læs `docs/foer-du-deler.md`, og gå den igennem med ejeren, før noget lægges ud. Sig, hvad der er tjekket, og hvad der ikke er.
 - Stopper en vagt dig, så omgå den ikke. Forklar ejeren, hvad der skete (se `.startkit/hvorfor-blev-jeg-stoppet.md`).
+- Er noget gået galt, eller vil ejeren fortryde: følg `.startkit/saadan-fortryder-du.md`, og vis, hvilke filer der er anderledes, før noget hentes tilbage.
 - Hold denne fil kort. Lange forklaringer hører til i `docs/` og læses kun, når opgaven kræver det.
 
 ## Sådan vil ejeren have svar
