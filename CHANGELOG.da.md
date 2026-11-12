@@ -15,7 +15,8 @@ Selvtest af vagten, et ekstra lag for hemmelige filer, og installation som plugi
 - **Plugin til Claude Code:** kittet kan installeres med to kommandoer inde i Claude Code (`/plugin marketplace add legenden39/ai-coding-starter-kit` og `/plugin install startkit-da@ai-coding-starter-kit`), uden ZIP-fil. Installationen med dobbeltklik virker som før. Plugin-mapperne laves ud fra kilden (`node tools/byg-plugin.js`), og en test stopper, hvis de kommer ud af trit.
 - Har du sat kittet op med en ældre version, så kør opsætningen igen i projektet for at få selvtesten og forbudsreglerne med.
 - Prøvet i Claude Code 2.1.322 på Linux: selvtesten, forbudsreglerne, og plugin-installation fra en lokal kopi af lageret.
-- Ikke afprøvet: plugin-installation direkte fra GitHub, og alt det nye på Windows.
+- Prøvet efter udgivelsen, i Claude Code 2.1.322 på Linux: plugin-installation direkte fra GitHub, på begge sprog.
+- Ikke afprøvet: alt det nye på Windows.
 
 ## 0.4.0-beta (november 2026)
 

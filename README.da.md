@@ -264,7 +264,8 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<di
 | At Claude Codes egne forbudsregler stopper læsning af `.env`, også uden vagten | Prøvet i Claude Code 2.1.322 på Linux |
 | Plugin-udgaven: at mapperne passer til kilden, og at en installeret kopi sætter op rigtigt på begge sprog | Testet automatisk |
 | Plugin-udgaven installeret med `/plugin` fra en lokal kopi af lageret, og startet med `/startkit` | Prøvet i Claude Code 2.1.322 på Linux |
-| Plugin-udgaven installeret direkte fra GitHub, og plugin-udgaven på Windows | **Ikke afprøvet** |
+| Plugin-udgaven installeret direkte fra GitHub med `claude plugin marketplace add` og `claude plugin install`, begge sprog: de installerede mapper er magen til dem i lageret | Prøvet i Claude Code 2.1.322 på Linux |
+| Plugin-udgaven på Windows | **Ikke afprøvet** |
 | Udgaven til Claude Code på Windows og i Claudes app | **Ikke afprøvet** |
 | Dobbeltklik på `installer-claude.cmd` og `install-claude-english.cmd` på en rigtig computer | **Ikke afprøvet** |
 | Hjælpen til at installere Superpowers i Claude Code | **Ikke afprøvet** |
