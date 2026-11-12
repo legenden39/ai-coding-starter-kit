@@ -29,7 +29,7 @@ Løsning: Én opgave pr. chat. Når opgaven er færdig: opdatér `STATUS.md`, og
 ## 4. Overblik fra gang til gang kommer fra én fil, ikke fra hukommelsen
 
 Problem: "Når jeg kommer tilbage, ved jeg ikke, hvor jeg slap."
-Løsning: `STATUS.md` i projektets rod med fire korte afsnit: Nu (hvad arbejder vi på), Sidst lavet, Næste skridt, Åbne problemer. AI'en læser den i starten af hver chat og opdaterer den til sidst. Den må ikke blive lang: gamle ting flyttes til `docs/historik.md`.
+Løsning: `STATUS.md` i projektets rod med fire korte afsnit: Nu (hvad arbejder vi på), Sidst lavet, Næste skridt, Åbne problemer. AI'en læser den i starten af hver chat og opdaterer den til sidst. Den må ikke blive lang: gamle ting flyttes til `docs/historik.md`. Kommer du tilbage og er i tvivl, så skriv "hvad nu?": AI'en læser filen, tjekker `git status` og foreslår ét næste skridt og en passende model, og starter først, når du har sagt ja.
 
 ## 5. Vælg model efter opgaven
 

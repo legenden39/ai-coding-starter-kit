@@ -181,4 +181,14 @@ for (const f of alle) {
   tjek("deling: nøgletjekket kan scanne alle filer, som vejledningen henviser til", preCommit.includes("--scan"));
 }
 
+// ---- "hvad nu?" / "what now?": en regel, der får AI'en til at læse status og foreslå ét næste skridt ----
+for (const [sprog, skabelon, udtryk, mangler] of [
+  ["da", ["assets", "AGENTS.skabelon.md"], ["\"hvad nu?\"", "`STATUS.md`", "`git status`", "seneste commits", "ét forslag", "hvilken model", "Start ikke, før ejeren har sagt ja"], "ejeren"],
+  ["en", ["en", "assets", "AGENTS.template.md"], ["\"what now?\"", "`STATUS.md`", "`git status`", "latest commits", "one suggestion", "which model", "Do not start until the owner has said yes"], "owner"],
+]) {
+  const t = fs.readFileSync(path.join(KIT, ...skabelon), "utf8");
+  tjek(`hvad nu (${sprog}): reglen findes, læser status og git, foreslår ét skridt og venter på et ja`, udtryk.every((x) => t.includes(x)), udtryk.filter((x) => !t.includes(x)).join(", "));
+  tjek(`hvad nu (${sprog}): regelfilen er stadig kort (højst 45 linjer)`, t.split("\n").length <= 45, String(t.split("\n").length));
+}
+
 slut("opsaet");

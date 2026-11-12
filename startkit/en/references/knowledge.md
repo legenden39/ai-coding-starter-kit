@@ -29,7 +29,7 @@ Solution: One task per chat. When the task is finished: update `STATUS.md`, and 
 ## 4. The overview from one session to the next comes from one file, not from memory
 
 Problem: "When I come back, I don't know where I left off."
-Solution: `STATUS.md` in the root of the project with four short sections: Now (what we are working on), Last done, Next step, Open problems. The AI reads it at the start of every chat and updates it at the end. It must not get long: old things are moved to `docs/history.md`.
+Solution: `STATUS.md` in the root of the project with four short sections: Now (what we are working on), Last done, Next step, Open problems. The AI reads it at the start of every chat and updates it at the end. It must not get long: old things are moved to `docs/history.md`. If you come back and are unsure, write "what now?": the AI reads the file, checks `git status` and suggests one next step and a fitting model, and only starts when you have said yes.
 
 ## 5. Choose the model by the task
 

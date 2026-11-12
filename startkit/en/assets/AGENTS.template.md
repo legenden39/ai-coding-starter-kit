@@ -20,6 +20,7 @@ Owner: {{NAVN}}. Only the owner approves new or changed agreements.
 - Ask the owner before you: {{ALDRIG_UDEN_OK}}.
 - If you are in doubt: {{VED_TVIVL}}.
 - If the owner says "that mistake again": write the mistake in `docs/recurring-mistakes.md`, and suggest a lock (a hook or a test), not a new text rule.
+- If the owner writes "what now?": read `STATUS.md`, run `git status`, and look at the latest commits. Answer briefly with: where we are, one suggestion for the next task, whether there are open problems or unsaved changes to deal with first, and which model fits (cheap for the simple, strong for the hard). Do not start until the owner has said yes.
 - If something is to be shared with others (a link, a website, an app on the internet): read `docs/before-you-share.md`, and go through it with the owner before anything goes out. Say what has been checked, and what has not.
 - If a guard stops you, do not work around it. Explain to the owner what happened (see `.startkit/why-was-i-stopped.md`).
 - Keep this file short. Long explanations belong in `docs/` and are only read when the task needs them.

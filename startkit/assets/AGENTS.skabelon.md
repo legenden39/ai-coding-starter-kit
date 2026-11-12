@@ -20,6 +20,7 @@ Ejer: {{NAVN}}. Kun ejeren godkender nye eller ændrede aftaler.
 - Spørg ejeren, før du: {{ALDRIG_UDEN_OK}}.
 - Er du i tvivl: {{VED_TVIVL}}.
 - Siger ejeren "den fejl igen": skriv fejlen i `docs/gentagne-fejl.md`, og foreslå en lås (hook eller test), ikke en ny tekstregel.
+- Skriver ejeren "hvad nu?": læs `STATUS.md`, kør `git status`, og se de seneste commits. Svar kort med: hvor vi er, ét forslag til næste opgave, om der er åbne problemer eller ugemte ændringer, der skal først, og hvilken model der passer (billig til det enkle, stærk til det svære). Start ikke, før ejeren har sagt ja.
 - Skal noget deles med andre (et link, en hjemmeside, en app på nettet): læs `docs/foer-du-deler.md`, og gå den igennem med ejeren, før noget lægges ud. Sig, hvad der er tjekket, og hvad der ikke er.
 - Stopper en vagt dig, så omgå den ikke. Forklar ejeren, hvad der skete (se `.startkit/hvorfor-blev-jeg-stoppet.md`).
 - Hold denne fil kort. Lange forklaringer hører til i `docs/` og læses kun, når opgaven kræver det.
