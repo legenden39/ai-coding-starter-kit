@@ -76,7 +76,7 @@ The edition for Claude Code is built from the edition for Codex. Its safety nets
 
 If you hit a bug, ask Codex to write it down (it knows where), and please report it. See "Report a bug" below. That makes the kit better for the next person.
 
-The kit is made for Windows. Mac and Linux are untested.
+The kit is made for Windows. Linux is tested automatically at GitHub every time something changes. Mac is untested.
 
 ## Get started
 
@@ -300,7 +300,8 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Use
 | The help with a GitHub backup, run through Codex | **Not tried** |
 | Installation on a computer other than the one the kit was made on | **Not tried** |
 | The whole flow with a real person (neither in Codex nor in Claude Code) | **Not tried** |
-| Mac and Linux | **Not tried** |
+| Linux: all tests, and the plugin edition in the real Claude Code, run at GitHub every time something changes | Tested automatically |
+| Mac | **Not tried** |
 
 Run the tests yourself with `node tests/run.js` (requires git and Node).
 

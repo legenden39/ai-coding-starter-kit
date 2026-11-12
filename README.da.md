@@ -74,7 +74,7 @@ Udgaven til Claude Code er bygget ud fra udgaven til Codex. Dens sikkerhedsnet (
 
 Støder du på en fejl, så bed Codex skrive den ned (den ved, hvor), og meld den gerne tilbage. Se "Meld en fejl" nederst. Det gør kittet bedre for den næste.
 
-Kittet er lavet til Windows. Mac og Linux er ikke afprøvet.
+Kittet er lavet til Windows. Linux bliver testet automatisk hos GitHub, hver gang noget ændres. Mac er ikke afprøvet.
 
 ## Kom i gang
 
@@ -282,7 +282,8 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<di
 | Hjælpen til sikkerhedskopi på GitHub, kørt gennem Codex | **Ikke afprøvet** |
 | Installationen på en anden computer end den, kittet er lavet på | **Ikke afprøvet** |
 | Hele forløbet med et rigtigt menneske (hverken i Codex eller i Claude Code) | **Ikke afprøvet** |
-| Mac og Linux | **Ikke afprøvet** |
+| Linux: alle test, og plugin-udgaven i det rigtige Claude Code, kører hos GitHub, hver gang noget ændres | Testet automatisk |
+| Mac | **Ikke afprøvet** |
 
 Kør testene selv med `node tests/run.js` (kræver git og Node).
 
