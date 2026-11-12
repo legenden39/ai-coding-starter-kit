@@ -6,6 +6,10 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## Ikke udgivet endnu
+
+- **Forklar-vane (tilvalg):** nyt afsnit 16 i vidensnotatet og et ja/nej-tilbud i afslutningen. Personen kan vælge at lære undervejs. I Claude Code peges der på de indbyggede svarstile `/output-style Explanatory` og `/output-style Learning` (læst i Anthropics dokumentation, ikke afprøvet i en rigtig chat). I Codex er det en vane (bed om forklaring og "hvorfor"), fordi der ikke er fundet noget tilsvarende. Grundlaget er ét lille forsøg på udviklere, så afsnittet siger, at det er et fingerpeg og ikke et bevis.
+
 ## 0.7.0-beta (november 2026)
 
 Fortryd-hjælp med gemmepunkter, og statusfilen læses ind af sig selv i Claude Code.

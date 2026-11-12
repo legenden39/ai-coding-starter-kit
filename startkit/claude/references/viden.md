@@ -105,3 +105,10 @@ Når den er ramt:
 2. Start en ny chat, og bed AI'en læse `STATUS.md` og køre `git status` og `git diff --stat`, så den ser, hvilke filer der er halvt rettet. Derefter `node scripts/startkit/bevis.js`, så I ved, om det virker, som det står.
 3. Virker det, og mangler der kun lidt: fortsæt, og skriv i `STATUS.md`, hvad der er gjort. Er det i stykker, og I ikke kan se hvorfor: bed AI'en køre `git stash`. Det lægger de halve ændringer til side uden at slette dem (`git stash pop` henter dem igen), og I starter fra den sidste commit, der virkede.
 4. Skriv i `STATUS.md` under "Næste skridt", hvad den næste chat skal gøre, i ét afsnit.
+
+## 16. Lær undervejs (tilvalg)
+
+Problem: "Det bliver lavet, men jeg forstår ikke, hvad AI'en gjorde."
+Årsag: I et lille forsøg fra Anthropic med udviklere, der lærte et nyt bibliotek, klarede de sig dårligst til prøven bagefter, som lod AI'en gøre det hele. De, der bad om forklaringer og spurgte hvorfor, klarede sig bedre. Forsøget var lille og ikke på begyndere, så det er et fingerpeg, ikke et bevis.
+Tilvalg: Spørg personen med ét ja eller nej, om hun eller han vil lære undervejs. Det koster lidt flere ord og dermed lidt mere forbrug. Siger personen nej, så lad det være.
+Sådan i praksis: Claude Code har to indbyggede svarstile. `/output-style Explanatory` får AI'en til at lægge korte forklaringer af sine valg ind i chatten, mens den arbejder. `/output-style Learning` gør det samme og lader dig selv skrive enkelte stykker kode, så det kræver lidt mere af dig. Skriv `/output-style` uden mere for at se, hvilken der er valgt. Det gælder fra din næste besked. Eller bed AI'en om at forklare i ord, hvad den lige gjorde og hvorfor, og stil selv spørgsmålet "hvorfor valgte du det?". Vil personen have det hver gang, så sæt svarformen til "forklar altid" (spørgsmål H1 i interviewet).

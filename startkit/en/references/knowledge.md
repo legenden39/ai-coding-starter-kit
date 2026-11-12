@@ -105,3 +105,10 @@ When it has hit:
 2. Start a new chat, and ask the AI to read `STATUS.md` and run `git status` and `git diff --stat`, so it sees which files are half changed. Then `node scripts/startkit/bevis.js`, so you know whether it works as it says.
 3. If it works and only a little is missing: continue, and write in `STATUS.md` what has been done. If it is broken and you cannot see why: ask the AI to run `git stash`. That puts the half changes aside without deleting them (`git stash pop` brings them back), and you start from the last commit that worked.
 4. Write in `STATUS.md` under "Next step" what the next chat should do, in one paragraph.
+
+## 16. Learn along the way (optional)
+
+Problem: "It gets built, but I do not understand what the AI did."
+Cause: In a small Anthropic experiment with developers learning a new library, those who let the AI do everything did worst on the test afterwards. Those who asked for explanations and asked why did better. The experiment was small and not on beginners, so it is a hint, not proof.
+Option: Ask the person with one yes or no whether they want to learn along the way. It costs a few more words and so a little more usage. If the person says no, leave it.
+In practice: Ask the AI to explain in words what it just did and why, and ask "why did you choose that?" yourself. If the person wants it every time, set the answer style to "always explain" (question H1 in the interview).

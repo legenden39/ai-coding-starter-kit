@@ -57,6 +57,7 @@ const SAERLIGE = {
     ["Tjek: bed personen se, om Superpowers står som installeret under Plugins.", "Tjek: bed personen skrive `/plugin` og se, om Superpowers står som installeret."],
   ],
   "references/viden.md": [
+    ["Sådan i praksis: Bed AI'en om at forklare i ord, hvad den lige gjorde og hvorfor,", "Sådan i praksis: Claude Code har to indbyggede svarstile. `/output-style Explanatory` får AI'en til at lægge korte forklaringer af sine valg ind i chatten, mens den arbejder. `/output-style Learning` gør det samme og lader dig selv skrive enkelte stykker kode, så det kræver lidt mere af dig. Skriv `/output-style` uden mere for at se, hvilken der er valgt. Det gælder fra din næste besked. Eller bed AI'en om at forklare i ord, hvad den lige gjorde og hvorfor,"],
     ["OpenAI skriver selv, at en hook, der fejler eller løber tør for tid, lader værktøjet køre videre, og at en kreativ kommando kan komme udenom et mønster.", "Anthropic skriver selv, at en hook, der fejler eller løber tør for tid, lader værktøjet køre videre. Og en kreativ kommando kan komme udenom et mønster."],
     ["Codex stopper desuden med at læse instruktionsfiler, når de tilsammen når en grænse (32 KiB som standard).", "Anthropic anbefaler selv at sigte efter under 200 linjer pr. `CLAUDE.md`."],
     ["Tænkeniveau vælges sammen med modellen i `/model`. Forbrug ses med `/status` og på forbrugssiden under indstillinger.", "Tænkeniveau vælges med `/effort`. Forbrug ses med `/usage`."],
@@ -103,6 +104,7 @@ const SAERLIGE = {
     ["Check: ask the person to see whether Superpowers is listed as installed under Plugins.", "Check: ask the person to type `/plugin` and see whether Superpowers is listed as installed."],
   ],
   "en/references/knowledge.md": [
+    ["In practice: Ask the AI to explain in words what it just did and why,", "In practice: Claude Code has two built-in answer styles. `/output-style Explanatory` makes the AI add short explanations of its choices to the chat while it works. `/output-style Learning` does the same and lets you write a few pieces of code yourself, so it asks a little more of you. Type `/output-style` on its own to see which one is set. It applies from your next message. Or ask the AI to explain in words what it just did and why,"],
     ["OpenAI itself writes that a hook that fails or runs out of time lets the tool carry on, and that a creative command can get around a pattern.", "Anthropic itself writes that a hook that fails or runs out of time lets the tool carry on. And a creative command can get around a pattern."],
     ["Codex also stops reading instruction files when together they reach a limit (32 KiB by default).", "Anthropic itself recommends aiming for under 200 lines per `CLAUDE.md`."],
     ["The thinking level is chosen together with the model in `/model`. Usage is seen with `/status` and on the usage page under settings.", "The thinking level is chosen with `/effort`. Usage is seen with `/usage`."],
