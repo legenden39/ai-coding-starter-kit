@@ -92,7 +92,7 @@ Test aldrig på personens egne filer.
 1. Nøgletjekket: lav `proeve.txt` med en falsk nøgle (byg den af to stykker, så den ikke står som ét ord nogen steder), `git add proeve.txt` og `git commit -m prøve`. Det skal stoppe. Ryd op bagefter.
 2. Vagten: prøv `git commit --no-verify -m prøve`. Den skal blive afvist med en forklaring.
 3. Færdig-tjekket: ret en lille kodefil, og sig "færdig". Du skal blive bedt om at køre `node scripts/startkit/bevis.js`.
-4. Kør `node <skill-mappen>/scripts/tjek-opsaetning.js <projektmappe>`. Alt skal være ✅.
+4. Kør `node <skill-mappen>/scripts/tjek-opsaetning.js <projektmappe>`. Alt skal være ✅. Se også på linjen nederst om, at Codex kalder vagten: den skal også være ✅. Står der ⚠️, mens I sidder i en ny chat, så bliver vagten ikke kaldt, og så beskytter den ikke.
 
 Stopper noget ikke, så sig det ærligt, find årsagen (er hooken godkendt i `/hooks`? er det en ny chat?), og skriv det i status under "Fejl i kittet". Gå ikke videre, som om det virkede.
 

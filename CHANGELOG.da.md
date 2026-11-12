@@ -6,6 +6,17 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## 0.5.0-beta (november 2026)
+
+Selvtest af vagten, et ekstra lag for hemmelige filer, og installation som plugin i Claude Code.
+
+- **Selvtest:** vagten noterer, hver gang AI-værktøjet kalder den (kun tidspunkt og værktøjets navn, aldrig hvad AI'en lavede). Tjekket af opsætningen og overblikssiden viser det. Bliver vagten ikke kaldt, kan du nu se det. Før skete det uden en besked. Gælder både Codex og Claude Code.
+- **Ekstra lag i Claude Code:** opsætningen skriver Claude Codes egne forbudsregler for `.env`-filer i `.claude/settings.local.json`. De stopper læsning af filerne, også hvis en hook en dag ikke bliver kørt. Dine egne regler i filen bevares.
+- **Plugin til Claude Code:** kittet kan installeres med to kommandoer inde i Claude Code (`/plugin marketplace add legenden39/ai-coding-starter-kit` og `/plugin install startkit-da@ai-coding-starter-kit`), uden ZIP-fil. Installationen med dobbeltklik virker som før. Plugin-mapperne laves ud fra kilden (`node tools/byg-plugin.js`), og en test stopper, hvis de kommer ud af trit.
+- Har du sat kittet op med en ældre version, så kør opsætningen igen i projektet for at få selvtesten og forbudsreglerne med.
+- Prøvet i Claude Code 2.1.322 på Linux: selvtesten, forbudsreglerne, og plugin-installation fra en lokal kopi af lageret.
+- Ikke afprøvet: plugin-installation direkte fra GitHub, og alt det nye på Windows.
+
 ## 0.4.0-beta (november 2026)
 
 Kittet findes nu også til Claude Code.

@@ -2,7 +2,7 @@
 
 [English](README.md) · Dansk
 
-> **Beta, version 0.4.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
+> **Beta, version 0.5.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
 
 **Vil du bygge noget med AI, men ved ikke, hvor du skal starte, eller er du træt af, at AI'en laver de samme fejl igen og igen? Så er det her til dig.**
 
@@ -119,6 +119,17 @@ Er du i tvivl, om du har dem? Spring bare videre. Startkittet tjekker det og hj�
 5. Vinduet fortæller dig til sidst, hvad næste skridt er.
 
 Siger Windows "Windows beskyttede din pc"? Det sker med filer, der er hentet fra nettet. Du kan trykke **Flere oplysninger** og **Kør alligevel**, hvis du stoler på filen. Den er kort, og du kan åbne den i Notesblok og læse, hvad den gør.
+
+**Bruger du Claude Code? Så kan du også installere uden ZIP-fil.** Skriv disse to linjer i Claude Code, én ad gangen, og tryk Enter efter hver:
+
+```
+/plugin marketplace add legenden39/ai-coding-starter-kit
+/plugin install startkit-da@ai-coding-starter-kit
+```
+
+Den første fortæller Claude Code, hvor kittet ligger. Den anden installerer den danske udgave som et plugin (en tilføjelse). Vil du have den engelske, så skriv `startkit` i stedet for `startkit-da`. Start en ny chat bagefter, og skriv `/startkit`. Brug kun én af de to måder (ZIP-fil eller plugin), ikke begge. Et plugin opdaterer ikke sig selv: skriv `/plugin` for at hente en ny udgave. Du fjerner det igen med `/plugin uninstall startkit-da@ai-coding-starter-kit`.
+
+Den vej er prøvet i Claude Code på Linux fra en kopi af lageret, men ikke på Windows.
 
 <details>
 <summary>Hellere uden dobbeltklik? To andre måder</summary>
@@ -249,6 +260,11 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<di
 | Installationen til Claude Code på begge sprog, kørt på Windows hos GitHub | Testet automatisk |
 | At Claude Code faktisk kører vagten (ved kommandoer, når den retter filer, og når den vil læse en `.env`-fil) og færdig-tjekket | Prøvet i Claude Code 2.1.322 i en terminal på Linux |
 | At `/startkit` dukker op i Claude Code og begynder med introduktionen | Prøvet i Claude Code 2.1.322 i en terminal på Linux |
+| Selvtesten: at tjekket af opsætningen viser, om Claude Code faktisk kalder vagten | Testet automatisk, og prøvet i Claude Code 2.1.322 på Linux |
+| At Claude Codes egne forbudsregler stopper læsning af `.env`, også uden vagten | Prøvet i Claude Code 2.1.322 på Linux |
+| Plugin-udgaven: at mapperne passer til kilden, og at en installeret kopi sætter op rigtigt på begge sprog | Testet automatisk |
+| Plugin-udgaven installeret med `/plugin` fra en lokal kopi af lageret, og startet med `/startkit` | Prøvet i Claude Code 2.1.322 på Linux |
+| Plugin-udgaven installeret direkte fra GitHub, og plugin-udgaven på Windows | **Ikke afprøvet** |
 | Udgaven til Claude Code på Windows og i Claudes app | **Ikke afprøvet** |
 | Dobbeltklik på `installer-claude.cmd` og `install-claude-english.cmd` på en rigtig computer | **Ikke afprøvet** |
 | Hjælpen til at installere Superpowers i Claude Code | **Ikke afprøvet** |

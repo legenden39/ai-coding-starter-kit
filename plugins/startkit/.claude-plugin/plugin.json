@@ -1,0 +1,17 @@
+{
+  "name": "startkit",
+  "description": "A free starter kit for people who are new to building with AI. It interviews you and sets up a foundation in your project: short rules, a guard, a done-check, a key check and an overview page. Runs only on your own computer and sends nothing anywhere. Start it with /startkit.",
+  "author": {
+    "name": "legenden39"
+  },
+  "homepage": "https://github.com/legenden39/ai-coding-starter-kit",
+  "repository": "https://github.com/legenden39/ai-coding-starter-kit",
+  "license": "MIT",
+  "keywords": [
+    "beginner",
+    "starter-kit",
+    "guardrails",
+    "hooks",
+    "safety"
+  ]
+}

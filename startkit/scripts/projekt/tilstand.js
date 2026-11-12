@@ -43,4 +43,16 @@ function laesStart(id) {
   try { return JSON.parse(fs.readFileSync(sessionFil(id), "utf8")).start || null; } catch { return null; }
 }
 
-module.exports = { git, rod, fingeraftryk, huskStart, laesStart, sessionFil, IKKE_KODE };
+// Pulsen: hver gang AI-værktøjet kalder vagten, noteres tidspunktet. Så kan man se, om hooks faktisk kører
+// (på Windows er der meldinger om, at de nogle gange ikke gør, og det sker uden en fejlbesked).
+// Der gemmes kun tidspunkt og værktøjets navn, aldrig hvad AI'en var ved at gøre.
+const pulsFil = (root) => path.join(root, ".startkit", "vagt-puls.json");
+function slaaPuls(root, vaerktoej) {
+  if (!fs.existsSync(path.join(root, ".startkit"))) return; // kittet er ikke sat op her
+  fs.writeFileSync(pulsFil(root), JSON.stringify({ at: new Date().toISOString(), vaerktoej: String(vaerktoej || "").slice(0, 40) }) + "\n");
+}
+function laesPuls(root) {
+  try { const p = JSON.parse(fs.readFileSync(pulsFil(root), "utf8")); return isNaN(Date.parse(p.at)) ? null : p; } catch { return null; }
+}
+
+module.exports = { git, rod, fingeraftryk, huskStart, laesStart, sessionFil, slaaPuls, laesPuls, IKKE_KODE };

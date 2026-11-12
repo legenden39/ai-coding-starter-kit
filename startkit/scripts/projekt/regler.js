@@ -24,7 +24,7 @@ const BESKYTTET = [
   /(^|\/)scripts\/startkit(\/|$)/,
   /(^|\/)\.githooks(\/|$)/,
   /(^|\/)\.git\/hooks(\/|$)/,
-  /(^|\/)\.startkit\/(config|bevis)\.json$/,
+  /(^|\/)\.startkit\/(config|bevis|vagt-puls)\.json$/,
 ];
 const BESKYTTET_I_TEKST = [
   /\.codex\/(hooks\.json|config\.toml)/,
@@ -32,7 +32,7 @@ const BESKYTTET_I_TEKST = [
   /scripts\/startkit\b/,
   /\.githooks\b/,
   /\.git\/hooks\b/,
-  /\.startkit\/(config|bevis)\.json/,
+  /\.startkit\/(config|bevis|vagt-puls)\.json/,
 ];
 
 const ENV_FIL = /(^|\/)\.env(\.[\w.-]+)?$/;

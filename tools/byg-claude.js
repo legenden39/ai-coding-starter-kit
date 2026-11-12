@@ -45,7 +45,7 @@ const SAERLIGE = {
     ["Kittet er bygget om fra en Claude-udgave og er ikke afprøvet i Codex af den, der har lavet det.", "Udgaven til Claude Code er bygget ud fra udgaven til @@CODEX@@. Delene er testet automatisk, men hele forløbet er ikke kørt igennem i Claude Code af et menneske."],
     ["og `/model` (hvilke modeller der findes)", "og `/model` (hvilke modeller der kan vælges)"],
     ["**Hooks skal godkendes af personen selv.** Codex kører ikke nye hooks, før de er set igennem: bed personen skrive `/hooks` og godkende de to fra startkittet, og sige ja til, at projektmappen er betroet. Start derefter en ny chat, så de bliver indlæst.",
-      "**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de to fra startkittet står der: vagten under PreToolUse og færdig-tjekket under Stop. Start derefter en ny chat, så de helt sikkert er indlæst."],
+      "**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de to fra startkittet står der: vagten under PreToolUse og færdig-tjekket under Stop. Start derefter en ny chat, så de helt sikkert er indlæst. Opsætningen har også skrevet Claude Codes egne forbudsregler for `.env`-filer i samme fil (`permissions.deny`). De er et ekstra lag, hvis en hook en dag ikke bliver kørt."],
     ["(er hooken godkendt i `/hooks`? er det en ny chat?)", "(står hooken i `/hooks`? er mappen betroet? er det en ny chat?)"],
   ],
   "references/intro.md": [
@@ -70,7 +70,7 @@ const SAERLIGE = {
     ["i OpenAI's dokumentation", "i Anthropics dokumentation"],
   ],
   "assets/hvorfor-blev-jeg-stoppet.md": [
-    ["- Nye eller ændrede hooks kører først, når du har godkendt dem med `/hooks`.", "- Claude Code har ingen godkendelse af hver enkelt hook. Skriv `/hooks` for at se, hvilke der er indlæst."],
+    ["- Nye eller ændrede hooks kører først, når du har godkendt dem med `/hooks`.", "- Claude Code har ingen godkendelse af hver enkelt hook. Skriv `/hooks` for at se, hvilke der er indlæst.\n- Som ekstra lag er `.env`-filer også spærret med Claude Codes egne forbudsregler (`permissions.deny` i `.claude/settings.local.json`)."],
   ],
   "assets/forloeb.skabelon.md": [
     ["hooks godkendt med /hooks", "hooks set med /hooks"],
@@ -83,7 +83,7 @@ const SAERLIGE = {
     ["The kit was rebuilt from a Claude edition and has not been tried in Codex by the person who made it.", "The edition for Claude Code is built from the edition for @@CODEX@@. The parts are tested automatically, but the whole run has not been taken through Claude Code by a human."],
     ["and `/model` (which models exist)", "and `/model` (which models can be chosen)"],
     ["**The hooks must be approved by the person.** Codex does not run new hooks until they have been looked through: ask the person to type `/hooks` and approve the two from the starter kit, and say yes to trusting the project folder. Then start a new chat, so they are loaded.",
-      "**The person must see that the hooks are loaded.** Claude Code has no approval of each single hook: it runs the ones listed in the project's settings. If Claude Code asks whether the person trusts the folder, explain what that means (Claude Code may run the project's own settings and hooks), and let the person answer. Ask the person to type `/hooks` and see that the two from the starter kit are listed: the guard under PreToolUse and the done-check under Stop. Then start a new chat, so they are certain to be loaded."],
+      "**The person must see that the hooks are loaded.** Claude Code has no approval of each single hook: it runs the ones listed in the project's settings. If Claude Code asks whether the person trusts the folder, explain what that means (Claude Code may run the project's own settings and hooks), and let the person answer. Ask the person to type `/hooks` and see that the two from the starter kit are listed: the guard under PreToolUse and the done-check under Stop. Then start a new chat, so they are certain to be loaded. The setup has also written Claude Code's own deny rules for `.env` files in the same file (`permissions.deny`). They are an extra layer in case a hook one day is not run."],
     ["(is the hook approved in `/hooks`? is it a new chat?)", "(is the hook listed in `/hooks`? is the folder trusted? is it a new chat?)"],
   ],
   "en/references/intro.md": [
@@ -108,7 +108,7 @@ const SAERLIGE = {
     ["in OpenAI's documentation", "in Anthropic's documentation"],
   ],
   "en/assets/why-was-i-stopped.md": [
-    ["- New or changed hooks only run once you have approved them with `/hooks`.", "- Claude Code has no approval of each single hook. Type `/hooks` to see which ones are loaded."],
+    ["- New or changed hooks only run once you have approved them with `/hooks`.", "- Claude Code has no approval of each single hook. Type `/hooks` to see which ones are loaded.\n- As an extra layer, `.env` files are also blocked by Claude Code's own deny rules (`permissions.deny` in `.claude/settings.local.json`)."],
   ],
   "en/assets/progress.template.md": [
     ["hooks approved with /hooks", "hooks seen with /hooks"],

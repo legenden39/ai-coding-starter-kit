@@ -1,0 +1,21 @@
+{
+  "name": "ai-coding-starter-kit",
+  "owner": {
+    "name": "legenden39"
+  },
+  "metadata": {
+    "description": "AI Coding Starter Kit for Claude Code, in English (startkit) and Danish (startkit-da)."
+  },
+  "plugins": [
+    {
+      "name": "startkit",
+      "source": "./plugins/startkit",
+      "description": "A free starter kit for people who are new to building with AI. It interviews you and sets up a foundation in your project: short rules, a guard, a done-check, a key check and an overview page. Runs only on your own computer and sends nothing anywhere. Start it with /startkit."
+    },
+    {
+      "name": "startkit-da",
+      "source": "./plugins/startkit-da",
+      "description": "Et gratis startkit til dig, der er ny til at bygge med AI. Det interviewer dig og sætter et fundament op i dit projekt: korte regler, en vagt, et færdig-tjek, et nøgletjek og en overbliksside. Kører kun på din egen computer og sender ingenting nogen steder hen. Start det med /startkit."
+    }
+  ]
+}

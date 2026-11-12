@@ -18,6 +18,7 @@ function koer(program, args, { cwd, input, vaerktoej = "claude", sprog = "ingen"
   const r = spawnSync(program, args, { cwd, input, encoding: "utf8", env });
   return { kode: r.status, ud: r.stdout || "", fejl: r.stderr || "" };
 }
+const udgivTekst = () => ((laes(ROD, ".github/workflows/release.yml") || "").split("Pak kittet")[1] || "x plugins").split("Læg udgivelsen ud")[0];
 const OPSAET = path.join(KIT, "scripts", "opsaet.js");
 const TJEK = path.join(KIT, "scripts", "tjek-opsaetning.js");
 const eksempel = () => laes(__dirname, "eksempel-profil.json");
@@ -185,6 +186,31 @@ try { fs.unlinkSync(path.join(os.tmpdir(), `startkit-${session}.json`)); } catch
 const side = koer("node", ["-e", "process.stdout.write(require('./scripts/startkit/overblik.js').side())"], { cwd: rod, vaerktoej: "ingen" }).ud;
 tjek("overblikket: beder om /usage i Claude Code, ikke /status i Codex", /<code>\/usage<\/code> i Claude Code/.test(side) && !/Codex|\/status/.test(side), (side.match(/.{0,60}forbrug-gem.{0,40}/) || [""])[0]);
 
+// ---- pulsen: kan man se, om Claude Code faktisk kalder vagten? ----
+const { laesPuls } = require(path.join(KIT, "scripts", "projekt", "tilstand.js"));
+const p1 = laesPuls(rod);
+tjek("puls: vagten noterer, at den blev kaldt, med tidspunkt og værktøj, og intet om indholdet", p1 && !isNaN(Date.parse(p1.at)) && typeof p1.vaerktoej === "string" && JSON.stringify(Object.keys(p1).sort()) === '["at","vaerktoej"]', JSON.stringify(p1));
+tjek("puls: filen holdes ude af git, og AI'en må ikke rette i den", (laes(rod, ".gitignore") || "").split("\n").includes(".startkit/vagt-puls.json") && vagt("Write", { file_path: fuld(".startkit/vagt-puls.json"), content: "{}" }).afvist && vagt("Bash", { command: "echo {} > .startkit/vagt-puls.json" }).afvist);
+r = koer("node", [TJEK, rod]);
+tjek("tjek-opsaetning: siger, at Claude Code kalder vagten, når pulsen er frisk", r.kode === 0 && /✅ Claude Code kalder vagten \(sidst for \d+ sekunder siden\)/.test(r.ud), r.ud);
+skriv(rod, ".startkit/vagt-puls.json", JSON.stringify({ at: new Date(Date.now() - 3 * 3600 * 1000).toISOString(), vaerktoej: "Bash" }));
+r = koer("node", [TJEK, rod]);
+tjek("tjek-opsaetning: advarer, når vagten ikke er kaldt længe (men det tæller ikke som en mangel)", r.kode === 0 && /⚠️ Claude Code har ikke kaldt vagten i 3 timer/.test(r.ud), r.ud);
+const sideGammel = koer("node", ["-e", "process.stdout.write(require('./scripts/startkit/overblik.js').side())"], { cwd: rod, vaerktoej: "ingen" }).ud;
+tjek("overblikket: viser, hvornår vagten sidst blev kaldt", /Vagten blev sidst kaldt af Claude Code:/.test(sideGammel));
+fs.unlinkSync(path.join(rod, ".startkit", "vagt-puls.json"));
+r = koer("node", [TJEK, rod]);
+tjek("tjek-opsaetning: advarer, når vagten aldrig er kaldt", r.kode === 0 && /⚠️ Claude Code har endnu aldrig kaldt vagten/.test(r.ud), r.ud);
+const sideUden = koer("node", ["-e", "process.stdout.write(require('./scripts/startkit/overblik.js').side())"], { cwd: rod, vaerktoej: "ingen" }).ud;
+tjek("overblikket: advarer, når vagten aldrig er kaldt", /class="advarsel">Vagten er aldrig blevet kaldt af Claude Code/.test(sideUden));
+const direkte = koer("node", [path.join(rod, "scripts", "startkit", "vagt.js")], { cwd: rod, vaerktoej: "ingen", input: JSON.stringify({ tool_name: "Bash", tool_input: { command: "ls" }, cwd: rod }) });
+tjek("puls: et kald uden chat-id (som tjekkets egen prøve) tæller ikke som et kald fra Claude Code", direkte.kode === 0 && laesPuls(rod) === null);
+
+// ---- forbudsreglerne: det ekstra lag for hemmelige filer ----
+const { FORBUDSREGLER } = tekster;
+const ind2 = JSON.parse(laes(rod, ".claude/settings.local.json"));
+tjek("forbudsregler: .env-filer er spærret i Claude Codes egne indstillinger, og .env.example er ikke", FORBUDSREGLER.includes("Read(.env)") && FORBUDSREGLER.every((x) => ind2.permissions.deny.includes(x)) && !ind2.permissions.deny.some((x) => /example/.test(x)), JSON.stringify(ind2.permissions));
+
 // ---- længdelåsen gælder også CLAUDE.md (rigtig git, rigtig hook) ----
 skriv(rod, "CLAUDE.md", regler + "\n" + Array.from({ length: 60 }, (_, i) => `- ekstra regel ${i}`).join("\n") + "\n");
 git(rod, "add", "CLAUDE.md");
@@ -196,12 +222,13 @@ rod = nytProjekt();
 skriv(rod, ".startkit/profil.json", eksempel());
 skriv(rod, "CLAUDE.md", "# Mine egne regler\n\n- Brug altid tabs.\n");
 skriv(rod, "AGENTS.md", "min egen fil til et andet værktøj\n");
-skriv(rod, ".claude/settings.local.json", JSON.stringify({ permissions: { allow: ["Bash(npm test)"] }, hooks: { Stop: [{ hooks: [{ type: "command", command: "node min-egen.js" }] }], SessionStart: [{ hooks: [{ type: "command", command: "echo hej" }] }] } }));
+skriv(rod, ".claude/settings.local.json", JSON.stringify({ permissions: { allow: ["Bash(npm test)"], deny: ["Read(hemmeligt/**)", "Read(.env)"] }, hooks: { Stop: [{ hooks: [{ type: "command", command: "node min-egen.js" }] }], SessionStart: [{ hooks: [{ type: "command", command: "echo hej" }] }] } }));
 koer("node", [OPSAET, rod]); r = koer("node", [OPSAET, rod]);
 const c2 = laes(rod, "CLAUDE.md");
 tjek("egen CLAUDE.md: egne linjer bevares, blokken står én gang", c2.startsWith("# Mine egne regler") && c2.includes("Brug altid tabs.") && c2.split("<!-- startkit:start").length === 2, c2);
 tjek("egen AGENTS.md: røres ikke", laes(rod, "AGENTS.md") === "min egen fil til et andet værktøj\n");
 const s2 = JSON.parse(laes(rod, ".claude/settings.local.json"));
+tjek("egne forbudsregler: bevares, og startkittets tilføjes én gang", s2.permissions.deny[0] === "Read(hemmeligt/**)" && s2.permissions.deny.filter((x) => x === "Read(.env)").length === 1, JSON.stringify(s2.permissions));
 tjek("egne indstillinger og hooks: bevares, og startkittets står én gang", s2.permissions.allow[0] === "Bash(npm test)" && s2.hooks.Stop.length === 2 && s2.hooks.Stop[0].hooks[0].command === "node min-egen.js" && s2.hooks.SessionStart.length === 1 && s2.hooks.PreToolUse.length === 1, JSON.stringify(s2));
 skriv(rod, ".claude/settings.local.json", "{ ikke json");
 r = koer("node", [OPSAET, rod]);
@@ -241,12 +268,42 @@ for (const [sprog, skillFil, profilFil, profil, forventet] of [
   tjek(`installeret skill til Claude Code (${sprog}): SKILL.md peger på vejledninger, der ligger i den installerede mappe`, peger.length >= 8 && peger.every((f) => laes(skillMappe, f)));
 }
 
+// ---- plugin-udgaven: to mapper lavet ud fra kilden, og lageret er selv kataloget ----
+r = koer("node", [path.join(ROD, "tools", "byg-plugin.js"), "--tjek"]);
+tjek("plugin: mapperne passer til kilden (ellers: node tools/byg-plugin.js)", r.kode === 0, r.ud + r.fejl);
+const katalog = JSON.parse(laes(ROD, ".claude-plugin/marketplace.json") || "{}");
+tjek("plugin: kataloget har et navn, en ejer og de to plugins, og hver peger på en mappe, der findes", katalog.name === "ai-coding-starter-kit" && katalog.owner && (katalog.plugins || []).length === 2 && katalog.plugins.every((x) => /^\.\/plugins\/[\w-]+$/.test(x.source) && laes(ROD, x.source, ".claude-plugin", "plugin.json")), JSON.stringify(katalog).slice(0, 300));
+for (const [navn, sprog, profilFil, profil, forventet] of [
+  ["startkit-da", "da", ".startkit/profil.json", eksempel(), /Sætter op i/],
+  ["startkit", "en", ".startkit/profile.json", JSON.stringify({ person: { name: "Sample" }, projects: [{ name: "Sample project", description: "A place to try things." }], rules: { never_without_ok: ["delete files"], answer_style: "Explain along the way." }, check_commands: ["node -e \"process.exit(0)\""] }), /Setting up in/],
+]) {
+  const pm = path.join(ROD, "plugins", navn), sm = path.join(pm, "skills", "startkit");
+  const manifest = JSON.parse(laes(pm, ".claude-plugin", "plugin.json") || "{}");
+  tjek(`plugin ${navn}: manifestet har navn, beskrivelse og licens, og intet fast versionsnummer (så en ny udgave altid hentes)`, manifest.name === navn && manifest.description.length > 40 && manifest.license === "MIT" && !("version" in manifest) && !/^(claude|anthropic)-/.test(navn) && laes(pm, "LICENSE") !== null);
+  const skill = laes(sm, "SKILL.md") || "";
+  tjek(`plugin ${navn}: SKILL.md er Claude-udgaven på det rigtige sprog, og der er kun én`, skill === (laes(KIT, sprog === "en" ? "claude/en/SKILL.claude.en.md" : "claude/SKILL.claude.md") || "x").replace(/\r\n/g, "\n") && /disable-model-invocation: true/.test(skill) && !fs.existsSync(path.join(sm, "en", "SKILL.en.md")) && !fs.existsSync(path.join(sm, "claude", "SKILL.claude.md")));
+  const peger = [...skill.matchAll(/`(claude\/(?:en\/)?references\/[\w-]+\.md)`/g)].map((m) => m[1]);
+  tjek(`plugin ${navn}: de vejledninger, SKILL.md peger på, ligger i pluginnet`, peger.length >= 8 && peger.every((f) => laes(sm, f)), peger.filter((f) => !laes(sm, f)).join(", "));
+  tjek(`plugin ${navn}: værktøj og sprog er sat på forhånd`, /"claude"/.test(laes(sm, "scripts/projekt/vaerktoej.json") || "") && (sprog === "en") === /"en"/.test(laes(sm, "scripts/projekt/sprog.json") || ""));
+  if (sprog === "en") { const pf = []; (function gaa(d) { for (const x of fs.readdirSync(d, { withFileTypes: true })) { const f = path.join(d, x.name); if (x.isDirectory()) gaa(f); else if (/\.(md|cmd)$/.test(x.name) && !f.includes(path.join("startkit", "assets"))) pf.push(f); } })(pm); tjek("plugin startkit: ingen danske bogstaver i de engelske tekster", pf.every((f) => !DANSKE_BOGSTAVER.test(fs.readFileSync(f, "utf8"))), pf.filter((f) => DANSKE_BOGSTAVER.test(fs.readFileSync(f, "utf8"))).join(", ")); }
+  const p = nytProjekt();
+  skriv(p, profilFil, profil);
+  let y = koer("node", [path.join(sm, "scripts", "opsaet.js"), p], { vaerktoej: "ingen" });
+  tjek(`plugin ${navn}: opsætningen fra pluginnet skriver Claude Codes filer på det rigtige sprog`, y.kode === 0 && forventet.test(y.ud) && laes(p, "CLAUDE.md") !== null && laes(p, ".claude/settings.local.json") !== null && laes(p, "AGENTS.md") === null && laes(p, sprog === "en" ? "overview.cmd" : "overblik.cmd") !== null && laes(p, ".startkit/feedback.md") !== null && !/Codex/.test(laes(p, sprog === "en" ? ".startkit/why-was-i-stopped.md" : ".startkit/hvorfor-blev-jeg-stoppet.md")), y.ud + y.fejl);
+  git(p, "config", "core.hooksPath", ".githooks");
+  y = koer("node", [path.join(sm, "scripts", "tjek-opsaetning.js"), p], { vaerktoej: "ingen" });
+  tjek(`plugin ${navn}: tjekket af opsætningen fra pluginnet er grønt`, y.kode === 0 && !/❌/.test(y.ud), y.ud + y.fejl);
+  y = koer("node", [path.join(sm, "scripts", "noeglescan.js"), p], { vaerktoej: "ingen" });
+  tjek(`plugin ${navn}: nøglescannet fra pluginnet virker`, y.kode === 0, y.ud + y.fejl);
+}
+tjek("plugin: følger ikke med i ZIP-filen (den er til installation med dobbeltklik)", !/plugins/.test(udgivTekst()));
+
 // ---- Codex er stadig standard, og intet er ændret dér ----
 rod = nytProjekt();
 skriv(rod, ".startkit/profil.json", eksempel());
 r = koer("node", [OPSAET, rod], { vaerktoej: "ingen" });
 const codexHooks = JSON.parse(laes(rod, ".codex/hooks.json") || "{}");
-tjek("Codex er standard: AGENTS.md og .codex/hooks.json som før, og ingen Claude-filer", r.kode === 0 && laes(rod, "AGENTS.md") !== null && codexHooks.hooks.PreToolUse[0].matcher === "Bash|apply_patch|Edit|Write" && laes(rod, "CLAUDE.md") === null && laes(rod, ".claude/settings.local.json") === null && laes(rod, "scripts/startkit/vaerktoej.json") === null && /Codex/.test(laes(rod, ".startkit/hvorfor-blev-jeg-stoppet.md")), r.ud + r.fejl);
+tjek("Codex er standard: AGENTS.md og .codex/hooks.json som før, og ingen Claude-filer", r.kode === 0 && !codexHooks.permissions && laes(rod, "AGENTS.md") !== null && codexHooks.hooks.PreToolUse[0].matcher === "Bash|apply_patch|Edit|Write" && laes(rod, "CLAUDE.md") === null && laes(rod, ".claude/settings.local.json") === null && laes(rod, "scripts/startkit/vaerktoej.json") === null && /Codex/.test(laes(rod, ".startkit/hvorfor-blev-jeg-stoppet.md")), r.ud + r.fejl);
 
 skriv(rod, "CLAUDE.md", Array.from({ length: 120 }, (_, i) => `- min egen regel ${i}`).join("\n") + "\n");
 git(rod, "config", "core.hooksPath", ".githooks");
@@ -269,6 +326,7 @@ tjek("udgivelsen: ZIP-filen rummer også installationen til Claude Code", ["inst
 for (const [f, tabel] of [["README.md", "## Codex or Claude Code?"], ["README.da.md", "## Codex eller Claude Code?"]]) {
   const t = laes(ROD, f) || "";
   tjek(`${f}: forklarer valget mellem Codex og Claude Code og begge installationer til Claude Code`, t.includes(tabel) && ["installer-claude.cmd", "install-claude-english.cmd", "`/startkit`", "`CLAUDE.md`", "`.claude/settings.local.json`", ".claude\\skills\\startkit", '{"vaerktoej": "claude"}', "claude.com/download"].every((x) => t.includes(x)));
+  tjek(`${f}: forklarer installation som plugin, og at den ikke er prøvet på Windows`, t.includes("/plugin marketplace add legenden39/ai-coding-starter-kit") && /\/plugin install startkit(-da)?@ai-coding-starter-kit/.test(t) && /(Plugin-udgaven installeret direkte fra GitHub, og plugin-udgaven på Windows|The plugin edition installed straight from GitHub, and the plugin edition on Windows) \| \*\*(Ikke afprøvet|Not tried)\*\*/.test(t));
   tjek(`${f}: siger ærligt, hvad der er prøvet i Claude Code, og hvad der ikke er`, /(Prøvet|Tried) i?n? ?Claude Code 2\.\d+\.\d+/.test(t) && /Claude Code (på Windows og i Claudes app|on Windows and in the Claude app) \| \*\*(Ikke afprøvet|Not tried)\*\*/.test(t));
 }
 for (const f of ["CHANGELOG.md", "CHANGELOG.da.md", "TEACHING.md", "UNDERVISNING.md"]) tjek(`${f}: nævner udgaven til Claude Code`, /Claude Code/.test(laes(ROD, f) || "") && /installer-claude\.cmd|install-claude-english\.cmd/.test(laes(ROD, f) || ""));

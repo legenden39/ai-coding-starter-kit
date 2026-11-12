@@ -27,6 +27,7 @@ It stops a commit if a key is about to be included, or if `CLAUDE.md` has become
 - The guard is a safety net, not a wall. A creative command can get around a pattern.
 - If a hook fails, or runs out of time, Claude Code lets the tool carry on.
 - Claude Code has no approval of each single hook. Type `/hooks` to see which ones are loaded.
+- As an extra layer, `.env` files are also blocked by Claude Code's own deny rules (`permissions.deny` in `.claude/settings.local.json`).
 
 ## Did it stop something it should not have?
 

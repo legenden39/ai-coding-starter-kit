@@ -85,7 +85,7 @@ Vis først, hvad der sker: `node <skill-mappen>/scripts/opsaet.js <projektmappe>
 
 Derefter, med personens ok: `git config core.hooksPath .githooks` (tænder nøgletjekket).
 
-**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de to fra startkittet står der: vagten under PreToolUse og færdig-tjekket under Stop. Start derefter en ny chat, så de helt sikkert er indlæst.
+**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de to fra startkittet står der: vagten under PreToolUse og færdig-tjekket under Stop. Start derefter en ny chat, så de helt sikkert er indlæst. Opsætningen har også skrevet Claude Codes egne forbudsregler for `.env`-filer i samme fil (`permissions.deny`). De er et ekstra lag, hvis en hook en dag ikke bliver kørt.
 
 ## Fase 7: Prøv sikkerhedsnettet for øjnene af personen
 
@@ -93,7 +93,7 @@ Test aldrig på personens egne filer.
 1. Nøgletjekket: lav `proeve.txt` med en falsk nøgle (byg den af to stykker, så den ikke står som ét ord nogen steder), `git add proeve.txt` og `git commit -m prøve`. Det skal stoppe. Ryd op bagefter.
 2. Vagten: prøv `git commit --no-verify -m prøve`. Den skal blive afvist med en forklaring.
 3. Færdig-tjekket: ret en lille kodefil, og sig "færdig". Du skal blive bedt om at køre `node scripts/startkit/bevis.js`.
-4. Kør `node <skill-mappen>/scripts/tjek-opsaetning.js <projektmappe>`. Alt skal være ✅.
+4. Kør `node <skill-mappen>/scripts/tjek-opsaetning.js <projektmappe>`. Alt skal være ✅. Se også på linjen nederst om, at Claude Code kalder vagten: den skal også være ✅. Står der ⚠️, mens I sidder i en ny chat, så bliver vagten ikke kaldt, og så beskytter den ikke.
 
 Stopper noget ikke, så sig det ærligt, find årsagen (står hooken i `/hooks`? er mappen betroet? er det en ny chat?), og skriv det i status under "Fejl i kittet". Gå ikke videre, som om det virkede.
 

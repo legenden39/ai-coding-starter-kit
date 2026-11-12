@@ -94,7 +94,7 @@ Never test on the person's own files.
 1. The key check: make `sample.txt` with a fake key (build it from two pieces, so it is not written as one word anywhere), `git add sample.txt` and `git commit -m sample`. It must stop. Clean up afterwards.
 2. The guard: try `git commit --no-verify -m sample`. It must be refused with an explanation.
 3. The done-check: change a small code file, and say "done". You must be asked to run `node scripts/startkit/bevis.js`.
-4. Run `node <skill folder>/scripts/tjek-opsaetning.js <project folder>`. Everything must be ✅.
+4. Run `node <skill folder>/scripts/tjek-opsaetning.js <project folder>`. Everything must be ✅. Also look at the line at the bottom saying that Codex calls the guard: it must be ✅ too. If it says ⚠️ while you are in a new chat, the guard is not being called, and then it does not protect.
 
 If something does not stop, say so honestly, find the cause (is the hook approved in `/hooks`? is it a new chat?), and write it in the status under "Bugs in the kit". Do not go on as if it worked.
 

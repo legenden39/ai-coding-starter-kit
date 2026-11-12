@@ -27,6 +27,7 @@ Det stopper en commit, hvis der er en nøgle på vej med, eller hvis `CLAUDE.md`
 - Vagten er et sikkerhedsnet, ikke en mur. En kreativ kommando kan komme udenom et mønster.
 - Fejler en hook, eller løber den tør for tid, lader Claude Code værktøjet køre videre.
 - Claude Code har ingen godkendelse af hver enkelt hook. Skriv `/hooks` for at se, hvilke der er indlæst.
+- Som ekstra lag er `.env`-filer også spærret med Claude Codes egne forbudsregler (`permissions.deny` i `.claude/settings.local.json`).
 
 ## Stoppede den noget, den ikke burde?
 
