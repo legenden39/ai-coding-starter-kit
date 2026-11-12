@@ -75,7 +75,7 @@ Løsning: Fast spørgsmål i færdig-rapporten: "Hvad var årsagen, og er den fj
 - Commit, hver gang noget virker. Så kan alt rulles tilbage.
 - Læg en kopi et andet sted (et privat lager på GitHub). En mappe på én computer er ikke en sikkerhedskopi.
 - Én gren pr. opgave, så halvfærdigt arbejde ikke blander sig med det, der virker.
-- Kommandoer, der sletter arbejde, som ikke er gemt (`git reset --hard`, `git clean`), kører ejeren selv. Vagten stopper AI'en.
+- Kommandoer, der sletter arbejde, som ikke er gemt (`git reset --hard`, `git clean`, `git checkout .`, `git stash drop`, `git branch -D`), og sletning uden for projektet eller af hele mapper (`rm -rf src`), kører ejeren selv. Vagten stopper AI'en. Mapper, der kan laves igen (`node_modules`, `dist`, `build`), må den gerne slette.
 
 ## 12. Nøgler hører aldrig til i kode eller chat
 

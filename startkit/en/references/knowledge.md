@@ -75,7 +75,7 @@ Solution: A fixed question in the done report: "What was the cause, and has it b
 - Commit every time something works. Then everything can be rolled back.
 - Put a copy somewhere else (a private repository on GitHub). A folder on one computer is not a backup.
 - One branch per task, so half-finished work does not mix with what works.
-- Commands that delete work that is not saved (`git reset --hard`, `git clean`) are run by the owner. The guard stops the AI.
+- Commands that delete work that is not saved (`git reset --hard`, `git clean`, `git checkout .`, `git stash drop`, `git branch -D`), and deletion outside the project or of whole folders (`rm -rf src`), are run by the owner. The guard stops the AI. Folders that can be recreated (`node_modules`, `dist`, `build`) it may delete.
 
 ## 12. Keys never belong in code or chat
 

@@ -2,7 +2,7 @@
 
 [English](README.md) · Dansk
 
-> **Beta, version 0.5.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
+> **Beta, version 0.6.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
 
 **Vil du bygge noget med AI, men ved ikke, hvor du skal starte, eller er du træt af, at AI'en laver de samme fejl igen og igen? Så er det her til dig.**
 

@@ -6,6 +6,18 @@ The version number is in `startkit/VERSION` and is written into your feedback fi
 
 All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
+## 0.6.0-beta (November 2026)
+
+The guard now stops deletion, not just two git commands.
+
+- **Fixed a gap:** until now the guard only stopped `git reset --hard` and `git clean`. Ordinary deletion went through, and the README promised more. `rm -rf ~/`, `rm -rf src`, `rmdir /s /q src`, `del /s /q *.*`, `Remove-Item -Recurse -Force` on a folder, and `git checkout .` all passed.
+- **Now stopped:** deletion outside the project folder or in your home folder; "everything" in a folder; whole folders with contents; paths with a variable in them (an empty variable can turn `"$DIR/"` into `/`); `find ... -delete` without a `-name` filter; and the git commands that throw away unsaved changes (`git checkout .`, `git restore .`, `git checkout -f`, `git switch -f`, `git stash drop`, `git branch -D`).
+- **Still allowed:** single files in the project, folders that can be recreated (`node_modules`, `dist`, `build`, `.next`, `coverage` and the like), `find ... -name ... -delete`, `git checkout -- one-file`, `git restore --staged`, and `git branch -d`.
+- The message says what is wrong and that the owner can run the command themselves. Both languages and both editions (Codex and Claude Code).
+- Honest limit: the guard reads the text of the command. Deleting through a script, or through `node -e` and the like, it cannot see.
+- Corrected the README: Linux is tested automatically at GitHub, Mac is not tried.
+- Found by reading the earlier research report; not tried in Claude Code or Codex on a real computer, only in the automatic tests, which now cover more than 230 cases for the guard.
+
 ## 0.5.0-beta (November 2026)
 
 A self-test of the guard, an extra layer for secret files, and installation as a plugin in Claude Code.

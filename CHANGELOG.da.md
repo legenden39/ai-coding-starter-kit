@@ -6,6 +6,18 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## 0.6.0-beta (november 2026)
+
+Vagten stopper nu sletning, ikke kun to git-kommandoer.
+
+- **Et hul er lukket:** hidtil stoppede vagten kun `git reset --hard` og `git clean`. Almindelig sletning slap igennem, og README lovede mere. `rm -rf ~/`, `rm -rf src`, `rmdir /s /q src`, `del /s /q *.*`, `Remove-Item -Recurse -Force` på en mappe og `git checkout .` blev alle tilladt.
+- **Nu stoppet:** sletning uden for projektmappen eller i hjemmemappen, "alt" i en mappe, hele mapper med indhold, stier med en variabel i (en tom variabel kan gøre `"$MAPPE/"` til `/`), `find ... -delete` uden `-name`-filter, og de git-kommandoer, der smider ugemte ændringer væk (`git checkout .`, `git restore .`, `git checkout -f`, `git switch -f`, `git stash drop`, `git branch -D`).
+- **Stadig tilladt:** enkelte filer i projektet, mapper der kan laves igen (`node_modules`, `dist`, `build`, `.next`, `coverage` og lignende), `find ... -name ... -delete`, `git checkout -- én-fil`, `git restore --staged` og `git branch -d`.
+- Beskeden siger, hvad der er galt, og at ejeren selv kan køre kommandoen. På begge sprog og i begge udgaver (Codex og Claude Code).
+- Ærlig grænse: vagten læser kommandoens tekst. Sletning gennem et script, eller gennem `node -e` og lignende, kan den ikke se.
+- README er rettet: Linux testes automatisk hos GitHub, Mac er ikke afprøvet.
+- Fundet ved at læse den tidligere researchrapport. Ikke prøvet i Claude Code eller Codex på en rigtig computer, kun i de automatiske test, som nu har over 230 tilfælde for vagten.
+
 ## 0.5.0-beta (november 2026)
 
 Selvtest af vagten, et ekstra lag for hemmelige filer, og installation som plugin i Claude Code.

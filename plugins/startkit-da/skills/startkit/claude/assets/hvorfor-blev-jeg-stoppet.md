@@ -8,6 +8,8 @@ Den afviser:
 - **Nøgler og adgangskoder** i filer eller kommandoer, og al læsning og skrivning af `.env`-filer. En nøgle, der havner i en fil eller en chat, er brændt og skal skiftes.
 - **`git commit --no-verify`**: det springer nøgletjekket over.
 - **`git push --force`, `git reset --hard` og `git clean`**: de kan slette arbejde, som ikke kan hentes igen.
+- **Kommandoer, der smider ændringer væk**, som ikke er gemt i en commit: `git checkout .`, `git restore .` (uden `--staged`), `git checkout -f`, `git switch -f`, `git stash drop` og `git stash clear`, og `git branch -D`. Én enkelt fil må AI'en gerne rette tilbage.
+- **Sletning, der ikke kan fortrydes:** alt uden for projektmappen eller i din hjemmemappe, "alt" i en mappe (`rm -rf *`, `del /s /q *.*`), hele mapper med indhold (`rm -rf src`) og stier med en variabel i (`rm -rf "$MAPPE/"`, hvor en tom variabel rammer noget helt andet). Enkelte filer i projektet og mapper, der kan laves igen (`node_modules`, `dist`, `build`), må AI'en gerne slette.
 - **Ændringer af kontrollerne selv** (`.claude/settings.local.json`, `scripts/startkit/`, `.githooks/`, `.startkit/config.json`, beviset). Ellers kunne AI'en slå dem fra, når de er i vejen.
 
 Er det noget, du selv vil have gjort, så kør kommandoen i din egen terminal. Vagten stopper kun AI'en, ikke dig.
@@ -25,6 +27,7 @@ Det stopper en commit, hvis der er en nøgle på vej med, eller hvis `CLAUDE.md`
 ## Ærlige grænser
 
 - Vagten er et sikkerhedsnet, ikke en mur. En kreativ kommando kan komme udenom et mønster.
+- Vagten læser kommandoens tekst. Sletter AI'en gennem et program, den ikke kan se ind i (et script, eller `node -e` og lignende), kan vagten ikke stoppe det.
 - Fejler en hook, eller løber den tør for tid, lader Claude Code værktøjet køre videre.
 - Claude Code har ingen godkendelse af hver enkelt hook. Skriv `/hooks` for at se, hvilke der er indlæst.
 - Som ekstra lag er `.env`-filer også spærret med Claude Codes egne forbudsregler (`permissions.deny` i `.claude/settings.local.json`).
