@@ -16,7 +16,8 @@ A self-test of the guard, an extra layer for secret files, and installation as a
 - If you set the kit up with an older version, run the setup again in the project to get the self-test and the deny rules.
 - Tried in Claude Code 2.1.322 on Linux: the self-test, the deny rules, and plugin installation from a local copy of the repository.
 - Tried after the release, in Claude Code 2.1.322 on Linux: plugin installation straight from GitHub, in both languages.
-- Not tried: everything new on Windows.
+- Tested automatically after the release: plugin installation in the real Claude Code at GitHub, on Windows and Linux (`node tests/plugin-installation.js`).
+- Not tried: the self-test and the deny rules in Claude Code on Windows, and `/startkit` from the plugin on Windows.
 
 ## 0.4.0-beta (November 2026)
 

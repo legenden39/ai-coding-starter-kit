@@ -16,7 +16,8 @@ Selvtest af vagten, et ekstra lag for hemmelige filer, og installation som plugi
 - Har du sat kittet op med en ældre version, så kør opsætningen igen i projektet for at få selvtesten og forbudsreglerne med.
 - Prøvet i Claude Code 2.1.322 på Linux: selvtesten, forbudsreglerne, og plugin-installation fra en lokal kopi af lageret.
 - Prøvet efter udgivelsen, i Claude Code 2.1.322 på Linux: plugin-installation direkte fra GitHub, på begge sprog.
-- Ikke afprøvet: alt det nye på Windows.
+- Testet automatisk efter udgivelsen: plugin-installation i det rigtige Claude Code hos GitHub, på Windows og Linux (`node tests/plugin-installation.js`).
+- Ikke afprøvet: selvtesten og forbudsreglerne i Claude Code på Windows, og `/startkit` fra pluginnet på Windows.
 
 ## 0.4.0-beta (november 2026)
 
