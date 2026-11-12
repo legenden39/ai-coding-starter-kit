@@ -8,7 +8,7 @@ English · [Dansk](README.da.md)
 
 You don't need to know how to code, and you don't need to know the words used below. They are explained along the way, and there is a glossary at the bottom.
 
-> **The kit speaks English or Danish.** You choose when you install it: `install-english.cmd` gives you the English edition, `installer.cmd` the Danish one. The English edition is new in this version. It was translated from the Danish one and has been tried by fewer people. A few file names in the kit are still Danish; they are explained [further down](#the-file-names-are-danish).
+> **The kit speaks English or Danish.** You choose when you install it: `install-english.cmd` gives you the English edition, `installer.cmd` the Danish one (for Claude Code: `install-claude-english.cmd` and `installer-claude.cmd`). The English edition was translated from the Danish one and has been tried by fewer people. A few file names in the kit are still Danish; they are explained [further down](#the-file-names-are-danish).
 
 ## What is the problem?
 
