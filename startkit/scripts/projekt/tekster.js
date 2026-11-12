@@ -37,8 +37,8 @@ const vt = (navn) => (navn ? VAERKTOEJER[vaerktoej()][navn] : VAERKTOEJER[vaerkt
 
 // De filer i projektet, personen selv ser, hedder noget forskelligt på de to sprog.
 const FILER = {
-  da: { fejl: "docs/gentagne-fejl.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
-  en: { fejl: "docs/recurring-mistakes.md", hvorfor: ".startkit/why-was-i-stopped.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
+  da: { fejl: "docs/gentagne-fejl.md", deling: "docs/foer-du-deler.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
+  en: { fejl: "docs/recurring-mistakes.md", deling: "docs/before-you-share.md", hvorfor: ".startkit/why-was-i-stopped.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
 };
 const fil = (navn) => FILER[sprog()][navn];
 
@@ -53,6 +53,13 @@ const TEKSTER = {
     "vagt.force": "git push --force kan overskrive arbejde, der ikke kan hentes igen. Ejeren kører selv kommandoen, hvis det er med vilje.",
     "vagt.reset": "git reset --hard sletter ændringer, der ikke er gemt. Ejeren kører selv kommandoen, hvis det er med vilje.",
     "vagt.clean": "git clean sletter filer, der ikke er gemt i git. Ejeren kører selv kommandoen, hvis det er med vilje.",
+    "vagt.kasser": "{k} smider ændringer væk, der ikke er gemt i en commit. Ejeren kører selv kommandoen, hvis det er med vilje.",
+    "vagt.stash": "git stash drop og git stash clear sletter gemte ændringer for altid. Ejeren kører selv kommandoen, hvis det er med vilje.",
+    "vagt.gren": "git branch -D sletter en gren, selv om arbejdet på den ikke er flettet. Brug git branch -d, som kun sletter flettede grene. Ejeren kører selv -D, hvis det er med vilje.",
+    "vagt.slet.udenfor": "{m} ligger uden for projektmappen (eller er din hjemmemappe). Det, der slettes dér, kan git ikke redde. Ejeren sletter selv, hvis det er med vilje.",
+    "vagt.slet.alt": "Kommandoen sletter alt i mappen eller git-historikken ({m}). Ejeren kører selv kommandoen, hvis det er med vilje.",
+    "vagt.slet.mappe": "Kommandoen sletter hele mappen {m} med alt, hvad der ligger i den. Mapper, der kan laves igen (fx node_modules, dist og build), må AI'en gerne slette. Ejeren sletter selv alt andet, hvis det er med vilje.",
+    "vagt.slet.variabel": "Stien {m} indeholder en variabel. Er variablen tom, kan kommandoen ramme en helt anden mappe. Skriv den fulde sti i stedet. Ejeren kører selv kommandoen, hvis det er med vilje.",
     "vagt.env.kommando": "Kommandoen rører en .env-fil. Nøgler læses og skrives aldrig af AI'en; ejeren lægger dem selv ind.",
     "vagt.noegle.kommando": "Kommandoen indeholder noget, der ligner en nøgle. Skriv aldrig rigtige nøgler.",
     "vagt.kontrol.kommando": "Kommandoen rører en af startkittets kontroller (vagt, færdig-tjek, nøgletjek eller deres indstillinger). Ejeren ændrer dem selv, eller kører startkittets opsætning igen.",
@@ -146,6 +153,7 @@ const TEKSTER = {
     "ops.n.agents": "korte, faste regler; kun startkittets blok ændres",
     "ops.n.status": "hvor vi er, fra gang til gang",
     "ops.n.fejl": "fejl, der ikke må ske igen",
+    "ops.n.deling": "tjekliste til, før noget deles med andre",
     "ops.n.hvorfor": "forklaring af kontrollerne",
     "ops.n.forloeb": "hvor langt startkittet er",
     "ops.n.config": "hvilke kommandoer beviser, at det virker",
@@ -226,6 +234,13 @@ const TEKSTER = {
     "vagt.force": "git push --force can overwrite work that cannot be recovered. The owner runs the command themselves if it is intended.",
     "vagt.reset": "git reset --hard deletes changes that have not been saved. The owner runs the command themselves if it is intended.",
     "vagt.clean": "git clean deletes files that are not saved in git. The owner runs the command themselves if it is intended.",
+    "vagt.kasser": "{k} throws away changes that are not saved in a commit. The owner runs the command themselves if it is intended.",
+    "vagt.stash": "git stash drop and git stash clear delete saved changes for good. The owner runs the command themselves if it is intended.",
+    "vagt.gren": "git branch -D deletes a branch even if the work on it has not been merged. Use git branch -d, which only deletes merged branches. The owner runs -D themselves if it is intended.",
+    "vagt.slet.udenfor": "{m} is outside the project folder (or is your home folder). What is deleted there, git cannot save. The owner deletes it themselves if it is intended.",
+    "vagt.slet.alt": "The command deletes everything in the folder, or the git history ({m}). The owner runs the command themselves if it is intended.",
+    "vagt.slet.mappe": "The command deletes the whole folder {m} and everything in it. Folders that can be recreated (like node_modules, dist and build) the AI may delete. The owner deletes everything else themselves if it is intended.",
+    "vagt.slet.variabel": "The path {m} contains a variable. If the variable is empty, the command can hit a completely different folder. Write out the full path instead. The owner runs the command themselves if it is intended.",
     "vagt.env.kommando": "The command touches a .env file. The AI never reads or writes keys; the owner puts them in.",
     "vagt.noegle.kommando": "The command contains something that looks like a key. Never write real keys.",
     "vagt.kontrol.kommando": "The command touches one of the starter kit's controls (the guard, the done-check, the key check or their settings). The owner changes them, or runs the starter kit's setup again.",
@@ -314,6 +329,7 @@ const TEKSTER = {
     "ops.n.agents": "short, fixed rules; only the starter kit's block is changed",
     "ops.n.status": "where we are, from one session to the next",
     "ops.n.fejl": "mistakes that must not happen again",
+    "ops.n.deling": "checklist for before something is shared with others",
     "ops.n.hvorfor": "explanation of the controls",
     "ops.n.forloeb": "how far the starter kit has come",
     "ops.n.config": "which commands prove that it works",

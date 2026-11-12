@@ -78,7 +78,7 @@ Skal noget ud til rigtige mennesker (domæne, rigtige mails, betaling, persondat
 
 Vis først, hvad der sker: `node <skill-mappen>/scripts/opsaet.js <projektmappe> --toer`. Forklar hver del i 2-3 linjer (hvad den beskytter mod, og hvad personen ser, når den stopper noget). Efter et ja: kør uden `--toer`. Den skriver:
 - `CLAUDE.md` (kort; kittets blok ligger mellem to mærker, og personens egne linjer røres ikke),
-- `STATUS.md` (hvor vi er; læses i starten af hver chat) og `docs/gentagne-fejl.md`,
+- `STATUS.md` (hvor vi er; læses i starten af hver chat), `docs/gentagne-fejl.md` og `docs/foer-du-deler.md` (tjekliste, som AI'en går igennem, før noget deles med andre),
 - vagten og færdig-tjekket (`scripts/startkit/` og `.claude/settings.local.json`),
 - nøgletjekket før commit (`.githooks/pre-commit`),
 - `.startkit/config.json` (hvilke kommandoer der beviser, at tingene virker) og `.startkit/hvorfor-blev-jeg-stoppet.md`.
@@ -107,7 +107,7 @@ Overblikket (kontrolpanelet) er en side, personen åbner i sin browser for at se
 
 1. Opdatér status, og vis tjeklisten og de åbne punkter.
 2. Sig ærligt, hvad der ikke er gjort eller ikke virkede.
-3. Vis de tre vaner, der gør den største forskel (fra `claude/references/viden.md`): ny opgave = ny chat, `STATUS.md` opdateres til sidst, og "den fejl igen" bliver til en lås.
+3. Vis de tre vaner, der gør den største forskel (fra `claude/references/viden.md`): ny opgave = ny chat, `STATUS.md` opdateres til sidst, og "den fejl igen" bliver til en lås. Sig også, at personen altid kan skrive "hvad nu?" i en ny chat: så læser AI'en `STATUS.md` og foreslår næste skridt.
 4. Giv en startbesked til næste chat: opgave, hvad der er lavet, færdig når, og hvilken model der passer.
 5. Første commit, efter et ja: kør nøglescan igen, vis med `git status`, hvad der gemmes, og commit.
 6. Sikkerhedskopi på GitHub (anbefales; personen må sige nej): følg `claude/references/github.md`. Den hjælper med konto, skjult e-mail, login og en **privat** kopi. Du opretter kun private lagre, beder aldrig om adgangskoder, og lægger intet op uden et ja.

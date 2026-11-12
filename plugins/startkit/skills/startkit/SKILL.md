@@ -80,7 +80,7 @@ If something is going out to real people (a domain, real emails, payment, person
 
 Show first what will happen: `node <skill folder>/scripts/opsaet.js <project folder> --dry-run`. Explain each part in 2-3 lines (what it protects against, and what the person sees when it stops something). After a yes: run it without `--dry-run`. It writes:
 - `CLAUDE.md` (short; the kit's block sits between two markers, and the person's own lines are not touched),
-- `STATUS.md` (where we are; read at the start of every chat) and `docs/recurring-mistakes.md`,
+- `STATUS.md` (where we are; read at the start of every chat), `docs/recurring-mistakes.md` and `docs/before-you-share.md` (a checklist the AI goes through before something is shared with others),
 - the guard and the done-check (`scripts/startkit/` and `.claude/settings.local.json`),
 - the key check before commit (`.githooks/pre-commit`),
 - `.startkit/config.json` (which commands prove that things work) and `.startkit/why-was-i-stopped.md`.
@@ -109,7 +109,7 @@ The overview (the control panel) is a page the person opens in their browser to 
 
 1. Update the status, and show the checklist and the open points.
 2. Say honestly what has not been done or did not work.
-3. Show the three habits that make the biggest difference (from `claude/en/references/knowledge.md`): new task = new chat, `STATUS.md` is updated at the end, and "that mistake again" becomes a lock.
+3. Show the three habits that make the biggest difference (from `claude/en/references/knowledge.md`): new task = new chat, `STATUS.md` is updated at the end, and "that mistake again" becomes a lock. Also say that the person can always write "what now?" in a new chat: the AI then reads `STATUS.md` and suggests the next step.
 4. Give a starting message for the next chat: task, what has been done, done when, and which model fits.
 5. First commit, after a yes: run the key scan again, show with `git status` what will be saved, and commit.
 6. Backup on GitHub (recommended; the person may say no): follow `claude/en/references/github.md`. It helps with an account, a hidden email, login and a **private** copy. You only create private repositories, never ask for passwords, and upload nothing without a yes.

@@ -8,6 +8,8 @@ It refuses:
 - **Keys and passwords** in files or commands, and all reading and writing of `.env` files. A key that ends up in a file or a chat is burnt and must be changed.
 - **`git commit --no-verify`**: it skips the key check.
 - **`git push --force`, `git reset --hard` and `git clean`**: they can delete work that cannot be recovered.
+- **Commands that throw away changes** that are not saved in a commit: `git checkout .`, `git restore .` (without `--staged`), `git checkout -f`, `git switch -f`, `git stash drop` and `git stash clear`, and `git branch -D`. A single file the AI may restore.
+- **Deletion that cannot be undone:** anything outside the project folder or in your home folder, "everything" in a folder (`rm -rf *`, `del /s /q *.*`), whole folders with contents (`rm -rf src`), and paths with a variable in them (`rm -rf "$FOLDER/"`, where an empty variable hits something completely different). Single files in the project, and folders that can be recreated (`node_modules`, `dist`, `build`), the AI may delete.
 - **Changes to the controls themselves** (`.claude/settings.local.json`, `scripts/startkit/`, `.githooks/`, `.startkit/config.json`, the proof). Otherwise the AI could switch them off when they are in the way.
 
 If it is something you want done yourself, run the command in your own terminal. The guard only stops the AI, not you.
@@ -25,6 +27,7 @@ It stops a commit if a key is about to be included, or if `CLAUDE.md` has become
 ## Honest limits
 
 - The guard is a safety net, not a wall. A creative command can get around a pattern.
+- The guard reads the text of the command. If the AI deletes through a program it cannot see into (a script, or `node -e` and the like), the guard cannot stop it.
 - If a hook fails, or runs out of time, Claude Code lets the tool carry on.
 - Claude Code has no approval of each single hook. Type `/hooks` to see which ones are loaded.
 - As an extra layer, `.env` files are also blocked by Claude Code's own deny rules (`permissions.deny` in `.claude/settings.local.json`).

@@ -33,7 +33,7 @@ tjek("kørsel: lykkes", r.kode === 0, r.ud + r.fejl);
 const agents = laes(rod, "AGENTS.md") || "";
 tjek("AGENTS.md: har blokken, projektet og personens regler", agents.includes("<!-- startkit:start") && agents.includes("Kortspil-log") && agents.includes("sletter filer; lægger noget på nettet") && agents.includes("Prøveperson") && !/\{\{/.test(agents), agents);
 tjek("AGENTS.md: er kort (højst 45 linjer)", agents.split("\n").length <= 45, String(agents.split("\n").length));
-for (const f of ["STATUS.md", "docs/gentagne-fejl.md", ".startkit/hvorfor-blev-jeg-stoppet.md", ".startkit/status.md", ".startkit/config.json", ".githooks/pre-commit", ".codex/hooks.json", ".gitignore", "scripts/startkit/vagt.js", "scripts/startkit/regler.js", "scripts/startkit/tilstand.js", "scripts/startkit/faerdig.js", "scripts/startkit/bevis.js", "scripts/startkit/overblik.js", "scripts/startkit/forbrug-gem.js"]) {
+for (const f of ["STATUS.md", "docs/gentagne-fejl.md", "docs/foer-du-deler.md", ".startkit/hvorfor-blev-jeg-stoppet.md", ".startkit/status.md", ".startkit/config.json", ".githooks/pre-commit", ".codex/hooks.json", ".gitignore", "scripts/startkit/vagt.js", "scripts/startkit/regler.js", "scripts/startkit/tilstand.js", "scripts/startkit/faerdig.js", "scripts/startkit/bevis.js", "scripts/startkit/overblik.js", "scripts/startkit/forbrug-gem.js"]) {
   tjek(`fil skrevet: ${f}`, laes(rod, f) !== null);
 }
 tjek("pre-commit: skrevet med LF", !(laes(rod, ".githooks/pre-commit") || "\r").includes("\r"));
@@ -159,6 +159,36 @@ for (const f of alle) {
   const t = fs.readFileSync(f, "utf8");
   const lille = t.toLowerCase();
   tjek(`rent: ${path.relative(path.join(KIT, ".."), f)}`, !EMAIL.test(t) && !BRUGERMAPPE.test(t) && !privateOrd.some((o) => lille.includes(o)) && !harNoegle(t));
+}
+
+// ---- tjekliste til før noget deles med andre (docs/foer-du-deler.md og docs/before-you-share.md) ----
+{
+  const les = (...d) => fs.readFileSync(path.join(KIT, ...d), "utf8");
+  const preCommit = les("assets", "pre-commit");
+  for (const [sprog, fil, skabelon, regel, overskrifter] of [
+    ["da", ["assets", "foer-du-deler.md"], ["assets", "AGENTS.skabelon.md"], "docs/foer-du-deler.md", ["## 1. Tre spørgsmål først", "## 2. Hemmeligheder", "## 3. Login og adgang", "## 4. Det, der kan koste penge", "## 5. Rigtige mennesker", "## 6. Hvad ser en fremmed?", "## Sådan svarer AI'en"]],
+    ["en", ["en", "assets", "before-you-share.md"], ["en", "assets", "AGENTS.template.md"], "docs/before-you-share.md", ["## 1. Three questions first", "## 2. Secrets", "## 3. Login and access", "## 4. What can cost money", "## 5. Real people", "## 6. What does a stranger see?", "## How the AI answers"]],
+  ]) {
+    const t = les(...fil);
+    tjek(`deling (${sprog}): har de seks punkter og svarformen`, overskrifter.every((h) => t.includes(h)));
+    tjek(`deling (${sprog}): er kort (højst 60 linjer), så den kan læses i en chat`, t.split("\n").length <= 60, String(t.split("\n").length));
+    tjek(`deling (${sprog}): lover aldrig, at noget er sikkert`, /(aldrig "det er sikkert"|never says "it is safe")/.test(t) && !/(det er sikkert\.|it is safe\.)/.test(t.replace(/(aldrig "det er sikkert"|never says "it is safe")/, "")));
+    tjek(`deling (${sprog}): svarer i tre lister (tjekket, skal rettes, ikke tjekket)`, ["✅", "⚠️", "❓"].every((x) => t.includes(x)));
+    tjek(`deling (${sprog}): giver ikke juridisk rådgivning og henviser til en fagperson`, /(fagperson|professional)/.test(t) && /(GDPR)/.test(t));
+    tjek(`deling (${sprog}): ingen nøgler, e-mailadresser eller stier med brugernavn`, !harNoegle(t) && !EMAIL.test(t) && !BRUGERMAPPE.test(t));
+    tjek(`deling (${sprog}): reglerne peger på filen, opsætningen skriver`, les(...skabelon).includes("`" + regel + "`"));
+  }
+  tjek("deling: nøgletjekket kan scanne alle filer, som vejledningen henviser til", preCommit.includes("--scan"));
+}
+
+// ---- "hvad nu?" / "what now?": en regel, der får AI'en til at læse status og foreslå ét næste skridt ----
+for (const [sprog, skabelon, udtryk, mangler] of [
+  ["da", ["assets", "AGENTS.skabelon.md"], ["\"hvad nu?\"", "`STATUS.md`", "`git status`", "seneste commits", "ét forslag", "hvilken model", "Start ikke, før ejeren har sagt ja"], "ejeren"],
+  ["en", ["en", "assets", "AGENTS.template.md"], ["\"what now?\"", "`STATUS.md`", "`git status`", "latest commits", "one suggestion", "which model", "Do not start until the owner has said yes"], "owner"],
+]) {
+  const t = fs.readFileSync(path.join(KIT, ...skabelon), "utf8");
+  tjek(`hvad nu (${sprog}): reglen findes, læser status og git, foreslår ét skridt og venter på et ja`, udtryk.every((x) => t.includes(x)), udtryk.filter((x) => !t.includes(x)).join(", "));
+  tjek(`hvad nu (${sprog}): regelfilen er stadig kort (højst 45 linjer)`, t.split("\n").length <= 45, String(t.split("\n").length));
 }
 
 slut("opsaet");

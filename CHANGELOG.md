@@ -6,6 +6,23 @@ The version number is in `startkit/VERSION` and is written into your feedback fi
 
 All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
+## 0.6.0-beta (November 2026)
+
+The guard now stops deletion, not just two git commands.
+
+- **Fixed a gap:** until now the guard only stopped `git reset --hard` and `git clean`. Ordinary deletion went through, and the README promised more. `rm -rf ~/`, `rm -rf src`, `rmdir /s /q src`, `del /s /q *.*`, `Remove-Item -Recurse -Force` on a folder, and `git checkout .` all passed.
+- **Now stopped:** deletion outside the project folder or in your home folder; "everything" in a folder; whole folders with contents; paths with a variable in them (an empty variable can turn `"$DIR/"` into `/`); `find ... -delete` without a `-name` filter; and the git commands that throw away unsaved changes (`git checkout .`, `git restore .`, `git checkout -f`, `git switch -f`, `git stash drop`, `git branch -D`).
+- **Still allowed:** single files in the project, folders that can be recreated (`node_modules`, `dist`, `build`, `.next`, `coverage` and the like), `find ... -name ... -delete`, `git checkout -- one-file`, `git restore --staged`, and `git branch -d`.
+- The message says what is wrong and that the owner can run the command themselves. Both languages and both editions (Codex and Claude Code).
+- Honest limit: the guard reads the text of the command. Deleting through a script, or through `node -e` and the like, it cannot see.
+- **Loop breaker:** one new line in the rules the kit writes (`AGENTS.md` or `CLAUDE.md`): if a fix has not worked after two attempts, the AI stops, writes the exact error text and what it tried in `STATUS.md`, and suggests a new chat. Debugging in circles is the most common complaint from beginners. Projects set up earlier get the line when the setup is run again.
+- **When the usage limit hits mid-change:** a new point 15 in the kit's knowledge notes with a short recipe (wait, read `STATUS.md`, check `git status` and run the proof, and `git stash` if it is broken), and one new line in the rules: update `STATUS.md` at every sub-goal, not only at the end.
+- **Before you share (draft):** the setup now writes `docs/before-you-share.md` (Danish: `docs/foer-du-deler.md`), a short checklist the AI goes through with the owner before a link, a website or an app goes out: three questions first, then secrets in browser code, login and open databases, what can cost money, real people's information, and what a stranger sees. The AI answers in three lists (checked, needs fixing, not checked) and never says "it is safe". One new line in the rules points to the file. Projects set up earlier get it when the setup is run again.
+- This is a first draft. It is built from the research report and general knowledge, not from beginners using it. It is a checklist, not a security review, and it does not replace a professional when there is money, health, children or many users.
+- **"What now?":** one new line in the rules. If the owner writes "what now?" in a chat, the AI reads `STATUS.md`, runs `git status`, looks at the latest commits, and answers briefly: where we are, one suggestion for the next task, whether open problems or unsaved changes come first, and which model fits. It does not start until the owner says yes. It is a rule, not a command, so it works the same in Codex and Claude Code, and a rule can be forgotten (see point 1 in the knowledge notes).
+- Corrected the README: Linux is tested automatically at GitHub, Mac is not tried.
+- Found by reading the earlier research report; not tried in Claude Code or Codex on a real computer, only in the automatic tests, which now cover more than 230 cases for the guard.
+
 ## 0.5.0-beta (November 2026)
 
 A self-test of the guard, an extra layer for secret files, and installation as a plugin in Claude Code.

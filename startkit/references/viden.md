@@ -29,7 +29,7 @@ Løsning: Én opgave pr. chat. Når opgaven er færdig: opdatér `STATUS.md`, og
 ## 4. Overblik fra gang til gang kommer fra én fil, ikke fra hukommelsen
 
 Problem: "Når jeg kommer tilbage, ved jeg ikke, hvor jeg slap."
-Løsning: `STATUS.md` i projektets rod med fire korte afsnit: Nu (hvad arbejder vi på), Sidst lavet, Næste skridt, Åbne problemer. AI'en læser den i starten af hver chat og opdaterer den til sidst. Den må ikke blive lang: gamle ting flyttes til `docs/historik.md`.
+Løsning: `STATUS.md` i projektets rod med fire korte afsnit: Nu (hvad arbejder vi på), Sidst lavet, Næste skridt, Åbne problemer. AI'en læser den i starten af hver chat og opdaterer den til sidst. Den må ikke blive lang: gamle ting flyttes til `docs/historik.md`. Kommer du tilbage og er i tvivl, så skriv "hvad nu?": AI'en læser filen, tjekker `git status` og foreslår ét næste skridt og en passende model, og starter først, når du har sagt ja.
 
 ## 5. Vælg model efter opgaven
 
@@ -69,13 +69,14 @@ Hver gang en fejl sker for anden gang: skriv den i `docs/gentagne-fejl.md` (dato
 
 Problem: AI'en bygger en advarsel eller en omvej i stedet for at fjerne fejlen.
 Løsning: Fast spørgsmål i færdig-rapporten: "Hvad var årsagen, og er den fjernet?" Kan årsagen ikke findes, skal det siges højt.
+Hjælper en rettelse ikke efter to forsøg, så stop: fejlteksten og det, der er prøvet, skrives i `STATUS.md`, og ejeren starter en ny chat med dem. En chat, der har gættet flere gange, er fuld af sine egne forkerte spor.
 
 ## 11. Git er din fortryd-knap og din sikkerhedskopi
 
 - Commit, hver gang noget virker. Så kan alt rulles tilbage.
 - Læg en kopi et andet sted (et privat lager på GitHub). En mappe på én computer er ikke en sikkerhedskopi.
 - Én gren pr. opgave, så halvfærdigt arbejde ikke blander sig med det, der virker.
-- Kommandoer, der sletter arbejde, som ikke er gemt (`git reset --hard`, `git clean`), kører ejeren selv. Vagten stopper AI'en.
+- Kommandoer, der sletter arbejde, som ikke er gemt (`git reset --hard`, `git clean`, `git checkout .`, `git stash drop`, `git branch -D`), og sletning uden for projektet eller af hele mapper (`rm -rf src`), kører ejeren selv. Vagten stopper AI'en. Mapper, der kan laves igen (`node_modules`, `dist`, `build`), må den gerne slette.
 
 ## 12. Nøgler hører aldrig til i kode eller chat
 
@@ -91,3 +92,16 @@ Løsning: Regel i `AGENTS.md`: valg, der er svære at lave om, lægges frem som 
 Problem: "Jeg kan ikke finde den nyeste udgave."
 Årsag: Kopier som `projekt-ny`, `projekt-final2` opstår, når git ikke bruges som fortryd-knap.
 Løsning: Ét projekt = én mappe = ét git-lager. Ingen kopier af mapper; brug grene. En kort `docs/struktur.md`, der siger, hvad der bor hvor, og en regel om, at nye mapper på øverste niveau kræver et ja.
+
+## 15. Forbrugsgrænsen rammer midt i en ændring
+
+Problem: "Grænsen ramte midt i arbejdet, og jeg ved ikke, om koden er i stykker."
+Årsag: Chatten stopper, hvor den er, også midt i en ændring af flere filer. Så kan noget være halvt lavet, og den næste chat ved ikke af det.
+Før den rammer:
+- Opdatér `STATUS.md`, hver gang et delmål er nået, ikke kun til sidst, og commit, når noget virker (punkt 4 og 11). Så er der kun lidt at gå tilbage til.
+- Tjek forbruget, før noget stort begynder, og stop ved den grænse, I har aftalt (punkt 6).
+Når den er ramt:
+1. Vent, til grænsen nulstilles. Tidspunktet står i beskeden. Rør ikke ved noget i mellemtiden, og slet ikke noget for at "rydde op".
+2. Start en ny chat, og bed AI'en læse `STATUS.md` og køre `git status` og `git diff --stat`, så den ser, hvilke filer der er halvt rettet. Derefter `node scripts/startkit/bevis.js`, så I ved, om det virker, som det står.
+3. Virker det, og mangler der kun lidt: fortsæt, og skriv i `STATUS.md`, hvad der er gjort. Er det i stykker, og I ikke kan se hvorfor: bed AI'en køre `git stash`. Det lægger de halve ændringer til side uden at slette dem (`git stash pop` henter dem igen), og I starter fra den sidste commit, der virkede.
+4. Skriv i `STATUS.md` under "Næste skridt", hvad den næste chat skal gøre, i ét afsnit.

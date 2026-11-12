@@ -6,6 +6,23 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## 0.6.0-beta (november 2026)
+
+Vagten stopper nu sletning, ikke kun to git-kommandoer.
+
+- **Et hul er lukket:** hidtil stoppede vagten kun `git reset --hard` og `git clean`. Almindelig sletning slap igennem, og README lovede mere. `rm -rf ~/`, `rm -rf src`, `rmdir /s /q src`, `del /s /q *.*`, `Remove-Item -Recurse -Force` på en mappe og `git checkout .` blev alle tilladt.
+- **Nu stoppet:** sletning uden for projektmappen eller i hjemmemappen, "alt" i en mappe, hele mapper med indhold, stier med en variabel i (en tom variabel kan gøre `"$MAPPE/"` til `/`), `find ... -delete` uden `-name`-filter, og de git-kommandoer, der smider ugemte ændringer væk (`git checkout .`, `git restore .`, `git checkout -f`, `git switch -f`, `git stash drop`, `git branch -D`).
+- **Stadig tilladt:** enkelte filer i projektet, mapper der kan laves igen (`node_modules`, `dist`, `build`, `.next`, `coverage` og lignende), `find ... -name ... -delete`, `git checkout -- én-fil`, `git restore --staged` og `git branch -d`.
+- Beskeden siger, hvad der er galt, og at ejeren selv kan køre kommandoen. På begge sprog og i begge udgaver (Codex og Claude Code).
+- Ærlig grænse: vagten læser kommandoens tekst. Sletning gennem et script, eller gennem `node -e` og lignende, kan den ikke se.
+- **Løkke-bryder:** én ny linje i de regler, kittet skriver (`AGENTS.md` eller `CLAUDE.md`): hjælper en rettelse ikke efter to forsøg, stopper AI'en, skriver fejlteksten ordret og det, den har prøvet, i `STATUS.md`, og foreslår en ny chat. Fejlretning i ring er den hyppigste klage fra begyndere. Projekter, der er sat op før, får linjen, når opsætningen køres igen.
+- **Når forbrugsgrænsen rammer midt i en ændring:** et nyt punkt 15 i kittets vidensnotat med en kort opskrift (vent, læs `STATUS.md`, tjek `git status` og kør beviset, og `git stash`, hvis det er i stykker), og én ny linje i reglerne: opdatér `STATUS.md` ved hvert delmål, ikke kun til sidst.
+- **Før du deler (udkast):** opsætningen skriver nu `docs/foer-du-deler.md` (engelsk: `docs/before-you-share.md`), en kort tjekliste, som AI'en går igennem med ejeren, før et link, en hjemmeside eller en app lægges ud: tre spørgsmål først, så hemmeligheder i browserkode, login og åbne databaser, det der kan koste penge, rigtige menneskers oplysninger, og hvad en fremmed ser. AI'en svarer i tre lister (tjekket, skal rettes, ikke tjekket) og siger aldrig "det er sikkert". Én ny linje i reglerne peger på filen. Projekter, der er sat op før, får den, når opsætningen køres igen.
+- Det her er et første udkast. Det er bygget ud fra researchrapporten og almindelig viden, ikke ud fra begyndere, der har brugt det. Det er en tjekliste, ikke en sikkerhedsgennemgang, og det erstatter ikke en fagperson, når der er penge, helbred, børn eller mange brugere.
+- **"Hvad nu?":** én ny linje i reglerne. Skriver ejeren "hvad nu?" i en chat, læser AI'en `STATUS.md`, kører `git status`, ser de seneste commits og svarer kort: hvor vi er, ét forslag til næste opgave, om åbne problemer eller ugemte ændringer skal først, og hvilken model der passer. Den starter ikke, før ejeren har sagt ja. Det er en regel, ikke en kommando, så den virker ens i Codex og Claude Code, og en regel kan blive glemt (se punkt 1 i vidensnotatet).
+- README er rettet: Linux testes automatisk hos GitHub, Mac er ikke afprøvet.
+- Fundet ved at læse den tidligere researchrapport. Ikke prøvet i Claude Code eller Codex på en rigtig computer, kun i de automatiske test, som nu har over 230 tilfælde for vagten.
+
 ## 0.5.0-beta (november 2026)
 
 Selvtest af vagten, et ekstra lag for hemmelige filer, og installation som plugin i Claude Code.
