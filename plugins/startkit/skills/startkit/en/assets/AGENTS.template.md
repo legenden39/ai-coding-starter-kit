@@ -13,6 +13,7 @@ Owner: {{NAVN}}. Only the owner approves new or changed agreements.
 - Never write, show or read real keys and passwords. Only the owner touches `.env` files.
 - Only say "done" when `node scripts/startkit/bevis.js` (the proof) is green, and you have said what you have not tried.
 - Fix the cause, not the symptom. If you cannot find the cause, say so.
+- If a fix has not worked after two attempts, stop. Write the exact error text and what you tried in `STATUS.md`, and suggest the owner starts a new chat with it. Do not keep guessing.
 - Never guess. If you do not know, say "I don't know", and suggest how we find out.
 - Choices that are hard to undo (structure, database, new tools): lay out 2-3 options with a recommendation, and let the owner choose.
 - Ask the owner before you: {{ALDRIG_UDEN_OK}}.

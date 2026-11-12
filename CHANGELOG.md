@@ -15,6 +15,7 @@ The guard now stops deletion, not just two git commands.
 - **Still allowed:** single files in the project, folders that can be recreated (`node_modules`, `dist`, `build`, `.next`, `coverage` and the like), `find ... -name ... -delete`, `git checkout -- one-file`, `git restore --staged`, and `git branch -d`.
 - The message says what is wrong and that the owner can run the command themselves. Both languages and both editions (Codex and Claude Code).
 - Honest limit: the guard reads the text of the command. Deleting through a script, or through `node -e` and the like, it cannot see.
+- **Loop breaker:** one new line in the rules the kit writes (`AGENTS.md` or `CLAUDE.md`): if a fix has not worked after two attempts, the AI stops, writes the exact error text and what it tried in `STATUS.md`, and suggests a new chat. Debugging in circles is the most common complaint from beginners. Projects set up earlier get the line when the setup is run again.
 - Corrected the README: Linux is tested automatically at GitHub, Mac is not tried.
 - Found by reading the earlier research report; not tried in Claude Code or Codex on a real computer, only in the automatic tests, which now cover more than 230 cases for the guard.
 

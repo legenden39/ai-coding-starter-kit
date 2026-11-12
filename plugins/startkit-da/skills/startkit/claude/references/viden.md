@@ -69,6 +69,7 @@ Hver gang en fejl sker for anden gang: skriv den i `docs/gentagne-fejl.md` (dato
 
 Problem: AI'en bygger en advarsel eller en omvej i stedet for at fjerne fejlen.
 Løsning: Fast spørgsmål i færdig-rapporten: "Hvad var årsagen, og er den fjernet?" Kan årsagen ikke findes, skal det siges højt.
+Hjælper en rettelse ikke efter to forsøg, så stop: fejlteksten og det, der er prøvet, skrives i `STATUS.md`, og ejeren starter en ny chat med dem. En chat, der har gættet flere gange, er fuld af sine egne forkerte spor.
 
 ## 11. Git er din fortryd-knap og din sikkerhedskopi
 

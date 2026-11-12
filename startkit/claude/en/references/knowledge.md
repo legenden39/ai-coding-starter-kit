@@ -69,6 +69,7 @@ Every time a mistake happens for the second time: write it in `docs/recurring-mi
 
 Problem: The AI builds a warning or a workaround instead of removing the bug.
 Solution: A fixed question in the done report: "What was the cause, and has it been removed?" If the cause cannot be found, that must be said out loud.
+If a fix has not worked after two attempts, stop: the error text and what was tried go into `STATUS.md`, and the owner starts a new chat with them. A chat that has guessed several times is full of its own wrong tracks.
 
 ## 11. Git is your undo button and your backup
 

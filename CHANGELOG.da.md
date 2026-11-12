@@ -15,6 +15,7 @@ Vagten stopper nu sletning, ikke kun to git-kommandoer.
 - **Stadig tilladt:** enkelte filer i projektet, mapper der kan laves igen (`node_modules`, `dist`, `build`, `.next`, `coverage` og lignende), `find ... -name ... -delete`, `git checkout -- én-fil`, `git restore --staged` og `git branch -d`.
 - Beskeden siger, hvad der er galt, og at ejeren selv kan køre kommandoen. På begge sprog og i begge udgaver (Codex og Claude Code).
 - Ærlig grænse: vagten læser kommandoens tekst. Sletning gennem et script, eller gennem `node -e` og lignende, kan den ikke se.
+- **Løkke-bryder:** én ny linje i de regler, kittet skriver (`AGENTS.md` eller `CLAUDE.md`): hjælper en rettelse ikke efter to forsøg, stopper AI'en, skriver fejlteksten ordret og det, den har prøvet, i `STATUS.md`, og foreslår en ny chat. Fejlretning i ring er den hyppigste klage fra begyndere. Projekter, der er sat op før, får linjen, når opsætningen køres igen.
 - README er rettet: Linux testes automatisk hos GitHub, Mac er ikke afprøvet.
 - Fundet ved at læse den tidligere researchrapport. Ikke prøvet i Claude Code eller Codex på en rigtig computer, kun i de automatiske test, som nu har over 230 tilfælde for vagten.
 
