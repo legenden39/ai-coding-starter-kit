@@ -1,0 +1,30 @@
+<!-- startkit:start (this block is maintained by the starter kit; write your own rules outside the block) -->
+# Working rules for the AI: {{PROJEKT}}
+
+{{BESKRIVELSE}}
+Owner: {{NAVN}}. Only the owner approves new or changed agreements.
+
+## Start here (every new chat)
+- Read `STATUS.md` (where we are) and `docs/recurring-mistakes.md` (mistakes that must not happen again).
+- Say in one line what you understand the task to be, before you begin.
+- One task per chat. A new task belongs in a new chat.
+
+## Fixed rules
+- Never write, show or read real keys and passwords. Only the owner touches `.env` files.
+- Only say "done" when `node scripts/startkit/bevis.js` (the proof) is green, and you have said what you have not tried.
+- Fix the cause, not the symptom. If you cannot find the cause, say so.
+- Never guess. If you do not know, say "I don't know", and suggest how we find out.
+- Choices that are hard to undo (structure, database, new tools): lay out 2-3 options with a recommendation, and let the owner choose.
+- Ask the owner before you: {{ALDRIG_UDEN_OK}}.
+- If you are in doubt: {{VED_TVIVL}}.
+- If the owner says "that mistake again": write the mistake in `docs/recurring-mistakes.md`, and suggest a lock (a hook or a test), not a new text rule.
+- If a guard stops you, do not work around it. Explain to the owner what happened (see `.startkit/why-was-i-stopped.md`).
+- Keep this file short. Long explanations belong in `docs/` and are only read when the task needs them.
+
+## How the owner wants answers
+{{SVARFORM}}
+
+## When the task is finished
+- Update `STATUS.md`: what was done, what is missing, next step. Keep it short.
+- Suggest the next chat: task, what has been done, done when, and which model fits (cheap for the simple, strong for the hard).
+<!-- startkit:slut -->

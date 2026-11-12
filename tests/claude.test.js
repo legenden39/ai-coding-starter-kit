@@ -18,6 +18,7 @@ function koer(program, args, { cwd, input, vaerktoej = "claude", sprog = "ingen"
   const r = spawnSync(program, args, { cwd, input, encoding: "utf8", env });
   return { kode: r.status, ud: r.stdout || "", fejl: r.stderr || "" };
 }
+const udgivTekst = () => ((laes(ROD, ".github/workflows/release.yml") || "").split("Pak kittet")[1] || "x plugins").split("Læg udgivelsen ud")[0];
 const OPSAET = path.join(KIT, "scripts", "opsaet.js");
 const TJEK = path.join(KIT, "scripts", "tjek-opsaetning.js");
 const eksempel = () => laes(__dirname, "eksempel-profil.json");
@@ -267,6 +268,36 @@ for (const [sprog, skillFil, profilFil, profil, forventet] of [
   tjek(`installeret skill til Claude Code (${sprog}): SKILL.md peger på vejledninger, der ligger i den installerede mappe`, peger.length >= 8 && peger.every((f) => laes(skillMappe, f)));
 }
 
+// ---- plugin-udgaven: to mapper lavet ud fra kilden, og lageret er selv kataloget ----
+r = koer("node", [path.join(ROD, "tools", "byg-plugin.js"), "--tjek"]);
+tjek("plugin: mapperne passer til kilden (ellers: node tools/byg-plugin.js)", r.kode === 0, r.ud + r.fejl);
+const katalog = JSON.parse(laes(ROD, ".claude-plugin/marketplace.json") || "{}");
+tjek("plugin: kataloget har et navn, en ejer og de to plugins, og hver peger på en mappe, der findes", katalog.name === "ai-coding-starter-kit" && katalog.owner && (katalog.plugins || []).length === 2 && katalog.plugins.every((x) => /^\.\/plugins\/[\w-]+$/.test(x.source) && laes(ROD, x.source, ".claude-plugin", "plugin.json")), JSON.stringify(katalog).slice(0, 300));
+for (const [navn, sprog, profilFil, profil, forventet] of [
+  ["startkit-da", "da", ".startkit/profil.json", eksempel(), /Sætter op i/],
+  ["startkit", "en", ".startkit/profile.json", JSON.stringify({ person: { name: "Sample" }, projects: [{ name: "Sample project", description: "A place to try things." }], rules: { never_without_ok: ["delete files"], answer_style: "Explain along the way." }, check_commands: ["node -e \"process.exit(0)\""] }), /Setting up in/],
+]) {
+  const pm = path.join(ROD, "plugins", navn), sm = path.join(pm, "skills", "startkit");
+  const manifest = JSON.parse(laes(pm, ".claude-plugin", "plugin.json") || "{}");
+  tjek(`plugin ${navn}: manifestet har navn, beskrivelse og licens, og intet fast versionsnummer (så en ny udgave altid hentes)`, manifest.name === navn && manifest.description.length > 40 && manifest.license === "MIT" && !("version" in manifest) && !/^(claude|anthropic)-/.test(navn) && laes(pm, "LICENSE") !== null);
+  const skill = laes(sm, "SKILL.md") || "";
+  tjek(`plugin ${navn}: SKILL.md er Claude-udgaven på det rigtige sprog, og der er kun én`, skill === (laes(KIT, sprog === "en" ? "claude/en/SKILL.claude.en.md" : "claude/SKILL.claude.md") || "x").replace(/\r\n/g, "\n") && /disable-model-invocation: true/.test(skill) && !fs.existsSync(path.join(sm, "en", "SKILL.en.md")) && !fs.existsSync(path.join(sm, "claude", "SKILL.claude.md")));
+  const peger = [...skill.matchAll(/`(claude\/(?:en\/)?references\/[\w-]+\.md)`/g)].map((m) => m[1]);
+  tjek(`plugin ${navn}: de vejledninger, SKILL.md peger på, ligger i pluginnet`, peger.length >= 8 && peger.every((f) => laes(sm, f)), peger.filter((f) => !laes(sm, f)).join(", "));
+  tjek(`plugin ${navn}: værktøj og sprog er sat på forhånd`, /"claude"/.test(laes(sm, "scripts/projekt/vaerktoej.json") || "") && (sprog === "en") === /"en"/.test(laes(sm, "scripts/projekt/sprog.json") || ""));
+  if (sprog === "en") { const pf = []; (function gaa(d) { for (const x of fs.readdirSync(d, { withFileTypes: true })) { const f = path.join(d, x.name); if (x.isDirectory()) gaa(f); else if (/\.(md|cmd)$/.test(x.name) && !f.includes(path.join("startkit", "assets"))) pf.push(f); } })(pm); tjek("plugin startkit: ingen danske bogstaver i de engelske tekster", pf.every((f) => !DANSKE_BOGSTAVER.test(fs.readFileSync(f, "utf8"))), pf.filter((f) => DANSKE_BOGSTAVER.test(fs.readFileSync(f, "utf8"))).join(", ")); }
+  const p = nytProjekt();
+  skriv(p, profilFil, profil);
+  let y = koer("node", [path.join(sm, "scripts", "opsaet.js"), p], { vaerktoej: "ingen" });
+  tjek(`plugin ${navn}: opsætningen fra pluginnet skriver Claude Codes filer på det rigtige sprog`, y.kode === 0 && forventet.test(y.ud) && laes(p, "CLAUDE.md") !== null && laes(p, ".claude/settings.local.json") !== null && laes(p, "AGENTS.md") === null && laes(p, sprog === "en" ? "overview.cmd" : "overblik.cmd") !== null && laes(p, ".startkit/feedback.md") !== null && !/Codex/.test(laes(p, sprog === "en" ? ".startkit/why-was-i-stopped.md" : ".startkit/hvorfor-blev-jeg-stoppet.md")), y.ud + y.fejl);
+  git(p, "config", "core.hooksPath", ".githooks");
+  y = koer("node", [path.join(sm, "scripts", "tjek-opsaetning.js"), p], { vaerktoej: "ingen" });
+  tjek(`plugin ${navn}: tjekket af opsætningen fra pluginnet er grønt`, y.kode === 0 && !/❌/.test(y.ud), y.ud + y.fejl);
+  y = koer("node", [path.join(sm, "scripts", "noeglescan.js"), p], { vaerktoej: "ingen" });
+  tjek(`plugin ${navn}: nøglescannet fra pluginnet virker`, y.kode === 0, y.ud + y.fejl);
+}
+tjek("plugin: følger ikke med i ZIP-filen (den er til installation med dobbeltklik)", !/plugins/.test(udgivTekst()));
+
 // ---- Codex er stadig standard, og intet er ændret dér ----
 rod = nytProjekt();
 skriv(rod, ".startkit/profil.json", eksempel());
@@ -295,6 +326,7 @@ tjek("udgivelsen: ZIP-filen rummer også installationen til Claude Code", ["inst
 for (const [f, tabel] of [["README.md", "## Codex or Claude Code?"], ["README.da.md", "## Codex eller Claude Code?"]]) {
   const t = laes(ROD, f) || "";
   tjek(`${f}: forklarer valget mellem Codex og Claude Code og begge installationer til Claude Code`, t.includes(tabel) && ["installer-claude.cmd", "install-claude-english.cmd", "`/startkit`", "`CLAUDE.md`", "`.claude/settings.local.json`", ".claude\\skills\\startkit", '{"vaerktoej": "claude"}', "claude.com/download"].every((x) => t.includes(x)));
+  tjek(`${f}: forklarer installation som plugin, og at den ikke er prøvet på Windows`, t.includes("/plugin marketplace add legenden39/ai-coding-starter-kit") && /\/plugin install startkit(-da)?@ai-coding-starter-kit/.test(t) && /(Plugin-udgaven installeret direkte fra GitHub, og plugin-udgaven på Windows|The plugin edition installed straight from GitHub, and the plugin edition on Windows) \| \*\*(Ikke afprøvet|Not tried)\*\*/.test(t));
   tjek(`${f}: siger ærligt, hvad der er prøvet i Claude Code, og hvad der ikke er`, /(Prøvet|Tried) i?n? ?Claude Code 2\.\d+\.\d+/.test(t) && /Claude Code (på Windows og i Claudes app|on Windows and in the Claude app) \| \*\*(Ikke afprøvet|Not tried)\*\*/.test(t));
 }
 for (const f of ["CHANGELOG.md", "CHANGELOG.da.md", "TEACHING.md", "UNDERVISNING.md"]) tjek(`${f}: nævner udgaven til Claude Code`, /Claude Code/.test(laes(ROD, f) || "") && /installer-claude\.cmd|install-claude-english\.cmd/.test(laes(ROD, f) || ""));

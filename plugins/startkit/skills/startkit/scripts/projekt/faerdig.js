@@ -1,0 +1,30 @@
+// Færdig-tjekket: AI-værktøjet (Codex eller Claude Code) kører dette script, når AI'en vil stoppe (hook: Stop).
+// Er koden ændret i denne chat, og findes der ikke et grønt bevis for netop den kode,
+// bliver AI'en bedt om at køre beviset først. Den bliver højst bedt om det én gang pr. stop,
+// så den aldrig kan hænge fast i en løkke.
+const fs = require("fs");
+const path = require("path");
+const { rod, fingeraftryk, laesStart } = require("./tilstand");
+const { t } = require("./tekster");
+
+function fortsaet(reason) { fs.writeSync(1, JSON.stringify({ decision: "block", reason })); }
+
+try {
+  const input = JSON.parse(fs.readFileSync(0, "utf8") || "{}");
+  if (input.stop_hook_active) process.exit(0); // er allerede blevet bedt om det én gang
+  const r = rod(input.cwd);
+  if (!r) process.exit(0); // ikke et git-projekt: intet at sammenligne med
+  const start = laesStart(input.session_id);
+  if (!start) process.exit(0); // intet værktøj er brugt i denne chat
+  const nu = fingeraftryk(r);
+  if (!nu || nu === start) process.exit(0); // koden er ikke ændret
+
+  let bevis = null;
+  try { bevis = JSON.parse(fs.readFileSync(path.join(r, ".startkit", "bevis.json"), "utf8")); } catch { /* intet bevis endnu */ }
+  if (bevis && bevis.ok === true && bevis.fingeraftryk === nu) process.exit(0);
+
+  const hvorfor = t(!bevis ? "faerdig.intet" : bevis.ok !== true ? "faerdig.roedt" : "faerdig.aendret");
+  fortsaet(t("faerdig.besked", { hvorfor }));
+} catch {
+  process.exit(0); // et defekt færdig-tjek må ikke låse chatten
+}

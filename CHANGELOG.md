@@ -6,6 +6,17 @@ The version number is in `startkit/VERSION` and is written into your feedback fi
 
 All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
+## 0.5.0-beta (November 2026)
+
+A self-test of the guard, an extra layer for secret files, and installation as a plugin in Claude Code.
+
+- **Self-test:** the guard notes every time the AI tool calls it (only the time and the tool's name, never what the AI was doing). The check of the setup and the overview page show it. If the guard is not being called, you can now see it. Before, that happened without a message. Applies to both Codex and Claude Code.
+- **Extra layer in Claude Code:** the setup writes Claude Code's own deny rules for `.env` files in `.claude/settings.local.json`. They stop reading of the files even if a hook one day is not run. Your own rules in the file are kept.
+- **Plugin for Claude Code:** the kit can be installed with two commands inside Claude Code (`/plugin marketplace add legenden39/ai-coding-starter-kit` and `/plugin install startkit@ai-coding-starter-kit`), without the ZIP file. The double-click installation works as before. The plugin folders are made from the source (`node tools/byg-plugin.js`), and a test stops if they drift apart.
+- If you set the kit up with an older version, run the setup again in the project to get the self-test and the deny rules.
+- Tried in Claude Code 2.1.322 on Linux: the self-test, the deny rules, and plugin installation from a local copy of the repository.
+- Not tried: plugin installation straight from GitHub, and everything new on Windows.
+
 ## 0.4.0-beta (November 2026)
 
 The kit is now available for Claude Code too.

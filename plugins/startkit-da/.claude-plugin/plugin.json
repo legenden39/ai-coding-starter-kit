@@ -1,0 +1,17 @@
+{
+  "name": "startkit-da",
+  "description": "Et gratis startkit til dig, der er ny til at bygge med AI. Det interviewer dig og sætter et fundament op i dit projekt: korte regler, en vagt, et færdig-tjek, et nøgletjek og en overbliksside. Kører kun på din egen computer og sender ingenting nogen steder hen. Start det med /startkit.",
+  "author": {
+    "name": "legenden39"
+  },
+  "homepage": "https://github.com/legenden39/ai-coding-starter-kit",
+  "repository": "https://github.com/legenden39/ai-coding-starter-kit",
+  "license": "MIT",
+  "keywords": [
+    "beginner",
+    "starter-kit",
+    "guardrails",
+    "hooks",
+    "safety"
+  ]
+}
