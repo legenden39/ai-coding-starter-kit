@@ -16,6 +16,7 @@ Vagten stopper nu sletning, ikke kun to git-kommandoer.
 - Beskeden siger, hvad der er galt, og at ejeren selv kan køre kommandoen. På begge sprog og i begge udgaver (Codex og Claude Code).
 - Ærlig grænse: vagten læser kommandoens tekst. Sletning gennem et script, eller gennem `node -e` og lignende, kan den ikke se.
 - **Løkke-bryder:** én ny linje i de regler, kittet skriver (`AGENTS.md` eller `CLAUDE.md`): hjælper en rettelse ikke efter to forsøg, stopper AI'en, skriver fejlteksten ordret og det, den har prøvet, i `STATUS.md`, og foreslår en ny chat. Fejlretning i ring er den hyppigste klage fra begyndere. Projekter, der er sat op før, får linjen, når opsætningen køres igen.
+- **Når forbrugsgrænsen rammer midt i en ændring:** et nyt punkt 15 i kittets vidensnotat med en kort opskrift (vent, læs `STATUS.md`, tjek `git status` og kør beviset, og `git stash`, hvis det er i stykker), og én ny linje i reglerne: opdatér `STATUS.md` ved hvert delmål, ikke kun til sidst.
 - README er rettet: Linux testes automatisk hos GitHub, Mac er ikke afprøvet.
 - Fundet ved at læse den tidligere researchrapport. Ikke prøvet i Claude Code eller Codex på en rigtig computer, kun i de automatiske test, som nu har over 230 tilfælde for vagten.
 

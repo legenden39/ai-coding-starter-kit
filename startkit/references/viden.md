@@ -92,3 +92,16 @@ Løsning: Regel i `AGENTS.md`: valg, der er svære at lave om, lægges frem som 
 Problem: "Jeg kan ikke finde den nyeste udgave."
 Årsag: Kopier som `projekt-ny`, `projekt-final2` opstår, når git ikke bruges som fortryd-knap.
 Løsning: Ét projekt = én mappe = ét git-lager. Ingen kopier af mapper; brug grene. En kort `docs/struktur.md`, der siger, hvad der bor hvor, og en regel om, at nye mapper på øverste niveau kræver et ja.
+
+## 15. Forbrugsgrænsen rammer midt i en ændring
+
+Problem: "Grænsen ramte midt i arbejdet, og jeg ved ikke, om koden er i stykker."
+Årsag: Chatten stopper, hvor den er, også midt i en ændring af flere filer. Så kan noget være halvt lavet, og den næste chat ved ikke af det.
+Før den rammer:
+- Opdatér `STATUS.md`, hver gang et delmål er nået, ikke kun til sidst, og commit, når noget virker (punkt 4 og 11). Så er der kun lidt at gå tilbage til.
+- Tjek forbruget, før noget stort begynder, og stop ved den grænse, I har aftalt (punkt 6).
+Når den er ramt:
+1. Vent, til grænsen nulstilles. Tidspunktet står i beskeden. Rør ikke ved noget i mellemtiden, og slet ikke noget for at "rydde op".
+2. Start en ny chat, og bed AI'en læse `STATUS.md` og køre `git status` og `git diff --stat`, så den ser, hvilke filer der er halvt rettet. Derefter `node scripts/startkit/bevis.js`, så I ved, om det virker, som det står.
+3. Virker det, og mangler der kun lidt: fortsæt, og skriv i `STATUS.md`, hvad der er gjort. Er det i stykker, og I ikke kan se hvorfor: bed AI'en køre `git stash`. Det lægger de halve ændringer til side uden at slette dem (`git stash pop` henter dem igen), og I starter fra den sidste commit, der virkede.
+4. Skriv i `STATUS.md` under "Næste skridt", hvad den næste chat skal gøre, i ét afsnit.

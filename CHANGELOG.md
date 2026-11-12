@@ -16,6 +16,7 @@ The guard now stops deletion, not just two git commands.
 - The message says what is wrong and that the owner can run the command themselves. Both languages and both editions (Codex and Claude Code).
 - Honest limit: the guard reads the text of the command. Deleting through a script, or through `node -e` and the like, it cannot see.
 - **Loop breaker:** one new line in the rules the kit writes (`AGENTS.md` or `CLAUDE.md`): if a fix has not worked after two attempts, the AI stops, writes the exact error text and what it tried in `STATUS.md`, and suggests a new chat. Debugging in circles is the most common complaint from beginners. Projects set up earlier get the line when the setup is run again.
+- **When the usage limit hits mid-change:** a new point 15 in the kit's knowledge notes with a short recipe (wait, read `STATUS.md`, check `git status` and run the proof, and `git stash` if it is broken), and one new line in the rules: update `STATUS.md` at every sub-goal, not only at the end.
 - Corrected the README: Linux is tested automatically at GitHub, Mac is not tried.
 - Found by reading the earlier research report; not tried in Claude Code or Codex on a real computer, only in the automatic tests, which now cover more than 230 cases for the guard.
 

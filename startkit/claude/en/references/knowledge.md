@@ -92,3 +92,16 @@ Solution: A rule in `CLAUDE.md`: choices that are hard to undo are laid out as 2
 Problem: "I can't find the newest version."
 Cause: Copies such as `project-new`, `project-final2` appear when git is not used as the undo button.
 Solution: One project = one folder = one git repository. No copies of folders; use branches. A short `docs/structure.md` that says what lives where, and a rule that new top-level folders require a yes.
+
+## 15. The usage limit hits in the middle of a change
+
+Problem: "The limit hit in the middle of the work, and I don't know whether the code is broken."
+Cause: The chat stops where it is, even in the middle of a change to several files. Then something can be half done, and the next chat does not know about it.
+Before it hits:
+- Update `STATUS.md` every time a sub-goal is reached, not only at the end, and commit when something works (points 4 and 11). Then there is little to go back to.
+- Check the usage before anything big begins, and stop at the limit you agreed on (point 6).
+When it has hit:
+1. Wait until the limit resets. The time is in the message. Touch nothing in the meantime, and do not delete anything to "tidy up".
+2. Start a new chat, and ask the AI to read `STATUS.md` and run `git status` and `git diff --stat`, so it sees which files are half changed. Then `node scripts/startkit/bevis.js`, so you know whether it works as it says.
+3. If it works and only a little is missing: continue, and write in `STATUS.md` what has been done. If it is broken and you cannot see why: ask the AI to run `git stash`. That puts the half changes aside without deleting them (`git stash pop` brings them back), and you start from the last commit that worked.
+4. Write in `STATUS.md` under "Next step" what the next chat should do, in one paragraph.

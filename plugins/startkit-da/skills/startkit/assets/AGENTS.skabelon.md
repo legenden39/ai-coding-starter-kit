@@ -13,6 +13,7 @@ Ejer: {{NAVN}}. Kun ejeren godkender nye eller ændrede aftaler.
 - Skriv, vis eller læs aldrig rigtige nøgler og adgangskoder. `.env`-filer rører kun ejeren.
 - Sig først "færdig", når `node scripts/startkit/bevis.js` er grøn, og du har sagt, hvad du ikke har afprøvet.
 - Ret årsagen, ikke symptomet. Kan du ikke finde årsagen, så sig det.
+- Opdatér `STATUS.md`, hver gang et delmål er nået, ikke kun til sidst. Så kan en chat, der bliver afbrudt af forbrugsgrænsen, tages op igen uden at miste tråden.
 - Hjælper en rettelse ikke efter to forsøg, så stop. Skriv fejlteksten ordret og det, du har prøvet, i `STATUS.md`, og foreslå, at ejeren starter en ny chat med den. Gæt ikke videre.
 - Gæt aldrig. Ved du det ikke, så sig "det ved jeg ikke", og foreslå, hvordan vi finder ud af det.
 - Valg, der er svære at lave om (struktur, database, nye værktøjer): læg 2-3 muligheder frem med en anbefaling, og lad ejeren vælge.
