@@ -220,7 +220,7 @@ function regelFind(args, ctx) {
 }
 
 // Kommandoer, der kun læser eller kører kittets egne scripts: nævner de en beskyttet sti, er det ikke en ændring.
-const KUN_LAESNING = /^(cat|head|tail|ls|dir|type|cd|pwd|grep|rg|wc|get-content|gc|get-childitem|gci|select-string|test-path|git\s+(diff|log|show|status|ls-files|add|commit)|git\s+config\s+core\.hookspath\s+\.githooks\/?|node\s+[\w:./_-]*scripts\/startkit\/(bevis|overblik|forbrug-gem|fortryd|start)\.js|sh\s+[\w:./_-]*\.githooks\/pre-commit)(\s|$)/i;
+const KUN_LAESNING = /^(cat|head|tail|ls|dir|type|cd|pwd|echo|grep|rg|wc|get-content|gc|get-childitem|gci|select-string|test-path|git\s+(diff|log|show|status|ls-files|add|commit)|git\s+config\s+core\.hookspath\s+\.githooks\/?|node\s+[\w:./_-]*scripts\/startkit\/(bevis|overblik|forbrug-gem|fortryd|start)\.js|sh\s+[\w:./_-]*\.githooks\/pre-commit)(\s|$)/i;
 function kunLaesning(command) {
   // Tekst i anførselstegn gøres "flad", så et mellemrum eller et | inde i en sti ikke deler kommandoen.
   const flad = skraa(command).replace(/"([^"]*)"|'([^']*)'/g, (_, a, b) => (a ?? b ?? "").replace(/[\s;|&<>]/g, "_"));

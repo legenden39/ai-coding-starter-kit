@@ -6,6 +6,20 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## 0.7.0-beta (november 2026)
+
+Fortryd-hjælp med gemmepunkter, og statusfilen læses ind af sig selv i Claude Code.
+
+- **Gemmepunkter:** i starten af hver chat tager kittet automatisk et øjebliksbillede af alle filer i projektet, også dem, der aldrig nåede at blive gemt i git. Det rører hverken dine filer, din gren eller din historik, og det bliver på din egen computer. Filer i `.gitignore` (fx `.env` med dine nøgler) kommer aldrig med. De 30 nyeste gemmes. Gælder både Codex og Claude Code.
+- **Fortryd:** `node scripts/startkit/fortryd.js` viser gemmepunkterne. `--vis 1` viser, hvilke filer der er anderledes nu, og `--hent 1` henter dem tilbage (eller kun én fil). Før noget hentes, gemmes det, der ligger der nu, så en fortrydelse også kan fortrydes. Intet bliver slettet.
+- **En side om at gå tilbage:** opsætningen skriver `.startkit/saadan-fortryder-du.md` (engelsk: `.startkit/how-to-undo.md`) med de fire måder: fortryd i selve værktøjet, gemmepunkter, git og kopien på GitHub. Én ny linje i reglerne peger på den.
+- **Statusfilen ved chattens start (Claude Code):** `STATUS.md` og listen over gentagne fejl læses nu ind automatisk, når en chat begynder, fortsætter eller bliver kortet ned. I Codex læser AI'en dem stadig, fordi reglerne siger det; dér er den automatiske vej ikke bekræftet.
+- Overblikssiden viser seneste gemmepunkt.
+- Rettet: vagten afviste en sammensat kommando, der kun læste og skrev tekst ud (`echo`), som om den ændrede kittets kontroller. Fundet ved prøven i Claude Code.
+- Har du sat kittet op med en ældre version, så kør opsætningen igen i projektet for at få det nye med.
+- Prøvet i Claude Code 2.1.322 på Linux: statusfilen blev læst ind uden værktøjer, og Claude fandt selv gemmepunktet og hentede en ødelagt fil tilbage ved at følge siden.
+- Ikke afprøvet: gemmepunkter og fortryd på Windows ud over de automatiske test, gemmepunkter i en rigtig Codex, og `/rewind`-delen af siden.
+
 ## 0.6.0-beta (november 2026)
 
 Vagten stopper nu sletning, ikke kun to git-kommandoer.

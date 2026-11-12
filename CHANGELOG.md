@@ -6,6 +6,20 @@ The version number is in `startkit/VERSION` and is written into your feedback fi
 
 All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
+## 0.7.0-beta (November 2026)
+
+Undo help with save points, and the status file loads by itself in Claude Code.
+
+- **Save points:** at the start of every chat the kit automatically takes a snapshot of all the files in the project, including those that were never saved in git. It touches neither your files, your branch nor your history, and it stays on your own computer. Files in `.gitignore` (for example `.env` with your keys) are never included. The 30 newest are kept. Applies to both Codex and Claude Code.
+- **Undo:** `node scripts/startkit/fortryd.js` shows the save points. `--show 1` shows which files are different now, and `--restore 1` restores them (or only one file). Before anything is restored, what is there now is saved, so an undo can be undone too. Nothing is deleted.
+- **A page about going back:** the setup writes `.startkit/how-to-undo.md` (Danish: `.startkit/saadan-fortryder-du.md`) with the four ways: undo in the tool itself, save points, git and the copy on GitHub. One new line in the rules points to it.
+- **The status file at the start of the chat (Claude Code):** `STATUS.md` and the list of recurring mistakes are now loaded automatically when a chat begins, continues or is compacted. In Codex the AI still reads them because the rules say so; the automatic way is not confirmed there.
+- The overview page shows the latest save point.
+- Fixed: the guard refused a combined command that only read and printed text (`echo`), as if it changed the kit's controls. Found in the trial in Claude Code.
+- If you set the kit up with an older version, run the setup again in the project to get the new parts.
+- Tried in Claude Code 2.1.322 on Linux: the status file was loaded without tools, and Claude itself found the save point and restored a broken file by following the page.
+- Not tried: save points and undo on Windows beyond the automatic tests, save points in a real Codex, and the `/rewind` part of the page.
+
 ## 0.6.0-beta (November 2026)
 
 The guard now stops deletion, not just two git commands.

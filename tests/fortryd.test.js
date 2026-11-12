@@ -94,6 +94,7 @@ for (const vaerktoej of ["codex", "claude"]) {
   // ---- vagten: AI'en må bruge fortryd-programmet, men ikke rette i det ----
   const vagtSvar = (tool_name, tool_input) => koer("node", [path.join(rod, "scripts", "startkit", "vagt.js")], { cwd: rod, input: JSON.stringify({ cwd: rod, tool_name, tool_input }) }).ud;
   tjek(`${vaerktoej}: AI'en må køre fortryd-programmet`, vagtSvar("Bash", { command: "node scripts/startkit/fortryd.js --vis 1" }) === "" && vagtSvar("Bash", { command: "node scripts/startkit/fortryd.js --hent 1 src/a.js" }) === "");
+  tjek(`${vaerktoej}: en sammensat kommando, der kun ser og skriver tekst ud, er ikke en ændring af kontrollerne`, vagtSvar("Bash", { command: "cd . && node scripts/startkit/fortryd.js; echo ---; node scripts/startkit/fortryd.js --vis 1; echo ---; git status --short" }) === "" && /"deny"/.test(vagtSvar("Bash", { command: "echo x > scripts/startkit/fortryd.js" })) && /"deny"/.test(vagtSvar("Bash", { command: "echo x | tee scripts/startkit/fortryd.js" })));
   tjek(`${vaerktoej}: AI'en må ikke rette i fortryd-programmet eller gemmepunkt-programmet`, /"deny"/.test(vagtSvar("Write", { file_path: path.join(rod, "scripts/startkit/fortryd.js"), content: "" })) && /"deny"/.test(vagtSvar("Bash", { command: "echo x > scripts/startkit/gemmepunkt.js" })));
 
   // ---- overblikket og tjekket ----
@@ -151,6 +152,7 @@ for (const vaerktoej of ["codex", "claude"]) {
   skriv(rod, "src/a.js", "broken\n");
   r = koer("node", [path.join(rod, "scripts", "startkit", "fortryd.js")], { cwd: rod });
   tjek("engelsk: listen er på engelsk", r.kode === 0 && /Save points \(newest first\)/.test(r.ud) && /--restore <number>/.test(r.ud) && !/[æøåÆØÅ]/.test(r.ud), r.ud + r.fejl);
+  tjek("engelsk: én fil skrives i ental", /\(1 file is different now\)/.test(r.ud), r.ud);
   r = koer("node", [path.join(rod, "scripts", "startkit", "fortryd.js"), "--show", "1"], { cwd: rod });
   tjek("engelsk: --show virker", r.kode === 0 && /src\/a\.js  \(changed since\)/.test(r.ud), r.ud + r.fejl);
   r = koer("node", [path.join(rod, "scripts", "startkit", "fortryd.js"), "--restore", "1"], { cwd: rod });

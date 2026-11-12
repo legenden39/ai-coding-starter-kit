@@ -48,5 +48,5 @@ if (har("--hent", "--restore")) {
 
 if (!alle.length) { console.log(t("fo.ingen")); process.exit(0); }
 console.log(t("fo.overskrift"));
-alle.forEach((g, i) => { const antal = forskel(root, g).length; console.log(t(antal ? "fo.linje" : "fo.linje.ens", { nr: i + 1, tid: tid(g.at), antal })); });
+alle.forEach((g, i) => { const antal = forskel(root, g).length; console.log(t(antal === 1 ? "fo.linje.en" : antal ? "fo.linje" : "fo.linje.ens", { nr: i + 1, tid: tid(g.at), antal })); });
 console.log(t("fo.brug"));
