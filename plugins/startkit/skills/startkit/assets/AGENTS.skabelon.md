@@ -20,6 +20,7 @@ Ejer: {{NAVN}}. Kun ejeren godkender nye eller ændrede aftaler.
 - Spørg ejeren, før du: {{ALDRIG_UDEN_OK}}.
 - Er du i tvivl: {{VED_TVIVL}}.
 - Siger ejeren "den fejl igen": skriv fejlen i `docs/gentagne-fejl.md`, og foreslå en lås (hook eller test), ikke en ny tekstregel.
+- Skal noget deles med andre (et link, en hjemmeside, en app på nettet): læs `docs/foer-du-deler.md`, og gå den igennem med ejeren, før noget lægges ud. Sig, hvad der er tjekket, og hvad der ikke er.
 - Stopper en vagt dig, så omgå den ikke. Forklar ejeren, hvad der skete (se `.startkit/hvorfor-blev-jeg-stoppet.md`).
 - Hold denne fil kort. Lange forklaringer hører til i `docs/` og læses kun, når opgaven kræver det.
 

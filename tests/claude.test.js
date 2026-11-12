@@ -83,7 +83,7 @@ tjek("kørsel: lykkes", r.kode === 0 && /se dem med \/hooks/.test(r.ud) && !/Cod
 const regler = laes(rod, "CLAUDE.md") || "";
 tjek("CLAUDE.md: har blokken, projektet og personens regler, og er kort", regler.includes("<!-- startkit:start") && regler.includes("<!-- startkit:slut -->") && regler.includes("Kortspil-log") && regler.includes("Prøveperson") && !/\{\{/.test(regler) && regler.split("\n").length <= 45, regler);
 tjek("Codex' filer skrives ikke", laes(rod, "AGENTS.md") === null && laes(rod, ".codex/hooks.json") === null);
-for (const f of ["STATUS.md", "docs/gentagne-fejl.md", ".startkit/hvorfor-blev-jeg-stoppet.md", ".startkit/status.md", ".startkit/config.json", ".githooks/pre-commit", "overblik.cmd", "scripts/startkit/vagt.js", "scripts/startkit/faerdig.js", "scripts/startkit/vaerktoej.json"]) {
+for (const f of ["STATUS.md", "docs/gentagne-fejl.md", "docs/foer-du-deler.md", ".startkit/hvorfor-blev-jeg-stoppet.md", ".startkit/status.md", ".startkit/config.json", ".githooks/pre-commit", "overblik.cmd", "scripts/startkit/vagt.js", "scripts/startkit/faerdig.js", "scripts/startkit/vaerktoej.json"]) {
   tjek(`fil skrevet: ${f}`, laes(rod, f) !== null);
 }
 const ind = JSON.parse(laes(rod, ".claude/settings.local.json"));

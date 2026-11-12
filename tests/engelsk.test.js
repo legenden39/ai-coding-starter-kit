@@ -95,13 +95,13 @@ r = koer("node", [OPSAET, rod]);
 tjek("kørsel: lykkes", r.kode === 0, r.ud + r.fejl);
 const agents = laes(rod, "AGENTS.md") || "";
 tjek("AGENTS.md: engelsk, med projektet og personens regler", agents.includes("<!-- startkit:start") && agents.includes("<!-- startkit:slut -->") && agents.includes("Card game log") && agents.includes("Ask the owner before you: delete files; put something on the internet.") && agents.includes("Sample Person") && !/\{\{/.test(agents) && !DANSKE_BOGSTAVER.test(agents) && agents.split("\n").length <= 45, agents);
-for (const f of ["STATUS.md", "docs/recurring-mistakes.md", ".startkit/why-was-i-stopped.md", ".startkit/status.md", ".startkit/feedback.md", "overview.cmd", "scripts/startkit/sprog.json", "scripts/startkit/tekster.js", ".githooks/pre-commit", ".codex/hooks.json"]) {
+for (const f of ["STATUS.md", "docs/recurring-mistakes.md", "docs/before-you-share.md", ".startkit/why-was-i-stopped.md", ".startkit/status.md", ".startkit/feedback.md", "overview.cmd", "scripts/startkit/sprog.json", "scripts/startkit/tekster.js", ".githooks/pre-commit", ".codex/hooks.json"]) {
   tjek(`fil skrevet: ${f}`, laes(rod, f) !== null);
 }
-for (const f of ["docs/gentagne-fejl.md", ".startkit/hvorfor-blev-jeg-stoppet.md", "overblik.cmd"]) {
+for (const f of ["docs/gentagne-fejl.md", "docs/foer-du-deler.md", ".startkit/hvorfor-blev-jeg-stoppet.md", "overblik.cmd"]) {
   tjek(`dansk fil er ikke skrevet: ${f}`, laes(rod, f) === null);
 }
-for (const f of ["STATUS.md", "docs/recurring-mistakes.md", ".startkit/why-was-i-stopped.md", ".startkit/status.md", ".startkit/feedback.md", "overview.cmd", ".gitignore"]) {
+for (const f of ["STATUS.md", "docs/recurring-mistakes.md", "docs/before-you-share.md", ".startkit/why-was-i-stopped.md", ".startkit/status.md", ".startkit/feedback.md", "overview.cmd", ".gitignore"]) {
   tjek(`engelsk indhold: ${f}`, !DANSKE_BOGSTAVER.test(laes(rod, f) || "æ"));
 }
 const config = JSON.parse(laes(rod, ".startkit/config.json"));

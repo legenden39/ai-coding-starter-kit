@@ -37,8 +37,8 @@ const vt = (navn) => (navn ? VAERKTOEJER[vaerktoej()][navn] : VAERKTOEJER[vaerkt
 
 // De filer i projektet, personen selv ser, hedder noget forskelligt på de to sprog.
 const FILER = {
-  da: { fejl: "docs/gentagne-fejl.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
-  en: { fejl: "docs/recurring-mistakes.md", hvorfor: ".startkit/why-was-i-stopped.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
+  da: { fejl: "docs/gentagne-fejl.md", deling: "docs/foer-du-deler.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
+  en: { fejl: "docs/recurring-mistakes.md", deling: "docs/before-you-share.md", hvorfor: ".startkit/why-was-i-stopped.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
 };
 const fil = (navn) => FILER[sprog()][navn];
 
@@ -153,6 +153,7 @@ const TEKSTER = {
     "ops.n.agents": "korte, faste regler; kun startkittets blok ændres",
     "ops.n.status": "hvor vi er, fra gang til gang",
     "ops.n.fejl": "fejl, der ikke må ske igen",
+    "ops.n.deling": "tjekliste til, før noget deles med andre",
     "ops.n.hvorfor": "forklaring af kontrollerne",
     "ops.n.forloeb": "hvor langt startkittet er",
     "ops.n.config": "hvilke kommandoer beviser, at det virker",
@@ -328,6 +329,7 @@ const TEKSTER = {
     "ops.n.agents": "short, fixed rules; only the starter kit's block is changed",
     "ops.n.status": "where we are, from one session to the next",
     "ops.n.fejl": "mistakes that must not happen again",
+    "ops.n.deling": "checklist for before something is shared with others",
     "ops.n.hvorfor": "explanation of the controls",
     "ops.n.forloeb": "how far the starter kit has come",
     "ops.n.config": "which commands prove that it works",

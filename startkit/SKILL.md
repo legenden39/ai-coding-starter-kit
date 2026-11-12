@@ -77,7 +77,7 @@ Skal noget ud til rigtige mennesker (domæne, rigtige mails, betaling, persondat
 
 Vis først, hvad der sker: `node <skill-mappen>/scripts/opsaet.js <projektmappe> --toer`. Forklar hver del i 2-3 linjer (hvad den beskytter mod, og hvad personen ser, når den stopper noget). Efter et ja: kør uden `--toer`. Den skriver:
 - `AGENTS.md` (kort; kittets blok ligger mellem to mærker, og personens egne linjer røres ikke),
-- `STATUS.md` (hvor vi er; læses i starten af hver chat) og `docs/gentagne-fejl.md`,
+- `STATUS.md` (hvor vi er; læses i starten af hver chat), `docs/gentagne-fejl.md` og `docs/foer-du-deler.md` (tjekliste, som AI'en går igennem, før noget deles med andre),
 - vagten og færdig-tjekket (`scripts/startkit/` og `.codex/hooks.json`),
 - nøgletjekket før commit (`.githooks/pre-commit`),
 - `.startkit/config.json` (hvilke kommandoer der beviser, at tingene virker) og `.startkit/hvorfor-blev-jeg-stoppet.md`.

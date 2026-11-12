@@ -79,7 +79,7 @@ If something is going out to real people (a domain, real emails, payment, person
 
 Show first what will happen: `node <skill folder>/scripts/opsaet.js <project folder> --dry-run`. Explain each part in 2-3 lines (what it protects against, and what the person sees when it stops something). After a yes: run it without `--dry-run`. It writes:
 - `AGENTS.md` (short; the kit's block sits between two markers, and the person's own lines are not touched),
-- `STATUS.md` (where we are; read at the start of every chat) and `docs/recurring-mistakes.md`,
+- `STATUS.md` (where we are; read at the start of every chat), `docs/recurring-mistakes.md` and `docs/before-you-share.md` (a checklist the AI goes through before something is shared with others),
 - the guard and the done-check (`scripts/startkit/` and `.codex/hooks.json`),
 - the key check before commit (`.githooks/pre-commit`),
 - `.startkit/config.json` (which commands prove that things work) and `.startkit/why-was-i-stopped.md`.
