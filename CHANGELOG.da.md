@@ -6,6 +6,10 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## Ikke udgivet endnu
+
+- **Modelvalg ved hver opgave:** én ny linje i reglerne. AI'en siger ved hver ny opgave, om den kræver en stærk model (fejlsøgning, gennemgang, design, sikkerhed) eller kan klares af en billig (tekst, rutine, at køre kommandoer), og siger fra, hvis modellen ikke passer, eller du skifter til en for svag midt i opgaven. Før stod modelvalget kun i "hvad nu?" og i forslaget til næste chat. Det er en tekstregel og ikke en lås: den kan blive glemt i en lang chat, og den er ikke afprøvet i en rigtig chat.
+
 ## 0.8.0-beta (november 2026)
 
 Forklar-vane som tilvalg og ærlige oplysninger i README.

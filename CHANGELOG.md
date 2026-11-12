@@ -6,6 +6,10 @@ The version number is in `startkit/VERSION` and is written into your feedback fi
 
 All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
+## Not released yet
+
+- **Model choice with every task:** one new line in the rules. With every new task the AI says whether it needs a strong model (debugging, review, design, security) or can be done by a cheap one (text, routine, running commands), and speaks up if the model does not fit, or you switch to one that is too weak in the middle of the task. Before, the model choice was only in "what now?" and in the suggestion for the next chat. It is a text rule, not a lock: it can be forgotten in a long chat, and it has not been tried in a real chat.
+
 ## 0.8.0-beta (November 2026)
 
 Explain habit as an option, and honest information in the README.
