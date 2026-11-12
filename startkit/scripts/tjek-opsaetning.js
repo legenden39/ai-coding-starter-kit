@@ -7,7 +7,8 @@
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
-const { t: tekst, fil, laesConfig, vt } = require("./projekt/tekster");
+const { t: tekst, fil, laesConfig, vt, vaerktoej, FORBUDSREGLER } = require("./projekt/tekster");
+const { laesPuls } = require("./projekt/tilstand");
 
 const root = path.resolve(process.argv[2] || process.cwd());
 const p = (...dele) => path.join(root, ...dele);
@@ -41,6 +42,11 @@ t(tekst("tj.hooks"), hooks, tekst("tj.hooks.h"));
 t(tekst("tj.vagt"), peger("PreToolUse", "vagt.js"), tekst("tj.flyttet"));
 t(tekst("tj.faerdig"), peger("Stop", "faerdig.js"), tekst("tj.flyttet"));
 
+if (vaerktoej() === "claude") {
+  const deny = (hooks && hooks.permissions && hooks.permissions.deny) || [];
+  t(tekst("tj.deny"), FORBUDSREGLER.every((r) => deny.includes(r)), igen);
+}
+
 t(tekst("tj.noegletjek"), laes(".githooks/pre-commit") !== null, igen);
 t(tekst("tj.taendt"), (git("config", "core.hooksPath") || "").replace(/\/$/, "") === ".githooks", tekst("tj.taendt.h"));
 
@@ -62,6 +68,13 @@ try {
 t(tekst("tj.afviser"), vagtVirker, tekst("tj.afviser.h"));
 
 for (const x of tjek) console.log(`${x.ok ? "✅" : "❌"} ${x.navn}${x.ok ? "" : `  →  ${x.hjaelp}`}`);
+
+// Pulsen: har AI-værktøjet faktisk kaldt vagten? Køres dette tjek inde i en chat, er kommandoen selv et værktøjskald,
+// så vagten skal lige have slået pulsen. Tæller ikke som en mangel, for uden for en chat kan det ikke afgøres.
+const puls = laesPuls(root);
+const siden = (ms) => { const s = Math.max(0, Math.round(ms / 1000)); return s < 90 ? tekst("tj.tid.sek", { n: s }) : s < 5400 ? tekst("tj.tid.min", { n: Math.round(s / 60) }) : s < 129600 ? tekst("tj.tid.timer", { n: Math.round(s / 3600) }) : tekst("tj.tid.dage", { n: Math.round(s / 86400) }); };
+if (!puls) console.log(tekst("tj.puls.nej", { fil: fil("hvorfor") }));
+else { const ms = Date.now() - Date.parse(puls.at); console.log(tekst(ms < 10 * 60 * 1000 ? "tj.puls.ja" : "tj.puls.gammel", { tid: siden(ms), fil: fil("hvorfor") })); }
 const roede = tjek.filter((x) => !x.ok).length;
 console.log(roede ? tekst("tj.mangler", { antal: roede }) : tekst("tj.alt"));
 console.log(tekst("tj.husk"));

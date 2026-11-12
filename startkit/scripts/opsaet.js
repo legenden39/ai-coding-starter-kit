@@ -10,7 +10,7 @@
 const fs = require("fs");
 const path = require("path");
 const { harNoegle } = require("./projekt/regler");
-const { t, sprog, fil, vaerktoej, vt } = require("./projekt/tekster");
+const { t, sprog, fil, vaerktoej, vt, FORBUDSREGLER } = require("./projekt/tekster");
 
 const ASSETS = path.join(__dirname, "..", "assets");
 // De engelske skabeloner ligger i en/assets og hedder noget andet. Resten (nøgletjekket, .gitignore-tillægget) er fælles.
@@ -108,6 +108,12 @@ function flettHooks(eksisterendeTekst, root) {
   for (const [event, gruppe] of Object.entries(voresHooks(root))) {
     const andre = (Array.isArray(data.hooks[event]) ? data.hooks[event] : []).filter((g) => !erVores(g));
     data.hooks[event] = [...andre, gruppe];
+  }
+  // Claude Code: forbudsregler for hemmelige filer som ekstra lag. Personens egne regler bevares, og ingen gentages.
+  if (vaerktoej() === "claude") {
+    if (!data.permissions || typeof data.permissions !== "object" || Array.isArray(data.permissions)) data.permissions = {};
+    const har = Array.isArray(data.permissions.deny) ? data.permissions.deny : [];
+    data.permissions.deny = [...har, ...FORBUDSREGLER.filter((r) => !har.includes(r))];
   }
   return JSON.stringify(data, null, 2) + "\n";
 }

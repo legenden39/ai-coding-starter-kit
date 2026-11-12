@@ -30,6 +30,9 @@ const VAERKTOEJER = {
   codex: { V: "Codex", regelfil: "AGENTS.md", hookfil: ".codex/hooks.json", forbrug: "/status", start: "$startkit", hookvaerktoejer: "Bash|apply_patch|Edit|Write" },
   claude: { V: "Claude Code", regelfil: "CLAUDE.md", hookfil: ".claude/settings.local.json", forbrug: "/usage", start: "/startkit", hookvaerktoejer: "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|Read|Grep" },
 };
+// Claude Codes egne forbudsregler for hemmelige filer. De er et ekstra lag ved siden af vagten: kører en hook ikke
+// (det er set på Windows), stopper de stadig læsning og ændring af filerne. .env.example er med vilje ikke på listen.
+const FORBUDSREGLER = ["Read(.env)", "Read(.env.local)", "Read(.env.development)", "Read(.env.production)", "Read(.env.*.local)"];
 const vt = (navn) => (navn ? VAERKTOEJER[vaerktoej()][navn] : VAERKTOEJER[vaerktoej()]);
 
 // De filer i projektet, personen selv ser, hedder noget forskelligt på de to sprog.
@@ -115,6 +118,8 @@ const TEKSTER = {
     "ov.h.model": "Hvilken model til hvad?",
     "ov.ingen.guide": "Ingen modelguide endnu. Den laves i startkittets fase 5.",
     "ov.h.forbrug": "Forbrug",
+    "ov.puls.ja": "Vagten blev sidst kaldt af {V}: {tid}.",
+    "ov.puls.nej": "Vagten er aldrig blevet kaldt af {V} i dette projekt. Har du arbejdet i {V} her, siden startkittet blev sat op, så kører hooks'ene ikke. Skriv {start} i {V}, og bed om hjælp.",
     "ov.forbudt": "Forbudt",
     "ov.ikke.fundet": "Ikke fundet",
     "ov.port": "Port {port} er optaget. Kører overblikket allerede? Prøv {adresse}",
@@ -199,9 +204,17 @@ const TEKSTER = {
     "tj.env": ".env er holdt ude af git (.gitignore)",
     "tj.afviser": "Vagten afviser et forbudt kald, når den køres direkte",
     "tj.afviser.h": "Kør opsætningen igen, og tjek at Node virker",
+    "tj.puls.ja": "✅ {V} kalder vagten (sidst for {tid} siden)",
+    "tj.puls.gammel": "⚠️ {V} har ikke kaldt vagten i {tid}. Kører du dette inde i {V}, så kører hooks'ene ikke længere. Sig det til ejeren, og se {fil}.",
+    "tj.puls.nej": "⚠️ {V} har endnu aldrig kaldt vagten i dette projekt. Lige efter opsætningen er det normalt. Kører du dette inde i en ny chat i {V}, så kører hooks'ene ikke. Sig det til ejeren, og se {fil}.",
+    "tj.tid.sek": "{n} sekunder",
+    "tj.tid.min": "{n} minutter",
+    "tj.tid.timer": "{n} timer",
+    "tj.tid.dage": "{n} dage",
+    "tj.deny": "Hemmelige filer (.env) er også spærret med Claude Codes egne forbudsregler (ekstra lag)",
     "tj.mangler": "\n{antal} ting mangler.",
     "tj.alt": "\nAlt er sat op.",
-    "tj.husk": "Husk: om hooks er godkendt i Codex (/hooks) kan dette tjek ikke se. Det prøves ved at lade Codex forsøge et forbudt kald.",
+    "tj.husk": "Husk: linjen om, at {V} kalder vagten, er kun til at stole på, når dette tjek køres inde i en chat i {V}. Prøv også vagten ved at lade {V} forsøge et forbudt kald.",
   },
 
   en: {
@@ -274,6 +287,8 @@ const TEKSTER = {
     "ov.h.model": "Which model for what?",
     "ov.ingen.guide": "No model guide yet. It is made in phase 5 of the starter kit.",
     "ov.h.forbrug": "Usage",
+    "ov.puls.ja": "The guard was last called by {V}: {tid}.",
+    "ov.puls.nej": "The guard has never been called by {V} in this project. If you have worked in {V} here since the starter kit was set up, the hooks are not running. Type {start} in {V}, and ask for help.",
     "ov.forbudt": "Forbidden",
     "ov.ikke.fundet": "Not found",
     "ov.port": "Port {port} is in use. Is the overview already running? Try {adresse}",
@@ -354,9 +369,17 @@ const TEKSTER = {
     "tj.env": ".env is kept out of git (.gitignore)",
     "tj.afviser": "The guard refuses a forbidden call when run directly",
     "tj.afviser.h": "Run the setup again, and check that Node works",
+    "tj.puls.ja": "✅ {V} calls the guard (last time {tid} ago)",
+    "tj.puls.gammel": "⚠️ {V} has not called the guard for {tid}. If you are running this inside {V}, the hooks are no longer running. Tell the owner, and see {fil}.",
+    "tj.puls.nej": "⚠️ {V} has never called the guard in this project yet. Right after the setup that is normal. If you are running this inside a new chat in {V}, the hooks are not running. Tell the owner, and see {fil}.",
+    "tj.tid.sek": "{n} seconds",
+    "tj.tid.min": "{n} minutes",
+    "tj.tid.timer": "{n} hours",
+    "tj.tid.dage": "{n} days",
+    "tj.deny": "Secret files (.env) are also blocked by Claude Code's own deny rules (extra layer)",
     "tj.mangler": "\n{antal} things are missing.",
     "tj.alt": "\nEverything is set up.",
-    "tj.husk": "Remember: this check cannot see whether the hooks are approved in Codex (/hooks). That is tried by letting Codex attempt a forbidden call.",
+    "tj.husk": "Remember: the line saying that {V} calls the guard can only be trusted when this check is run inside a chat in {V}. Also try the guard by letting {V} attempt a forbidden call.",
   },
 };
 
@@ -366,12 +389,10 @@ const TEKSTER_CLAUDE = {
   da: {
     "ops.n.hooks": "tænder vagten og færdig-tjekket i Claude Code (se dem med /hooks)",
     "ops.naeste": "\nNæste skridt: tænd nøgletjekket (git config core.hooksPath .githooks), se med /hooks i Claude Code, at vagten og færdig-tjekket står der, og start en ny chat.",
-    "tj.husk": "Husk: om Claude Code faktisk kører hooks'ene, kan dette tjek ikke se. Skriv /hooks for at se, at de er indlæst, og prøv det ved at lade Claude Code forsøge et forbudt kald.",
   },
   en: {
     "ops.n.hooks": "switches on the guard and the done-check in Claude Code (see them with /hooks)",
     "ops.naeste": "\nNext step: switch on the key check (git config core.hooksPath .githooks), check with /hooks in Claude Code that the guard and the done-check are listed, and start a new chat.",
-    "tj.husk": "Remember: this check cannot see whether Claude Code actually runs the hooks. Type /hooks to see that they are loaded, and try it by letting Claude Code attempt a forbidden call.",
   },
 };
 
@@ -389,4 +410,4 @@ function laesConfig(raa) {
   return { tjek: c.tjek ?? c.checks, modelguide: c.modelguide ?? c.model_guide, graense_procent: c.graense_procent ?? c.limit_percent };
 }
 
-module.exports = { t, sprog, fil, laesConfig, vaerktoej, vt, TEKSTER, TEKSTER_CLAUDE, FILER, VAERKTOEJER };
+module.exports = { t, sprog, fil, laesConfig, vaerktoej, vt, TEKSTER, TEKSTER_CLAUDE, FILER, VAERKTOEJER, FORBUDSREGLER };

@@ -26,6 +26,11 @@ tjek("færdig-tjek: tier, før noget værktøj er brugt i chatten", r.kode === 0
 r = vagt({ tool_name: "Bash", tool_input: { command: "npm test" } });
 tjek("vagt: tilladt kald giver intet svar", r.kode === 0 && r.ud === "", r.ud + r.fejl);
 tjek("vagt: husker chattens start", fs.existsSync(sessionFil));
+tjek("vagt: slår ikke pulsen i et projekt, hvor kittet ikke er sat op (ingen .startkit-mappe)", !fs.existsSync(path.join(rod, ".startkit", "vagt-puls.json")));
+skriv(rod, ".startkit/config.json", "{}");
+vagt({ tool_name: "Bash", tool_input: { command: "npm test" } });
+const puls = JSON.parse(fs.readFileSync(path.join(rod, ".startkit", "vagt-puls.json"), "utf8"));
+tjek("vagt: slår pulsen, når kittet er sat op, og gemmer kun tidspunkt og værktøj", puls.vaerktoej === "Bash" && !isNaN(Date.parse(puls.at)) && Object.keys(puls).length === 2, JSON.stringify(puls));
 
 r = vagt({ tool_name: "Bash", tool_input: { command: "git commit --no-verify -m x" } });
 let svar = {}; try { svar = JSON.parse(r.ud); } catch { /* fanges af tjekket */ }

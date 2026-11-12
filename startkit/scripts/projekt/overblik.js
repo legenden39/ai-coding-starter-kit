@@ -11,7 +11,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-const { git, rod } = require("./tilstand");
+const { git, rod, laesPuls } = require("./tilstand");
 const { t, fil, laesConfig } = require("./tekster");
 
 const HOST = "127.0.0.1";
@@ -38,6 +38,12 @@ function bevis() {
   if (!b) return `<p class="lille">${t("ov.intet.bevis")}</p>`;
   const farve = t(b.ok ? (b.ingenTjek ? "ov.gult" : "ov.groent") : "ov.roedt");
   return `<p>${t("ov.seneste.bevis")} <b>${esc(farve)}</b> <span class="lille">(${esc(tid(b.at))})</span></p>${liste((b.resultater || []).map((x) => `${x.ok ? "✅" : "❌"} ${x.kommando}`), "")}`;
+}
+
+// Har AI-værktøjet faktisk kaldt vagten? (Se tilstand.js: pulsen.)
+function puls() {
+  const p = laesPuls(REPO);
+  return p ? `<p class="lille">${t("ov.puls.ja", { tid: esc(tid(p.at)) })}</p>` : `<p class="advarsel">${esc(t("ov.puls.nej"))}</p>`;
 }
 
 function forbrug(graense) {
@@ -74,7 +80,7 @@ ${erGit && !hookTil ? `<p class="advarsel">${t("ov.hook.fra")}</p>` : ""}
 <h2>${t("ov.h.hvor")}</h2><div class="kort">${status()}</div>
 <h2>${t("ov.h.aendringer")}</h2><div class="kort">${erGit ? `<p>${t("ov.gren")} <b>${esc(gren)}</b></p>${liste(aendret, t("ov.alt.gemt"))}` : `<p class="lille">${t("ov.ikke.git")}</p>`}</div>
 <h2>${t("ov.h.seneste")}</h2><div class="kort">${liste(log, t("ov.ingen.commits"))}</div>
-<h2>${t("ov.h.virker")}</h2><div class="kort">${bevis()}</div>
+<h2>${t("ov.h.virker")}</h2><div class="kort">${bevis()}${puls()}</div>
 <h2>${t("ov.h.fejl")}</h2><div class="kort"><p>${fejl === null ? t("ov.ingen.liste") : `${t("ov.fejl.antal", { antal: raekker.length })}${raekker.length ? t("ov.fejl.ulaast", { ulaast }) : ""}.`}</p></div>
 <h2>${t("ov.h.model")}</h2><div class="kort">${liste(guide, t("ov.ingen.guide"))}</div>
 <h2>${t("ov.h.forbrug")}</h2><div class="kort">${forbrug(graense)}</div>

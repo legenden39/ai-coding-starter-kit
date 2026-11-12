@@ -3,7 +3,7 @@
 // Intet svar = tilladt. Kører aldrig noget selv og bruger ikke internettet.
 const fs = require("fs");
 const { decide } = require("./regler");
-const { rod, huskStart } = require("./tilstand");
+const { rod, huskStart, slaaPuls } = require("./tilstand");
 const { t } = require("./tekster");
 
 function afvis(reason) {
@@ -15,7 +15,8 @@ try { input = JSON.parse(fs.readFileSync(0, "utf8") || "{}"); }
 catch { afvis(t("vagt.ulaeselig")); process.exit(0); }
 
 // Husk, hvordan koden så ud, da chatten begyndte (bruges af færdig-tjekket). Må aldrig vælte vagten.
-try { const r = rod(input.cwd); if (r && input.session_id) huskStart(input.session_id, r); } catch { /* ikke vigtigt nok til at stoppe noget */ }
+// Slå også pulsen, så det kan ses, at AI-værktøjet faktisk kalder vagten. Kun rigtige kald har et chat-id.
+try { const r = rod(input.cwd); if (r && input.session_id) { huskStart(input.session_id, r); slaaPuls(r, input.tool_name); } } catch { /* ikke vigtigt nok til at stoppe noget */ }
 
 try {
   const svar = decide(input);
