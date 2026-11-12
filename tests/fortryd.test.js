@@ -139,6 +139,22 @@ for (const vaerktoej of ["codex", "claude"]) {
   tjek(`${vaerktoej}: ${vaerktoej === "claude" ? "statusfilen kobles på chattens start" : "Codex' hooks er uændrede (ingen ny hook, der skulle godkendes igen)"}`, vaerktoej === "claude" ? hooks.hooks.SessionStart.length === 1 && hooks.hooks.SessionStart[0].matcher === "startup|resume|clear|compact" && /^node ".+\/scripts\/startkit\/start\.js"$/.test(hooks.hooks.SessionStart[0].hooks[0].command) : !hooks.hooks.SessionStart && Object.keys(hooks.hooks).sort().join() === "PreToolUse,Stop", JSON.stringify(hooks.hooks).slice(0, 200));
 }
 
+// ---- linjeskift: på Windows laver git som standard linjeskift om (core.autocrlf). Et gemmepunkt skal give filen tilbage præcis, som den var ----
+{
+  const rod = nytProjekt();
+  git(rod, "config", "core.autocrlf", "true");
+  skriv(rod, ".startkit/profil.json", eksempel());
+  koer("node", [OPSAET, rod], {});
+  skriv(rod, "unix.txt", "linje 1\nlinje 2\n");
+  skriv(rod, "windows.txt", "linje 1\r\nlinje 2\r\n");
+  const g = gemmepunkt.lav(rod, "test");
+  skriv(rod, "unix.txt", "væk\n"); skriv(rod, "windows.txt", "væk\r\n");
+  const r = koer("node", [path.join(rod, "scripts", "startkit", "fortryd.js"), "--hent", "1"], { cwd: rod });
+  tjek("linjeskift: filer hentes tilbage tegn for tegn, også når git er sat til at lave linjeskift om", g.lavet && r.kode === 0 && laes(rod, "unix.txt") === "linje 1\nlinje 2\n" && laes(rod, "windows.txt") === "linje 1\r\nlinje 2\r\n", JSON.stringify([laes(rod, "unix.txt"), laes(rod, "windows.txt")]) + r.fejl);
+  const efter = koer("node", [path.join(rod, "scripts", "startkit", "fortryd.js"), "--vis", "2"], { cwd: rod });
+  tjek("linjeskift: efter hentningen er der ingen forskel til gemmepunktet", /Ingen filer er anderledes/.test(efter.ud), efter.ud + efter.fejl);
+}
+
 // ---- engelsk ----
 {
   const rod = nytProjekt();

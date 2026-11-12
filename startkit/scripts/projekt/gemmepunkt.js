@@ -14,8 +14,11 @@ const BEHOLD = 30;
 // Git kræver et navn på den, der gemmer. Personens eget navn bruges ikke, og intet her forlader computeren.
 const HVEM = { GIT_AUTHOR_NAME: "startkit", GIT_AUTHOR_EMAIL: "startkit@example.invalid", GIT_COMMITTER_NAME: "startkit", GIT_COMMITTER_EMAIL: "startkit@example.invalid" };
 
+// Git må ikke lave linjeskift om, hverken når et gemmepunkt tages, eller når filer hentes tilbage (på Windows gør git det
+// som standard). Ellers ville en fil komme tilbage med andre linjeskift, end den havde.
+const UROERT = ["-c", "core.autocrlf=false", "-c", "core.safecrlf=false"];
 function git(root, args, env) {
-  try { return execFileSync("git", args, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], maxBuffer: 64 * 1024 * 1024, env: { ...process.env, ...env } }).replace(/\s+$/, ""); }
+  try { return execFileSync("git", [...UROERT, ...args], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], maxBuffer: 64 * 1024 * 1024, env: { ...process.env, ...env } }).replace(/\s+$/, ""); }
   catch { return null; }
 }
 
@@ -78,7 +81,7 @@ function forskel(root, gemmepunkt) {
 // Henter filer tilbage fra et gemmepunkt. Filer, der er kommet til siden, bliver liggende; intet slettes.
 function hent(root, gemmepunkt, filer = []) {
   const args = ["restore", "--source", gemmepunkt.id, "--worktree", "--overlay", "--", ...(filer.length ? filer : ["."])];
-  try { execFileSync("git", args, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }); return { ok: true }; }
+  try { execFileSync("git", [...UROERT, ...args], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }); return { ok: true }; }
   catch (e) { return { ok: false, fejl: String(e.stderr || e.message).trim().split("\n")[0] }; }
 }
 
