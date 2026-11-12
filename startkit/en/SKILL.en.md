@@ -109,7 +109,7 @@ The overview (the control panel) is a page the person opens in their browser to 
 
 1. Update the status, and show the checklist and the open points.
 2. Say honestly what has not been done or did not work.
-3. Show the three habits that make the biggest difference (from `en/references/knowledge.md`): new task = new chat, `STATUS.md` is updated at the end, and "that mistake again" becomes a lock. Also say that the person can always write "what now?" in a new chat: the AI then reads `STATUS.md` and suggests the next step. Then offer the explain habit as an option with one yes or no (see section 16 in `en/references/knowledge.md`); if the person says no, leave it.
+3. Show the three habits that make the biggest difference (from `en/references/knowledge.md`): new task = new chat, `STATUS.md` is updated at the end, and "that mistake again" becomes a lock. Also say that the person can always write "what now?" in a new chat: the AI then reads `STATUS.md` and suggests the next step. Then offer the explain habit as an option (see section 16 in `en/references/knowledge.md`): if the person already said yes to explanations in the interview, just show how it is done; otherwise ask with one yes or no, and if the person says no, leave it.
 4. Give a starting message for the next chat: task, what has been done, done when, and which model fits.
 5. First commit, after a yes: run the key scan again, show with `git status` what will be saved, and commit.
 6. Backup on GitHub (recommended; the person may say no): follow `en/references/github.md`. It helps with an account, a hidden email, login and a **private** copy. You only create private repositories, never ask for passwords, and upload nothing without a yes.

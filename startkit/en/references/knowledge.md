@@ -109,6 +109,6 @@ When it has hit:
 ## 16. Learn along the way (optional)
 
 Problem: "It gets built, but I do not understand what the AI did."
-Cause: In a small Anthropic experiment with developers learning a new library, those who let the AI do everything did worst on the test afterwards. Those who asked for explanations and asked why did better. The experiment was small and not on beginners, so it is a hint, not proof.
-Option: Ask the person with one yes or no whether they want to learn along the way. It costs a few more words and so a little more usage. If the person says no, leave it.
-In practice: Ask the AI to explain in words what it just did and why, and ask "why did you choose that?" yourself. If the person wants it every time, set the answer style to "always explain" (question H1 in the interview).
+Cause: In a small Anthropic experiment with developers learning a new library, those who let the AI do most of it did badly on the test afterwards. Those who asked for explanations and asked why did better, about as well as those who worked without AI. But the groups were only a few people each, the experiment does not show that the explanations were the cause, and it was not on beginners. So it is a hint, not proof.
+Option: If the person has already said yes to explanations along the way (the field `rules.answer_style`), do not ask again; just show how it is done. Otherwise ask with one yes or no whether they want to learn along the way. It costs a few more words and so a little more usage. If the person says no, leave it.
+In practice: Ask the AI to explain in words what it just did and why, and ask "why did you choose that?" yourself. If the person wants it every time, ask the AI to change the line about answer style in `AGENTS.md`, so it says that it always explains.

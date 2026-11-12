@@ -107,7 +107,7 @@ Overblikket (kontrolpanelet) er en side, personen åbner i sin browser for at se
 
 1. Opdatér status, og vis tjeklisten og de åbne punkter.
 2. Sig ærligt, hvad der ikke er gjort eller ikke virkede.
-3. Vis de tre vaner, der gør den største forskel (fra `references/viden.md`): ny opgave = ny chat, `STATUS.md` opdateres til sidst, og "den fejl igen" bliver til en lås. Sig også, at personen altid kan skrive "hvad nu?" i en ny chat: så læser AI'en `STATUS.md` og foreslår næste skridt. Tilbyd derefter forklar-vanen som tilvalg med ét ja eller nej (se afsnit 16 i `references/viden.md`); siger personen nej, så lad det være.
+3. Vis de tre vaner, der gør den største forskel (fra `references/viden.md`): ny opgave = ny chat, `STATUS.md` opdateres til sidst, og "den fejl igen" bliver til en lås. Sig også, at personen altid kan skrive "hvad nu?" i en ny chat: så læser AI'en `STATUS.md` og foreslår næste skridt. Tilbyd derefter forklar-vanen som tilvalg (se afsnit 16 i `references/viden.md`): sagde personen allerede ja til forklaringer i interviewet, så vis blot, hvordan man gør; ellers spørg med ét ja eller nej, og siger personen nej, så lad det være.
 4. Giv en startbesked til næste chat: opgave, hvad der er lavet, færdig når, og hvilken model der passer.
 5. Første commit, efter et ja: kør nøglescan igen, vis med `git status`, hvad der gemmes, og commit.
 6. Sikkerhedskopi på GitHub (anbefales; personen må sige nej): følg `references/github.md`. Den hjælper med konto, skjult e-mail, login og en **privat** kopi. Du opretter kun private lagre, beder aldrig om adgangskoder, og lægger intet op uden et ja.

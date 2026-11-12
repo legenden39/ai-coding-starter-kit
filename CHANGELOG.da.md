@@ -8,7 +8,7 @@ Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet 
 
 ## Ikke udgivet endnu
 
-- **Forklar-vane (tilvalg):** nyt afsnit 16 i vidensnotatet og et ja/nej-tilbud i afslutningen. Personen kan vælge at lære undervejs. I Claude Code peges der på de indbyggede svarstile `/output-style Explanatory` og `/output-style Learning` (læst i Anthropics dokumentation, ikke afprøvet i en rigtig chat). I Codex er det en vane (bed om forklaring og "hvorfor"), fordi der ikke er fundet noget tilsvarende. Grundlaget er ét lille forsøg på udviklere, så afsnittet siger, at det er et fingerpeg og ikke et bevis.
+- **Forklar-vane (tilvalg):** nyt afsnit 16 i vidensnotatet og et ja/nej-tilbud i afslutningen. Personen kan vælge at lære undervejs. I Claude Code peges der på de indbyggede svarstile `/output-style Explanatory` og `/output-style Learning` og på, hvordan de slås fra igen (læst i Anthropics dokumentation, ikke afprøvet i en rigtig chat). I Codex er det en vane (bed om forklaring og "hvorfor"), fordi der ikke er fundet noget tilsvarende. Har personen allerede sagt ja til forklaringer i interviewet, bliver der ikke spurgt igen. Grundlaget er ét lille forsøg på udviklere, hvor sammenhængen kun er set i grupper på få personer, så afsnittet siger, at det er et fingerpeg og ikke et bevis, og at forsøget ikke viser, at forklaringerne var årsagen.
 
 ## 0.7.0-beta (november 2026)
 

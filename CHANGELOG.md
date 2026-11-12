@@ -8,7 +8,7 @@ All editions are betas. None of them has been tried in Codex by the person who m
 
 ## Not released yet
 
-- **Explain habit (optional):** new section 16 in the knowledge note and a yes/no offer in the wrap-up, so a person can choose to learn along the way. In Claude Code it points to the built-in answer styles `/output-style Explanatory` and `/output-style Learning` (read in Anthropic's documentation, not tried in a real chat). In Codex it is a habit (ask for an explanation and for "why"), because nothing equivalent was found. The basis is one small experiment on developers, so the section says it is a hint, not proof.
+- **Explain habit (optional):** new section 16 in the knowledge note and a yes/no offer in the wrap-up, so a person can choose to learn along the way. In Claude Code it points to the built-in answer styles `/output-style Explanatory` and `/output-style Learning` and to how to turn them off again (read in Anthropic's documentation, not tried in a real chat). In Codex it is a habit (ask for an explanation and for "why"), because nothing equivalent was found. If the person already said yes to explanations in the interview, they are not asked again. The basis is one small experiment on developers, where the link was only seen in groups of a few people, so the section says it is a hint, not proof, and that the experiment does not show the explanations were the cause.
 
 ## 0.7.0-beta (November 2026)
 

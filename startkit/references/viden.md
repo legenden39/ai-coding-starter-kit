@@ -109,6 +109,6 @@ Når den er ramt:
 ## 16. Lær undervejs (tilvalg)
 
 Problem: "Det bliver lavet, men jeg forstår ikke, hvad AI'en gjorde."
-Årsag: I et lille forsøg fra Anthropic med udviklere, der lærte et nyt bibliotek, klarede de sig dårligst til prøven bagefter, som lod AI'en gøre det hele. De, der bad om forklaringer og spurgte hvorfor, klarede sig bedre. Forsøget var lille og ikke på begyndere, så det er et fingerpeg, ikke et bevis.
-Tilvalg: Spørg personen med ét ja eller nej, om hun eller han vil lære undervejs. Det koster lidt flere ord og dermed lidt mere forbrug. Siger personen nej, så lad det være.
-Sådan i praksis: Bed AI'en om at forklare i ord, hvad den lige gjorde og hvorfor, og stil selv spørgsmålet "hvorfor valgte du det?". Vil personen have det hver gang, så sæt svarformen til "forklar altid" (spørgsmål H1 i interviewet).
+Årsag: I et lille forsøg fra Anthropic med udviklere, der lærte et nyt bibliotek, klarede de sig dårligt til prøven bagefter, som lod AI'en gøre det meste. De, der bad om forklaringer og spurgte hvorfor, klarede sig bedre, omtrent som dem, der arbejdede uden AI. Men grupperne var på få personer, forsøget viser ikke, at forklaringerne var årsagen, og det var ikke på begyndere. Så det er et fingerpeg, ikke et bevis.
+Tilvalg: Har personen allerede sagt ja til forklaringer undervejs (feltet `regler.svarform`), så spørg ikke igen; vis blot, hvordan man gør. Ellers spørg med ét ja eller nej, om hun eller han vil lære undervejs. Det koster lidt flere ord og dermed lidt mere forbrug. Siger personen nej, så lad det være.
+Sådan i praksis: Bed AI'en om at forklare i ord, hvad den lige gjorde og hvorfor, og stil selv spørgsmålet "hvorfor valgte du det?". Vil personen have det hver gang, så bed AI'en rette linjen om svarform i `AGENTS.md`, så der står, at den altid forklarer.
