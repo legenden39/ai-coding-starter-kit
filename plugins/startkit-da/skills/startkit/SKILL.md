@@ -81,11 +81,12 @@ Vis først, hvad der sker: `node <skill-mappen>/scripts/opsaet.js <projektmappe>
 - `STATUS.md` (hvor vi er; læses i starten af hver chat), `docs/gentagne-fejl.md` og `docs/foer-du-deler.md` (tjekliste, som AI'en går igennem, før noget deles med andre),
 - vagten og færdig-tjekket (`scripts/startkit/` og `.claude/settings.local.json`),
 - nøgletjekket før commit (`.githooks/pre-commit`),
-- `.startkit/config.json` (hvilke kommandoer der beviser, at tingene virker) og `.startkit/hvorfor-blev-jeg-stoppet.md`.
+- `.startkit/config.json` (hvilke kommandoer der beviser, at tingene virker) og `.startkit/hvorfor-blev-jeg-stoppet.md`,
+- fortryd-hjælpen: `.startkit/saadan-fortryder-du.md`. Forklar den: i starten af hver chat tages der automatisk et gemmepunkt (et øjebliksbillede af filerne, kun på personens egen computer), og `node scripts/startkit/fortryd.js` viser dem og henter filer tilbage.
 
 Derefter, med personens ok: `git config core.hooksPath .githooks` (tænder nøgletjekket).
 
-**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de to fra startkittet står der: vagten under PreToolUse og færdig-tjekket under Stop. Start derefter en ny chat, så de helt sikkert er indlæst. Opsætningen har også skrevet Claude Codes egne forbudsregler for `.env`-filer i samme fil (`permissions.deny`). De er et ekstra lag, hvis en hook en dag ikke bliver kørt.
+**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de tre fra startkittet står der: vagten under PreToolUse, færdig-tjekket under Stop, og indlæsningen af statusfilen under SessionStart. Start derefter en ny chat, så de helt sikkert er indlæst. Opsætningen har også skrevet Claude Codes egne forbudsregler for `.env`-filer i samme fil (`permissions.deny`). De er et ekstra lag, hvis en hook en dag ikke bliver kørt.
 
 ## Fase 7: Prøv sikkerhedsnettet for øjnene af personen
 

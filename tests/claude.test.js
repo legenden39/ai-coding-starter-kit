@@ -229,7 +229,7 @@ tjek("egen CLAUDE.md: egne linjer bevares, blokken står én gang", c2.startsWit
 tjek("egen AGENTS.md: røres ikke", laes(rod, "AGENTS.md") === "min egen fil til et andet værktøj\n");
 const s2 = JSON.parse(laes(rod, ".claude/settings.local.json"));
 tjek("egne forbudsregler: bevares, og startkittets tilføjes én gang", s2.permissions.deny[0] === "Read(hemmeligt/**)" && s2.permissions.deny.filter((x) => x === "Read(.env)").length === 1, JSON.stringify(s2.permissions));
-tjek("egne indstillinger og hooks: bevares, og startkittets står én gang", s2.permissions.allow[0] === "Bash(npm test)" && s2.hooks.Stop.length === 2 && s2.hooks.Stop[0].hooks[0].command === "node min-egen.js" && s2.hooks.SessionStart.length === 1 && s2.hooks.PreToolUse.length === 1, JSON.stringify(s2));
+tjek("egne indstillinger og hooks: bevares, og startkittets står én gang", s2.permissions.allow[0] === "Bash(npm test)" && s2.hooks.Stop.length === 2 && s2.hooks.Stop[0].hooks[0].command === "node min-egen.js" && s2.hooks.SessionStart.length === 2 && s2.hooks.SessionStart[0].hooks[0].command === "echo hej" && /start\.js"$/.test(s2.hooks.SessionStart[1].hooks[0].command) && s2.hooks.PreToolUse.length === 1, JSON.stringify(s2));
 skriv(rod, ".claude/settings.local.json", "{ ikke json");
 r = koer("node", [OPSAET, rod]);
 tjek("ulæselige indstillinger: stopper, forklarer og overskriver ikke", r.kode === 2 && /\.claude\/settings\.local\.json findes, men kan ikke læses/.test(r.fejl) && laes(rod, ".claude/settings.local.json") === "{ ikke json", r.fejl);

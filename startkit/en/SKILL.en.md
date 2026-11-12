@@ -82,7 +82,8 @@ Show first what will happen: `node <skill folder>/scripts/opsaet.js <project fol
 - `STATUS.md` (where we are; read at the start of every chat), `docs/recurring-mistakes.md` and `docs/before-you-share.md` (a checklist the AI goes through before something is shared with others),
 - the guard and the done-check (`scripts/startkit/` and `.codex/hooks.json`),
 - the key check before commit (`.githooks/pre-commit`),
-- `.startkit/config.json` (which commands prove that things work) and `.startkit/why-was-i-stopped.md`.
+- `.startkit/config.json` (which commands prove that things work) and `.startkit/why-was-i-stopped.md`,
+- the undo help: `.startkit/how-to-undo.md`. Explain it: at the start of every chat a save point is taken automatically (a snapshot of the files, only on the person's own computer), and `node scripts/startkit/fortryd.js` shows them and restores files.
 
 Then, with the person's ok: `git config core.hooksPath .githooks` (switches on the key check).
 

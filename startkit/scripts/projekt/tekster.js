@@ -24,11 +24,13 @@ function vaerktoej() {
 }
 
 // Det, der hedder noget forskelligt i de to værktøjer. Sættes ind i beskederne, hvor der står {V}, {regelfil}, {hookfil} og {forbrug}.
+//   starthook: om statusfilen kan læses ind automatisk, når en chat begynder (hook: SessionStart). Det er slået op og
+//   prøvet for Claude Code. For Codex er det ikke bekræftet, så dér læser AI'en stadig filen, fordi reglerne siger det.
 //   hookvaerktoejer: de værktøjer, vagten skal kaldes før. Claude Code læser filer med sit eget værktøj (Read),
 //   så dér skal vagten også med, ellers kunne en .env-fil læses uden om den.
 const VAERKTOEJER = {
-  codex: { V: "Codex", regelfil: "AGENTS.md", hookfil: ".codex/hooks.json", forbrug: "/status", start: "$startkit", hookvaerktoejer: "Bash|apply_patch|Edit|Write" },
-  claude: { V: "Claude Code", regelfil: "CLAUDE.md", hookfil: ".claude/settings.local.json", forbrug: "/usage", start: "/startkit", hookvaerktoejer: "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|Read|Grep" },
+  codex: { V: "Codex", regelfil: "AGENTS.md", hookfil: ".codex/hooks.json", forbrug: "/status", start: "$startkit", hookvaerktoejer: "Bash|apply_patch|Edit|Write", starthook: false },
+  claude: { V: "Claude Code", regelfil: "CLAUDE.md", hookfil: ".claude/settings.local.json", forbrug: "/usage", start: "/startkit", hookvaerktoejer: "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|Read|Grep", starthook: true },
 };
 // Claude Codes egne forbudsregler for hemmelige filer. De er et ekstra lag ved siden af vagten: kører en hook ikke
 // (det er set på Windows), stopper de stadig læsning og ændring af filerne. .env.example er med vilje ikke på listen.
@@ -37,8 +39,8 @@ const vt = (navn) => (navn ? VAERKTOEJER[vaerktoej()][navn] : VAERKTOEJER[vaerkt
 
 // De filer i projektet, personen selv ser, hedder noget forskelligt på de to sprog.
 const FILER = {
-  da: { fejl: "docs/gentagne-fejl.md", deling: "docs/foer-du-deler.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
-  en: { fejl: "docs/recurring-mistakes.md", deling: "docs/before-you-share.md", hvorfor: ".startkit/why-was-i-stopped.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
+  da: { fejl: "docs/gentagne-fejl.md", deling: "docs/foer-du-deler.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", fortryd: ".startkit/saadan-fortryder-du.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
+  en: { fejl: "docs/recurring-mistakes.md", deling: "docs/before-you-share.md", hvorfor: ".startkit/why-was-i-stopped.md", fortryd: ".startkit/how-to-undo.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
 };
 const fil = (navn) => FILER[sprog()][navn];
 
@@ -125,12 +127,36 @@ const TEKSTER = {
     "ov.h.model": "Hvilken model til hvad?",
     "ov.ingen.guide": "Ingen modelguide endnu. Den laves i startkittets fase 5.",
     "ov.h.forbrug": "Forbrug",
+    "ov.gp.ja": "Seneste gemmepunkt: {tid} ({antal} i alt). Hent filer tilbage med <code>node scripts/startkit/fortryd.js</code>.",
+    "ov.gp.nej": "Ingen gemmepunkter endnu. Der bliver taget ét automatisk i starten af hver chat.",
     "ov.puls.ja": "Vagten blev sidst kaldt af {V}: {tid}.",
     "ov.puls.nej": "Vagten er aldrig blevet kaldt af {V} i dette projekt. Har du arbejdet i {V} her, siden startkittet blev sat op, så kører hooks'ene ikke. Skriv {start} i {V}, og bed om hjælp.",
     "ov.forbudt": "Forbudt",
     "ov.ikke.fundet": "Ikke fundet",
     "ov.port": "Port {port} er optaget. Kører overblikket allerede? Prøv {adresse}",
     "ov.koerer": "Overblik kører: {adresse}   (luk vinduet, eller tryk Ctrl+C, for at stoppe)",
+
+    // ---- fortryd og gemmepunkter (fortryd.js) ----
+    "fo.ingen": "Der er ingen gemmepunkter endnu. Der bliver taget ét automatisk i starten af hver chat, når noget er ændret siden sidst.",
+    "fo.overskrift": "Gemmepunkter (nyeste først):",
+    "fo.linje": "  {nr}. {tid}  ({antal} filer er anderledes nu)",
+    "fo.linje.ens": "  {nr}. {tid}  (ingen forskel fra nu)",
+    "fo.brug": "\nSe filerne:    node scripts/startkit/fortryd.js --vis <nummer>\nHent tilbage:  node scripts/startkit/fortryd.js --hent <nummer> [fil ...]\nGem nu:        node scripts/startkit/fortryd.js --gem",
+    "fo.ukendt": "Der er ikke noget gemmepunkt nummer {nr}. Kør uden tal for at se listen.",
+    "fo.vis": "Gemmepunkt {nr} ({tid}). Disse filer er anderledes nu:",
+    "fo.M": "ændret siden",
+    "fo.D": "slettet siden; kan hentes tilbage",
+    "fo.A": "kommet til siden; bliver liggende",
+    "fo.vis.ens": "Ingen filer er anderledes nu end i gemmepunkt {nr}.",
+    "fo.hentet": "Hentet fra gemmepunkt {nr} ({tid}). Filerne, som de så ud lige før, er gemt som et nyt gemmepunkt, så du kan fortryde igen. Filer, der er kommet til siden, er ikke slettet.",
+    "fo.hent.fejl": "Kunne ikke hente fra gemmepunktet: {fejl}",
+    "fo.gemt": "Gemmepunkt taget.",
+    "fo.gem.intet": "Intet er ændret siden sidste gemmepunkt eller sidste commit, så der er ikke taget et nyt.",
+
+    // ---- chattens start (start.js) ----
+    "start.status": "Startkit: sådan står projektet (STATUS.md, læst ind automatisk ved chattens start).",
+    "start.fejl": "Startkit: fejl, der ikke må ske igen ({fil}).",
+    "start.kort": "(forkortet; resten står i filen)",
 
     // ---- opsætningen (opsaet.js) ----
     "ops.ikke.objekt": "Profilen er ikke et JSON-objekt.",
@@ -155,6 +181,7 @@ const TEKSTER = {
     "ops.n.fejl": "fejl, der ikke må ske igen",
     "ops.n.deling": "tjekliste til, før noget deles med andre",
     "ops.n.hvorfor": "forklaring af kontrollerne",
+    "ops.n.fortryd": "sådan går du tilbage, når noget er gået galt",
     "ops.n.forloeb": "hvor langt startkittet er",
     "ops.n.config": "hvilke kommandoer beviser, at det virker",
     "ops.n.scripts": "vagt, færdig-tjek, bevis og overblik",
@@ -219,6 +246,7 @@ const TEKSTER = {
     "tj.tid.min": "{n} minutter",
     "tj.tid.timer": "{n} timer",
     "tj.tid.dage": "{n} dage",
+    "tj.start": "Statusfilen læses automatisk ind, når en chat begynder (peger på en fil, der findes)",
     "tj.deny": "Hemmelige filer (.env) er også spærret med Claude Codes egne forbudsregler (ekstra lag)",
     "tj.mangler": "\n{antal} ting mangler.",
     "tj.alt": "\nAlt er sat op.",
@@ -302,12 +330,34 @@ const TEKSTER = {
     "ov.h.model": "Which model for what?",
     "ov.ingen.guide": "No model guide yet. It is made in phase 5 of the starter kit.",
     "ov.h.forbrug": "Usage",
+    "ov.gp.ja": "Latest save point: {tid} ({antal} in total). Restore files with <code>node scripts/startkit/fortryd.js</code>.",
+    "ov.gp.nej": "No save points yet. One is taken automatically at the start of every chat.",
     "ov.puls.ja": "The guard was last called by {V}: {tid}.",
     "ov.puls.nej": "The guard has never been called by {V} in this project. If you have worked in {V} here since the starter kit was set up, the hooks are not running. Type {start} in {V}, and ask for help.",
     "ov.forbudt": "Forbidden",
     "ov.ikke.fundet": "Not found",
     "ov.port": "Port {port} is in use. Is the overview already running? Try {adresse}",
     "ov.koerer": "The overview is running: {adresse}   (close the window, or press Ctrl+C, to stop)",
+
+    "fo.ingen": "There are no save points yet. One is taken automatically at the start of every chat, when something has changed since the last one.",
+    "fo.overskrift": "Save points (newest first):",
+    "fo.linje": "  {nr}. {tid}  ({antal} files are different now)",
+    "fo.linje.ens": "  {nr}. {tid}  (no difference from now)",
+    "fo.brug": "\nSee the files:  node scripts/startkit/fortryd.js --show <number>\nRestore:        node scripts/startkit/fortryd.js --restore <number> [file ...]\nSave now:       node scripts/startkit/fortryd.js --save",
+    "fo.ukendt": "There is no save point number {nr}. Run without a number to see the list.",
+    "fo.vis": "Save point {nr} ({tid}). These files are different now:",
+    "fo.M": "changed since",
+    "fo.D": "deleted since; can be restored",
+    "fo.A": "added since; stays where it is",
+    "fo.vis.ens": "No files are different now from save point {nr}.",
+    "fo.hentet": "Restored from save point {nr} ({tid}). The files as they looked just before are saved as a new save point, so you can undo again. Files added since have not been deleted.",
+    "fo.hent.fejl": "Could not restore from the save point: {fejl}",
+    "fo.gemt": "Save point taken.",
+    "fo.gem.intet": "Nothing has changed since the last save point or the last commit, so no new one was taken.",
+
+    "start.status": "Starter kit: this is where the project stands (STATUS.md, loaded automatically at the start of the chat).",
+    "start.fejl": "Starter kit: mistakes that must not happen again ({fil}).",
+    "start.kort": "(shortened; the rest is in the file)",
 
     "ops.ikke.objekt": "The profile is not a JSON object.",
     "ops.navn": "person.name is missing.",
@@ -331,6 +381,7 @@ const TEKSTER = {
     "ops.n.fejl": "mistakes that must not happen again",
     "ops.n.deling": "checklist for before something is shared with others",
     "ops.n.hvorfor": "explanation of the controls",
+    "ops.n.fortryd": "how to go back when something has gone wrong",
     "ops.n.forloeb": "how far the starter kit has come",
     "ops.n.config": "which commands prove that it works",
     "ops.n.scripts": "guard, done-check, proof and overview",
@@ -392,6 +443,7 @@ const TEKSTER = {
     "tj.tid.min": "{n} minutes",
     "tj.tid.timer": "{n} hours",
     "tj.tid.dage": "{n} days",
+    "tj.start": "The status file is loaded automatically when a chat begins (points to a file that exists)",
     "tj.deny": "Secret files (.env) are also blocked by Claude Code's own deny rules (extra layer)",
     "tj.mangler": "\n{antal} things are missing.",
     "tj.alt": "\nEverything is set up.",
