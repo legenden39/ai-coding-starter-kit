@@ -112,7 +112,7 @@ for (const vaerktoej of ["codex", "claude"]) {
     skriv(rod, "samme.txt", "wxyz\n"); fs.utimesSync(f, gammel, gammel);
     const g = gemmepunkt.lav(rod, "test");
     tjek(`${vaerktoej}: en ændring med samme tidspunkt og samme størrelse kommer med i gemmepunktet`, g.lavet && git(rod, "show", `${gemmepunkt.liste(rod)[0].id}:samme.txt`) === "wxyz\n", JSON.stringify(g));
-    git(rod, "rm", "-q", "--cached", "samme.txt"); fs.unlinkSync(f);
+    git(rod, "rm", "-q", "-f", "--cached", "samme.txt"); fs.unlinkSync(f);
   }
 
   // ---- kun de nyeste gemmes ----
