@@ -2,7 +2,7 @@
 
 English · [Dansk](README.da.md)
 
-> **Beta, version 0.7.0-beta.** This is a trial edition. The edition for Codex has not been tried in Codex by the person who made it. The edition for Claude Code is new: its safety nets have been tried in Claude Code on Linux, but not on Windows, and the whole flow has not been run through by a human. There will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md).
+> **Beta, version 0.8.0-beta.** This is a trial edition. The edition for Codex has not been tried in Codex by the person who made it. The edition for Claude Code is new: its safety nets have been tried in Claude Code on Linux, but not on Windows, and the whole flow has not been run through by a human. There will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md).
 
 **Do you want to build something with AI but don't know where to start, or are you tired of the AI making the same mistakes over and over? Then this is for you.**
 
@@ -234,6 +234,7 @@ Everything in the kit is open, so anyone can read what it does.
 | `scripts/startkit/overblik.js` | The overview page on your own computer. |
 | `overview.cmd` | Shortcut: double-click to open the overview page in your browser. |
 | `.codex/hooks.json` (in Claude Code: `.claude/settings.local.json`) | Tells Codex or Claude Code to run the guard and the done-check. |
+| `scripts/startkit/del-tjek.js` | The share check: looks for secret keys in what is about to be published, including the built folder that the other checks do not see. Belongs to the checklist `docs/before-you-share.md`. |
 | `scripts/startkit/fortryd.js` and `.startkit/how-to-undo.md` | The undo help: at the start of every chat a save point of your files is taken automatically, and the program restores them. The page explains how. |
 | `.startkit/` | Your profile, the plan, settings, your feedback, and the explanation "why was I stopped". |
 
@@ -279,6 +280,10 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Use
 | The installation for Claude Code in both languages, run on Windows at GitHub | Tested automatically |
 | That Claude Code actually runs the guard (for commands, when it edits files, and when it wants to read a `.env` file) and the done-check | Tried in Claude Code 2.1.322 in a terminal on Linux |
 | That `/startkit` shows up in Claude Code and begins with the introduction | Tried in Claude Code 2.1.322 in a terminal on Linux |
+| The share check: finds keys, database keys with full access, `.env` and `.git` in what is published, and never shows the key itself | Tested automatically |
+| Explain mode: the rules are only included when you have chosen it, and can be switched off again | Tested automatically |
+| That Claude Code itself runs the share check when you want to share something, and stops at a finding; and that explain mode gives "What I did, and why" | Tried in Claude Code 2.1.322 on Linux, once (in Danish) |
+| The share check and explain mode in Codex, and the share check on a real project with a real build process | **Not tried** |
 | Save points and undo: that work not saved in git is included, that `.env` never is, that nothing is deleted, and that an undo can be undone | Tested automatically |
 | That Claude Code itself finds the save point and restores a broken file by following the undo page | Tried in Claude Code 2.1.322 on Linux |
 | That the status file is loaded automatically when a chat begins in Claude Code | Tested automatically, and tried in Claude Code 2.1.322 on Linux |

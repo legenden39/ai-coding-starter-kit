@@ -6,6 +6,18 @@ The version number is in `startkit/VERSION` and is written into your feedback fi
 
 All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
+## 0.8.0-beta (November 2026)
+
+A check of what gets published, and explain mode as an option.
+
+- **Share check:** `node scripts/startkit/del-tjek.js` looks for secret keys in what is about to be published. It also looks in the built folder (for example `dist` or `build`), which git and the key check before commit do not see, and where a key from a `.env` file may have been baked in. It also finds Supabase keys of the service_role kind (full access to the database), `.env` files and `.git` folders in what is published, and settings with secret-sounding names that are sent out to the browser. Only the file name and the kind are shown, never the key itself.
+- The checklist "Before you share" now points to the share check. If you already have the checklist in your project, it is not changed (it is yours); the command is here.
+- Honest limit: the share check is not a security review. It cannot see whether a database is open, or whether login works.
+- **Explain mode (optional):** if you say yes in the interview, or set `"explain": true` in the profile, the rules get three more lines: each technical word is explained the first time, and answers where something was changed end with "What I did, and why". The answers get longer and cost a few more tokens. Without the option nothing is added, and it can be switched off again.
+- Tried in Claude Code 2.1.322 on Linux, once (in Danish): Claude ran the share check itself when asked whether the project was ready to be published, found a database key in the built folder and said no; and the answer ended with "What I did, and why".
+- Known limitation, seen in the same trial: the guard refuses a combined command if it runs one of the kit's programs together with something else on the same line. Separately they go through.
+- Not tried: both parts in Codex, and the share check on a real project with a real build process.
+
 ## 0.7.0-beta (November 2026)
 
 Undo help with save points, and the status file loads by itself in Claude Code.

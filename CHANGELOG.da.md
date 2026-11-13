@@ -6,6 +6,18 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## 0.8.0-beta (november 2026)
+
+Et tjek af det, der bliver lagt ud, og forklar-tilstand som tilvalg.
+
+- **Del-tjek:** `node scripts/startkit/del-tjek.js` leder efter hemmelige nøgler i det, der er ved at blive lagt ud til andre. Det ser også i den byggede mappe (fx `dist` eller `build`), som git og nøgletjekket før commit ikke ser, og hvor en nøgle fra en `.env`-fil kan være blevet bagt ind. Det finder også Supabase-nøgler af typen service_role (fuld adgang til databasen), `.env`-filer og `.git`-mapper i det, der lægges ud, og indstillinger med hemmelige navne, som sendes med ud til browseren. Kun filnavn og slags vises, aldrig selve nøglen.
+- Tjeklisten "Før du deler" peger nu på del-tjekket. Har du allerede tjeklisten i dit projekt, bliver den ikke ændret (den er din egen); kommandoen står her.
+- Ærlig grænse: del-tjekket er ikke en sikkerhedsgennemgang. Det kan ikke se, om en database står åben, eller om login virker.
+- **Forklar-tilstand (tilvalg):** siger du ja i interviewet, eller sætter du `"forklar": true` i profilen, får reglerne tre linjer mere: hvert fagord forklares første gang, og svar, hvor noget er ændret, slutter med "Det gjorde jeg, og hvorfor". Svarene bliver længere og koster lidt flere tokens. Uden tilvalget står der ingenting, og den kan slås fra igen.
+- Prøvet i Claude Code 2.1.322 på Linux, én gang: Claude kørte selv del-tjekket, da den blev spurgt, om projektet var klar til at blive lagt ud, fandt en databasenøgle i den byggede mappe og sagde nej; og svaret sluttede med "Det gjorde jeg, og hvorfor".
+- Kendt begrænsning, set i samme prøve: vagten afviser en sammensat kommando, hvis den kører et af kittets programmer sammen med noget andet i samme linje. Hver for sig går de igennem.
+- Ikke afprøvet: begge dele i Codex, og del-tjekket på et rigtigt projekt med en rigtig byggeproces.
+
 ## 0.7.0-beta (november 2026)
 
 Fortryd-hjælp med gemmepunkter, og statusfilen læses ind af sig selv i Claude Code.
