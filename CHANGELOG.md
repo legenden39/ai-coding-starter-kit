@@ -8,6 +8,7 @@ All editions are betas. None of them has been tried in Codex by the person who m
 
 ## Not released yet
 
+- **README:** the section "Who is behind this, and what can you expect?" is more precise: the kit is made by one person, who is new to tech themselves, together with AI; issues are read, but a reply is not promised; and GitHub also counts visits to the page, not only downloads (numbers only, no names).
 - **Model choice with every task:** one new line in the rules. With every new task the AI says which model it needs: the smallest (text, routine, running commands), the middle model (ordinary building from a clear plan) or the strongest (debugging, review, design, security). These are the same three steps as in section 5 of the knowledge note, and if you have a model guide, the AI follows it. It speaks up if the model does not fit, or you switch to one that is too weak in the middle of the task. Before, the model choice was only in "what now?" and in the suggestion for the next chat. It is a text rule, not a lock: it can be forgotten in a long chat, and it has not been tried in a real chat.
 
 ## 0.8.0-beta (November 2026)

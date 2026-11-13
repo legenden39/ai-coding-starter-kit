@@ -15,7 +15,7 @@
 - Ejeren beslutter, hvornår modelvalg-reglen udgives (nyt versionsnummer i `startkit/VERSION`).
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
 - Find ud af, hvorfor `startkit/scripts/noeglescan.js` hang i over to minutter, da den blev kørt i en worktree (ikke undersøgt).
-- Ejeren beslutter: tekstforslag til README-afsnittet "Hvem står bag" (givet i chatten 13. nov. 2026, ikke rettet).
+- Ejeren beslutter: skal README-rettelsen pushes og flettes? Den ligger på den lokale gren `claude/readme-hvem-staar-bag` (afsnittet "Hvem står bag" på begge sprog).
 - Ejeren beslutter: skal kittets rigtige opsætning (vagt, færdig-tjek, gemmepunkter) køres på dette repo?
 
 ## Åbne problemer
