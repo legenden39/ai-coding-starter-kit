@@ -10,13 +10,13 @@
 - Projektet har fået sin egen `CLAUDE.md`, `STATUS.md` og `docs/gentagne-fejl.md`, skrevet i hånden efter kittets skabeloner.
 - Prøvet en hook ved modelskift i skrivebordsappen: den blev ikke kaldt. Årsagen er ikke fundet. Ejeren har droppet den indtil videre, og forsøgsscriptet er slettet. Se `docs/modelvalg-som-laas.md`.
 - README-afsnittet "Hvem står bag" er gjort mere præcist på begge sprog (flettet ind i `main` med pull request 20).
-- Nøglescannet, der "hang" i over to minutter: årsagen er fundet og rettet i `startkit/assets/pre-commit` (ikke committet, gren `claude/noeglescan-hang-debug-947322`). Det hang ikke; det startede `grep` ca. 14 gange pr. fil, og hver start koster ca. 50-70 ms på Windows. Nu forsorteres filerne med få kald. Målt her: 2 min. 24 sek. → ca. 1 sek. Ny test `tests/noeglescan.test.js` tæller programstarter. Kun afprøvet på Windows.
+- Nøglescannet, der "hang" i over to minutter: årsagen er fundet og rettet i `startkit/assets/pre-commit` (committet lokalt på grenen `claude/noeglescan-hang-debug-947322`, ikke lagt op). Det hang ikke; det startede `grep` ca. 14 gange pr. fil, og hver start koster ca. 50-70 ms på Windows. Nu forsorteres filerne med få kald. Målt her: 2 min. 24 sek. → ca. 1 sek. Ny test `tests/noeglescan.test.js` tæller programstarter. Kun afprøvet på Windows.
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
 - Ejeren beslutter, hvornår modelvalg-reglen udgives (nyt versionsnummer i `startkit/VERSION`).
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
-- Ejeren beslutter: skal rettelsen af nøglescannet committes og lægges op som pull request?
+- Ejeren beslutter: skal rettelsen af nøglescannet lægges op som pull request? (Den er committet lokalt, ikke lagt op.)
 - Ejeren beslutter: skal kittets rigtige opsætning (vagt, færdig-tjek, gemmepunkter) køres på dette repo?
 
 ## Åbne problemer
