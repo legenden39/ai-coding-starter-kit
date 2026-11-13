@@ -27,7 +27,7 @@ Owner: {{NAVN}}. Only the owner approves new or changed agreements.
 - Keep this file short. Long explanations belong in `docs/` and are only read when the task needs them.
 
 ## How the owner wants answers
-{{SVARFORM}}
+{{SVARFORM}}{{FORKLAR}}
 
 ## When the task is finished
 - Update `STATUS.md`: what was done, what is missing, next step. Keep it short.

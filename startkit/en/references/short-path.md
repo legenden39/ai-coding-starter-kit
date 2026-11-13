@@ -29,7 +29,7 @@ Ask only these questions, 2-3 at a time. They are the least the setup needs. Use
 2. How much have you coded yourself: not at all, a little or quite a lot? (field: `person.level`)
 3. What is the project called, and what should it be able to do? Two sentences are enough. If you do not have an idea yet, we call it "My first project". (fields: `projects[].name`, `projects[].description`, `chosen_project`)
 4. What must the AI never do without asking you first? Suggest three yourself, and let the person add and remove: delete files, put something on the internet, install new programs or packages. (field: `rules.never_without_ok`)
-5. Do you want explanations along the way, or just the result? (field: `rules.answer_style`)
+5. Do you want explanations along the way, or just the result? (field: `rules.answer_style`) If the person wants explanations, or is completely new, offer explain mode: technical words are explained the first time, and every answer ends with "What I did, and why". The answers get longer and cost a few more tokens. (field: `explain`, `true` or `false`)
 6. What should the AI do when it is in doubt: ask, or choose itself and say so? (field: `rules.when_in_doubt`)
 
 If there is already code in the folder, find one command together with the person that shows that it works (field: `check_commands`). Otherwise leave the list empty, and say that the done-check can only try something once there is a test.

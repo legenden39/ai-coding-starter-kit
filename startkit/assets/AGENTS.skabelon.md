@@ -27,7 +27,7 @@ Ejer: {{NAVN}}. Kun ejeren godkender nye eller ændrede aftaler.
 - Hold denne fil kort. Lange forklaringer hører til i `docs/` og læses kun, når opgaven kræver det.
 
 ## Sådan vil ejeren have svar
-{{SVARFORM}}
+{{SVARFORM}}{{FORKLAR}}
 
 ## Når opgaven er slut
 - Opdatér `STATUS.md`: hvad er lavet, hvad mangler, næste skridt. Hold den kort.
