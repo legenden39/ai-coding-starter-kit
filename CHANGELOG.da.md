@@ -9,6 +9,9 @@ Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet 
 ## Ikke udgivet endnu
 
 - **README:** afsnittet "Hvem står bag, og hvad kan du regne med?" er gjort mere præcist: kittet er lavet af én person, som selv er ny til teknik, sammen med AI; sager under Issues bliver læst, men der loves ikke svar; og GitHub tæller også besøg på siden, ikke kun hentninger (kun tal, ingen navne).
+
+- **Nøglescannet er hurtigt i store projekter:** scannet og nøgletjekket før commit startede det lille søgeprogram `grep` ca. 14 gange pr. fil. På Windows koster hver programstart ca. 50-70 ms, så et projekt med 222 filer tog over to minutter og så ud til at hænge. Nu findes de filer, der rammer et mønster, først med få kald, og kun de filer får det grundige tjek. Målt på samme mappe og samme maskine: fra 2 min. 24 sek. til ca. 1 sek. Mønstrene og beskederne er de samme. Ny test, der tæller programstarter i stedet for tid. Stadig langsomt: en commit med mange filer, hvor der faktisk er en nøgle, for så gås alle filerne igennem for at finde hvor. Afprøvet på Windows og Linux, ikke på Mac.
+
 - **Modelvalg ved hver opgave:** én ny linje i reglerne. AI'en siger ved hver ny opgave, hvilken model den kræver: den mindste (tekst, rutine, at køre kommandoer), mellemmodellen (almindelig bygning efter en klar plan) eller den stærkeste (fejlsøgning, gennemgang, design, sikkerhed). Det er de samme tre trin som i vidensnotatets afsnit 5, og har du en modelguide, følger AI'en den. Den siger fra, hvis modellen ikke passer, eller du skifter til en for svag midt i opgaven. Før stod modelvalget kun i "hvad nu?" og i forslaget til næste chat. Det er en tekstregel og ikke en lås: den kan blive glemt i en lang chat, og den er ikke afprøvet i en rigtig chat.
 
 ## 0.8.0-beta (november 2026)
