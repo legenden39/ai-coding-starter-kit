@@ -8,6 +8,7 @@ Owner: {{NAVN}}. Only the owner approves new or changed agreements.
 - Read `STATUS.md` (where we are) and `docs/recurring-mistakes.md` (mistakes that must not happen again).
 - Say in one line what you understand the task to be, before you begin.
 - One task per chat. A new task belongs in a new chat.
+- With every new task: say in one line which model it needs: the smallest (text, routine, running commands), the middle model (ordinary building from a clear plan) or the strongest (debugging, review, design, security). If the owner has a model guide (`.startkit/config.json`), follow it. If your model does not fit the task, or the owner switches to one that is too weak in the middle of it, say so before you continue. If you do not know which model you are, ask.
 
 ## Fixed rules
 - Never write, show or read real keys and passwords. Only the owner touches `.env` files.

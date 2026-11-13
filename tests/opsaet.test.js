@@ -153,7 +153,7 @@ let privateOrd = [];
 try { privateOrd = fs.readFileSync(path.join(KIT, "..", ORDLISTE), "utf8").split(/\r?\n/).map((l) => l.trim().toLowerCase()).filter((l) => l && !l.startsWith("#")); } catch { /* ingen privat ordliste */ }
 const SPRING_OVER = new Set([".git", "node_modules", ".claude", ".startkit"]);
 const alle = [];
-(function gaa(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const f = path.join(d, e.name); if (e.isDirectory()) { if (!SPRING_OVER.has(e.name)) gaa(f); } else if (e.name !== ORDLISTE && !/\.(zip|log)$/i.test(e.name)) alle.push(f); } })(path.join(KIT, ".."));
+(function gaa(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const f = path.join(d, e.name); if (SPRING_OVER.has(e.name)) continue; /* også når .git er en fil: i en git-worktree er den det, og den rummer en sti */ if (e.isDirectory()) gaa(f); else if (e.name !== ORDLISTE && !/\.(zip|log)$/i.test(e.name)) alle.push(f); } })(path.join(KIT, ".."));
 const { harNoegle } = require(path.join(KIT, "scripts", "projekt", "regler"));
 for (const f of alle) {
   const t = fs.readFileSync(f, "utf8");
@@ -189,6 +189,20 @@ for (const [sprog, skabelon, udtryk, mangler] of [
   const t = fs.readFileSync(path.join(KIT, ...skabelon), "utf8");
   tjek(`hvad nu (${sprog}): reglen findes, læser status og git, foreslår ét skridt og venter på et ja`, udtryk.every((x) => t.includes(x)), udtryk.filter((x) => !t.includes(x)).join(", "));
   tjek(`hvad nu (${sprog}): regelfilen er stadig kort (højst 45 linjer)`, t.split("\n").length <= 45, String(t.split("\n").length));
+}
+
+// ---- modelvalg: AI'en siger ved hver ny opgave, hvilken slags model den kræver, og siger fra ved en for svag ----
+for (const [sprog, skabelon, pluginSkabelon, udtryk] of [
+  ["da", ["assets", "AGENTS.skabelon.md"], ["..", "plugins", "startkit-da", "skills", "startkit", "assets", "AGENTS.skabelon.md"], ["Ved hver ny opgave", "den mindste", "mellemmodellen", "den stærkeste", "modelguide", "for svag", "før du fortsætter", "Ved du ikke, hvilken model du er"]],
+  ["en", ["en", "assets", "AGENTS.template.md"], ["..", "plugins", "startkit", "skills", "startkit", "en", "assets", "AGENTS.template.md"], ["With every new task", "the smallest", "the middle model", "the strongest", "model guide", "too weak", "before you continue", "If you do not know which model you are"]],
+]) {
+  for (const [navn, sti] of [["kilden", skabelon], ["plugin-kopien", pluginSkabelon]]) {
+    const t = fs.readFileSync(path.join(KIT, ...sti), "utf8");
+    const linje = t.split("\n").find((l) => l.includes(udtryk[0])) || "";
+    tjek(`modelvalg (${sprog}, ${navn}): én regel nævner de tre trin og modelguiden og siger fra ved en for svag`, udtryk.every((x) => linje.includes(x)), udtryk.filter((x) => !linje.includes(x)).join(", "));
+    tjek(`modelvalg (${sprog}, ${navn}): reglen nævner ingen modelnavne (de skifter)`, !/(fable|opus|sonnet|haiku|gpt)/i.test(linje), linje);
+    tjek(`modelvalg (${sprog}, ${navn}): regelfilen er stadig kort (højst 45 linjer)`, t.split("\n").length <= 45, String(t.split("\n").length));
+  }
 }
 
 // ---- forklar-vanen (tilvalg): afsnit 16 i vidensnotatet og et ja/nej-tilbud i afslutningen ----

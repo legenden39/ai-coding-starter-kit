@@ -8,6 +8,7 @@ Ejer: {{NAVN}}. Kun ejeren godkender nye eller ændrede aftaler.
 - Læs `STATUS.md` (hvor vi er) og `docs/gentagne-fejl.md` (fejl, der ikke må ske igen).
 - Sig i én linje, hvad du har forstået, at opgaven er, før du går i gang.
 - Én opgave pr. chat. En ny opgave hører til i en ny chat.
+- Ved hver ny opgave: sig i én linje, hvilken model den kræver: den mindste (tekst, rutine, at køre kommandoer), mellemmodellen (almindelig bygning efter en klar plan) eller den stærkeste (fejlsøgning, gennemgang, design, sikkerhed). Har ejeren en modelguide (`.startkit/config.json`), så følg den. Passer din model ikke til opgaven, eller skifter ejeren til en for svag midt i den, så sig det, før du fortsætter. Ved du ikke, hvilken model du er, så spørg.
 
 ## Faste regler
 - Skriv, vis eller læs aldrig rigtige nøgler og adgangskoder. `.env`-filer rører kun ejeren.
