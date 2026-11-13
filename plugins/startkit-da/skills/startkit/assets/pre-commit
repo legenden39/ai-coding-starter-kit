@@ -63,9 +63,28 @@ else
     git -c core.quotepath=off diff --cached --name-only --diff-filter=ACM > "$tmp.filer"
   fi
   navnetjek < "$tmp.filer"
+  grep -Eiv "$ikke_tekst" "$tmp.filer" > "$tmp.tekstfiler"
+
+  # Forsortering, så tjekket er hurtigt i store projekter: hver start af grep koster tid (på Windows ca. 50 ms),
+  # og det grundige tjek nedenfor starter grep 13 gange pr. fil. Derfor findes først, med få kald og alle mønstre
+  # på én gang, de filer, der overhovedet rammer et mønster. Kun de filer får det grundige tjek.
+  sed 's/^[^|]*|[^|]*|//' "$tmp.moenstre" > "$tmp.regler"
+  : > "$tmp.kandidater"
+  if [ "$mode" = "--scan" ]; then
+    soeg() { [ $# -gt 0 ] && grep -IlE -f "$tmp.regler" -- "$@" >> "$tmp.kandidater" 2>/dev/null; }
+    set --
+    while IFS= read -r f; do
+      [ -f "$f" ] || continue
+      set -- "$@" "$f"
+      [ $# -ge 50 ] && { soeg "$@"; set --; }
+    done < "$tmp.tekstfiler"
+    soeg "$@"
+  elif git diff --cached -U0 --diff-filter=ACM | grep '^+' | grep -v '^+++' | grep -Eq -f "$tmp.regler"; then
+    # Noget i det, der er ved at blive committet, rammer et mønster: gå alle filerne igennem for at finde hvor.
+    cat "$tmp.tekstfiler" > "$tmp.kandidater"
+  fi
+
   while IFS= read -r f; do
-    echo "$f" | grep -Eiq "$ikke_tekst" && continue
-    [ -f "$f" ] || [ "$mode" != "--scan" ] || continue
     if [ "$mode" = "--scan" ]; then
       grep -I '' -- "$f" > "$tmp.indhold" 2>/dev/null
     else
@@ -74,7 +93,7 @@ else
     while IFS='|' read -r navn name moenster; do
       grep -Eq -- "$moenster" "$tmp.indhold" && sig "$f: $navn" "$f: $name" >> "$tmp.fund"
     done < "$tmp.moenstre"
-  done < "$tmp.filer"
+  done < "$tmp.kandidater"
 
   # Længdelås: en lang regelfil (AGENTS.md i Codex, CLAUDE.md i Claude Code) koster tokens i hver chat, og de vigtige regler drukner.
   # Kun kittets egen regelfil låses: en CLAUDE.md i et Codex-projekt (eller omvendt) er personens egen.
