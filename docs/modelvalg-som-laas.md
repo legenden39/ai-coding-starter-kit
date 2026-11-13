@@ -1,8 +1,8 @@
 # Kan modelvalget blive en lås? (anbefaling, 13. nov. 2026)
 
-Kort svar: **delvist, og kun i Claude Code.** En påmindelse ved hver besked er ikke det værd. En lille hook, der kun kører i det øjeblik, modellen skiftes, er værd at prøve. Intet er bygget endnu.
+Kort svar: **ikke endnu.** En hook ved modelskift er prøvet i skrivebordsappen, og den blev ikke kaldt (se "Prøvet" nederst). Årsagen er ikke fundet. Tekstreglen er derfor stadig det eneste, der virker. Intet er bygget ind i kittet.
 
-Alt herunder er **læst** i Anthropics dokumentation (code.claude.com/docs/en/hooks, 13. nov. 2026). Intet af det er afprøvet i en rigtig chat. Codex er ikke slået op.
+Afsnittene "Hvad en hook kan se" og "De tre muligheder" er **læst** i Anthropics dokumentation (code.claude.com/docs/en/hooks, 13. nov. 2026), ikke afprøvet. Kun det, der står under "Prøvet", er kørt. Codex er ikke slået op.
 
 ## Hvad en hook kan se
 
@@ -23,15 +23,31 @@ Der findes ingen miljøvariabel med modellen. Ingen hook kender **opgaven**, så
 
 ## Det, vi ikke ved
 
-- Om teksten fra `PostModelSwitch` når frem til AI'en, eller kun til ejeren. Det står ikke i det, der er læst. Når den kun ejeren, er den stadig nyttig, men som en påmindelse til mennesket, ikke en lås på AI'en.
-- Om hook'en også kører, når modellen skiftes i skrivebordsappen og ikke med `/model`.
+- Om teksten fra `PostModelSwitch` når frem til AI'en. Dokumentationen siger ja (læst via et resumé af siden, ikke ordret). Det er ikke afprøvet, fordi hook'en aldrig blev kaldt.
+- Hvorfor hook'en ikke blev kaldt i skrivebordsappen (se "Prøvet").
+- Om hook'en kører i Claude Code i en terminal.
 - Hvordan modelnavnet ser ud i `to_model`, og om en hook kan kende "stærk" fra "billig" uden en liste, der skal holdes ved lige (modelnavne skifter).
 - Om Codex har noget tilsvarende.
 
 ## Anbefaling
 
 1. Behold tekstreglen (den er lavet). Den dækker også Codex og starten af en opgave, som ingen hook dækker.
-2. Prøv mulighed 2 i dette repo først: en hook på få linjer, og én prøve i en rigtig Claude Code, hvor modellen skiftes midt i en opgave. Skriv ned, hvad der skete.
-3. Byg den kun ind i kittet, hvis prøven viser, at teksten når AI'en. Ellers skrives den som en påmindelse til ejeren, eller den droppes.
+2. **Byg ikke hook'en ind i kittet nu.** Den blev ikke kaldt i prøven, og en lås, der ikke kører, giver falsk tryghed.
+3. Vil ejeren prøve én gang til, så gør det i en almindelig kopi af repoet (ikke en worktree, der deles med en anden chat), først i Claude Code i en terminal og så i skrivebordsappen. Læg en kontrol-hook på `UserPromptSubmit` i samme fil, så det kan ses, om filen overhovedet bliver læst. Kun hvis teksten når AI'en, bygges hook'en ind.
 
-Model til forsøget: stærk (design af en lås, og dokumentationen skal læses nøje). Det er en lille opgave, højst en time.
+Model til en ny prøve: stærk (fejlsøgning af en lås).
+
+## Prøvet (13. nov. 2026)
+
+Sat op: `tools/modelskift.js` og en `PostModelSwitch`-hook i `.claude/settings.local.json` (ikke i git) med kommandoen `node "${CLAUDE_PROJECT_DIR}/tools/modelskift.js"`. Filen lå der, fra chatten startede. Chatten kørte i skrivebordsappen på Windows med Claude Code 2.1.321, i en worktree, som chatten delte med den chat, der oprettede den.
+
+Afprøvet:
+- Ejeren skiftede med `/model` fra Fable til Sonnet og senere tilbage til Fable. Begge skift blev gennemført ("Set model to ...").
+- Ingen af gangene fik AI'en en tekst fra hook'en, og scriptet skrev ingen linje i `.claude/modelskift-log.txt`. **Hook'en blev ikke kaldt.**
+- Kørt i hånden med falsk input virker scriptet: det skriver teksten og én linje i loggen.
+- Navnet `PostModelSwitch` står i den installerede programfil (2.1.321), så hændelsen findes i versionen.
+- Andre hooks kører i samme chat (en `SessionStart`-hook fra et plugin står i chattens log).
+
+Ikke afklaret: om `/model` i skrivebordsappen ikke udløser hændelsen, eller om `.claude/settings.local.json` ikke blev læst af en chat, der kun deler worktree'en. En kontrol-hook kunne have skilt de to ad, men chatten måtte ikke rette i worktree'ens `.claude`-mappe. Der er ikke forsøgt nogen rettelse.
+
+Ikke prøvet: Claude Code i en terminal (dér er version 2.1.319 installeret), model-vælgeren i appen, en almindelig kopi af repoet, og om teksten når AI'en, når hook'en først kører.
