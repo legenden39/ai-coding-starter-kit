@@ -200,6 +200,13 @@ Skriv `/status` i Codex for at se dit forbrug, før du starter. Du kan dele forl
 
 Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 
+## Hvem står bag, og hvad kan du regne med?
+
+- **Kittet er ikke tilknyttet OpenAI eller Anthropic.** Det er lavet af én person og er ikke lavet, godkendt eller støttet af nogen af dem. Navnene Codex, ChatGPT, Claude og Claude Code tilhører deres ejere og bruges kun til at sige, hvilke værktøjer kittet virker sammen med.
+- **Det er gratis, en beta og uden garanti.** Det er lavet i fritiden. Der er ingen aftale om svartid, og jeg kan ikke love, at en fejl bliver rettet.
+- **Hjælp gælder selve kittet, ikke dit projekt.** Fejl og forslag til kittet tager jeg gerne imod under **Issues** (se "Giv feedback"). Jeg kan ikke hjælpe med at bygge dit projekt eller løse fejl i det.
+- **Ingen tæller dig.** Kittet har ingen telemetri: det sender ingen oplysninger om dig eller din brug af sted. Det eneste, der tælles, er hvor mange gange ZIP-filen hentes, og det gør GitHub, ikke kittet.
+
 ## Ordliste
 
 | Ord | Betyder |
