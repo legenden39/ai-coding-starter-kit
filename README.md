@@ -204,10 +204,10 @@ Everything in the kit is open, so anyone can read what it does.
 
 ## Who is behind this, and what can you expect?
 
-- **The kit is not affiliated with OpenAI or Anthropic.** It is made by one person and is not made, approved or supported by either of them. The names Codex, ChatGPT, Claude and Claude Code belong to their owners and are used only to say which tools the kit works with.
+- **The kit is not affiliated with OpenAI or Anthropic.** It is made by one person, who is new to tech themselves, together with AI. It is not made, approved or supported by OpenAI or Anthropic. The names Codex, ChatGPT, Claude and Claude Code belong to their owners and are used only to say which tools the kit works with.
 - **It is free, a beta and comes with no guarantee.** It is made in spare time. There is no agreed response time, and I cannot promise that a bug will be fixed.
-- **Help covers the kit itself, not your project.** I welcome bugs and suggestions for the kit under **Issues** (see "Give feedback"). I cannot help build your project or fix errors in it.
-- **Nobody counts you.** The kit has no telemetry: it sends no information about you or how you use it. The only thing counted is how many times the ZIP file is downloaded, and GitHub does that, not the kit.
+- **Help covers the kit itself, not your project.** You can write bugs and suggestions for the kit under **Issues** (see "Give feedback"). I read them when I have time, but cannot promise a reply. I cannot help build your project or fix errors in it.
+- **Nobody counts you.** The kit has no telemetry: it sends no information about you or how you use it. The only things counted are visits to this page and how many times the kit is downloaded. GitHub does that, not the kit, and I only see numbers, no names.
 
 ## Glossary
 
