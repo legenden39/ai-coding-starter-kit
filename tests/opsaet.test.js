@@ -191,4 +191,17 @@ for (const [sprog, skabelon, udtryk, mangler] of [
   tjek(`hvad nu (${sprog}): regelfilen er stadig kort (højst 45 linjer)`, t.split("\n").length <= 45, String(t.split("\n").length));
 }
 
+// ---- forklar-vanen (tilvalg): afsnit 16 i vidensnotatet og et ja/nej-tilbud i afslutningen ----
+for (const [sprog, sti, tilbud, claudeSti, claudeUdtryk] of [
+  ["da", ["references", "viden.md"], ["SKILL.md"], ["claude", "references", "viden.md"], ["/output-style Explanatory", "/output-style Learning", "/output-style default"]],
+  ["en", ["en", "references", "knowledge.md"], ["en", "SKILL.en.md"], ["claude", "en", "references", "knowledge.md"], ["/output-style Explanatory", "/output-style Learning", "/output-style default"]],
+]) {
+  const v = fs.readFileSync(path.join(KIT, ...sti), "utf8");
+  tjek(`forklar-vane (${sprog}): afsnit 16 findes, er et tilvalg og lover ikke for meget`, /## 16\. /.test(v) && /(ja eller nej|yes or no)/.test(v) && /(ikke på begyndere|not on beginners)/.test(v) && /(var årsagen|were the cause)/.test(v) && !/\/output-style/.test(v));
+  const sk = fs.readFileSync(path.join(KIT, ...tilbud), "utf8");
+  tjek(`forklar-vane (${sprog}): afslutningen tilbyder den med ét ja eller nej`, /(ét ja eller nej|one yes or no)/.test(sk));
+  const c = fs.readFileSync(path.join(KIT, ...claudeSti), "utf8");
+  tjek(`forklar-vane (${sprog}): Claude Code-udgaven nævner de to svarstile, og hvordan de slås fra`, claudeUdtryk.every((x) => c.includes(x)), claudeUdtryk.filter((x) => !c.includes(x)).join(", "));
+}
+
 slut("opsaet");

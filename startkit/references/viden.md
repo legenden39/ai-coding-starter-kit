@@ -105,3 +105,10 @@ Når den er ramt:
 2. Start en ny chat, og bed AI'en læse `STATUS.md` og køre `git status` og `git diff --stat`, så den ser, hvilke filer der er halvt rettet. Derefter `node scripts/startkit/bevis.js`, så I ved, om det virker, som det står.
 3. Virker det, og mangler der kun lidt: fortsæt, og skriv i `STATUS.md`, hvad der er gjort. Er det i stykker, og I ikke kan se hvorfor: bed AI'en køre `git stash`. Det lægger de halve ændringer til side uden at slette dem (`git stash pop` henter dem igen), og I starter fra den sidste commit, der virkede.
 4. Skriv i `STATUS.md` under "Næste skridt", hvad den næste chat skal gøre, i ét afsnit.
+
+## 16. Lær undervejs (tilvalg)
+
+Problem: "Det bliver lavet, men jeg forstår ikke, hvad AI'en gjorde."
+Årsag: I et lille forsøg fra Anthropic med udviklere, der lærte et nyt bibliotek, klarede de sig dårligt til prøven bagefter, som lod AI'en gøre det meste. De, der bad om forklaringer og spurgte hvorfor, klarede sig bedre, omtrent som dem, der arbejdede uden AI. Men grupperne var på få personer, forsøget viser ikke, at forklaringerne var årsagen, og det var ikke på begyndere. Så det er et fingerpeg, ikke et bevis.
+Tilvalg: Har personen allerede sagt ja til forklaringer undervejs (feltet `regler.svarform`), så spørg ikke igen; vis blot, hvordan man gør. Ellers spørg med ét ja eller nej, om hun eller han vil lære undervejs. Det koster lidt flere ord og dermed lidt mere forbrug. Siger personen nej, så lad det være.
+Sådan i praksis: Bed AI'en om at forklare i ord, hvad den lige gjorde og hvorfor, og stil selv spørgsmålet "hvorfor valgte du det?". Vil personen have det hver gang, så bed AI'en rette linjen om svarform i `AGENTS.md`, så der står, at den altid forklarer.
