@@ -6,9 +6,13 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
-## Ikke udgivet endnu
+## 0.8.0-beta (november 2026)
+
+Forklar-vane som tilvalg og ærlige oplysninger i README.
 
 - **Forklar-vane (tilvalg):** nyt afsnit 16 i vidensnotatet og et ja/nej-tilbud i afslutningen. Personen kan vælge at lære undervejs. I Claude Code peges der på de indbyggede svarstile `/output-style Explanatory` og `/output-style Learning` og på, hvordan de slås fra igen (læst i Anthropics dokumentation, ikke afprøvet i en rigtig chat). I Codex er det en vane (bed om forklaring og "hvorfor"), fordi der ikke er fundet noget tilsvarende. Har personen allerede sagt ja til forklaringer i interviewet, bliver der ikke spurgt igen. Grundlaget er ét lille forsøg på udviklere, hvor sammenhængen kun er set i grupper på få personer, så afsnittet siger, at det er et fingerpeg og ikke et bevis, og at forsøget ikke viser, at forklaringerne var årsagen.
+- **README:** nyt afsnit "Hvem står bag, og hvad kan du regne med?": kittet er ikke tilknyttet OpenAI eller Anthropic, det er gratis og uden garanti, hjælp gælder kittet og ikke dit projekt, og kittet har ingen telemetri.
+- **Vedligehold:** GitHub-handlingerne er opdateret til Node 24, så advarslen om Node 20 er væk.
 
 ## 0.7.0-beta (november 2026)
 

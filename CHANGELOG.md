@@ -6,9 +6,13 @@ The version number is in `startkit/VERSION` and is written into your feedback fi
 
 All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
-## Not released yet
+## 0.8.0-beta (November 2026)
+
+Explain habit as an option, and honest information in the README.
 
 - **Explain habit (optional):** new section 16 in the knowledge note and a yes/no offer in the wrap-up, so a person can choose to learn along the way. In Claude Code it points to the built-in answer styles `/output-style Explanatory` and `/output-style Learning` and to how to turn them off again (read in Anthropic's documentation, not tried in a real chat). In Codex it is a habit (ask for an explanation and for "why"), because nothing equivalent was found. If the person already said yes to explanations in the interview, they are not asked again. The basis is one small experiment on developers, where the link was only seen in groups of a few people, so the section says it is a hint, not proof, and that the experiment does not show the explanations were the cause.
+- **README:** new section "Who is behind this, and what can you expect?": the kit is not affiliated with OpenAI or Anthropic, it is free and comes with no guarantee, help covers the kit and not your project, and the kit has no telemetry.
+- **Maintenance:** the GitHub actions are updated to Node 24, so the Node 20 warning is gone.
 
 ## 0.7.0-beta (November 2026)
 
