@@ -193,13 +193,13 @@ for (const [sprog, skabelon, udtryk, mangler] of [
 
 // ---- modelvalg: AI'en siger ved hver ny opgave, hvilken slags model den kræver, og siger fra ved en for svag ----
 for (const [sprog, skabelon, pluginSkabelon, udtryk] of [
-  ["da", ["assets", "AGENTS.skabelon.md"], ["..", "plugins", "startkit-da", "skills", "startkit", "assets", "AGENTS.skabelon.md"], ["Ved hver ny opgave", "stærk model", "billig", "for svag", "før du fortsætter", "Ved du ikke, hvilken model du er"]],
-  ["en", ["en", "assets", "AGENTS.template.md"], ["..", "plugins", "startkit", "skills", "startkit", "en", "assets", "AGENTS.template.md"], ["With every new task", "strong model", "cheap", "too weak", "before you continue", "If you do not know which model you are"]],
+  ["da", ["assets", "AGENTS.skabelon.md"], ["..", "plugins", "startkit-da", "skills", "startkit", "assets", "AGENTS.skabelon.md"], ["Ved hver ny opgave", "den mindste", "mellemmodellen", "den stærkeste", "modelguide", "for svag", "før du fortsætter", "Ved du ikke, hvilken model du er"]],
+  ["en", ["en", "assets", "AGENTS.template.md"], ["..", "plugins", "startkit", "skills", "startkit", "en", "assets", "AGENTS.template.md"], ["With every new task", "the smallest", "the middle model", "the strongest", "model guide", "too weak", "before you continue", "If you do not know which model you are"]],
 ]) {
   for (const [navn, sti] of [["kilden", skabelon], ["plugin-kopien", pluginSkabelon]]) {
     const t = fs.readFileSync(path.join(KIT, ...sti), "utf8");
     const linje = t.split("\n").find((l) => l.includes(udtryk[0])) || "";
-    tjek(`modelvalg (${sprog}, ${navn}): én regel siger stærk eller billig model og siger fra ved en for svag`, udtryk.every((x) => linje.includes(x)), udtryk.filter((x) => !linje.includes(x)).join(", "));
+    tjek(`modelvalg (${sprog}, ${navn}): én regel nævner de tre trin og modelguiden og siger fra ved en for svag`, udtryk.every((x) => linje.includes(x)), udtryk.filter((x) => !linje.includes(x)).join(", "));
     tjek(`modelvalg (${sprog}, ${navn}): reglen nævner ingen modelnavne (de skifter)`, !/(fable|opus|sonnet|haiku|gpt)/i.test(linje), linje);
     tjek(`modelvalg (${sprog}, ${navn}): regelfilen er stadig kort (højst 45 linjer)`, t.split("\n").length <= 45, String(t.split("\n").length));
   }

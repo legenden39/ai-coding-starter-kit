@@ -39,7 +39,7 @@ Model til en ny prøve: stærk (fejlsøgning af en lås).
 
 ## Prøvet (13. nov. 2026)
 
-Sat op: `tools/modelskift.js` og en `PostModelSwitch`-hook i `.claude/settings.local.json` (ikke i git) med kommandoen `node "${CLAUDE_PROJECT_DIR}/tools/modelskift.js"`. Filen lå der, fra chatten startede. Chatten kørte i skrivebordsappen på Windows med Claude Code 2.1.321, i en worktree, som chatten delte med den chat, der oprettede den.
+Sat op: scriptet `tools/modelskift.js` (slettet igen 13. nov. 2026, da hook'en ikke bygges ind; det ligger i git-historikken) og en `PostModelSwitch`-hook i `.claude/settings.local.json` (ikke i git) med kommandoen `node "${CLAUDE_PROJECT_DIR}/tools/modelskift.js"`. Filen lå der, fra chatten startede. Chatten kørte i skrivebordsappen på Windows med Claude Code 2.1.321, i en worktree, som chatten delte med den chat, der oprettede den.
 
 Afprøvet:
 - Ejeren skiftede med `/model` fra Fable til Sonnet og senere tilbage til Fable. Begge skift blev gennemført ("Set model to ...").
