@@ -301,8 +301,8 @@ Why this round: here you decide how the AI should talk to you, and what your ove
 ### H1
 Question: Do you want explanations along the way, or just the result? And how long should the answers be?
 Good answer: One choice, and a wish for the length.
-Follow up: Explanation always, or only when something is new or risky?
-Field: rules.answer_style
+Follow up: Explanation always, or only when something is new or risky? If the person is new, offer explain mode: the AI explains each technical word the first time and ends with "What I did, and why". Say that the answers get longer, and that it costs a few more tokens. It can be switched off again.
+Field: rules.answer_style, explain
 
 ### H2
 Question: What do you want to decide yourself, and what may the AI choose for you?
@@ -349,6 +349,7 @@ Save the answers using the fields' names. Never keys or passwords. The setup use
     "answer_style": "Short answers. Explain only what is new or risky.",
     "when_in_doubt": "ask"
   },
+  "explain": false,
   "check_commands": [],
   "tools": { "models": [] },
   "extra": [{ "heading": "…", "what_i_learned": "…" }],

@@ -14,7 +14,8 @@ If you answer "only me" or "a few people I know", and there is no information ab
 
 ## 2. Secrets
 
-- Run `sh .githooks/pre-commit --scan`. It looks for keys in all files.
+- Run `sh .githooks/pre-commit --scan`. It looks for keys in all files git knows about.
+- Run `node scripts/startkit/del-tjek.js`. It looks for keys in what actually gets published (the built folder, for example `dist` or `build`, which the other checks do not see), and for keys that give full access to a database. If the built files are somewhere else, write the folder after the command.
 - Is there a key in code that runs in the browser? A stranger can see everything there. Only keys made to be public may be there. Keys with words like secret, service or private never. Look up the provider's own guide; do not guess.
 - Is `.env` in `.gitignore`, and have the keys never been in git? If they have, they are burnt and must be changed.
 

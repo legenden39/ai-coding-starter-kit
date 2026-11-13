@@ -301,8 +301,8 @@ Hvorfor denne runde: her bestemmer du, hvordan AI'en skal tale til dig, og hvad 
 ### H1
 Spørgsmål: Vil du have forklaringer undervejs, eller bare resultatet? Og hvor lange svar?
 Godt svar: Ét valg, og et ønske til længden.
-Uddyb: Forklaring altid, eller kun når noget er nyt eller risikabelt?
-Felt: regler.svarform
+Uddyb: Forklaring altid, eller kun når noget er nyt eller risikabelt? Er personen ny, så tilbyd forklar-tilstand: AI'en forklarer hvert fagord første gang og slutter med "Det gjorde jeg, og hvorfor". Sig, at svarene bliver længere, og at det koster lidt flere tokens. Det kan slås fra igen.
+Felt: regler.svarform, forklar
 
 ### H2
 Spørgsmål: Hvad vil du selv bestemme, og hvad må AI'en vælge for dig?
@@ -349,6 +349,7 @@ Gem svarene med felternes navne. Aldrig nøgler eller adgangskoder. Disse felter
     "svarform": "Korte svar. Forklar kun det, der er nyt eller risikabelt.",
     "ved_tvivl": "spørg"
   },
+  "forklar": false,
   "tjek_kommandoer": [],
   "vaerktoej": { "modeller": [] },
   "ekstra": [{ "overskrift": "…", "hvad_jeg_laerte": "…" }],

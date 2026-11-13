@@ -14,7 +14,8 @@ Svarer du "kun mig" eller "få kendte", og der er ingen oplysninger om andre, s�
 
 ## 2. Hemmeligheder
 
-- Kør `sh .githooks/pre-commit --scan`. Den leder efter nøgler i alle filer.
+- Kør `sh .githooks/pre-commit --scan`. Den leder efter nøgler i alle filer, git kender.
+- Kør `node scripts/startkit/del-tjek.js`. Den leder efter nøgler i det, der faktisk bliver lagt ud (den byggede mappe, fx `dist` eller `build`, som de andre tjek ikke ser), og efter nøgler, der giver fuld adgang til en database. Ligger det byggede et andet sted, så skriv mappen efter kommandoen.
 - Ligger der en nøgle i kode, der kører i browseren? Alt dér kan en fremmed se. Kun nøgler, der er lavet til at være offentlige, må ligge dér. Nøgler med ord som secret, service eller private må aldrig. Slå udbyderens egen vejledning op; gæt ikke.
 - Står `.env` i `.gitignore`, og har nøglerne aldrig ligget i git? Har de, så er de brændt og skal skiftes.
 

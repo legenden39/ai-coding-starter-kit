@@ -28,7 +28,7 @@ t(tekst("tj.agents.kort"), agents && agents.split("\n").length <= 80, tekst("tj.
 t(tekst("tj.findes", { fil: "STATUS.md" }), laes("STATUS.md") !== null, igen);
 t(tekst("tj.findes", { fil: fil("fejl") }), laes(fil("fejl")) !== null, igen);
 
-for (const navn of ["regler.js", "tekster.js", "tilstand.js", "vagt.js", "faerdig.js", "bevis.js", "overblik.js", "forbrug-gem.js", "gemmepunkt.js", "fortryd.js", "start.js"]) {
+for (const navn of ["regler.js", "tekster.js", "tilstand.js", "vagt.js", "faerdig.js", "bevis.js", "overblik.js", "forbrug-gem.js", "gemmepunkt.js", "fortryd.js", "start.js", "del-tjek.js"]) {
   t(tekst("tj.findes", { fil: `scripts/startkit/${navn}` }), laes(`scripts/startkit/${navn}`) !== null, igen);
 }
 

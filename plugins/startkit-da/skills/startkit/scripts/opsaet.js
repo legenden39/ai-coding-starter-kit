@@ -41,6 +41,7 @@ function normaliser(profil) {
   flyt(p, "projects", "projekter");
   flyt(p, "rules", "regler");
   flyt(p, "check_commands", "tjek_kommandoer");
+  flyt(p, "explain", "forklar");
   if (Array.isArray(p.projekter)) p.projekter = p.projekter.map((x) => { if (!x || typeof x !== "object") return x; const y = { ...x }; flyt(y, "name", "navn"); flyt(y, "description", "beskrivelse"); return y; });
   if (p.regler && typeof p.regler === "object") { p.regler = { ...p.regler }; flyt(p.regler, "never_without_ok", "aldrig_uden_ok"); flyt(p.regler, "answer_style", "svarform"); flyt(p.regler, "when_in_doubt", "ved_tvivl"); }
   return p;
@@ -59,6 +60,7 @@ function valider(raa) {
   if (!Array.isArray(regler.aldrig_uden_ok) || !regler.aldrig_uden_ok.filter(tekst).length) fejl.push(t("ops.aldrig"));
   if (!tekst(regler.svarform)) fejl.push(t("ops.svarform"));
   if (profil.tjek_kommandoer !== undefined && !(Array.isArray(profil.tjek_kommandoer) && profil.tjek_kommandoer.every((k) => typeof k === "string"))) fejl.push(t("ops.tjek"));
+  if (profil.forklar !== undefined && typeof profil.forklar !== "boolean") fejl.push(t("ops.forklar.type"));
   if (harNoegle(JSON.stringify(profil))) fejl.push(t("ops.noegle"));
   return fejl;
 }
@@ -77,6 +79,8 @@ function agentsBlok(raa) {
     ALDRIG_UDEN_OK: regler.aldrig_uden_ok.map(enLinje).filter(Boolean).join("; "),
     VED_TVIVL: enLinje(regler.ved_tvivl || t("ops.ved.tvivl")),
     SVARFORM: enLinje(regler.svarform),
+    // Forklar-tilstand er et tilvalg: uden den står der ingenting, så regelfilen ikke bliver længere end nødvendigt.
+    FORKLAR: profil.forklar === true ? t("ops.forklar") : "",
   };
   return skabelon("AGENTS.skabelon.md").replace(/\{\{(\w+)\}\}/g, (_, k) => udfyld[k] ?? "").trim();
 }
@@ -206,6 +210,7 @@ function main() {
   }
   const agents = trin.find((x) => x.rel === vt("regelfil")).indhold.split("\n").length;
   if (agents > 80) console.log(t("ops.lang", { linjer: agents }));
+  if (profil.forklar === true) console.log(t("ops.forklar.til"));
   if (!(profil.tjek_kommandoer || []).length) console.log(t("ops.ingen.tjek"));
   if (!toer) console.log(t("ops.naeste"));
   return 0;

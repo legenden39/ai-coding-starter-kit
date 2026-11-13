@@ -2,7 +2,7 @@
 
 [English](README.md) · Dansk
 
-> **Beta, version 0.7.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
+> **Beta, version 0.8.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
 
 **Vil du bygge noget med AI, men ved ikke, hvor du skal starte, eller er du træt af, at AI'en laver de samme fejl igen og igen? Så er det her til dig.**
 
@@ -232,6 +232,7 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 | `scripts/startkit/overblik.js` | Overblikssiden på din egen computer. |
 | `overblik.cmd` | Genvej: dobbeltklik for at åbne overblikssiden i browseren. |
 | `.codex/hooks.json` (i Claude Code: `.claude/settings.local.json`) | Fortæller Codex eller Claude Code, at vagten og færdig-tjekket skal køres. |
+| `scripts/startkit/del-tjek.js` | Del-tjekket: leder efter hemmelige nøgler i det, der er ved at blive lagt ud til andre, også i den byggede mappe, som de andre tjek ikke ser. Hører til tjeklisten `docs/foer-du-deler.md`. |
 | `scripts/startkit/fortryd.js` og `.startkit/saadan-fortryder-du.md` | Fortryd-hjælpen: i starten af hver chat tages der automatisk et gemmepunkt af dine filer, og programmet henter dem tilbage. Siden forklarer hvordan. |
 | `.startkit/` | Din profil, planen, indstillinger, din feedback og forklaringen "hvorfor blev jeg stoppet". |
 
@@ -261,6 +262,10 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<di
 | Installationen til Claude Code på begge sprog, kørt på Windows hos GitHub | Testet automatisk |
 | At Claude Code faktisk kører vagten (ved kommandoer, når den retter filer, og når den vil læse en `.env`-fil) og færdig-tjekket | Prøvet i Claude Code 2.1.322 i en terminal på Linux |
 | At `/startkit` dukker op i Claude Code og begynder med introduktionen | Prøvet i Claude Code 2.1.322 i en terminal på Linux |
+| Del-tjekket: finder nøgler, databasenøgler med fuld adgang, `.env` og `.git` i det, der lægges ud, og viser aldrig selve nøglen | Testet automatisk |
+| Forklar-tilstand: reglerne kommer kun med, når du har valgt det, og kan slås fra igen | Testet automatisk |
+| At Claude Code selv kører del-tjekket, når du vil dele noget, og stopper ved et fund; og at forklar-tilstand giver "Det gjorde jeg, og hvorfor" | Prøvet i Claude Code 2.1.322 på Linux, én gang |
+| Del-tjekket og forklar-tilstand i Codex, og del-tjekket på et rigtigt projekt med en rigtig byggeproces | **Ikke afprøvet** |
 | Gemmepunkter og fortryd: at arbejde, der ikke er gemt i git, kommer med, at `.env` aldrig gør, at intet slettes, og at en fortrydelse kan fortrydes | Testet automatisk |
 | At Claude Code selv finder gemmepunktet og henter en ødelagt fil tilbage ved at følge fortryd-siden | Prøvet i Claude Code 2.1.322 på Linux |
 | At statusfilen læses ind automatisk, når en chat begynder i Claude Code | Testet automatisk, og prøvet i Claude Code 2.1.322 på Linux |
