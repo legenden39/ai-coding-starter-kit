@@ -153,7 +153,7 @@ let privateOrd = [];
 try { privateOrd = fs.readFileSync(path.join(KIT, "..", ORDLISTE), "utf8").split(/\r?\n/).map((l) => l.trim().toLowerCase()).filter((l) => l && !l.startsWith("#")); } catch { /* ingen privat ordliste */ }
 const SPRING_OVER = new Set([".git", "node_modules", ".claude", ".startkit"]);
 const alle = [];
-(function gaa(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const f = path.join(d, e.name); if (e.isDirectory()) { if (!SPRING_OVER.has(e.name)) gaa(f); } else if (e.name !== ORDLISTE && !/\.(zip|log)$/i.test(e.name)) alle.push(f); } })(path.join(KIT, ".."));
+(function gaa(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const f = path.join(d, e.name); if (SPRING_OVER.has(e.name)) continue; /* også når .git er en fil: i en git-worktree er den det, og den rummer en sti */ if (e.isDirectory()) gaa(f); else if (e.name !== ORDLISTE && !/\.(zip|log)$/i.test(e.name)) alle.push(f); } })(path.join(KIT, ".."));
 const { harNoegle } = require(path.join(KIT, "scripts", "projekt", "regler"));
 for (const f of alle) {
   const t = fs.readFileSync(f, "utf8");

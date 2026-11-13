@@ -16,8 +16,7 @@ Kun ejeren godkender udgivelser, push og pull requests. Tal dansk, enkelt og ær
 - Ingen navne, e-mailadresser, brugermapper eller nøgler i nogen fil. Testen `rent` stopper det.
 
 ## Faste regler
-- Sig først "færdig", når `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og du har sagt, hvad du ikke har afprøvet. (I en worktree er `rent: .git` rød af en kendt grund; bekræft i en almindelig kopi.)
-- Skriv "afprøvet" kun om det, der er kørt. Er noget kun læst i dokumentationen, så skriv det.
+- Sig først "færdig", når `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og du har sagt, hvad du ikke har afprøvet.- Skriv "afprøvet" kun om det, der er kørt. Er noget kun læst i dokumentationen, så skriv det.
 - Ret årsagen, ikke symptomet. Kan du ikke finde årsagen, så sig det.
 - Hjælper en rettelse ikke efter to forsøg, så stop. Skriv fejlteksten ordret og det, du har prøvet, i `STATUS.md`, og foreslå en ny chat. Gæt ikke videre.
 - Gæt aldrig. Fakta om Codex og Claude Code slås op i den officielle dokumentation, ikke i hukommelsen.

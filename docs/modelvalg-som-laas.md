@@ -23,8 +23,8 @@ Der findes ingen miljøvariabel med modellen. Ingen hook kender **opgaven**, så
 
 ## Det, vi ikke ved
 
-- Om teksten fra `PostModelSwitch` når frem til AI'en. Dokumentationen siger ja (læst via et resumé af siden, ikke ordret). Det er ikke afprøvet, fordi hook'en aldrig blev kaldt.
-- Hvorfor hook'en ikke blev kaldt i skrivebordsappen (se "Prøvet").
+- Om teksten fra `PostModelSwitch` når frem til AI'en. Dokumentationen siger ja, ordret: "Claude Code adds plain-text stdout as context that Claude can see and act on" (slået op igen 13. nov. 2026). Det er ikke afprøvet, fordi hook'en aldrig blev kaldt.
+- Hvorfor hook'en ikke blev kaldt i skrivebordsappen (se "Prøvet"). Dokumentationen siger, at hændelserne kræver version 2.1.251 eller nyere (prøven kørte 2.1.321), og at hooks kører ens i terminal og skrivebordsapp. Efter dokumentationen burde den altså være kaldt. Et gæt, der ikke er afprøvet: `${CLAUDE_PROJECT_DIR}` er "the project root where the session started" og bliver stående, hvis chatten senere går ind i en worktree. Startede chatten i hovedmappen, er worktree'ens `.claude/settings.local.json` måske aldrig blevet læst.
 - Om hook'en kører i Claude Code i en terminal.
 - Hvordan modelnavnet ser ud i `to_model`, og om en hook kan kende "stærk" fra "billig" uden en liste, der skal holdes ved lige (modelnavne skifter).
 - Om Codex har noget tilsvarende.
