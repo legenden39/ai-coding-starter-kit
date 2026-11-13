@@ -3,7 +3,7 @@
 <!-- AI'en læser denne fil i starten af hver chat og opdaterer den til sidst. Hold den kort (højst ca. 40 linjer). Flyt gamle ting til docs/historik.md. -->
 
 ## Nu
-- Seneste udgivelse: 0.8.0-beta (forklar-vane, README-ærlighed, Node 24). Ikke udgivet endnu: modelvalg-reglen (pull request 18, åben).
+- Seneste udgivelse: 0.8.0-beta (forklar-vane, README-ærlighed, Node 24). Ikke udgivet endnu: modelvalg-reglen (flettet ind i `main` med pull request 18, står under "Ikke udgivet endnu" i ændringsloggen).
 
 ## Sidst lavet (13. nov. 2026)
 - Ny regel i kittets regelfil på begge sprog: AI'en siger ved hver ny opgave, hvilken model den kræver (mindste, mellem eller stærkeste, som i vidensnotatets afsnit 5), følger ejerens modelguide og siger fra ved en for svag. Test og ændringslog på begge sprog.
@@ -12,7 +12,7 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
-- Pull request 18 er åben og venter på, at ejeren siger ja til at flette.
+- Ejeren beslutter, hvornår modelvalg-reglen udgives (nyt versionsnummer i `startkit/VERSION`).
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
 - Find ud af, hvorfor `startkit/scripts/noeglescan.js` hang i over to minutter, da den blev kørt i en worktree (ikke undersøgt).
 - Ejeren beslutter: tekstforslag til README-afsnittet "Hvem står bag" (givet i chatten 13. nov. 2026, ikke rettet).
