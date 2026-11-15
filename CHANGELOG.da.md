@@ -6,7 +6,9 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
-## Ikke udgivet endnu
+## 0.9.0-beta (november 2026)
+
+Modelvalg ved hver opgave, hurtigt nøglescan og en mere præcis README.
 
 - **README:** afsnittet "Hvem står bag, og hvad kan du regne med?" er gjort mere præcist: kittet er lavet af én person, som selv er ny til teknik, sammen med AI; sager under Issues bliver læst, men der loves ikke svar; og GitHub tæller også besøg på siden, ikke kun hentninger (kun tal, ingen navne).
 

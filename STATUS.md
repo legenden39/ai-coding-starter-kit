@@ -3,9 +3,12 @@
 <!-- AI'en læser denne fil i starten af hver chat og opdaterer den til sidst. Hold den kort (højst ca. 40 linjer). Flyt gamle ting til docs/historik.md. -->
 
 ## Nu
-- Seneste udgivelse: 0.8.0-beta (forklar-vane, README-ærlighed, Node 24). Ikke udgivet endnu: modelvalg-reglen og README-rettelsen (begge i `main`, står under "Ikke udgivet endnu" i ændringsloggen).
+- Version 0.9.0-beta er klargjort i denne gren (modelvalg-reglen, nøglescan-rettelsen, README-rettelsen). Ikke flettet, ikke mærket (tag) og ikke lagt på GitHub endnu: venter på ejerens ja. Seneste udgivne version: 0.8.0-beta.
 
-## Sidst lavet (13. nov. 2026)
+## Sidst lavet (15. nov. 2026)
+- Udgivelsen 0.9.0-beta: `startkit/VERSION`, plugin-kopierne, README-banneret og begge ændringslogge er sat til 0.9.0-beta. `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og nøglescannet (`--scan`) er kørt. Sessioner ryddet op: de tre flettede og to overflødige er arkiveret.
+
+## Før det (13. nov. 2026)
 - Ny regel i kittets regelfil på begge sprog: AI'en siger ved hver ny opgave, hvilken model den kræver (mindste, mellem eller stærkeste, som i vidensnotatets afsnit 5), følger ejerens modelguide og siger fra ved en for svag. Test og ændringslog på begge sprog.
 - Projektet har fået sin egen `CLAUDE.md`, `STATUS.md` og `docs/gentagne-fejl.md`, skrevet i hånden efter kittets skabeloner.
 - Prøvet en hook ved modelskift i skrivebordsappen: den blev ikke kaldt. Årsagen er ikke fundet. Ejeren har droppet den indtil videre, og forsøgsscriptet er slettet. Se `docs/modelvalg-som-laas.md`.
