@@ -477,7 +477,7 @@ function t(noegle, vaerdier = {}) {
 // Indstillingerne (.startkit/config.json) har danske eller engelske navne. Her får de ét sæt navne.
 function laesConfig(raa) {
   const c = raa && typeof raa === "object" ? raa : {};
-  return { tjek: c.tjek ?? c.checks, modelguide: c.modelguide ?? c.model_guide, graense_procent: c.graense_procent ?? c.limit_percent };
+  return { tjek: c.tjek ?? c.checks, modelguide: c.modelguide ?? c.model_guide, graense_procent: c.graense_procent ?? c.limit_percent, vagt: c.vagt ?? c.guard };
 }
 
 module.exports = { t, sprog, fil, laesConfig, vaerktoej, vt, TEKSTER, TEKSTER_CLAUDE, FILER, VAERKTOEJER, FORBUDSREGLER };

@@ -6,6 +6,10 @@ The version number is in `startkit/VERSION` and is written into your feedback fi
 
 All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
+## Not released yet
+
+- **The guard can run in record-only mode:** if `.startkit/config.json` has `"guard": "record-only"` (or `"vagt": "kun-registrer"`), the guard still takes the restore point and remembers the chat's start (the done-check needs it), but denies nothing. This is for the kit's own source repo, where the guard's own files are what is being built. Ordinary projects are unchanged: the AI cannot flip the switch, because the settings file is protected, and an unknown value or a broken file gives the strict guard. New script `tools/hooks-lokalt.js` sets it up locally without a copy of the kit's scripts. Tested with the Danish and the English value. The choice and what is not covered are in `docs/hooks-paa-kittet-selv.md` (Danish). Not tried in a real chat in the desktop app, nor on Mac or Linux.
+
 ## 0.9.0-beta (November 2026)
 
 Model choice with every task, a fast key scan and a more precise README.

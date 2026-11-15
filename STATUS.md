@@ -3,9 +3,10 @@
 <!-- AI'en læser denne fil i starten af hver chat og opdaterer den til sidst. Hold den kort (højst ca. 40 linjer). Flyt gamle ting til docs/historik.md. -->
 
 ## Nu
-- Version 0.9.0-beta er klargjort i denne gren (modelvalg-reglen, nøglescan-rettelsen, README-rettelsen). Ikke flettet, ikke mærket (tag) og ikke lagt på GitHub endnu: venter på ejerens ja. Seneste udgivne version: 0.8.0-beta.
+- 0.9.0-beta er udgivet (pull request 23 og 24 flettet, tag `v0.9.0-beta`). I denne gren: kittets hooks på kittet selv (valg c, se nedenfor). Ikke committet og ikke lagt op endnu.
 
 ## Sidst lavet (15. nov. 2026)
+- Ejeren valgte (c): gemmepunkter og færdig-tjek på dette repo, vagten kun i registrér-tilstand. Undervejs viste det sig, at gemmepunkter og færdig-tjek kræver vagten (den tager gemmepunktet og husker chattens start), så (c) som skrevet var ikke mulig uden en kontakt. Ny kontakt i `vagt.js` (`.startkit/config.json`: `"vagt": "kun-registrer"`), test på dansk og engelsk værdi, script `tools/hooks-lokalt.js`, `docs/hooks-paa-kittet-selv.md`, ændringslog på begge sprog. `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og vagt og færdig-tjek er prøvet manuelt på Windows. IKKE afprøvet: at skrivebordsappen faktisk kalder hooks her (puls og gemmepunkt skal ses i en ny chat), og Mac/Linux.
 - Udgivelsen 0.9.0-beta: `startkit/VERSION`, plugin-kopierne, README-banneret og begge ændringslogge er sat til 0.9.0-beta. `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og nøglescannet (`--scan`) er kørt. Sessioner ryddet op: de tre flettede og to overflødige er arkiveret.
 
 ## Før det (13. nov. 2026)
@@ -17,12 +18,11 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
-- Ejeren beslutter, hvornår modelvalg-reglen udgives (nyt versionsnummer i `startkit/VERSION`).
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
-- Ejeren beslutter: skal kittets rigtige opsætning (vagt, færdig-tjek, gemmepunkter) køres på dette repo?
+- Ejeren fletter pull requesten (hooks lokalt) og kører `node tools/hooks-lokalt.js`. Start en ny chat og tjek, at hooks kører: `.startkit/vagt-puls.json` får nyt tidspunkt, og `git for-each-ref refs/startkit` viser et gemmepunkt.
 
 ## Åbne problemer
 - Nøgletjekket før commit er stadig langsomt i ét tilfælde: en commit med mange filer, hvor der faktisk er en nøgle (så gås alle filerne igennem). Rettelsen er ikke afprøvet på Mac.
-- Projektet bruger kun kittets regler som tekst. Kittets hooks er ikke sat op her, fordi opsætningen ville lægge en kopi af `startkit/scripts/projekt/` i `scripts/startkit/` (to udgaver af samme kode i samme repo), og fordi vagten kan stoppe arbejdet med vagtens egne filer. Det kræver et designvalg.
+- Med vagten i registrér-tilstand kan AI'en ændre hook-filer og kittets scripts uden at blive stoppet; beskyttelsen er ejerens gennemgang af pull requests. Se `docs/hooks-paa-kittet-selv.md`.
 - Modelvalg-reglen er en tekstregel og ikke afprøvet i en rigtig chat. Den hviler på, at også en svag model selv siger fra, og AI'en kan ikke altid se et modelskift.
 - Hook'en ved modelskift blev ikke kaldt i skrivebordsappen (2.1.321). Uafklaret hvorfor. Forsøgsfilerne `.claude/settings.local.json` og `.claude/modelskift-log.txt` ligger måske stadig i worktree'en `modelvalg-regel-2b98b3` (ikke i git).

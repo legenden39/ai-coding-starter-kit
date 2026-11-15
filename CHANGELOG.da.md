@@ -6,6 +6,10 @@ Versionsnummeret står i `startkit/VERSION` og bliver skrevet i din feedback-fil
 
 Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet kittet.
 
+## Ikke udgivet endnu
+
+- **Vagten kan køre i kun-registrér-tilstand:** står `"vagt": "kun-registrer"` i `.startkit/config.json`, tager vagten stadig gemmepunktet og husker chattens start (færdig-tjekket kræver det), men afviser intet. Det er til kittets egen kilderepo, hvor vagtens egne filer er det, der bygges. Almindelige projekter er uændrede: AI'en kan ikke slå kontakten til, fordi indstillingsfilen er beskyttet, og en ukendt værdi eller ødelagt fil giver den strenge vagt. Nyt script `tools/hooks-lokalt.js` sætter det op lokalt uden en kopi af kittets scripts. Test på dansk og engelsk værdi. Valget og det, der ikke er dækket, står i `docs/hooks-paa-kittet-selv.md`. Ikke afprøvet i en rigtig chat i skrivebordsappen, ikke på Mac eller Linux.
+
 ## 0.9.0-beta (november 2026)
 
 Modelvalg ved hver opgave, hurtigt nøglescan og en mere præcis README.

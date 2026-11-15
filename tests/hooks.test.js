@@ -45,6 +45,28 @@ tjek("vagt: ulæseligt input afvises (lukker, hvor den kan)", r.kode === 0 && /"
 r = vagt({ tool_name: "Bash", tool_input: { command: "ls" }, cwd: os.tmpdir() });
 tjek("vagt: virker også uden for et git-projekt", r.kode === 0 && r.ud === "", r.ud + r.fejl);
 
+// ---- kun-registrér-tilstand (kittets egen kilderepo) ----
+const FORBUDT = { tool_name: "Bash", tool_input: { command: "git commit --no-verify -m x" } };
+const configFoer = fs.existsSync(path.join(rod, ".startkit", "config.json")) ? fs.readFileSync(path.join(rod, ".startkit", "config.json"), "utf8") : null;
+for (const [navn, config] of [["dansk", { vagt: "kun-registrer" }], ["engelsk", { guard: "record-only" }]]) {
+  skriv(rod, ".startkit/config.json", JSON.stringify(config));
+  fs.rmSync(sessionFil, { force: true });
+  r = vagt(FORBUDT);
+  tjek(`vagt (kun-registrér, ${navn}): afviser intet`, r.kode === 0 && r.ud === "", r.ud + r.fejl);
+  tjek(`vagt (kun-registrér, ${navn}): husker alligevel chattens start (færdig-tjekket kræver det)`, fs.existsSync(sessionFil));
+}
+skriv(rod, ".startkit/config.json", JSON.stringify({ vagt: "noget-andet" }));
+r = vagt(FORBUDT);
+tjek("vagt: en ukendt værdi i kontakten giver den almindelige, strenge vagt", /"deny"/.test(r.ud), r.ud);
+skriv(rod, ".startkit/config.json", "ikke json");
+r = vagt(FORBUDT);
+tjek("vagt: en ødelagt indstillingsfil giver den almindelige, strenge vagt", /"deny"/.test(r.ud), r.ud);
+r = vagt({ tool_name: "Edit", tool_input: { file_path: path.join(rod, ".startkit", "config.json"), new_string: "{}" } });
+tjek("vagt: kontakten kan ikke slås til af AI'en (indstillingsfilen er beskyttet)", /"deny"/.test(r.ud), r.ud);
+if (configFoer === null) fs.rmSync(path.join(rod, ".startkit", "config.json"), { force: true }); else skriv(rod, ".startkit/config.json", configFoer);
+fs.rmSync(sessionFil, { force: true });
+vagt({ tool_name: "Bash", tool_input: { command: "ls" } }); // gendan chattens start til de næste tjek
+
 // ---- færdig-tjekket ----
 r = faerdig();
 tjek("færdig-tjek: tier, når koden ikke er ændret", r.kode === 0 && r.ud === "", r.ud + r.fejl);
