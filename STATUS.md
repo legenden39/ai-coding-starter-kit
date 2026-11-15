@@ -3,7 +3,8 @@
 <!-- AI'en læser denne fil i starten af hver chat og opdaterer den til sidst. Hold den kort (højst ca. 40 linjer). Flyt gamle ting til docs/historik.md. -->
 
 ## Nu
-- 0.9.0-beta er udgivet (pull request 23 og 24 flettet, tag `v0.9.0-beta`). I denne gren: kittets hooks på kittet selv (valg c, se nedenfor). Ikke committet og ikke lagt op endnu.
+- Seneste udgivelse: 0.9.0-beta (modelvalg-reglen, nøglescan-rettelsen, README-rettelsen). Flettet med pull request 23 og 24; tagget `v0.9.0-beta` og en GitHub-udgivelse findes (oprettet af sig selv ved fletningen).
+- Kittets hooks på kittet selv (valg c, pull request 25): se nedenfor. Ikke udgivet i en ny version endnu.
 
 ## Sidst lavet (15. nov. 2026)
 - Ejeren valgte (c): gemmepunkter og færdig-tjek på dette repo, vagten kun i registrér-tilstand. Undervejs viste det sig, at gemmepunkter og færdig-tjek kræver vagten (den tager gemmepunktet og husker chattens start), så (c) som skrevet var ikke mulig uden en kontakt. Ny kontakt i `vagt.js` (`.startkit/config.json`: `"vagt": "kun-registrer"`), test på dansk og engelsk værdi, script `tools/hooks-lokalt.js`, `docs/hooks-paa-kittet-selv.md`, ændringslog på begge sprog. `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og vagt og færdig-tjek er prøvet manuelt på Windows. IKKE afprøvet: at skrivebordsappen faktisk kalder hooks her (puls og gemmepunkt skal ses i en ny chat), og Mac/Linux.
