@@ -3,7 +3,7 @@
 <!-- AI'en læser denne fil i starten af hver chat og opdaterer den til sidst. Hold den kort (højst ca. 40 linjer). Flyt gamle ting til docs/historik.md. -->
 
 ## Nu
-- Version 0.9.0-beta er klargjort i denne gren (modelvalg-reglen, nøglescan-rettelsen, README-rettelsen). Ikke flettet, ikke mærket (tag) og ikke lagt på GitHub endnu: venter på ejerens ja. Seneste udgivne version: 0.8.0-beta.
+- Seneste udgivelse: 0.9.0-beta (modelvalg-reglen, nøglescan-rettelsen, README-rettelsen). Flettet med pull request 23; tagget `v0.9.0-beta` og en GitHub-udgivelse findes (oprettet af sig selv ved fletningen).
 
 ## Sidst lavet (15. nov. 2026)
 - Udgivelsen 0.9.0-beta: `startkit/VERSION`, plugin-kopierne, README-banneret og begge ændringslogge er sat til 0.9.0-beta. `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og nøglescannet (`--scan`) er kørt. Sessioner ryddet op: de tre flettede og to overflødige er arkiveret.
