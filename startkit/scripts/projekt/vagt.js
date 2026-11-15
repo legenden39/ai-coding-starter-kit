@@ -4,7 +4,7 @@
 const fs = require("fs");
 const { decide } = require("./regler");
 const { rod, huskStart, slaaPuls } = require("./tilstand");
-const { t } = require("./tekster");
+const { t, laesConfig } = require("./tekster");
 
 function afvis(reason) {
   fs.writeSync(1, JSON.stringify({ hookSpecificOutput: { hookEventName: "PreToolUse", permissionDecision: "deny", permissionDecisionReason: reason } }));
@@ -26,6 +26,16 @@ try {
     if (foerste && fs.existsSync(require("path").join(projektrod, ".startkit"))) require("./gemmepunkt").lav(projektrod, "start på chat");
   }
 } catch { /* ikke vigtigt nok til at stoppe noget */ }
+
+// Kun-registrér: bruges af kittets egen kilderepo, hvor vagtens egne filer er det, der bygges. Så tages gemmepunkt og start
+// noteres (færdig-tjekket kræver det), men intet afvises. Står i .startkit/config.json: "vagt": "kun-registrer" (engelsk: "guard": "record-only").
+// Kontakten gælder kun, når filen findes; fejl og ulæselig fil betyder den almindelige, strenge vagt.
+try {
+  if (projektrod) {
+    const v = laesConfig(JSON.parse(fs.readFileSync(require("path").join(projektrod, ".startkit", "config.json"), "utf8"))).vagt;
+    if (v === "kun-registrer" || v === "record-only") process.exit(0);
+  }
+} catch { /* ingen kontakt: almindelig vagt */ }
 
 try {
   const svar = decide({ ...input, projektrod: projektrod || undefined }); // reglerne bruger projektmappen til at se, hvad der ligger uden for den

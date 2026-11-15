@@ -15,6 +15,9 @@ Kun ejeren godkender udgivelser, push og pull requests. Tal dansk, enkelt og ær
 - Ændringer skrives i `CHANGELOG.da.md` og `CHANGELOG.md` under "Ikke udgivet endnu". Ret ikke `startkit/VERSION`; det gør ejeren ved en udgivelse.
 - Ingen navne, e-mailadresser, brugermapper eller nøgler i nogen fil. Testen `rent` stopper det.
 
+## Hooks her
+- Gemmepunkter og færdig-tjek køres lokalt med `node tools/hooks-lokalt.js`; vagten kun registrerer og afviser intet. Se `docs/hooks-paa-kittet-selv.md`. Den, der ændrer vagtens regler, gør det uden hjælp fra vagten: vær ekstra ærlig om det.
+
 ## Faste regler
 - Sig først "færdig", når `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og du har sagt, hvad du ikke har afprøvet.- Skriv "afprøvet" kun om det, der er kørt. Er noget kun læst i dokumentationen, så skriv det.
 - Ret årsagen, ikke symptomet. Kan du ikke finde årsagen, så sig det.
