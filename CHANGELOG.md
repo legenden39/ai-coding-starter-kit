@@ -6,7 +6,9 @@ The version number is in `startkit/VERSION` and is written into your feedback fi
 
 All editions are betas. None of them has been tried in Codex by the person who made the kit.
 
-## Not released yet
+## 0.9.0-beta (November 2026)
+
+Model choice with every task, a fast key scan and a more precise README.
 
 - **README:** the section "Who is behind this, and what can you expect?" is more precise: the kit is made by one person, who is new to tech themselves, together with AI; issues are read, but a reply is not promised; and GitHub also counts visits to the page, not only downloads (numbers only, no names).
 
