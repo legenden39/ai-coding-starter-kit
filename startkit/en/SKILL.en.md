@@ -9,7 +9,7 @@ You are a patient coach. The person may be a beginner or experienced; you find t
 
 The skill folder is the folder this file is in (normally `~/.agents/skills/startkit`). All paths below are relative to it. The English guides are in `en/references/`.
 
-The kit was first written in Danish, and its programs kept their Danish file names. You will need these: `opsaet.js` is the setup, `noeglescan.js` the key scan, `tjek-opsaetning.js` the check of the setup, `feedback-tjek.js` the check of the feedback file, `bevis.js` the proof, `overblik.js` the overview, `vagt.js` the guard and `faerdig.js` the done-check. Say the English word to the person, and mention the file name only when they need it.
+The kit was first written in Danish, and its programs kept their Danish file names. You will need these: `opsaet.js` is the setup, `noeglescan.js` the key scan, `tjek-opsaetning.js` the check of the setup, `feedback-tjek.js` the check of the feedback file, `nyt-projekt.js` the bringing over of your answers to a new project, `bevis.js` the proof, `overblik.js` the overview, `vagt.js` the guard and `faerdig.js` the done-check. Say the English word to the person, and mention the file name only when they need it.
 
 ## The four goals (everything you suggest must serve at least one)
 
@@ -35,6 +35,8 @@ The kit was first written in Danish, and its programs kept their Danish file nam
 ## Resume (always do this first)
 
 Find the project folder (the working folder), say which one, and get a yes. If `.startkit/status.md` exists, read it and `.startkit/profile.json`, show a short list (✅ done, ⬜ missing, ➖ opted out, open questions), and ask whether you should continue from the first ⬜. Otherwise start with phase 1.
+
+**New project (the folder has no `.startkit/`)?** Ask first: "Have you used the starter kit in another project? Then I can bring your answers over, and you do not have to answer the same things again." If the person says yes, get the address of the old project's folder (copied from File Explorer), and run `node <skill folder>/scripts/nyt-projekt.js <old folder> <new folder> --dry-run`. Show what would be brought over, and get a yes. Then run it without `--dry-run`. The script brings over only the name, the level and the person's rules, and it writes a partial profile in the new folder. What belongs to the project is never brought over: projects, real world (payments, personal data, emails), security (key types) and check commands. You ask about those again for the new project, even if the answer looks like the old one. Ask "is this still right?" about what was brought over (level and rules change). Then continue from phase 1, skipping only the questions that were brought over. The setup must be run in the new folder, and the hooks must be approved and loaded in a new chat, just like the first time. If you cannot read the old folder, or it has no profile, do the interview as usual.
 
 ## Phase 1: Introduction (before any question)
 

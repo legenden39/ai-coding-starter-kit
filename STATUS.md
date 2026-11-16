@@ -22,7 +22,7 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
-- "Nyt projekt"-vej: oplægget ligger i `docs/oplaeg-nyt-projekt-vej.md` (tre muligheder, anbefaling: (c) script med fast feltliste + (a) tekst som reserve). Ejeren vælger, før noget bygges.
+- "Nyt projekt"-vej: bygget (valg c + tekst). Prøv den i en rigtig chat: nyt, tomt projekt, `/startkit`, peg på det gamle projekt, og se, om AI'en må læse den anden mappe. Se `docs/oplaeg-nyt-projekt-vej.md`.
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
 - Ejeren fletter pull requesten (hooks lokalt) og kører `node tools/hooks-lokalt.js`. Start en ny chat og tjek, at hooks kører: `.startkit/vagt-puls.json` får nyt tidspunkt, og `git for-each-ref refs/startkit` viser et gemmepunkt.
 

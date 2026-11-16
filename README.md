@@ -256,7 +256,7 @@ The kit was first written in Danish. Everything you read, and everything the AI 
 | `overblik.js` | overblik = overview | The overview page |
 | `forbrug-gem.js` | gem forbrug = save usage | Saves the usage numbers you read off |
 | `regler.js`, `tekster.js`, `tilstand.js` | rules, texts, state | Shared parts the others use |
-| `opsaet.js`, `noeglescan.js`, `tjek-opsaetning.js`, `feedback-tjek.js` | setup, key scan, check of the setup, check of the feedback | Programs in the kit's own folder |
+| `opsaet.js`, `noeglescan.js`, `tjek-opsaetning.js`, `feedback-tjek.js`, `nyt-projekt.js` | setup, key scan, check of the setup, check of the feedback, new project | Programs in the kit's own folder |
 
 In the Danish edition, three files in your project have Danish names too: `docs/gentagne-fejl.md`, `.startkit/hvorfor-blev-jeg-stoppet.md` and `overblik.cmd`.
 

@@ -35,6 +35,8 @@ Skill-mappen er den mappe, denne fil ligger i (normalt `~/.claude/skills/startki
 
 Find projektmappen (arbejdsmappen), sig hvilken, og få et ja. Findes `.startkit/status.md`, så læs den og `.startkit/profil.json`, vis en kort liste (✅ gjort, ⬜ mangler, ➖ fravalgt, åbne spørgsmål), og spørg, om I skal fortsætte fra første ⬜. Ellers start med fase 1.
 
+**Nyt projekt (mappen har ingen `.startkit/`)?** Spørg først: "Har du brugt startkittet i et andet projekt? Så kan jeg hente dine svar derfra, og du slipper for at svare på det samme igen." Siger personen ja, så få adressen på det gamle projekts mappe (kopieres fra Stifinder), og kør `node <skill-mappen>/scripts/nyt-projekt.js <gammel-mappe> <ny-mappe> --toer`. Vis, hvad der hentes, og få et ja. Kør derefter uden `--toer`. Scriptet henter kun navn, niveau og personens regler, og det skriver en delvis profil i den nye mappe. Det, der hører til projektet, hentes aldrig: projekter, rigtig drift (betaling, persondata, mails), sikkerhed (nøgletyper) og tjek-kommandoer. Det spørger du om på ny til det nye projekt, også selv om svaret ligner det gamle. Spørg "passer det stadig?" til det hentede (niveau og regler ændrer sig). Gå så videre fra fase 1, og spring kun de spørgsmål over, der er hentet. Opsætningen skal køres i den nye mappe, og hooks skal godkendes og indlæses i en ny chat, ligesom første gang. Kan du ikke læse den gamle mappe, eller er der ingen profil, så tag interviewet som normalt.
+
 ## Fase 1: Introduktion (før noget spørgsmål)
 
 Læs `claude/references/intro.md`, og giv personen introduktionen med dine egne ord, kort. Den skal altid nævne, at forløbet koster tokens, og at det er en investering. Interviewet starter først, når personen har sagt ja. Spring aldrig denne fase over.

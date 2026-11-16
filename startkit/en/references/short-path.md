@@ -25,6 +25,8 @@ Say it honestly before the person chooses.
 
 ## The small interview
 
+If the person has brought over their answers from an earlier project (`nyt-projekt.js`, see SKILL.md) and says "yes, that is still right", then questions 1, 2, 4, 5 and 6 are answered: skip them. Questions 3 and 7-11 are always asked again, because they belong to the project.
+
 Ask only these questions, 2-3 at a time. They are the least the setup needs. Use the follow-up rule from `en/references/interview.md` if an answer is too thin to use.
 
 1. What should I call you? (field: `person.name`. A nickname is fine.)

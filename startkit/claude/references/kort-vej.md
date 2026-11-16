@@ -25,6 +25,8 @@ Sig det ærligt, før personen vælger.
 
 ## Det lille interview
 
+Har personen hentet sine svar fra et tidligere projekt (`nyt-projekt.js`, se SKILL.md), og siger "ja, det passer stadig", så er spørgsmål 1, 2, 4, 5 og 6 besvaret: spring dem over. Spørgsmål 3 og 7-11 stilles altid på ny, for de hører til projektet.
+
 Stil kun disse spørgsmål, 2-3 ad gangen. De er det mindste, opsætningen skal bruge. Brug uddybningsreglen fra `claude/references/interview.md`, hvis et svar er for tyndt til at bruge.
 
 1. Hvad skal jeg kalde dig? (felt: `person.navn`. Et kaldenavn er fint.)
