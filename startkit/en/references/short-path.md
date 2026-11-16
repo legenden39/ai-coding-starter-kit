@@ -8,7 +8,9 @@ The person chooses the path in phase 1b. You may tell them what the difference i
 
 Gives: a check of the computer, the fixed rules, the guard, the done-check, the key check, the status file, the overview page and (if the person wants it) a private backup.
 
-Does not give yet: the thorough interview, the research into the person's own problems, the plan with suggestions, the model guide and the tailored layer. The rules are therefore more general until the full path has been taken.
+Also gives: a small safety minimum (questions 7-11 below), so the kit knows about keys, backup and whether anything is going out to real people before building further.
+
+Does not give yet: the thorough interview, the research into the person's own problems (what is annoying, and the mistakes the AI repeats), the plan with suggestions, the model guide and usage, and the tailored layer. The rules are therefore more general until the full path has been taken.
 
 Say it honestly before the person chooses.
 
@@ -34,7 +36,31 @@ Ask only these questions, 2-3 at a time. They are the least the setup needs. Use
 
 If there is already code in the folder, find one command together with the person that shows that it works (field: `check_commands`). Otherwise leave the list empty, and say that the done-check can only try something once there is a test.
 
+### Safety minimum (questions 7-11)
+
+These five catch the mistakes that cannot be undone. Ask them on the short path too, 2-3 at a time, and say why: "Now five quick ones about keys, copies and real users. They are the most expensive to find out too late."
+
+7. What kinds of keys and accounts does the project use (e.g. AI, payment, email, database)? Only the types, never the keys themselves. (field: `security.key_types`. "None" and "don't know" are valid.)
+8. Do you use git, and do you have a copy of the project somewhere other than on the computer? (fields: `security.git`, `security.copy`)
+9. Is any of what you are building going out to real people? Roughly when? (field: `real_world.going_out`)
+10. Will it take payments, or send emails or texts to real people? (fields: `real_world.payment`, `real_world.emails`)
+11. Does it store information about real people (names, emails, phone numbers), or does anyone have to log in? (fields: `real_world.personal_data`, `real_world.login`)
+
+Rules for them:
+- If the answer to 9, 10 or 11 is yes or maybe: read `en/references/real-world.md`, put the checklist in `.startkit/status.md` under "Before it goes live", and write in `STATUS.md` that round F of the full interview must be taken before anything goes live. Do not build payments, emails, login or storage of personal data into the project until the person has seen the checklist.
+- If the answer to 7 is "don't know", or a key is in the code: say so, and put it in `open` in the profile. The key scan in phase 2b has only found what is already in files.
+- If there is no copy (8): offer the private backup in phase 9, and put it in `open` if the person says no.
+- Never repeat a key the person pastes (see `en/references/interview.md`).
+
 Save the answers in `.startkit/profile.json` using the schema at the bottom of `en/references/interview.md`, and add `"path": "short"`.
+
+## Honest wrap-up (must not be left out)
+
+Say "done" about the short path, not about the interview. Never say "the interview is finished". In the wrap-up, tell the person in plain language:
+- **What is set up:** the rules, the guard, the done-check, the key check, the overview and the safety minimum.
+- **What is not covered yet:** the thorough interview, what is annoying for you, the mistakes the AI repeats, model and usage, and the research. The rules are therefore more general, and the kit does not yet know your own pain points.
+- **Open points** from `open` and the "Before it goes live" checklist, if it exists.
+- **What to do now:** type `$startkit` again once you have worked on the project a bit. Then we continue from the interview.
 
 ## The full path afterwards
 

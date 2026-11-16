@@ -101,6 +101,16 @@ const kortProjekt = nytProjekt();
 skriv(kortProjekt, ".startkit/profil.json", JSON.stringify(kortProfil));
 r = koer("node", [path.join(KIT, "scripts", "opsaet.js"), kortProjekt]);
 tjek("kort vej: opsætningen kører på den korte profil", r.kode === 0 && fs.existsSync(path.join(kortProjekt, "AGENTS.md")) && fs.existsSync(path.join(kortProjekt, "overblik.cmd")), r.ud + r.fejl);
+// sikkerhedsminimum og ærlig afslutning på den korte vej (dansk og engelsk)
+const kortEn = kit("en/references/short-path.md");
+const sikkerhedDa = ["sikkerhed.noegletyper", "sikkerhed.git", "sikkerhed.kopi", "virkelig.skal_ud", "virkelig.betaling", "virkelig.mails", "virkelig.persondata", "virkelig.login"];
+const sikkerhedEn = ["security.key_types", "security.git", "security.copy", "real_world.going_out", "real_world.payment", "real_world.emails", "real_world.personal_data", "real_world.login"];
+tjek("kort vej (dansk): har sikkerhedsminimum med alle felter og sender videre til tjeklisten for rigtig drift", sikkerhedDa.every((f) => kort.includes(f)) && /virkelige-verden\.md/.test(kort) && /Før det går live/.test(kort));
+tjek("kort vej (engelsk): har sikkerhedsminimum med alle felter og sender videre til tjeklisten for rigtig drift", sikkerhedEn.every((f) => kortEn.includes(f)) && /real-world\.md/.test(kortEn) && /Before it goes live/.test(kortEn));
+tjek("kort vej (dansk): ærlig afslutning, der ikke kalder interviewet færdigt og siger, hvad der mangler", /Ærlig afslutning/.test(kort) && /Sig aldrig "interviewet er færdigt"/.test(kort) && /Det er ikke dækket endnu/.test(kort));
+tjek("kort vej (engelsk): ærlig afslutning, der ikke kalder interviewet færdigt og siger, hvad der mangler", /Honest wrap-up/.test(kortEn) && /Never say "the interview is finished"/.test(kortEn) && /What is not covered yet/.test(kortEn));
+const kortProfilMere = { ...kortProfil, sikkerhed: { noegletyper: ["betaling"], git: true, kopi: false }, virkelig: { skal_ud: "ja, i foråret", betaling: "ja", mails: "nej", persondata: "ja", login: "nej" }, aabne: ["sikkerhed.kopi"] };
+tjek("kort vej: profil med sikkerhedsminimum er gyldig", valider(kortProfilMere).length === 0, JSON.stringify(valider(kortProfilMere)));
 tjek("forløbsskabelonen: har vej, sikkerhedskopi og feedback", ["Vej:", "9b", "9c"].every((s) => kit("assets/forloeb.skabelon.md").includes(s)));
 
 // ---- undervisning ----
