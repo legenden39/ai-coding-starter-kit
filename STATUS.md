@@ -3,6 +3,7 @@
 <!-- AI'en læser denne fil i starten af hver chat og opdaterer den til sidst. Hold den kort (højst ca. 40 linjer). Flyt gamle ting til docs/historik.md. -->
 
 ## Nu
+- **Kontoskift 17. nov. 2026: læs `docs/overdragelse.md` først.** Meget arbejde ligger kun lokalt i arbejdskopierne under `.claude/worktrees/` (ikke i `main`, ikke på GitHub). Sikkerhedskopier: `git for-each-ref refs/backup/overdragelse`.
 - Seneste udgivelse: 0.9.0-beta (modelvalg-reglen, nøglescan-rettelsen, README-rettelsen). Flettet med pull request 23 og 24; tagget `v0.9.0-beta` og en GitHub-udgivelse findes (oprettet af sig selv ved fletningen).
 - Kittets hooks på kittet selv (valg c, pull request 25): se nedenfor. Ikke udgivet i en ny version endnu.
 
