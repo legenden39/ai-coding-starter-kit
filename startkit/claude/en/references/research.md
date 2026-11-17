@@ -1,4 +1,4 @@
-# Phase 5: research and suggest
+# Project step 3: research and suggest
 
 The purpose is to find the solutions that fit exactly this person. Neither the person nor you have the answer in advance. You must not simply build from what you believe; you have to research it.
 
@@ -57,7 +57,7 @@ Rules for the suggestions:
 
 ## Step 5: Go through it with the person
 
-Go through the suggestions one at a time, most important first. Get yes, no or later for each, and write the answer in. End with a short order: "First we set up the fixed foundation (phase 6), then 1, 3 and 5."
+Go through the suggestions one at a time, most important first. Get yes, no or later for each, and write the answer in. End with a short order: "First we set up the fixed foundation (already done), then 1, 3 and 5."
 
 ## The model guide (always made)
 

@@ -125,12 +125,12 @@ for (const m of skill.matchAll(/`(?:<skill-mappen>\/)?((?:references|assets|scri
   if (m[1].startsWith("scripts/startkit/")) continue; // ligger i projektet, ikke i skill-mappen
   tjek(`SKILL.md peger på en fil, der findes: ${m[1]}`, fs.existsSync(path.join(KIT, m[1])));
 }
-tjek("SKILL.md: introduktion før interview, og forbeholdet er med", skill.indexOf("Fase 1: Introduktion") < skill.indexOf("Fase 3: Interview") && /ikke afprøvet i Codex/.test(skill));
+tjek("SKILL.md: introduktion før interview, og forbeholdet er med", skill.indexOf("Fase 1: Introduktion") < skill.indexOf("Fase 3: Det lille interview") && /ikke afprøvet i Codex/.test(skill));
 // Hjælpen til nybegyndere: værktøjer og sikkerhedskopi på GitHub, med de faste sikkerhedsregler.
 const ref = (f) => fs.readFileSync(path.join(KIT, "references", f), "utf8");
-tjek("SKILL.md: fase 2 bruger vaerktoejer.md, og fase 9 bruger github.md", /references\/vaerktoejer\.md/.test(skill) && /references\/github\.md/.test(skill));
-tjek("SKILL.md: navn og e-mail i git tjekkes før første commit", skill.indexOf("git config user.email") > 0 && skill.indexOf("git config user.email") < skill.indexOf("Fase 3: Interview"));
-tjek("SKILL.md: overblikket vises altid, og forbedringer foreslås", /Vis den altid/.test(skill) && /Foreslå derefter selv/.test(skill));
+tjek("SKILL.md: fase 2 bruger vaerktoejer.md, og fase 6 bruger github.md", /references\/vaerktoejer\.md/.test(skill) && /references\/github\.md/.test(skill));
+tjek("SKILL.md: navn og e-mail i git tjekkes før første commit", skill.indexOf("git config user.email") > 0 && skill.indexOf("git config user.email") < skill.indexOf("Fase 3: Det lille interview"));
+tjek("SKILL.md: overblikket vises altid, og forbedringer foreslås", /Vis overblikket/.test(skill) && /Foreslå selv 2-3 forbedringer/.test(fs.readFileSync(path.join(KIT, "references", "projekt-trin.md"), "utf8")));
 tjek("vaerktoejer: dækker git, navn og e-mail, Node og Superpowers", ["## Git", "## Navn og e-mail i git", "## Node", "## Superpowers"].every((o) => ref("vaerktoejer.md").includes(o)));
 tjek("github: kun private lagre, og AI'en gør aldrig et lager offentligt", /--private/.test(ref("github.md")) && !/--public/.test(ref("github.md")) && /Du gør aldrig et lager offentligt/.test(ref("github.md")));
 tjek("github: aldrig adgangskoder, og personen logger selv ind", /Bed aldrig om adgangskoder/.test(ref("github.md")) && /det gør personen selv/.test(ref("github.md")));

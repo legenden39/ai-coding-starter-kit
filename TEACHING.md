@@ -28,15 +28,15 @@ Installation is what most often derails a session. Ask participants to have this
 
 ## Suggested schedule
 
-The short path fits a single session best. The full path has an interview of typically 30-60 minutes per person, which works better as homework.
+The run (foundation only) fits a single session. The thorough project interview is a separate, optional step afterwards and works better as homework.
 
-**One session of about 2 hours (short path):**
+**One session of about 2 hours:**
 
 | Time | What |
 |---|---|
 | 15 min | Why a foundation? Go through the six problems at the top of the README. Ask who recognises them. |
 | 15 min | Everyone opens Codex in an empty folder and types `$startkit`. Help those who cannot get it to show up. |
-| 20 min | The introduction, choosing the short path, and the computer check. Most problems arise here. |
+| 20 min | The introduction and the computer check. Most problems arise here. |
 | 10 min | Break. Use it for those who are behind. |
 | 30 min | The small interview, the foundation is set up, and the hooks are approved. |
 | 15 min | The safety net is tried: watch the guard stop something. This is where it clicks for most people. |
@@ -45,13 +45,13 @@ The short path fits a single session best. The full path has an interview of typ
 
 **The GitHub backup** needs an account, verification codes and sign-in, and easily takes 20-30 minutes with a class. Make it a separate session or homework.
 
-**The full path** can be done at home afterwards by typing `$startkit` again. It continues where they left off.
+**The project steps** (thorough interview, research and plan) can be done at home afterwards, in a new chat, by typing `$startkit` again.
 
 ## What can go wrong in a room
 
 | Problem | What you can do |
 |---|---|
-| **Usage runs out.** The kit uses a fair amount, and many start on a small plan. | Ask everyone to type `/status` in Codex before you begin. Choose the short path. Say that the flow can be continued another day. |
+| **Usage runs out.** The kit uses a fair amount, and many start on a small plan. | Ask everyone to type `/status` in Codex before you begin. Say that the flow can be continued another day. |
 | **`$startkit` does not show up.** | Close Codex completely and open it again. Try `/skills`. Check that the folder is in `C:\Users\<you>\.agents\skills\startkit`. |
 | **Windows warns about the installer file** ("Windows protected your PC"). | That happens with files downloaded from the internet. Show that you can press "More info" and "Run anyway", or copy the `startkit` folder by hand. Let participants choose. |
 | **A new program cannot be found right after installing it.** | A new terminal window must be opened, and Codex restarted. This is the most common mistake. |

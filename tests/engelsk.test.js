@@ -23,7 +23,7 @@ tjek("tekster: ingen danske bogstaver i de engelske beskeder", en.every((k) => !
 tjek("tekster: filnavnene findes på begge sprog", JSON.stringify(Object.keys(FILER.da).sort()) === JSON.stringify(Object.keys(FILER.en).sort()));
 
 // ---- vejledningerne: alt det danske findes på engelsk ----
-const PAR = { "intro.md": "intro.md", "kort-vej.md": "short-path.md", "vaerktoejer.md": "tools.md", "interview.md": "interview.md", "research.md": "research.md", "viden.md": "knowledge.md", "virkelige-verden.md": "real-world.md", "github.md": "github.md", "feedback.md": "feedback.md" };
+const PAR = { "intro.md": "intro.md", "lille-interview.md": "small-interview.md", "projekt-trin.md": "project-steps.md", "vaerktoejer.md": "tools.md", "interview.md": "interview.md", "research.md": "research.md", "viden.md": "knowledge.md", "virkelige-verden.md": "real-world.md", "github.md": "github.md", "feedback.md": "feedback.md" };
 const danske = fs.readdirSync(path.join(KIT, "references")).sort();
 tjek("vejledninger: hver dansk fil har en engelsk", JSON.stringify(danske) === JSON.stringify(Object.keys(PAR).sort()) && Object.values(PAR).every((f) => laes(KIT, "en", "references", f)), danske.join(", "));
 const overskrifter = (t) => (t.match(/^## /gm) || []).length;
@@ -39,7 +39,7 @@ tjek("engelsk udgave: der ligger kun én SKILL.md i pakken (så Codex ikke ser t
 tjek("SKILL.md (engelsk): samme navn og samme faser som den danske", /^name: startkit$/m.test(skill) && overskrifter(skill) === overskrifter(laes(KIT, "SKILL.md")), `${overskrifter(skill)} mod ${overskrifter(laes(KIT, "SKILL.md"))}`);
 const henvist = [...skill.matchAll(/`(en\/references\/[\w-]+\.md)`/g)].map((m) => m[1]);
 tjek("SKILL.md (engelsk): peger kun på vejledninger, der findes, og på dem alle", henvist.length > 0 && henvist.every((f) => laes(KIT, f)) && Object.values(PAR).every((f) => henvist.includes(`en/references/${f}`)), henvist.join(", "));
-tjek("SKILL.md (engelsk): peger ikke på de danske vejledninger", !/[^/]references\/(kort-vej|vaerktoejer|viden|virkelige-verden)\.md/.test(skill) && !/`references\//.test(skill));
+tjek("SKILL.md (engelsk): peger ikke på de danske vejledninger", !/[^/]references\/(lille-interview|projekt-trin|vaerktoejer|viden|virkelige-verden)\.md/.test(skill) && !/`references\//.test(skill));
 const scripts = [...skill.matchAll(/scripts\/(?:startkit\/)?([\w-]+\.js)/g)].map((m) => m[1]);
 tjek("SKILL.md (engelsk): de programmer, den nævner, findes", scripts.length > 0 && scripts.every((f) => laes(KIT, "scripts", f) || laes(KIT, "scripts", "projekt", f)), scripts.join(", "));
 tjek("SKILL.md (engelsk): de samme løfter som den danske", /never choose for the person/.test(skill) && /No hidden choices/.test(skill) && /Always say the next step/.test(skill) && /You never send/.test(skill) && /has not been tried in Codex/.test(skill));

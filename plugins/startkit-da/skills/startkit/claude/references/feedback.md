@@ -1,4 +1,4 @@
-# Feedback på startkittet (hele vejen, og til sidst i fase 9)
+# Feedback på startkittet (hele vejen, og til sidst i fase 6)
 
 Startkittet er en beta. Det bliver kun bedre, hvis dem, der prøver det, fortæller, hvor det gik galt. Din opgave er at gøre det nemt: du skriver ned undervejs, og personen skal kun svare på fem korte spørgsmål til sidst.
 
@@ -27,7 +27,7 @@ Fortæl personen i introduktionen, at man når som helst kan skrive "jeg sidder 
 
 ## Til sidst: fem korte spørgsmål
 
-Stil dem i fase 9, ét eller to ad gangen. Sig først, at det tager to minutter, og at svarene er det, der gør kittet bedre for den næste. Personen må springe over.
+Stil dem i fase 6, ét eller to ad gangen. Sig først, at det tager to minutter, og at svarene er det, der gør kittet bedre for den næste. Personen må springe over.
 
 1. Hvor gik du i stå?
 2. Hvad forstod du ikke?
@@ -35,7 +35,7 @@ Stil dem i fase 9, ét eller to ad gangen. Sig først, at det tager to minutter,
 4. Hvor lang tid tog det?
 5. Ville du anbefale det til en anden? Hvorfor, eller hvorfor ikke?
 
-Skriv svarene ind med personens egne ord. Udfyld "Om forløbet" (kort eller fuld vej, niveau, hvilke faser der blev gennemført, styresystem).
+Skriv svarene ind med personens egne ord. Udfyld "Om forløbet" (niveau, hvilke faser der blev gennemført, styresystem).
 
 ## Før filen sendes
 

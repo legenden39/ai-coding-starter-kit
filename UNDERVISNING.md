@@ -29,15 +29,15 @@ Send gerne listen ud en uge før, og bed dem skrive tilbage, når de fire først
 
 ## Forslag til tidsplan
 
-Den korte vej passer bedst til en enkelt undervisningsgang. Den fulde vej har et interview på typisk 30-60 minutter pr. person, og det egner sig bedre som hjemmearbejde.
+Forløbet (kun fundamentet) passer til en enkelt undervisningsgang. Det grundige projektinterview er et eget, valgfrit trin bagefter og egner sig bedre som hjemmearbejde.
 
-**En gang på ca. 2 timer (kort vej):**
+**En gang på ca. 2 timer:**
 
 | Tid | Hvad |
 |---|---|
 | 15 min. | Hvorfor et fundament? Gennemgå de seks problemer øverst i README. Spørg, hvem der kender dem. |
 | 15 min. | Alle åbner Codex i en tom mappe og skriver `$startkit`. Hjælp dem, der ikke kan få den frem. |
-| 20 min. | Introduktionen, valg af kort vej, og tjek af computeren. Her opstår de fleste problemer. |
+| 20 min. | Introduktionen og tjek af computeren. Her opstår de fleste problemer. |
 | 10 min. | Pause. Brug den på dem, der hænger. |
 | 30 min. | Det lille interview, fundamentet sættes op, og hooks godkendes. |
 | 15 min. | Sikkerhedsnettet prøves: se vagten stoppe noget. Det er her, det giver mening for de fleste. |
@@ -46,13 +46,13 @@ Den korte vej passer bedst til en enkelt undervisningsgang. Den fulde vej har et
 
 **Sikkerhedskopi på GitHub** kræver konto, bekræftelseskoder og login, og det tager let 20-30 minutter på et hold. Tag det som en selvstændig gang eller som hjemmearbejde.
 
-**Den fulde vej** (interview, undersøgelse og plan) kan deltagerne tage hjemme bagefter ved at skrive `$startkit` igen. Den fortsætter, hvor de slap.
+**Projekttrinnet** (grundigt interview, undersøgelse og plan) kan deltagerne tage hjemme bagefter, i en ny chat, ved at skrive `$startkit` igen.
 
 ## Det, der kan gå galt i et lokale
 
 | Problem | Hvad du kan gøre |
 |---|---|
-| **Forbruget slipper op.** Kittet bruger en del forbrug, og mange starter med et lille abonnement. | Bed alle skrive `/status` i Codex, før I begynder. Vælg den korte vej. Sig, at forløbet kan fortsættes en anden dag. |
+| **Forbruget slipper op.** Kittet bruger en del forbrug, og mange starter med et lille abonnement. | Bed alle skrive `/status` i Codex, før I begynder. Sig, at forløbet kan fortsættes en anden dag. |
 | **`$startkit` dukker ikke op.** | Luk Codex helt, og åbn det igen. Prøv `/skills`. Tjek, at mappen ligger i `C:\Users\<dig>\.agents\skills\startkit`. |
 | **Windows advarer om installationsfilen** ("Windows beskyttede din pc"). | Det sker med filer hentet fra nettet. Vis, at man kan trykke "Flere oplysninger" og "Kør alligevel", eller kopiér mappen `startkit` i hånden. Lad deltagerne selv vælge. |
 | **Et nyt program kan ikke findes lige efter installation.** | Der skal åbnes et nyt terminalvindue, og Codex skal genstartes. Det er den hyppigste fejl. |
@@ -79,4 +79,4 @@ Feedback-filen må ikke indeholde nøgler, navne, e-mailadresser eller stier med
 
 ## Til øvede deltagere
 
-Øvede kan springe det meste af forklaringen over: kittet spørger til niveau og tilpasser sig. De får mest ud af den fulde vej, og de kan læse kittets filer for at se, hvordan vagten og færdig-tjekket er bygget. Alt er åbent.
+Øvede kan springe det meste af forklaringen over: kittet spørger til niveau og tilpasser sig. De får mest ud af projekttrinnet bagefter, og de kan læse kittets filer for at se, hvordan vagten og færdig-tjekket er bygget. Alt er åbent.

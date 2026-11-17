@@ -1,4 +1,4 @@
-# Sikkerhedskopi på GitHub (fase 9, kan vælges fra)
+# Sikkerhedskopi på GitHub (fase 6, kan vælges fra)
 
 Formålet er, at personens projekt ligger et andet sted end på én computer. Går computeren i stykker, er arbejdet der stadig. Det er en sikkerhedskopi, ikke en udgivelse: projektet lægges op som **privat**, så kun personen selv kan se det.
 
