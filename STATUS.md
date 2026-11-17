@@ -22,6 +22,7 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
+- Oplæg skrevet (17. nov.): startkit med én kommando, loop-stop-lås, modelanbefaling ved chatstart og overblik som UI. Se `docs/oplaeg-en-kommando.md`. Ejeren vælger vej (A/B/C) og tager 3 beslutninger, før noget bygges. Oplægget er skrevet af Sonnet og bør gennemgås af Fable. Hook-opslag gemt i `docs/hook-haendelser.md` (Claude Code kan lave loop-stop som lås via PostToolUseFailure + PreToolUse; Codex har ingen fejlhændelse, formatet skal afprøves). Notat fra ejeren: kun test det relevante ved en ændring, og anbefal en fuld test efter mange rettelser (punkt 17 i oplægget; kittets egen CLAUDE.md er ikke ændret). `docs/test-rapport-opskrift.md` er til at samle data fra testsessionerne.
 - "Nyt projekt"-vej: bygget (valg c + tekst). Prøv den i en rigtig chat: nyt, tomt projekt, `/startkit`, peg på det gamle projekt, og se, om AI'en må læse den anden mappe. Se `docs/oplaeg-nyt-projekt-vej.md`.
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
 - Ejeren fletter pull requesten (hooks lokalt) og kører `node tools/hooks-lokalt.js`. Start en ny chat og tjek, at hooks kører: `.startkit/vagt-puls.json` får nyt tidspunkt, og `git for-each-ref refs/startkit` viser et gemmepunkt.
