@@ -18,7 +18,7 @@ Hver række har en sikkerhedskopi i git: `refs/backup/overdragelse/<mappe>` (tag
 | `starterkit-foundation-refocus-d593b8` | Kittet bygger kun fundamentet: faser 1-6, lille interview (6 spørgsmål), det grundige interview flyttet til valgfrit `projekt-trin.md`. Ejerens valg A. | Ikke committet. Tests var grønne ifølge dens STATUS. Mangler ejerens gennemgang. |
 | `confident-jones-ecb9ed` | Overblik og almindeligt sprog: én plan med seks trin, ordliste `sprog.md`/`language.md`, nye tests `overblik` og `sprog`. Oplæg: `docs/oplaeg-overblik-og-sprog.md`. | Ikke committet. Ikke afprøvet i en rigtig chat. |
 | `unruffled-grothendieck-b2b8a3` | Tre commits (kort vej: sikkerhedsminimum; nyt projekt-vej) plus ucommittede oplæg: `docs/oplaeg-en-kommando.md` (ejerens 17 ønsker), `docs/oplaeg-nyt-projekt-vej.md`, `docs/hook-haendelser.md`, `docs/test-rapport-opskrift.md`. | Commits ikke pushet. Oplægget er skrevet af Sonnet og skal gennemgås af Fable. Ejeren skal vælge vej A/B/C. |
-| `startkit-en-kommando-trin-1-4eb51f` | Trin 1 af "én kommando": loop-stop (`fejl.js`, `loopstop.js`, ændring i `vagt.js`). | Chatten kørte stadig, da kopien blev taget. Ufærdigt, ingen tests set. |
+| `startkit-en-kommando-trin-1-4eb51f` | **Var i gang ved kontoskiftet.** Trin 1 af "én kommando" (oplægget ligger i `unruffled-grothendieck`): loop-stop, der standser, når samme fejl gentager sig. Nye filer `fejl.js`, `loopstop.js`, tests `loopstop.test.js` og `laesning.test.js`; ændringer i `vagt.js`, `regler.js`, `tekster.js`, `opsaet.js`, `tjek-opsaetning.js`, `tools/hooks-lokalt.js` og to tests. | Intet committet, og STATUS er ikke opdateret af chatten. Sidst set (17. nov.): den rettede en fejl, hvor stier med mellemrum ikke blev genkendt som samme sti. Kopien er taget to gange, sidst mens chatten stadig kørte, så det nyeste kan mangle. Start her: kør `node tests/run.js` i mappen, og læs `git diff`, før der bygges videre. |
 | `starter-kit-improvements-22ac40` | Ændring i `regler.js` med test, og en rapport: `reports/Forbedring og udbredelse af starterkittet.md` med fire notater i `research_notes/`. | Ikke committet. |
 | `starterkit-test-project-e35f8f` | `docs/testprojekt-naboevaerkstedet.md` (og .pdf): et testprojekt til at prøve kittet på. | Ikke committet. |
 | `modelvalg-regel-2b98b3` | Tre afsnit i STATUS om, hvorfor skrivebordsappen ikke kalder hooks. Indholdet står nedenfor. | Ikke committet. |
@@ -29,7 +29,8 @@ De øvrige arbejdskopier er rene og står på `main`. Grenen `claude/modelvalg-r
 ### Sådan ses eller hentes en sikkerhedskopi
 - Se filerne: `git show --stat refs/backup/overdragelse/<mappe>`
 - Hent én fil: `git show refs/backup/overdragelse/<mappe>:<sti>`
-- Kopierne ligger kun lokalt. Går disken tabt, er de væk. De kommer først på GitHub, hvis ejeren siger ja til et push.
+- Seks af kopierne ligger også på GitHub som grene: `backup/overdragelse/<mappe>` (pushet 17. nov. efter ejerens ja). Den nyeste kopi af trin 1 hedder `backup/overdragelse/startkit-en-kommando-trin-1-4eb51f-2`.
+- Kopien af `starter-kit-improvements-22ac40` er IKKE pushet og ligger kun lokalt: rapporten har et afsnit om ejerens private økonomi, og repoet er offentligt. Ejeren afgør, om afsnittet skal ud, før den deles.
 
 ## Advarsler til den næste
 - **Tre spor retter i de samme filer** (`startkit/SKILL.md`, intro, interview, `kort-vej.md`, `tekster.js`): fundament-sporet, overblik-og-sprog og "kort vej"-commits. De kan ikke bare flettes hver for sig. Fundament-sporet omdøber `kort-vej.md` til `lille-interview.md`, mens de to andre retter i `kort-vej.md`. Foreslået rækkefølge: fundament først (ejerens nyeste retning), så sprog oven på, så loop-stop. Ejeren vælger.
@@ -51,7 +52,7 @@ De øvrige arbejdskopier er rene og står på `main`. Grenen `claude/modelvalg-r
 ## Beslutninger, der venter på ejeren
 - Vej A/B/C og tre valg i `oplaeg-en-kommando.md`.
 - Om fundament-sporet og sprog-sporet skal committes og i pull requests, og i hvilken rækkefølge.
-- Om sikkerhedskopierne og de upushede grene skal pushes til GitHub.
+- Om rapporten i `starter-kit-improvements-22ac40` skal renses og pushes. Backup-grenene på GitHub er offentlige kladder; slet dem, når arbejdet er flettet.
 - Pull request 14: luk eller behold.
 
 ## Viden uden for dette repo
@@ -59,4 +60,4 @@ Kittet er prøvet på ejerens andet projekt (garderobe-platformen, i en anden ma
 
 ## Ikke gjort ved overdragelsen
 - De andre chats' samtaler er ikke læst igennem; tabellen bygger på filerne og deres STATUS. Noget, der kun blev sagt i en chat og aldrig skrevet ned, kan mangle.
-- Intet er pushet, flettet eller slettet.
+- Intet er flettet eller slettet. Pushet er kun denne gren og backup-grenene.
