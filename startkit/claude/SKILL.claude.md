@@ -31,9 +31,34 @@ Skill-mappen er den mappe, denne fil ligger i (normalt `~/.claude/skills/startki
 10. **Sig altid næste skridt.** Slut hver besked med, hvad der sker nu, eller hvad personen skal gøre. Skal personen selv gøre noget, så sig præcis hvor der skal klikkes, og hvad der skal skrives.
 11. **Sidder personen fast, så stop op.** Skriver personen "jeg sidder fast", "det forstod jeg ikke" eller noget i den stil, så forklar det igen på en anden måde med et eksempel, og notér det i `.startkit/feedback.md` (se `claude/references/feedback.md`). Kittet er en beta, og de noter er det, der gør det bedre. Du sender aldrig feedback selv.
 
+## Sådan holder du personen orienteret (gælder hele vejen)
+
+Personer, der er nye til teknik, mister let overblikket og trykker bare på det anbefalede svar. Derfor:
+
+**Planen har seks trin. Brug altid disse numre og navne over for personen.** Fasenumrene (2b, 9c osv.) er kun dine egne mærkater; sig dem ikke højt.
+1. Kom i gang (fase 1 og 1b)
+2. Gør computeren klar (fase 2 og 2b)
+3. Lær dig at kende (fase 3 og 4)
+4. Find det rigtige til dig (fase 5)
+5. Sæt sikkerhedsnettet op og prøv det (fase 6 og 7)
+6. Se overblikket og afslut (fase 8 og 9)
+
+Den korte vej gør trin 3 kort og springer trin 4 over.
+
+**Hvor-er-vi-linjerne.** Når et trin begynder, når I genoptager, og efter en pause, skriver du først tre korte linjer: **Hvor vi er** (fx "Trin 2 af 6: Gør computeren klar"), **Nu** (hvad der sker lige straks) og **Hvorfor** (hvad personen får ud af det). Ikke i hver lille besked. I interviewet siger du desuden ved hver runde, hvor langt I er ("Trin 3 af 6, emne 2 af 8").
+
+**Valg.** Hver gang personen skal vælge, også når spørgsmålet vises som en liste med knapper:
+- Skriv først i én sætning, hvad valget handler om.
+- Sig for hver mulighed, hvad der sker, hvis personen vælger den.
+- En anbefaling skal have en begrundelse på én linje.
+- Gælder valget sikkerhed eller noget, der er svært at fortryde (tænde eller godkende hooks, stole på en mappe, lægge noget på nettet, slette), så markér ikke nogen mulighed som den anbefalede. Sig, at det er personens valg, og hvad et ja betyder.
+- Åbner værktøjet selv en dialog (tillid til mappen, tilladelse til en kommando, godkendelse af hooks), så sig før, hvad den spørger om, og hvad et ja betyder.
+
+**Sprog.** Brug de almindelige ord i `claude/references/sprog.md` i stedet for fagord (git, commit, hook, JSON og så videre), og oversæt kittets egne beskeder, før du siger dem til personen. Læs filen, første gang du skal forklare noget teknisk.
+
 ## Genoptag (gør altid dette først)
 
-Find projektmappen (arbejdsmappen), sig hvilken, og få et ja. Findes `.startkit/status.md`, så læs den og `.startkit/profil.json`, vis en kort liste (✅ gjort, ⬜ mangler, ➖ fravalgt, åbne spørgsmål), og spørg, om I skal fortsætte fra første ⬜. Ellers start med fase 1.
+Find projektmappen (arbejdsmappen), sig hvilken, og få et ja. Findes `.startkit/status.md`, så læs den og `.startkit/profil.json`, vis en kort liste under de seks trin (✅ gjort, ⬜ mangler, ➖ fravalgt, åbne spørgsmål), skriv hvor-er-vi-linjerne, og spørg, om I skal fortsætte fra første ⬜. Ellers start med fase 1.
 
 ## Fase 1: Introduktion (før noget spørgsmål)
 
@@ -62,7 +87,7 @@ Kør `node <skill-mappen>/scripts/noeglescan.js <projektmappe>` (tilføj `--hist
 
 ## Fase 3: Interview
 
-Følg `claude/references/interview.md` (8 emner, A-H). Det er en flydende samtale, ikke et skema: spørgsmålene er startspørgsmål, antallet er ikke fast, et svar kan dække flere spørgsmål, og et svar kan udløse nye. Følg filens regler for det, og brug dens uddybningsregel. Sig ved hver rundes start, hvilket emne det er ("emne 3 af 8"), og hvorfor de spørgsmål kommer. Opsummér efter hver runde, og spørg "passer det?". Gem svarene i `.startkit/profil.json` efter skemaet nederst i interview-filen.
+Følg `claude/references/interview.md` (8 emner, A-H). Det er en flydende samtale, ikke et skema: spørgsmålene er startspørgsmål, antallet er ikke fast, et svar kan dække flere spørgsmål, og et svar kan udløse nye. Følg filens regler for det, og brug dens uddybningsregel. Sig ved hver rundes start, hvilket emne det er ("Trin 3 af 6, emne 3 af 8"), og hvorfor de spørgsmål kommer. Opsummér efter hver runde, og spørg "passer det?". Gem svarene i `.startkit/profil.json` efter skemaet nederst i interview-filen.
 
 ## Fase 4: Kortlæg det, der findes (kun læsning)
 

@@ -4,7 +4,7 @@ Interviewet er en flydende samtale, ikke et skema. Der er 8 emner (runder). Anta
 
 Spørgsmålene herunder er **startspørgsmål**. Det, der tæller, er **felterne**: de oplysninger, du skal have med hjem fra hver runde. En runde er færdig, når rundens felter er udfyldt eller noteret som åbne, ikke når alle spørgsmål er stillet.
 
-Sig ved hver rundes start: "Emne X af 8", og fortæl rundens "Hvorfor denne runde" med dine egne ord. Spørg 2-3 ting ad gangen. Opsummér efter hver runde, og spørg "passer det?".
+Sig ved hver rundes start: "Trin 3 af 6, emne X af 8", og fortæl rundens "Hvorfor denne runde" med dine egne ord. Spørg 2-3 ting ad gangen. Opsummér efter hver runde, og spørg "passer det?".
 
 ## Sådan holder du samtalen flydende
 

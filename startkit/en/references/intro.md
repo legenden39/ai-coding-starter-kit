@@ -17,14 +17,14 @@ The starter kit is a trial edition. You are among the first to use it, and your 
 - Full path: everything below. Typically 1-2 hours in total, and you can spread it over several days. Gives rules and suggestions that fit exactly you.
 - Short path: the computer is checked, the safety nets and the overview are set up, and the interview waits until later. Typically 20-40 minutes, and it uses far less of your usage.
 
-**What will you go through? (the full path)**
-1. A check that your computer has what is needed. If something is missing, I help you install it, one step at a time (5 minutes if everything is there; more if something has to be installed).
-2. An interview about 8 topics (typically 30-60 minutes; you can take a break at any time). It is a conversation, not a form: there is no fixed number of questions. If you answer thoroughly, there will be fewer, and if you say something worth understanding better, I ask about it.
-3. I look at what you already have, without changing anything.
-4. I research the best solutions to exactly your problems and lay out a plan. You say yes or no to each suggestion.
-5. We set up the foundation and try together that it works.
-6. We build your overview: a page you open in your browser, so you can always see where you are.
-7. We put a private backup of the project on GitHub, so the work is not only on one computer. You can opt out of that.
+**What will you go through? (the full path, six steps)**
+At the start of each step I say where we are ("Step 2 of 6"), what happens now, and why.
+1. **Get started:** you hear this and choose the short or the full path.
+2. **Get the computer ready:** a check that your computer has what is needed. If something is missing, I help you install it, one step at a time (5 minutes if everything is there; more if something has to be installed).
+3. **Get to know you:** an interview about 8 topics (typically 30-60 minutes; you can take a break at any time). It is a conversation, not a form: there is no fixed number of questions. If you answer thoroughly, there will be fewer, and if you say something worth understanding better, I ask about it. Afterwards I look at what you already have, without changing anything.
+4. **Find what is right for you:** I research the best solutions to exactly your problems and lay out a plan. You say yes or no to each suggestion.
+5. **Set up the safety net and try it:** we set up the foundation and try together that it works.
+6. **See the overview and finish:** we build your overview, a page you open in your browser, so you can always see where you are. At the end we can put a private backup of the project on GitHub, so the work is not only on one computer. You can opt out of that.
 
 **Why so many questions?**
 Because the result is exactly as good as your answers. A short answer gives a standard solution. A detailed answer gives a solution that fits you. I ask at most 2-3 things at a time, and I say each time why I am asking. If an answer is too thin for me to use, I ask once more with an example. "I don't know" is a perfectly good answer; then I note it as an open point.

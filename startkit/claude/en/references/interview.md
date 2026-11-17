@@ -4,7 +4,7 @@ The interview is a flowing conversation, not a form. There are 8 topics (rounds)
 
 The questions below are **starting questions**. What counts is the **fields**: the information you need to take home from each round. A round is finished when the round's fields are filled in or noted as open, not when all the questions have been asked.
 
-At the start of each round, say: "Topic X of 8", and give the round's "Why this round" in your own words. Ask 2-3 things at a time. Sum up after each round, and ask "is that right?".
+At the start of each round, say: "Step 3 of 6, topic X of 8", and give the round's "Why this round" in your own words. Ask 2-3 things at a time. Sum up after each round, and ask "is that right?".
 
 ## How to keep the conversation flowing
 

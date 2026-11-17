@@ -1,19 +1,32 @@
 # Startkit: hvor langt er vi?
 
 Vej: (kort eller fuld; ⏳ betyder "venter til den fulde vej")
+Lige nu: (hvilket trin, og hvad der sker)
+Næste: (hvad der kommer bagefter, og hvorfor)
 
-- ⬜ 1 Introduktion og valg af vej
-- ⬜ 2 Maskinen er klar (git, navn og e-mail i git, Node, modelliste, Superpowers)
-- ⬜ 2b Nøglescan
-- ⬜ 3 Interview (runde A-H)
-- ⬜ 4 Kortlægning af det, der findes
-- ⬜ 5 Undersøgelse og plan (.startkit/plan.md)
-- ⬜ 6 Fast fundament sat op, hooks set med /hooks
-- ⬜ 7 Sikkerhedsnettet er prøvet
-- ⬜ 8 Skræddersyet lag og overblik
-- ⬜ 9 Afslutning og første commit
-- ⬜ 9b Privat sikkerhedskopi på GitHub (kan vælges fra)
-- ⬜ 9c Feedback: fem korte spørgsmål (.startkit/feedback.md)
+## Trin 1 af 6: Kom i gang
+- ⬜ Introduktion og valg af vej
+
+## Trin 2 af 6: Gør computeren klar
+- ⬜ Maskinen er klar (fortryd-systemet git, navn og e-mail til det, Node, modelliste, Superpowers)
+- ⬜ Tjek for nøgler i filerne (nøglescan)
+
+## Trin 3 af 6: Lær dig at kende
+- ⬜ Interview (emne A-H)
+- ⬜ Kortlægning af det, der findes
+
+## Trin 4 af 6: Find det rigtige til dig
+- ⬜ Undersøgelse og plan (.startkit/plan.md)
+
+## Trin 5 af 6: Sæt sikkerhedsnettet op og prøv det
+- ⬜ Fast fundament sat op, de automatiske kontroller (hooks) set med /hooks
+- ⬜ Sikkerhedsnettet er prøvet
+
+## Trin 6 af 6: Se overblikket og afslut
+- ⬜ Skræddersyet lag og overblik
+- ⬜ Afslutning og første gemte version (commit)
+- ⬜ Privat sikkerhedskopi på GitHub (kan vælges fra)
+- ⬜ Feedback: fem korte spørgsmål (.startkit/feedback.md)
 
 ## Åbne spørgsmål
 

@@ -21,6 +21,8 @@ Sig det ærligt, før personen vælger.
 5. Fase 8: vis overblikket, men byg ikke et skræddersyet lag.
 6. Fase 9 som normalt (afslutning, sikkerhedskopi, feedback).
 
+Over for personen er det de samme seks trin som på den fulde vej (se "Sådan holder du personen orienteret" i SKILL-filen): trin 3 er kort, og trin 4 venter (⏳). Sig det i hvor-er-vi-linjerne, så personen ikke undrer sig over, at et trin mangler.
+
 ## Det lille interview
 
 Stil kun disse spørgsmål, 2-3 ad gangen. De er det mindste, opsætningen skal bruge. Brug uddybningsreglen fra `references/interview.md`, hvis et svar er for tyndt til at bruge.

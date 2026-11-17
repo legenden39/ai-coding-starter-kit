@@ -82,7 +82,7 @@ const SAERLIGE = {
       "## 1. Undo in Claude Code itself\n\nType `/rewind` (or press Esc twice). Then you can choose an earlier point in the chat and get the files back as they were there.\n\nWhat you should know: `/rewind` only restores what Claude changed with its own editing tools. If a command changed or deleted files (for example a deletion in the terminal), it does not restore them. Then use the save points below."],
   ],
   "assets/forloeb.skabelon.md": [
-    ["hooks godkendt med /hooks", "hooks set med /hooks"],
+    ["(hooks) godkendt med /hooks", "(hooks) set med /hooks"],
   ],
 
   // ===== engelsk =====
@@ -121,7 +121,7 @@ const SAERLIGE = {
     ["- New or changed hooks only run once you have approved them with `/hooks`.", "- Claude Code has no approval of each single hook. Type `/hooks` to see which ones are loaded.\n- As an extra layer, `.env` files are also blocked by Claude Code's own deny rules (`permissions.deny` in `.claude/settings.local.json`)."],
   ],
   "en/assets/progress.template.md": [
-    ["hooks approved with /hooks", "hooks seen with /hooks"],
+    ["(hooks) approved with /hooks", "(hooks) seen with /hooks"],
   ],
 };
 

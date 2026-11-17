@@ -21,6 +21,8 @@ Say it honestly before the person chooses.
 5. Phase 8: show the overview, but do not build a tailored layer.
 6. Phase 9 as usual (wrap-up, backup, feedback).
 
+With the person it is the same six steps as on the full path (see "How you keep the person oriented" in the SKILL file): step 3 is short, and step 4 waits (⏳). Say so in the where-are-we lines, so the person does not wonder why a step is missing.
+
 ## The small interview
 
 Ask only these questions, 2-3 at a time. They are the least the setup needs. Use the follow-up rule from `claude/en/references/interview.md` if an answer is too thin to use.

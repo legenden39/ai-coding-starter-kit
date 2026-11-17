@@ -23,7 +23,7 @@ tjek("tekster: ingen danske bogstaver i de engelske beskeder", en.every((k) => !
 tjek("tekster: filnavnene findes på begge sprog", JSON.stringify(Object.keys(FILER.da).sort()) === JSON.stringify(Object.keys(FILER.en).sort()));
 
 // ---- vejledningerne: alt det danske findes på engelsk ----
-const PAR = { "intro.md": "intro.md", "kort-vej.md": "short-path.md", "vaerktoejer.md": "tools.md", "interview.md": "interview.md", "research.md": "research.md", "viden.md": "knowledge.md", "virkelige-verden.md": "real-world.md", "github.md": "github.md", "feedback.md": "feedback.md" };
+const PAR = { "intro.md": "intro.md", "sprog.md": "language.md", "kort-vej.md": "short-path.md", "vaerktoejer.md": "tools.md", "interview.md": "interview.md", "research.md": "research.md", "viden.md": "knowledge.md", "virkelige-verden.md": "real-world.md", "github.md": "github.md", "feedback.md": "feedback.md" };
 const danske = fs.readdirSync(path.join(KIT, "references")).sort();
 tjek("vejledninger: hver dansk fil har en engelsk", JSON.stringify(danske) === JSON.stringify(Object.keys(PAR).sort()) && Object.values(PAR).every((f) => laes(KIT, "en", "references", f)), danske.join(", "));
 const overskrifter = (t) => (t.match(/^## /gm) || []).length;

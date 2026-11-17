@@ -32,9 +32,34 @@ The kit was first written in Danish, and its programs kept their Danish file nam
 10. **Always say the next step.** End every message with what happens now, or what the person should do. If the person has to do something, say exactly where to click and what to type.
 11. **If the person is stuck, stop.** If the person writes "I'm stuck", "I didn't understand that" or something similar, explain it again in a different way with an example, and note it in `.startkit/feedback.md` (see `en/references/feedback.md`). The kit is a beta, and those notes are what make it better. You never send feedback yourself.
 
+## How you keep the person oriented (applies all the way)
+
+People who are new to technology easily lose track and just press the recommended answer. So:
+
+**The plan has six steps. Always use these numbers and names with the person.** The phase numbers (2b, 9c and so on) are only your own labels; do not say them out loud.
+1. Get started (phases 1 and 1b)
+2. Get the computer ready (phases 2 and 2b)
+3. Get to know you (phases 3 and 4)
+4. Find what is right for you (phase 5)
+5. Set up the safety net and try it (phases 6 and 7)
+6. See the overview and finish (phases 8 and 9)
+
+The short path makes step 3 short and skips step 4.
+
+**The where-are-we lines.** When a step begins, when you resume, and after a break, first write three short lines: **Where we are** (for example "Step 2 of 6: Get the computer ready"), **Now** (what happens right away) and **Why** (what the person gets out of it). Not in every little message. In the interview you also say at each round how far you have come ("Step 3 of 6, topic 2 of 8").
+
+**Choices.** Every time the person has to choose, also when the question is shown as a list of buttons:
+- First write in one sentence what the choice is about.
+- Say for each option what happens if the person picks it.
+- A recommendation must have a reason on one line.
+- If the choice is about safety or something that is hard to undo (switching on or approving hooks, trusting a folder, putting something online, deleting), do not mark any option as the recommended one. Say that it is the person's choice, and what a yes means.
+- If the tool itself opens a dialog (trusting the folder, permission for a command, approving hooks), say beforehand what it asks, and what a yes means.
+
+**Language.** Use the plain words in `en/references/language.md` instead of technical words (git, commit, hook, JSON and so on), and translate the kit's own messages before you say them to the person. Read the file the first time you have to explain something technical.
+
 ## Resume (always do this first)
 
-Find the project folder (the working folder), say which one, and get a yes. If `.startkit/status.md` exists, read it and `.startkit/profile.json`, show a short list (✅ done, ⬜ missing, ➖ opted out, open questions), and ask whether you should continue from the first ⬜. Otherwise start with phase 1.
+Find the project folder (the working folder), say which one, and get a yes. If `.startkit/status.md` exists, read it and `.startkit/profile.json`, show a short list under the six steps (✅ done, ⬜ missing, ➖ opted out, open questions), write the where-are-we lines, and ask whether you should continue from the first ⬜. Otherwise start with phase 1.
 
 ## Phase 1: Introduction (before any question)
 
@@ -63,7 +88,7 @@ Run `node <skill folder>/scripts/noeglescan.js <project folder>` (add `--history
 
 ## Phase 3: Interview
 
-Follow `en/references/interview.md` (8 topics, A-H). It is a flowing conversation, not a form: the questions are starting questions, the number is not fixed, one answer can cover several questions, and one answer can lead to new ones. Follow the file's rules for that, and use its follow-up rule. At the start of each round, say which topic it is ("topic 3 of 8"), and why those questions come. Sum up after each round, and ask "is that right?". Save the answers in `.startkit/profile.json` using the schema at the bottom of the interview file.
+Follow `en/references/interview.md` (8 topics, A-H). It is a flowing conversation, not a form: the questions are starting questions, the number is not fixed, one answer can cover several questions, and one answer can lead to new ones. Follow the file's rules for that, and use its follow-up rule. At the start of each round, say which topic it is ("Step 3 of 6, topic 3 of 8"), and why those questions come. Sum up after each round, and ask "is that right?". Save the answers in `.startkit/profile.json` using the schema at the bottom of the interview file.
 
 ## Phase 4: Map what already exists (reading only)
 

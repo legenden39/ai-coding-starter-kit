@@ -101,7 +101,7 @@ const kortProjekt = nytProjekt();
 skriv(kortProjekt, ".startkit/profil.json", JSON.stringify(kortProfil));
 r = koer("node", [path.join(KIT, "scripts", "opsaet.js"), kortProjekt]);
 tjek("kort vej: opsætningen kører på den korte profil", r.kode === 0 && fs.existsSync(path.join(kortProjekt, "AGENTS.md")) && fs.existsSync(path.join(kortProjekt, "overblik.cmd")), r.ud + r.fejl);
-tjek("forløbsskabelonen: har vej, sikkerhedskopi og feedback", ["Vej:", "9b", "9c"].every((s) => kit("assets/forloeb.skabelon.md").includes(s)));
+tjek("forløbsskabelonen: har vej, sikkerhedskopi og feedback", ["Vej:", "sikkerhedskopi", "Feedback"].every((s) => kit("assets/forloeb.skabelon.md").includes(s)));
 
 // ---- undervisning ----
 const und = rod("UNDERVISNING.md");

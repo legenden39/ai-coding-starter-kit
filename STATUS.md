@@ -6,7 +6,10 @@
 - Seneste udgivelse: 0.9.0-beta (modelvalg-reglen, nøglescan-rettelsen, README-rettelsen). Flettet med pull request 23 og 24; tagget `v0.9.0-beta` og en GitHub-udgivelse findes (oprettet af sig selv ved fletningen).
 - Kittets hooks på kittet selv (valg c, pull request 25): se nedenfor. Ikke udgivet i en ny version endnu.
 
-## Sidst lavet (15. nov. 2026)
+## Sidst lavet (16. nov. 2026)
+- Overblik og almindeligt sprog (ejeren valgte A, så B i `docs/oplaeg-overblik-og-sprog.md`): én plan med seks trin i SKILL, intro, interview, kort vej og statusskabelonen; hvor-er-vi-linjer og valgregel i SKILL; ordliste `references/sprog.md`/`language.md`; programmernes brugerbeskeder omskrevet; nye tests `overblik` og `sprog`. Kun teksten er låst. IKKE afprøvet: at AI'en følger reglerne i en rigtig chat, og at brugerne forstår de nye ord. Ikke committet endnu.
+
+## Tidligere (15. nov. 2026)
 - Ejeren valgte (c): gemmepunkter og færdig-tjek på dette repo, vagten kun i registrér-tilstand. Undervejs viste det sig, at gemmepunkter og færdig-tjek kræver vagten (den tager gemmepunktet og husker chattens start), så (c) som skrevet var ikke mulig uden en kontakt. Ny kontakt i `vagt.js` (`.startkit/config.json`: `"vagt": "kun-registrer"`), test på dansk og engelsk værdi, script `tools/hooks-lokalt.js`, `docs/hooks-paa-kittet-selv.md`, ændringslog på begge sprog. `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og vagt og færdig-tjek er prøvet manuelt på Windows. IKKE afprøvet: at skrivebordsappen faktisk kalder hooks her (puls og gemmepunkt skal ses i en ny chat), og Mac/Linux.
 - Udgivelsen 0.9.0-beta: `startkit/VERSION`, plugin-kopierne, README-banneret og begge ændringslogge er sat til 0.9.0-beta. `node tools/byg.js --tjek` og `node tests/run.js` er grønne, og nøglescannet (`--scan`) er kørt. Sessioner ryddet op: de tre flettede og to overflødige er arkiveret.
 
@@ -19,6 +22,7 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
+- Prøv overblik og sprog (se nedenfor) i en rigtig chat med 1-2 nye brugere: forstår de planen med seks trin, hvor-er-vi-linjerne og de nye ord? Ret derefter ordlisten (`startkit/references/sprog.md`).
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
 - Ejeren fletter pull requesten (hooks lokalt) og kører `node tools/hooks-lokalt.js`. Start en ny chat og tjek, at hooks kører: `.startkit/vagt-puls.json` får nyt tidspunkt, og `git for-each-ref refs/startkit` viser et gemmepunkt.
 
