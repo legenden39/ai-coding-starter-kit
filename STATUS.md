@@ -19,6 +19,7 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
+- Ny idé (19. nov. 2026): prøv Gemini 4 Neon som ekstra læser. Kun en plan, intet kørt: `docs/gemini-4-neon-testplan.md`. Adgang er afklaret (Google AI Pro, test i Gemini-appen); ejeren skal stadig bekræfte Neon i modelvælgeren, sætte et prisloft og godkende indholdet.
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
 - Ejeren fletter pull requesten (hooks lokalt) og kører `node tools/hooks-lokalt.js`. Start en ny chat og tjek, at hooks kører: `.startkit/vagt-puls.json` får nyt tidspunkt, og `git for-each-ref refs/startkit` viser et gemmepunkt.
 
