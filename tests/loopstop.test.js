@@ -119,6 +119,23 @@ tjek("tællerens fil gemmer kun antal og et kort uddrag, ikke kommandoen", !/npm
 // rens: det, der skifter fra gang til gang, må ikke gøre to ens fejl forskellige.
 tjek("rens: tal, tidspunkter, stier og farvekoder tages ud", loopstop.rens("\x1b[31mError\x1b[0m at C:\\Projekter\\x\\app.js:12:5 (took 340ms) 2026-11-17T10:22:01Z abc1234f") === loopstop.rens("Error at /srv/y/z/app.js:99:1 (took 7ms) 2025-01-02T00:00:00Z 99fe0a1b"), loopstop.rens("Error at /srv/y/z/app.js:99:1 (took 7ms)"));
 tjek("rens: to forskellige fejl er stadig forskellige", loopstop.rens("SyntaxError: Unexpected token") !== loopstop.rens("TypeError: x is not a function"));
+// En Windows-sti må ikke sluge teksten frem til en senere / på linjen.
+tjek("rens: en Windows-sti sluger ikke resten af linjen", loopstop.rens("Cannot find C:\\proj\\a.js because module foo/bar missing") !== loopstop.rens("Cannot find C:\\proj\\a.js because package baz/bar missing"), loopstop.rens("Cannot find C:\\proj\\a.js because module foo/bar missing"));
+tjek("rens: C:/-stier med mellemrum tages stadig ud", loopstop.rens("error at C:/Mine Projekter/app/x.js") === loopstop.rens("error at D:\\andet sted\\x.js"), loopstop.rens("error at C:/Mine Projekter/app/x.js"));
+
+// Adgangskoder uden fast nøgleformat (i en adresse eller som password=...) må ikke stå i uddraget. På begge sprog.
+for (const sprog of ["da", "en"]) {
+  c = chat("kode-" + sprog, sprog);
+  const kode = "Hemmelig" + "Kode99";
+  for (let n = 0; n < 2; n++) c.fejler("git push", `Exit code 128\nfatal: unable to access 'https://bruger:${kode}@example.com/repo/': Could not resolve host`);
+  r = c.vagt("Bash", KOER);
+  const fil = fs.readFileSync(loopstop.fil(c.session), "utf8");
+  tjek(`${sprog}: en adgangskode i en adresse vises ikke i beskeden eller i tællerens fil`, /^Stop/.test(r.grund) && !r.grund.includes(kode) && !fil.includes(kode) && /\*\*\*@example\.com/.test(r.grund), r.grund + fil);
+  c = chat("kode2-" + sprog, sprog);
+  for (let n = 0; n < 2; n++) c.fejler("node db.js", `Exit code 1\nError: login failed, password=${kode} rejected`);
+  r = c.vagt("Bash", KOER);
+  tjek(`${sprog}: password=... vises ikke i beskeden`, /^Stop/.test(r.grund) && !r.grund.includes(kode) && /password=\*\*\*/.test(r.grund), r.grund);
+}
 
 // ---- opsætningen: låsen kobles kun til, hvor værktøjet har en hændelse for fejl ----
 for (const [vaerktoej, skalHave] of [["claude", true], ["codex", false]]) {

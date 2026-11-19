@@ -6,6 +6,9 @@
 - Seneste udgivelse: 0.9.0-beta (modelvalg-reglen, nøglescan-rettelsen, README-rettelsen). Flettet med pull request 23 og 24; tagget `v0.9.0-beta` og en GitHub-udgivelse findes (oprettet af sig selv ved fletningen).
 - Kittets hooks på kittet selv (valg c, pull request 25): se nedenfor. Ikke udgivet i en ny version endnu.
 
+## Sidst lavet (19. nov. 2026)
+- Gennemgang af loop-stop (commit `11c12bb`) med Opus 5.5. Hook-opsætningen passer til den officielle dokumentation (`PostToolUseFailure`, matcher `Bash|PowerShell`, felterne `error` og `is_interrupt`; kun læst, ikke afprøvet i en chat). Højst ét stop pr. fejl: ja. Rettet: (1) uddraget kunne indeholde adgangskoder (`https://bruger:kode@...`, `password=...`), nu skjult, og tællerens fil laves kun læselig for ejeren; (2) en Windows-sti i `rens()` slugte teksten frem til en senere `/`, så to forskellige fejl kunne tælle som én. Nye tests på dansk og engelsk. `node tools/byg.js --tjek` og `node tests/run.js` er grønne. Grenen `claude/modest-cannon-81wyft` ligger på GitHub (den er altså pushet).
+
 ## Sidst lavet (17. nov. 2026)
 - Trin 1 (loop-stop) hentet fra sikkerhedskopien `backup/overdragelse/startkit-en-kommando-trin-1-4eb51f-2` og lagt som ucommittede filer her. Rettet to ting: `rens()` i `loopstop.js` tog stier med mellemrum (`D:/andet sted/...`) forkert, og et testeksempel i `tests/loopstop.test.js` ramte testen `rent` (`C:\\Users`, `/home/`). `node tools/byg.js --tjek` og `node tests/run.js` er grønne. IKKE gjort: gennemgang af vagtens regler af en stærk model, afprøvning i en rigtig chat. Mangler ejerens ja til commit.
 
@@ -22,11 +25,12 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
-- Gennemgang af loop-stop (commit `11c12bb`, lokalt, ikke pushet) af Opus 5.5: `vagt.js`, `regler.js`, `loopstop.js`, `fejl.js`. Fable kan ikke længere bruges. Bagefter: ret "i dag Fable" til Opus i `CLAUDE.md`, og spørg ejeren om push.
+- Ret "i dag Fable" til Opus i `CLAUDE.md` (Fable kan ikke længere bruges). Afprøv loop-stoppet i en rigtig chat i et testprojekt (i kittets eget repo afviser vagten intet).
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
 - Ejeren fletter pull requesten (hooks lokalt) og kører `node tools/hooks-lokalt.js`. Start en ny chat og tjek, at hooks kører: `.startkit/vagt-puls.json` får nyt tidspunkt, og `git for-each-ref refs/startkit` viser et gemmepunkt.
 
 ## Åbne problemer
+- Loop-stop, små fund fra gennemgangen (ikke rettet): to handlinger på samme tid kan give to stop for én fejl eller en tabt optælling (`loopstop.js`, læs og skriv uden lås); `hvorfor-blev-jeg-stoppet.md` / `why-was-i-stopped.md` forklarer ikke loop-stoppet, selv om beskeden peger dertil; tællerens filer i systemets midlertidige mappe slettes aldrig.
 - Nøgletjekket før commit er stadig langsomt i ét tilfælde: en commit med mange filer, hvor der faktisk er en nøgle (så gås alle filerne igennem). Rettelsen er ikke afprøvet på Mac.
 - Med vagten i registrér-tilstand kan AI'en ændre hook-filer og kittets scripts uden at blive stoppet; beskyttelsen er ejerens gennemgang af pull requests. Se `docs/hooks-paa-kittet-selv.md`.
 - Modelvalg-reglen er en tekstregel og ikke afprøvet i en rigtig chat. Den hviler på, at også en svag model selv siger fra, og AI'en kan ikke altid se et modelskift.

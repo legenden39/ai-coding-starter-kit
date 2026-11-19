@@ -26,7 +26,10 @@ function rens(tekst) {
     .replace(/\x1b\[[0-9;]*[A-Za-z]/g, "") // farvekoder
     .replace(/\r/g, "")
     .toLowerCase()
-    .replace(/\b[a-z]:[\\/](?:[^\\/\n"'()<>:]+[\\/])*[^\s\\/"'()<>:]*/g, "<sti>") // C:\mappe\fil, også med mellemrum i mappenavne
+    // C:\mappe\fil og C:/mappe/fil, også med mellemrum i mappenavne. Hver skråstreg for sig: ellers bliver alt frem til
+    // en senere / på linjen (C:\a.js ... modul x/y) til én sti, og to forskellige fejl tælles som én.
+    .replace(/\b[a-z]:\\(?:[^\\\n"'()<>:]+\\)*[^\s\\"'()<>:]*/g, "<sti>")
+    .replace(/\b[a-z]:\/(?:[^/\n"'()<>:]+\/)*[^\s/"'()<>:]*/g, "<sti>")
     .replace(/(?:\.{1,2}|~)?(?:[\\/][\w.@~+-]+){2,}/g, "<sti>") // /mappe/fil og ./mappe/fil
     .replace(/\b[0-9a-f]{7,}\b/g, "#") // fingeraftryk og id'er
     .replace(/\d+/g, "#") // tal, tidspunkter, linjenumre
@@ -44,11 +47,18 @@ function uddrag(fejl) {
   const linje = linjer.find((l) => !/^exit code \d+$/i.test(l)) || linjer[0] || "";
   let harNoegle = () => false;
   try { harNoegle = require("./regler").harNoegle; } catch { /* uden reglerne vises uddraget ikke */ return ""; }
-  return harNoegle(linje) ? "" : linje.slice(0, 160);
+  return harNoegle(linje) ? "" : skjul(linje).slice(0, 160);
+}
+
+// Adgangskoder, der ikke har et fast nøgleformat: https://bruger:kode@vært og password=..., token: ... m.fl.
+function skjul(linje) {
+  return linje
+    .replace(/(\w[\w+.-]*:\/\/)[^\s/@]+@/g, "$1***@")
+    .replace(/\b(password|passwd|pwd|pass|token|secret|api[_-]?key|auth(?:orization)?)(\s*[=:]\s*)(?:bearer\s+|basic\s+)?[^\s,;'"]+/gi, "$1$2***");
 }
 
 function laes(id) { try { const d = JSON.parse(fs.readFileSync(fil(id), "utf8")); return d && typeof d === "object" && !Array.isArray(d) ? d : {}; } catch { return {}; } }
-function gem(id, data) { fs.writeFileSync(fil(id), JSON.stringify(data)); }
+function gem(id, data) { fs.writeFileSync(fil(id), JSON.stringify(data), { mode: 0o600 }); } // kun ejeren af maskinen kan læse filen (Mac og Linux)
 
 // Kaldes, når et værktøj er fejlet. Svarer med, hvor mange gange netop den fejl nu er set i chatten (0 = tælles ikke).
 function noter(input = {}) {
