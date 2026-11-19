@@ -39,7 +39,19 @@ try {
 
 try {
   const svar = decide({ ...input, projektrod: projektrod || undefined }); // reglerne bruger projektmappen til at se, hvad der ligger uden for den
-  if (svar.decision === "deny") afvis(svar.reason);
+  if (svar.decision === "deny") { afvis(svar.reason); process.exit(0); }
 } catch (e) {
   afvis(t("vagt.fejlede", { fejl: e.message }));
+  process.exit(0);
 }
+
+// Loop-stop: er den samme kommando fejlet på samme måde to gange i denne chat, afvises denne ene handling med en besked
+// om at finde årsagen først (se loopstop.js). Fejl tælles kun i Claude Code. Et defekt loop-stop må aldrig stoppe noget.
+try {
+  const stop = require("./loopstop").skalStoppe(input);
+  if (stop) {
+    const { fil } = require("./tekster");
+    const fejl = stop.uddrag ? t("loop.fejl", { fejl: stop.uddrag }) : "";
+    afvis(t(stop.antal > 2 ? "loop.igen" : "loop.anden", { antal: stop.antal, fil: fil("fejl") }) + fejl + t("vagt.se", { fil: fil("hvorfor") }));
+  }
+} catch { /* ikke vigtigt nok til at stoppe noget */ }

@@ -118,7 +118,7 @@ const uden = (program, args, opts = {}) => { const env = { ...process.env }; del
 git(rod, "config", "core.hooksPath", ".githooks");
 const vagt = (kommando) => JSON.parse(uden("node", [path.join(rod, "scripts", "startkit", "vagt.js")], { cwd: rod, input: JSON.stringify({ tool_name: "Bash", tool_input: { command: kommando }, cwd: rod, session_id: "engelsk-test" }) }).ud || "{}");
 let svar = vagt("git commit --no-verify -m x");
-tjek("vagten: afviser på engelsk og peger på den engelske forklaring", svar.hookSpecificOutput && svar.hookSpecificOutput.permissionDecision === "deny" && /skips the key check/.test(svar.hookSpecificOutput.permissionDecisionReason) && /\.startkit\/why-was-i-stopped\.md/.test(svar.hookSpecificOutput.permissionDecisionReason), JSON.stringify(svar));
+tjek("vagten: afviser på engelsk og peger på den engelske forklaring", svar.hookSpecificOutput && svar.hookSpecificOutput.permissionDecision === "deny" && /around the check that looks for keys/.test(svar.hookSpecificOutput.permissionDecisionReason) && /\.startkit\/why-was-i-stopped\.md/.test(svar.hookSpecificOutput.permissionDecisionReason), JSON.stringify(svar));
 svar = vagt("git status");
 tjek("vagten: tillader det ufarlige", !svar.hookSpecificOutput, JSON.stringify(svar));
 

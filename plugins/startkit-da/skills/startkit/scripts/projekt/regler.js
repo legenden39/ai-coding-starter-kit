@@ -40,7 +40,8 @@ const BESKYTTET_I_TEKST = [
 const ENV_FIL = /(^|\/)\.env(\.[\w.-]+)?$/;
 const erEnvFil = (p) => { const n = normSti(p); return ENV_FIL.test(n) && !/\.env\.(example|sample)$/.test(n); };
 function naevnerEnvFil(tekst) {
-  const re = /(?:^|[\s"'`/=(])(\.env(?:\.[\w.-]+)?)(?=$|[\s"'`|;&)<>*])/g;
+  // Tegnet foran kan også være et kolon: git show HEAD:<nøglefil> viser en gemt udgave af filen.
+  const re = /(?:^|[\s"'`/=(:])(\.env(?:\.[\w.-]+)?)(?=$|[\s"'`|;&)<>*])/g;
   for (let m; (m = re.exec(skraa(tekst).toLowerCase())); ) if (!/\.env\.(example|sample)$/.test(m[1])) return true;
   return false;
 }
@@ -221,12 +222,27 @@ function regelFind(args, ctx) {
 
 // Kommandoer, der kun læser eller kører kittets egne scripts: nævner de en beskyttet sti, er det ikke en ændring.
 const KUN_LAESNING = /^(cat|head|tail|ls|dir|type|cd|pwd|echo|grep|rg|wc|get-content|gc|get-childitem|gci|select-string|test-path|git\s+(diff|log|show|status|ls-files|add|commit)|git\s+config\s+core\.hookspath\s+\.githooks\/?|node\s+[\w:./_-]*scripts\/startkit\/(bevis|overblik|forbrug-gem|fortryd|start)\.js|sh\s+[\w:./_-]*\.githooks\/pre-commit)(\s|$)/i;
+// Små programmer, der kun former tekst, de får ind (typisk efter et |): git diff ... | cut -c1-100. De ændrer ingen filer.
+// awk, tee og xargs er med vilje ikke med: de kan skrive filer eller starte andre programmer.
+const FILTER = /^(cut|tr|wc|nl|column|more|less|findstr|select-object|sort-object|measure-object|format-table|format-list|out-string)(\s|$)/i;
+// git-kommandoer, der kun læser. Foran dem må stå de tilvalg, der ikke ændrer noget (--no-pager, -P, -C <mappe>).
+// -c er ikke med: det kan sætte et alias eller et program, som git så kører.
+const GIT_LAESER = /^git(\s+(--no-pager|-P|-C\s+\S+))*\s+(diff|log|show|status|ls-files|blame|shortlog|rev-parse)(\s|$)/; // med vilje ikke /i: -C (mappe) er ikke -c (indstilling)
+function segmentLaeser(seg) {
+  // --output skriver resultatet i en fil (git diff --output=fil, sort -o fil): det er ikke læsning.
+  if (/(^|\s)--output(=|\s|$)/i.test(seg)) return false;
+  if (KUN_LAESNING.test(seg) || GIT_LAESER.test(seg) || FILTER.test(seg)) return true;
+  if (/^sort(\s|$)/i.test(seg)) return !/(^|\s)-\w*o/.test(seg); // sort -o fil skriver
+  if (/^uniq(\s|$)/i.test(seg)) return seg.split(/\s+/).slice(1).filter((a) => a === "-" || !a.startsWith("-")).length < 2; // uniq ind ud skriver "ud"
+  if (/^sed(\s|$)/i.test(seg)) return /^sed\s+-n\s+[\d,$]+p(\s+[^\s-]\S*)*$/i.test(seg); // kun "vis linje x til y"
+  return false;
+}
 function kunLaesning(command) {
   // Tekst i anførselstegn gøres "flad", så et mellemrum eller et | inde i en sti ikke deler kommandoen.
   const flad = skraa(command).replace(/"([^"]*)"|'([^']*)'/g, (_, a, b) => (a ?? b ?? "").replace(/[\s;|&<>]/g, "_"));
   const uden = flad.replace(/\d*>&\d+|\d*>\s*\/dev\/null|\d*>\s*\$null|\d*>\s*nul\b/gi, "");
   if (/[<>]/.test(uden)) return false;
-  return uden.split(/&&|\|\||;|\||&|\n/).map((s) => s.trim()).filter(Boolean).every((seg) => KUN_LAESNING.test(seg));
+  return uden.split(/&&|\|\||;|\||&|\n/).map((s) => s.trim()).filter(Boolean).every(segmentLaeser);
 }
 
 function regelKommando(command, ctx = {}, dybde = 0) {

@@ -8,6 +8,8 @@ All editions are betas. None of them has been tried in Codex by the person who m
 
 ## Not released yet
 
+- **Loop stop (step 1 of "one command"):** if the same command fails the same way twice in one chat, the guard denies the next action once with what, why and what now; the third time it stops again, pointing to the list of repeated mistakes and a new chat. Failures are counted by a new `fejl.js` (hook on failed commands) and `loopstop.js`; numbers, times and paths (also with spaces) are stripped before failures are compared. Only a fingerprint, a count and a short excerpt are stored. Claude Code only; Codex has no failure event, so there it is only a rule. Tested in Danish and English (`loopstop`, `laesning`). Not tried in a real chat.
+
 - **The guard can run in record-only mode:** if `.startkit/config.json` has `"guard": "record-only"` (or `"vagt": "kun-registrer"`), the guard still takes the restore point and remembers the chat's start (the done-check needs it), but denies nothing. This is for the kit's own source repo, where the guard's own files are what is being built. Ordinary projects are unchanged: the AI cannot flip the switch, because the settings file is protected, and an unknown value or a broken file gives the strict guard. New script `tools/hooks-lokalt.js` sets it up locally without a copy of the kit's scripts. Tested with the Danish and the English value. The choice and what is not covered are in `docs/hooks-paa-kittet-selv.md` (Danish). Not tried in a real chat in the desktop app, nor on Mac or Linux.
 
 ## 0.9.0-beta (November 2026)
