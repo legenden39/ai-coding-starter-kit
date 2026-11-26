@@ -17,10 +17,17 @@ fs.mkdirSync(path.join(kasse, "shim"));
 // Tælle-grep: skriv én linje i tælleren, fjern dig selv fra PATH, og kør den rigtige grep.
 fs.writeFileSync(path.join(kasse, "shim", "grep"), '#!/bin/sh\necho x >> "$GREP_TAELLER"\nPATH="${PATH#*:}" exec grep "$@"\n', { mode: 0o755 });
 
+let gitUsrBin = "";
+try {
+  const rod = path.resolve(execFileSync("git", ["--exec-path"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim(), "..", "..", "..");
+  if (fs.existsSync(path.join(rod, "usr", "bin"))) gitUsrBin = path.join(rod, "usr", "bin");
+} catch { /* git mangler: så fejler resten af testene alligevel */ }
+
 function miljoe() {
   const env = { ...process.env, GREP_TAELLER: taeller, STARTKIT_SPROG: "da" };
   const noegle = Object.keys(env).find((k) => k.toUpperCase() === "PATH") || "PATH";
-  env[noegle] = path.join(kasse, "shim") + path.delimiter + (env[noegle] || "");
+  // Læg shim forrest og Git's usr/bin bagerst, så usr/bin/sh.exe stadig finder den rigtige grep efter shim'en.
+  env[noegle] = path.join(kasse, "shim") + path.delimiter + (env[noegle] || "") + (gitUsrBin ? path.delimiter + gitUsrBin : "");
   return env;
 }
 function sh(program, args, cwd) {

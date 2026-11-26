@@ -255,3 +255,15 @@ Ordret output fra `node tests/run.js` (de røde linjer):
 
 2 testfil(er) er røde.
 ```
+
+### Årsag til de røde tests
+1. **`tests/noeglescan.test.js` (`tælle-grep`) — fejl i testen på Windows (rettet):** Testen lægger en lille `grep`-wrapper forrest i `PATH` for at tælle antallet af `grep`-starter. På Windows, hvor `C:\Program Files\Git\usr\bin` ikke ligger i brugerens `PATH`, fandt `usr\bin\sh.exe` wrapperen, men når wrapperen fjernede sig selv fra `PATH`, fandtes den rigtige `grep` ikke (exit 127). Rettet ved at lægge Git's `usr\bin` bagerst i `PATH` i testen.
+2. **`rent` i `tests/opsaet.test.js` (6 filer) — skyldes kun lokal fil på ejerens computer:** Skyldes den lokale, u-committede fil `.privat-ordliste.txt`, som rammer PayPal-linket i `.github/FUNDING.yml`, `README.da.md`, `README.md` samt et ord i `startkit/assets/haenger-sammen.md` (og de to plugin-kopier). Det er ikke en fejl i kittet.
+
+---
+
+## Bevis: Antigravity kalder hooks i praksis
+
+Afprøvet 26. nov. 2026 med en midlertidig `.agents/hooks.json` (`PreToolUse`, matcher `run_command`), som kørte et lille Node-script og skrev tidspunkt + modtaget JSON til en midlertidig logfil (slettet igen bagefter).
+- Resultat: **Virker.** Antigravity kaldte hooken både i en frisk session og i den aktive chat og sendte gyldigt `camelCase`-JSON på stdin (`conversationId`, `cwd`, `hookEventName: "PreToolUse"`, `toolCall.name: "run_command"`, `toolCall.args.CommandLine`).
+
