@@ -18,9 +18,11 @@ function sprog() {
 
 function vaerktoej() {
   const miljoe = process.env.STARTKIT_VAERKTOEJ;
-  if (miljoe === "claude" || miljoe === "codex") return miljoe;
-  try { return JSON.parse(fs.readFileSync(path.join(__dirname, "vaerktoej.json"), "utf8")).vaerktoej === "claude" ? "claude" : "codex"; }
-  catch { return "codex"; }
+  if (miljoe === "claude" || miljoe === "codex" || miljoe === "gemini") return miljoe;
+  try {
+    const v = JSON.parse(fs.readFileSync(path.join(__dirname, "vaerktoej.json"), "utf8")).vaerktoej;
+    return v === "claude" || v === "gemini" ? v : "codex";
+  } catch { return "codex"; }
 }
 
 // Det, der hedder noget forskelligt i de to værktøjer. Sættes ind i beskederne, hvor der står {V}, {regelfil}, {hookfil} og {forbrug}.
@@ -33,6 +35,7 @@ function vaerktoej() {
 const VAERKTOEJER = {
   codex: { V: "Codex", regelfil: "AGENTS.md", hookfil: ".codex/hooks.json", forbrug: "/status", start: "$startkit", hookvaerktoejer: "Bash|apply_patch|Edit|Write", starthook: false, fejlhook: false },
   claude: { V: "Claude Code", regelfil: "CLAUDE.md", hookfil: ".claude/settings.local.json", forbrug: "/usage", start: "/startkit", hookvaerktoejer: "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|Read|Grep", starthook: true, fejlhook: true },
+  gemini: { V: "Antigravity", regelfil: "GEMINI.md", hookfil: ".agents/hooks.json", forbrug: "Settings", start: "/startkit", hookvaerktoejer: "run_command|edit_file|write_file|read_file", starthook: true, fejlhook: true },
 };
 // Claude Codes egne forbudsregler for hemmelige filer. De er et ekstra lag ved siden af vagten: kører en hook ikke
 // (det er set på Windows), stopper de stadig læsning og ændring af filerne. .env.example er med vilje ikke på listen.

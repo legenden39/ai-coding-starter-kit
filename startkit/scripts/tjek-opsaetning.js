@@ -38,14 +38,21 @@ t(tekst("tj.genvej", { fil: fil("genvej") }), laes(fil("genvej")) !== null, igen
 
 let hooks = null;
 try { hooks = JSON.parse(laes(vt("hookfil"))); } catch { /* håndteres nedenfor */ }
-const kommandoer = (event) => ((hooks && hooks.hooks && hooks.hooks[event]) || []).flatMap((g) => (g.hooks || []).map((h) => String(h.command || "")));
+const kommandoer = (event) => {
+  if (!hooks) return [];
+  if (vaerktoej() === "gemini") {
+    const poster = (hooks.startkit && hooks.startkit[event]) || [];
+    return poster.flatMap((g) => (Array.isArray(g.hooks) ? g.hooks : [g]).map((h) => String((h && h.command) || "")));
+  }
+  return ((hooks.hooks && hooks.hooks[event]) || []).flatMap((g) => (g.hooks || []).map((h) => String(h.command || "")));
+};
 const peger = (event, fil) => kommandoer(event).some((k) => { const m = k.match(/"([^"]+)"/); return m && m[1].endsWith(`scripts/startkit/${fil}`) && fs.existsSync(m[1]); });
 t(tekst("tj.hooks"), hooks, tekst("tj.hooks.h"));
 t(tekst("tj.vagt"), peger("PreToolUse", "vagt.js"), tekst("tj.flyttet"));
 t(tekst("tj.faerdig"), peger("Stop", "faerdig.js"), tekst("tj.flyttet"));
 
 if (vt("starthook")) t(tekst("tj.start"), peger("SessionStart", "start.js"), tekst("tj.flyttet"));
-if (vt("fejlhook")) t(tekst("tj.loop"), peger("PostToolUseFailure", "fejl.js"), tekst("tj.flyttet"));
+if (vt("fejlhook")) t(tekst("tj.loop"), peger(vaerktoej() === "gemini" ? "PostToolUse" : "PostToolUseFailure", "fejl.js"), tekst("tj.flyttet"));
 t(tekst("tj.findes", { fil: fil("fortryd") }), laes(fil("fortryd")) !== null, igen);
 if (vaerktoej() === "claude") {
   const deny = (hooks && hooks.permissions && hooks.permissions.deny) || [];
@@ -67,8 +74,12 @@ t(tekst("tj.env"), /^\.env$/m.test(gi), igen);
 // Prøv vagten for alvor: send den et forbudt kald, og se, at den afviser.
 let vagtVirker = false;
 try {
-  const ud = execFileSync("node", [p("scripts", "startkit", "vagt.js")], { cwd: root, encoding: "utf8", input: JSON.stringify({ tool_name: "Bash", tool_input: { command: "git commit --no-verify -m x" }, cwd: root }) });
-  vagtVirker = JSON.parse(ud).hookSpecificOutput.permissionDecision === "deny";
+  const proeve = vaerktoej() === "gemini"
+    ? { toolCall: { name: "run_command", args: { CommandLine: "git commit --no-verify -m x" } }, cwd: root }
+    : { tool_name: "Bash", tool_input: { command: "git commit --no-verify -m x" }, cwd: root };
+  const ud = execFileSync("node", [p("scripts", "startkit", "vagt.js")], { cwd: root, encoding: "utf8", input: JSON.stringify(proeve) });
+  const svar = JSON.parse(ud);
+  vagtVirker = vaerktoej() === "gemini" ? svar.decision === "deny" : svar.hookSpecificOutput.permissionDecision === "deny";
 } catch { /* vagtVirker forbliver false */ }
 t(tekst("tj.afviser"), vagtVirker, tekst("tj.afviser.h"));
 

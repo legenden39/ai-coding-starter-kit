@@ -23,6 +23,7 @@ function normSti(p) {
 const BESKYTTET = [
   /(^|\/)\.codex\/(hooks\.json|config\.toml)$/,
   /(^|\/)\.claude\/settings(\.local)?\.json$/,
+  /(^|\/)\.agents\/hooks\.json$/,
   /(^|\/)scripts\/startkit(\/|$)/,
   /(^|\/)\.githooks(\/|$)/,
   /(^|\/)\.git\/hooks(\/|$)/,
@@ -31,6 +32,7 @@ const BESKYTTET = [
 const BESKYTTET_I_TEKST = [
   /\.codex\/(hooks\.json|config\.toml)/,
   /\.claude\/settings(\.local)?\.json/,
+  /\.agents\/hooks\.json/,
   /scripts\/startkit\b/,
   /\.githooks\b/,
   /\.git\/hooks\b/,
@@ -302,20 +304,21 @@ function somTekst(raa) {
 }
 
 function decide(input = {}) {
-  const navn = String(input.tool_name || "");
-  const ti = input.tool_input || {};
-  const tekst = somTekst(ti.command ?? ti.input ?? ti.patch ?? "");
+  const tc = input.toolCall && typeof input.toolCall === "object" ? input.toolCall : null;
+  const navn = String(input.tool_name || (tc && tc.name) || "");
+  const ti = input.tool_input || (tc && tc.args) || {};
+  const tekst = somTekst(ti.command ?? ti.CommandLine ?? ti.input ?? ti.patch ?? "");
   const fund = [];
-  // Claude Code læser og søger med egne værktøjer. De må gerne se kittets kontroller, men aldrig en .env-fil.
-  if (/^(Read|Grep|Glob)$/.test(navn)) {
-    const f = [ti.file_path, ti.path].filter(Boolean).find(erEnvFil);
+  // Claude Code og Antigravity læser og søger med egne værktøjer. De må gerne se kittets kontroller, men aldrig en .env-fil.
+  if (/^(Read|Grep|Glob|read_file|view_file)$/.test(navn)) {
+    const f = [ti.file_path, ti.path, ti.Path].filter(Boolean).find(erEnvFil);
     return f ? deny("vagt.env.fil", { f }) : allow();
   }
-  const erPatchVaerktoej = /^(apply_patch|Edit|Write|MultiEdit|NotebookEdit)$/.test(navn);
-  if (erPatchVaerktoej || /^\*\*\* Begin Patch/m.test(tekst) || ti.file_path) {
-    const filer = [...patchFiler(tekst), ti.file_path, ti.notebook_path].filter(Boolean);
+  const erPatchVaerktoej = /^(apply_patch|Edit|Write|MultiEdit|NotebookEdit|edit_file|write_file)$/.test(navn);
+  if (erPatchVaerktoej || /^\*\*\* Begin Patch/m.test(tekst) || ti.file_path || ti.Path) {
+    const filer = [...patchFiler(tekst), ti.file_path, ti.notebook_path, ti.Path].filter(Boolean);
     const flere = Array.isArray(ti.edits) ? ti.edits.map((e) => e && e.new_string) : [];
-    const indhold = [patchTilfoejet(tekst), ti.content, ti.new_string, ti.new_source, ...flere].filter(Boolean).join("\n");
+    const indhold = [patchTilfoejet(tekst), ti.content, ti.Content, ti.new_string, ti.Replacement, ti.new_source, ...flere].filter(Boolean).join("\n");
     fund.push(filRegler(filer, indhold));
   }
   if (!erPatchVaerktoej) fund.push(shellRegler(tekst, { cwd: input.cwd, rod: input.projektrod }));
