@@ -82,7 +82,7 @@ const TEKSTER = {
     "faerdig.intet": "Der findes ikke noget bevis endnu.",
     "faerdig.roedt": "Det seneste bevis er rødt.",
     "faerdig.aendret": "Koden er ændret, siden beviset blev taget.",
-    "faerdig.besked": "Ikke færdig endnu: koden er ændret i denne chat, og det er ikke vist, at den virker. Hvorfor: {hvorfor} Hvad nu: kør beviset, altså projektets egne tjek (node scripts/startkit/bevis.js). Er det rødt, så find og ret årsagen, ikke symptomet, og kør det igen. Fortæl derefter ejeren kort: hvad der er lavet, hvad beviset viste, og hvad du IKKE har afprøvet.",
+    "faerdig.besked": "Ikke færdig endnu: koden er ændret i denne chat, og det er ikke vist, at den virker. Hvorfor: {hvorfor} Hvad nu: kør beviset, altså projektets egne tjek (node scripts/startkit/bevis.js). Er det rødt, så find og ret årsagen, ikke symptomet, og kør det igen. Prøv det derefter som en bruger (åbn siden, tryk på knappen, kør programmet). Fortæl så ejeren kort: hvad der er lavet, hvad beviset viste, hvad du så, da du prøvede det som bruger, og hvad du IKKE har afprøvet.",
 
     // ---- beviset (bevis.js) ----
     "ikke.git": "Ikke et git-projekt. Kør først: git init",
@@ -300,7 +300,7 @@ const TEKSTER = {
     "faerdig.intet": "There is no proof yet.",
     "faerdig.roedt": "The latest proof is red.",
     "faerdig.aendret": "The code has changed since the proof was taken.",
-    "faerdig.besked": "Not done yet: the code has changed in this chat, and it has not been shown to work. Why: {hvorfor} What now: run the proof, meaning the project's own checks (node scripts/startkit/bevis.js). If it is red, find and fix the cause, not the symptom, and run it again. Then tell the owner briefly: what was done, what the proof showed, and what you have NOT tried.",
+    "faerdig.besked": "Not done yet: the code has changed in this chat, and it has not been shown to work. Why: {hvorfor} What now: run the proof, meaning the project's own checks (node scripts/startkit/bevis.js). If it is red, find and fix the cause, not the symptom, and run it again. Then try it as a user (open the page, press the button, run the program). Then tell the owner briefly: what was done, what the proof showed, what you saw when you tried it as a user, and what you have NOT tried.",
 
     "ikke.git": "Not a git project. Run this first: git init",
     "bevis.groen": "  ✅ green",

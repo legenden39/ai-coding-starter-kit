@@ -12,7 +12,9 @@ Ejer: {{NAVN}}. Kun ejeren godkender nye eller ændrede aftaler.
 
 ## Faste regler
 - Skriv, vis eller læs aldrig rigtige nøgler og adgangskoder. `.env`-filer rører kun ejeren.
-- Sig først "færdig", når `node scripts/startkit/bevis.js` er grøn, og du har sagt, hvad du ikke har afprøvet.
+- Sig først "færdig", når `node scripts/startkit/bevis.js` er grøn, du har prøvet det som en bruger (åbnet siden, trykket på knappen, kørt programmet) og sagt, hvad du så, og hvad du ikke har afprøvet. Beviset kører selv den fulde test mindst én gang om ugen; `--fuld` tvinger den.
+- Før en opgave: saml alle dine spørgsmål i én liste, og vis en kort plan. Ejerens ja til planen dækker det, der står i den; stop kun, hvis noget fejler, eller noget skal laves anderledes end aftalt.
+- Slut hver tur med arbejde, der kører, eller ét konkret spørgsmål øverst i svaret. Skriv aldrig bare "jeg venter".
 - Ret årsagen, ikke symptomet. Kan du ikke finde årsagen, så sig det.
 - Opdatér `STATUS.md`, hver gang et delmål er nået, ikke kun til sidst. Så kan en chat, der bliver afbrudt af forbrugsgrænsen, tages op igen uden at miste tråden.
 - Hjælper en rettelse ikke efter to forsøg, så stop. Skriv fejlteksten ordret og det, du har prøvet, i `STATUS.md`, og foreslå, at ejeren starter en ny chat med den. Gæt ikke videre.

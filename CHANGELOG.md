@@ -8,6 +8,8 @@ All editions are betas. None of them has been tried in Codex by the person who m
 
 ## Not released yet
 
+- **One combined yes, no standstill, try it as a user:** the rules file now says that the AI gathers its questions in one list and shows a plan that the owner's yes covers; that every turn ends with work that is running, or one question at the top; and that "done" also requires it to have been tried as a user. The done-check asks for the same when it stops the AI. Both languages, new test `forbedringer`. Only text and a message: whether the AI follows it has not been tried.
+
 - **Full test once a week:** `.startkit/config.json` can have a slow full test under `full_checks`. The proof runs the quick checks every time and the full test only when it was last green more than 7 days ago (`full_every_days`), or with `--full`. The time is saved in `.startkit/fuld-tjek.json` (kept out of git). The proof always says why the full test ran or did not. New test `fuldtest` in Danish and English. The idea comes from a real project where the whole test suite took half an hour per change.
 
 - **New, shorter README:** the top now holds only the essentials: a drawing of the flow, a table of what you get (without and with the kit), and three steps to get started. Everything else (caveats, step by step, safety, glossary, what has been tried) is unchanged further down, folded away. Both languages. The plugin route is still only tried on Linux.
