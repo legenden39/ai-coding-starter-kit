@@ -47,7 +47,7 @@ const aftryk = (input) => crypto.createHash("sha1").update(kommando(argsAf(input
 // Et kort uddrag til beskeden: første linje med indhold, uden den faste "Exit code N"-linje. Vises aldrig, hvis det ligner en nøgle.
 function uddrag(fejl) {
   const linjer = String(fejl || "").replace(/\x1b\[[0-9;]*[A-Za-z]/g, "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
-  const linje = linjer.find((l) => !/^exit code \d+$/i.test(l)) || linjer[0] || "";
+  const linje = linjer.find((l) => !/^exit (?:code|status) \d+$/i.test(l)) || linjer[0] || "";
   let harNoegle = () => false;
   try { harNoegle = require("./regler").harNoegle; } catch { /* uden reglerne vises uddraget ikke */ return ""; }
   return harNoegle(linje) ? "" : skjul(linje).slice(0, 160);

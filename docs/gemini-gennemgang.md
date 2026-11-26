@@ -1,12 +1,13 @@
 KLAR TIL GENNEMGANG: ja
 
-- **Dele lavet:** Del 1 (gennemgang, intet rettet), Del 2 (Antigravitys muligheder slået op i officiel dokumentation) og forslag til Del 3 (3 muligheder med anbefaling). Intet er bygget i Del 3 endnu — afventer ejerens valg.
-- **Afprøvet:**
-  - `node tools/byg.js --tjek`: grøn (Claude Code-udgaven: 30 filer, plugin-mapperne: 110 filer).
-  - `node tests/run.js`: 10 af 12 testfiler er grønne, og denne fil (`docs/gemini-gennemgang.md`) bestod `rent`-testen. To eksisterende testfiler var røde på denne maskine (på eksisterende filer fra `main`, som ikke er rørt i denne opgave):
-    - `tests/noeglescan.test.js`: `❌ tælle-grep: der findes en sh, hvor grep-starter kan tælles (prøvet: sh, C:\Program Files\Git\usr\bin\sh.exe, C:\Program Files\Git\bin\sh.exe)`
-    - `tests/opsaet.test.js`: 6 `rent`-fejl på eksisterende filer (`.github\FUNDING.yml`, `README.da.md`, `README.md`, `startkit\assets\haenger-sammen.md` samt de to plugin-kopier af `haenger-sammen.md`).
-- **Ikke afprøvet:** Antigravity-hooks, skills og tilladelsesregler er kun slået op i den officielle dokumentation; de er ikke afprøvet som kode i et testprojekt endnu.
+- **Dele lavet:** Del 1 (gennemgang + rettelse af de små, sikre fejl), Del 2 (Antigravitys muligheder slået op i officiel dokumentation + live hook-bevis på Windows) og Del 3 (fuld Antigravity-udgave efter ejerens valg af **Mulighed A**, på dansk og engelsk).
+- **Afprøvet i Antigravity og lokalt:**
+  - Live hook-bevis i Antigravity på Windows: en test-hook i `.agents/hooks.json` (`PreToolUse`, matcher `run_command`) blev kaldt af Antigravity og skrev tidspunkt + `camelCase`-JSON (`conversationId`, `toolCall.name`, `args.CommandLine`) til fil.
+  - `node tools/byg.js --tjek`: grøn (Claude Code: 30 filer, Antigravity: 30 filer, plugins: 110 filer).
+  - `node tests/gemini.test.js`: grøn på både dansk og engelsk (opsætning, `.agents/hooks.json`, `vagt.js`, `faerdig.js`, `start.js`, `fejl.js` + loop-stop, `tjek-opsaetning.js`, `pre-commit` på `GEMINI.md`, `install.ps1 -Vaerktoej gemini`).
+  - `node tests/noeglescan.test.js`: nu grøn på Windows (9/9 tjek).
+  - `node tests/run.js`: 12 af 13 testfiler grønne. Kun 6 `rent`-tjek i `tests/opsaet.test.js` er røde — det skyldes udelukkende den lokale, u-committede `.privat-ordliste.txt` på ejerens computer (ikke en fejl i kittet).
+- **Ikke afprøvet:** Hele `/startkit`-forløbet kørt igennem af et menneske i en rigtig Antigravity-chat; live-kørsel af `SessionStart`, `PostToolUse` og `Stop` i Antigravity (kun testet med det dokumenterede JSON i `tests/gemini.test.js`); dobbeltklik på `installer-gemini.cmd` / `install-gemini-english.cmd`; Mac og Linux.
 
 ---
 
