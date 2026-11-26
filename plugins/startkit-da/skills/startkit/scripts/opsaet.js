@@ -41,6 +41,7 @@ function normaliser(profil) {
   flyt(p, "projects", "projekter");
   flyt(p, "rules", "regler");
   flyt(p, "check_commands", "tjek_kommandoer");
+  flyt(p, "full_check_commands", "fuld_tjek_kommandoer");
   if (Array.isArray(p.projekter)) p.projekter = p.projekter.map((x) => { if (!x || typeof x !== "object") return x; const y = { ...x }; flyt(y, "name", "navn"); flyt(y, "description", "beskrivelse"); return y; });
   if (p.regler && typeof p.regler === "object") { p.regler = { ...p.regler }; flyt(p.regler, "never_without_ok", "aldrig_uden_ok"); flyt(p.regler, "answer_style", "svarform"); flyt(p.regler, "when_in_doubt", "ved_tvivl"); }
   return p;
@@ -58,7 +59,7 @@ function valider(raa) {
   const regler = profil.regler || {};
   if (!Array.isArray(regler.aldrig_uden_ok) || !regler.aldrig_uden_ok.filter(tekst).length) fejl.push(t("ops.aldrig"));
   if (!tekst(regler.svarform)) fejl.push(t("ops.svarform"));
-  if (profil.tjek_kommandoer !== undefined && !(Array.isArray(profil.tjek_kommandoer) && profil.tjek_kommandoer.every((k) => typeof k === "string"))) fejl.push(t("ops.tjek"));
+  for (const felt of ["tjek_kommandoer", "fuld_tjek_kommandoer"]) if (profil[felt] !== undefined && !(Array.isArray(profil[felt]) && profil[felt].every((k) => typeof k === "string"))) fejl.push(t("ops.tjek"));
   if (harNoegle(JSON.stringify(profil))) fejl.push(t("ops.noegle"));
   return fejl;
 }
@@ -152,7 +153,8 @@ function plan(root, raa) {
   const valgt = projekter.find((x) => x.navn === profil.valgt_projekt) || projekter[0];
 
   const tjek = profil.tjek_kommandoer || [];
-  const config = en ? { checks: tjek, model_guide: [], limit_percent: 85 } : { tjek, modelguide: [], graense_procent: 85 };
+  const fuldTjek = profil.fuld_tjek_kommandoer || [];
+  const config = en ? { checks: tjek, full_checks: fuldTjek, full_every_days: 7, model_guide: [], limit_percent: 85 } : { tjek, fuld_tjek: fuldTjek, fuld_dage: 7, modelguide: [], graense_procent: 85 };
   const regelfil = vt("regelfil"), hookfil = vt("hookfil");
   saet(regelfil, flettAgents(laes(p(regelfil)), agentsBlok(profil)), t("ops.n.agents"));
   kunHvisMangler("STATUS.md", skabelon("projektstatus.skabelon.md").replace(/\{\{PROJEKT\}\}/g, enLinje(valgt.navn)), t("ops.n.status"));

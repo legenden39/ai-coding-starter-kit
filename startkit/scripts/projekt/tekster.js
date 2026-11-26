@@ -92,6 +92,11 @@ const TEKSTER = {
     "bevis.ingen2": "Sig det ærligt til ejeren, og foreslå en første test. Kommandoer tilføjes i .startkit/config.json (det gør ejeren selv).",
     "bevis.groent": "Bevis: GRØNT. Alle tjek gik igennem.",
     "bevis.roedt": "Bevis: RØDT. Find og ret årsagen, og kør beviset igen.",
+    "bevis.fuld.nu": "Den fulde test køres nu, fordi {hvorfor}. Den tager længere tid end de hurtige tjek.",
+    "bevis.fuld.aldrig": "den aldrig er kørt grøn før",
+    "bevis.fuld.gammel": "den sidst var grøn for {dage} dage siden (den køres mindst hver {graense}. dag)",
+    "bevis.fuld.bedt": "du bad om den (--fuld)",
+    "bevis.fuld.ikke": "Den fulde test er ikke kørt: den var grøn for {dage} dage siden. Vil du køre den alligevel: node scripts/startkit/bevis.js --fuld",
 
     // ---- forbrug (forbrug-gem.js) ----
     "forbrug.brug": "Brug: node scripts/startkit/forbrug-gem.js --5t <procent> --uge <procent>   (tal mellem 0 og 100)",
@@ -304,6 +309,11 @@ const TEKSTER = {
     "bevis.ingen2": "Tell the owner honestly, and suggest a first test. Commands are added in .startkit/config.json (the owner does that).",
     "bevis.groent": "Proof: GREEN. All checks passed.",
     "bevis.roedt": "Proof: RED. Find and fix the cause, and run the proof again.",
+    "bevis.fuld.nu": "The full test is being run now, because {hvorfor}. It takes longer than the quick checks.",
+    "bevis.fuld.aldrig": "it has never been run green before",
+    "bevis.fuld.gammel": "it was last green {dage} days ago (it is run at least every {graense} days)",
+    "bevis.fuld.bedt": "you asked for it (--full)",
+    "bevis.fuld.ikke": "The full test was not run: it was green {dage} days ago. To run it anyway: node scripts/startkit/bevis.js --full",
 
     "forbrug.brug": "Usage: node scripts/startkit/forbrug-gem.js --5h <percent> --week <percent>   (numbers between 0 and 100)",
     "forbrug.gemt": "Usage saved.",
@@ -491,7 +501,7 @@ function t(noegle, vaerdier = {}) {
 // Indstillingerne (.startkit/config.json) har danske eller engelske navne. Her får de ét sæt navne.
 function laesConfig(raa) {
   const c = raa && typeof raa === "object" ? raa : {};
-  return { tjek: c.tjek ?? c.checks, modelguide: c.modelguide ?? c.model_guide, graense_procent: c.graense_procent ?? c.limit_percent, vagt: c.vagt ?? c.guard };
+  return { tjek: c.tjek ?? c.checks, fuld_tjek: c.fuld_tjek ?? c.full_checks, fuld_dage: c.fuld_dage ?? c.full_every_days, modelguide: c.modelguide ?? c.model_guide, graense_procent: c.graense_procent ?? c.limit_percent, vagt: c.vagt ?? c.guard };
 }
 
 module.exports = { t, sprog, fil, laesConfig, vaerktoej, vt, TEKSTER, TEKSTER_CLAUDE, FILER, VAERKTOEJER, FORBUDSREGLER };

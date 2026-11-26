@@ -15,7 +15,7 @@ Stil kun disse, 2-3 ad gangen. Brug uddybningsreglen fra `references/interview.m
 5. Vil du have forklaringer undervejs, eller bare resultatet? (felt: `regler.svarform`)
 6. Hvad skal AI'en gøre, når den er i tvivl: spørge, eller vælge selv og sige det? (felt: `regler.ved_tvivl`)
 
-Findes der allerede kode i mappen, så find sammen med personen én kommando, der viser, at det virker (felt: `tjek_kommandoer`). Ellers lad listen være tom, og sig, at færdig-tjekket først kan afprøve noget, når der er en test.
+Findes der allerede kode i mappen, så find sammen med personen én kommando, der viser, at det virker (felt: `tjek_kommandoer`). Ellers lad listen være tom, og sig, at færdig-tjekket først kan afprøve noget, når der er en test. Tager den fulde test lang tid (over et par minutter), så læg en hurtig kommando i `tjek_kommandoer` og den fulde i `fuld_tjek_kommandoer`: beviset kører så den fulde selv, når den sidst var grøn for over 7 dage siden.
 
 Gem svarene i `.startkit/profil.json` efter skemaet nederst i `references/interview.md`.
 

@@ -5,6 +5,7 @@
 *.key
 node_modules/
 .startkit/bevis.json
+.startkit/fuld-tjek.json
 .startkit/forbrug.json
 .startkit/vagt-puls.json
 .codex/hooks.json
