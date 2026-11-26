@@ -10,6 +10,7 @@ All editions are betas. None of them has been tried in Codex by the person who m
 
 - **Edition for Antigravity (Gemini):** full edition in English and Danish with the rules file `GEMINI.md`, skill folder `~/.gemini/config/skills/startkit` (`/startkit`), hooks in `.agents/hooks.json` (`SessionStart`, `PreToolUse`, `PostToolUse` for loop stop, and `Stop`), builder (`tools/byg-gemini.js` → `startkit/gemini/`), installers (`install-gemini-english.cmd`, `installer-gemini.cmd`, `install.ps1 -Vaerktoej gemini`), and automated tests in both languages (`tests/gemini.test.js`). That Antigravity actually invokes `.agents/hooks.json` (`PreToolUse`) has been verified on Windows; the whole flow has not yet been run through by a human in Antigravity.
 - **Small fixes from review:** `opsaet.js` now uses the chosen tool's name instead of hardcoded "Codex"; the Claude Code `SKILL.md` now lists all four hooks in `/hooks`; `why-was-i-stopped.md` / `hvorfor-blev-jeg-stoppet.md` now also explain the loop stop; `tjek-opsaetning.js` now checks `statuslinje.js`, `what-goes-together.md` and `before-you-share.md`; small Danish/English fixes in README; `tests/noeglescan.test.js` now passes on Windows even when Git's `usr\bin` is not on `PATH`.
+- **Neutral example in `what-goes-together.md`:** the example now uses a website (home, about, contact) in both languages.
 
 ## 0.10.0-beta (November 2026)
 
