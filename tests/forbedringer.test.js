@@ -30,4 +30,20 @@ for (const [sprog, krav] of [["da", /Prøv det derefter som en bruger.+hvad du s
   tjek(`${sprog}: færdig-tjekket beder om at prøve det som bruger`, krav.test(grund), r.stdout + r.stderr);
 }
 
+// ---- låsene i fejllisten tjekkes af beviset ----
+for (const [sprog, fejlfil, vaek] of [["da", "docs/gentagne-fejl.md", /En lås i docs\/gentagne-fejl\.md findes ikke længere: tests\/login\.test\.js/], ["en", "docs/recurring-mistakes.md", /A lock in docs\/recurring-mistakes\.md no longer exists: tests\/login\.test\.js/]]) {
+  const rod = nytProjekt();
+  kopierScripts(rod);
+  skriv(rod, ".startkit/config.json", JSON.stringify({ tjek: ["node -v"] }));
+  skriv(rod, "tests/login.test.js", "\n");
+  skriv(rod, fejlfil, "# Liste\n\n| Dato | Hvad | Årsag | Låst af |\n|---|---|---|---|\n| 2026-01-01 | x | y | `tests/login.test.js` |\n| 2026-01-02 | z | w | tekstregel (`CLAUDE.md` nævner det ikke) |\n| 2026-01-03 | q | r | `scripts/vagt.js:12`, se https://example.com |\n");
+  skriv(rod, "scripts/vagt.js", "\n");
+  const bevis = () => { const r = spawnSync("node", [path.join(rod, "scripts", "startkit", "bevis.js")], { cwd: rod, encoding: "utf8", env: { ...process.env, STARTKIT_SPROG: sprog } }); return { kode: r.status, ud: r.stdout || "" }; };
+  let r = bevis();
+  tjek(`${sprog}: findes låsene, er beviset grønt (en sti med linjenummer tæller også)`, r.kode === 0, r.ud);
+  fs.unlinkSync(path.join(rod, "tests", "login.test.js"));
+  r = bevis();
+  tjek(`${sprog}: forsvinder en lås, er beviset rødt og siger hvilken`, r.kode === 1 && vaek.test(r.ud), r.ud);
+}
+
 slut("forbedringer");

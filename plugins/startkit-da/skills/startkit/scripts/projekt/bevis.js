@@ -11,7 +11,7 @@ const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
 const { rod, fingeraftryk } = require("./tilstand");
-const { t, laesConfig } = require("./tekster");
+const { t, laesConfig, fil } = require("./tekster");
 
 const r = rod(process.cwd());
 if (!r) { console.error(t("ikke.git")); process.exit(2); }
@@ -31,8 +31,31 @@ const bedt = process.argv.includes("--fuld") || process.argv.includes("--full");
 const koerFuld = fuld.length > 0 && (bedt || dage === null || dage >= graense);
 if (koerFuld) console.log(t("bevis.fuld.nu", { hvorfor: bedt ? t("bevis.fuld.bedt") : dage === null ? t("bevis.fuld.aldrig") : t("bevis.fuld.gammel", { dage, graense }) }));
 
+// Låsene i fejllisten: står der en sti i backticks under "Låst af", skal filen findes. Ellers er låsen væk.
+function manglendeLaase() {
+  let tekst = "";
+  try { tekst = fs.readFileSync(path.join(r, fil("fejl")), "utf8"); } catch { return []; }
+  const mangler = [];
+  for (const linje of tekst.split(/\r?\n/)) {
+    if (!/^\s*\|/.test(linje) || /^\s*\|[\s|:-]+\|?\s*$/.test(linje)) continue;
+    const celler = linje.trim().replace(/^\||\|$/g, "").split("|");
+    const laast = (celler[celler.length - 1] || "").trim();
+    if (/^(tekstregel|text rule|nej|no|ikke|not)\b/i.test(laast)) continue; // en svag lås nævner måske en fil, men er ikke en lås
+    for (const [, sti] of laast.matchAll(/`([^`\s]+)`/g)) {
+      const ren = sti.replace(/:\d+$/, "");
+      if (/[\/.]/.test(ren) && !/^https?:/.test(ren) && !fs.existsSync(path.join(r, ren))) mangler.push(ren);
+    }
+  }
+  return mangler;
+}
+
 const resultater = [];
-for (const kommando of koerFuld ? [...tjek, ...fuld] : tjek) {
+const vaek = manglendeLaase();
+if (vaek.length) {
+  console.log(t("bevis.laas.vaek", { fejlfil: fil("fejl"), stier: vaek.join(", ") }));
+  resultater.push({ kommando: t("bevis.laas.navn"), ok: false });
+}
+for (const kommando of vaek.length ? [] : koerFuld ? [...tjek, ...fuld] : tjek) {
   console.log(`\n▶ ${kommando}`);
   let ok = true;
   try { execSync(kommando, { cwd: r, stdio: "inherit", timeout: 9 * 60 * 1000 }); } catch { ok = false; }
@@ -44,12 +67,14 @@ for (const kommando of koerFuld ? [...tjek, ...fuld] : tjek) {
 const ok = resultater.every((x) => x.ok);
 fs.mkdirSync(path.join(r, ".startkit"), { recursive: true });
 if (koerFuld && ok) fs.writeFileSync(MARKOER, JSON.stringify({ ok: true, at: new Date().toISOString() }, null, 2) + "\n");
-const bevis = { ok, ingenTjek: tjek.length === 0 && fuld.length === 0, fuldKoert: koerFuld, at: new Date().toISOString(), fingeraftryk: fingeraftryk(r), resultater };
+const bevis = { ok, ingenTjek: tjek.length === 0 && fuld.length === 0 && !vaek.length, fuldKoert: koerFuld, at: new Date().toISOString(), fingeraftryk: fingeraftryk(r), resultater };
 fs.mkdirSync(path.join(r, ".startkit"), { recursive: true });
 fs.writeFileSync(path.join(r, ".startkit", "bevis.json"), JSON.stringify(bevis, null, 2) + "\n");
 
 console.log("");
-if (bevis.ingenTjek) {
+if (vaek.length) {
+  console.log(t("bevis.roedt"));
+} else if (bevis.ingenTjek) {
   console.log(t("bevis.ingen1"));
   console.log(t("bevis.ingen2"));
 } else {

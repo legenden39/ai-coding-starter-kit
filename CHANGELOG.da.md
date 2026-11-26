@@ -8,6 +8,8 @@ Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet 
 
 ## Ikke udgivet endnu
 
+- **Låsene i fejllisten tjekkes:** står der en sti i backticks under "Låst af" i `docs/gentagne-fejl.md`, bliver beviset rødt, hvis filen forsvinder, og det siger hvilken. Et punkt, der er låst med "tekstregel" eller "nej", tjekkes ikke. Listen siger nu også, at AI'en spørger, om et punkt kan fjernes, når det ikke er sket i flere måneder. Begge sprog, test i `forbedringer`.
+
 - **Ét samlet ja, ingen stilstand, prøv det som bruger:** regelfilen siger nu, at AI'en samler sine spørgsmål i én liste og viser en plan, som ejerens ja dækker; at hver tur slutter med arbejde, der kører, eller ét spørgsmål øverst; og at "færdig" også kræver, at det er prøvet som en bruger. Færdig-tjekket beder om det samme, når det stopper AI'en. Begge sprog, ny test `forbedringer`. Kun tekst og en besked: om AI'en følger det, er ikke afprøvet.
 
 - **Fuld test én gang om ugen:** `.startkit/config.json` kan have en langsom fuld test under `fuld_tjek`. Beviset kører de hurtige tjek hver gang og den fulde test kun, når den sidst var grøn for over 7 dage siden (`fuld_dage`), eller med `--fuld`. Tidspunktet gemmes i `.startkit/fuld-tjek.json` (holdt ude af git). Beviset siger altid, hvorfor den fulde test kørte eller ikke kørte. Ny test `fuldtest` på dansk og engelsk. Idéen kommer fra et rigtigt projekt, hvor hele testpakken tog en halv time pr. ændring.

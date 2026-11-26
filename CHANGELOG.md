@@ -8,6 +8,8 @@ All editions are betas. None of them has been tried in Codex by the person who m
 
 ## Not released yet
 
+- **The locks in the mistake list are checked:** if there is a path in backticks under "Locked by" in `docs/recurring-mistakes.md`, the proof turns red if the file disappears, and says which one. An item locked by "text rule" or "no" is not checked. The list now also says that the AI asks whether an item can be removed when it has not happened for several months. Both languages, tests in `forbedringer`.
+
 - **One combined yes, no standstill, try it as a user:** the rules file now says that the AI gathers its questions in one list and shows a plan that the owner's yes covers; that every turn ends with work that is running, or one question at the top; and that "done" also requires it to have been tried as a user. The done-check asks for the same when it stops the AI. Both languages, new test `forbedringer`. Only text and a message: whether the AI follows it has not been tried.
 
 - **Full test once a week:** `.startkit/config.json` can have a slow full test under `full_checks`. The proof runs the quick checks every time and the full test only when it was last green more than 7 days ago (`full_every_days`), or with `--full`. The time is saved in `.startkit/fuld-tjek.json` (kept out of git). The proof always says why the full test ran or did not. New test `fuldtest` in Danish and English. The idea comes from a real project where the whole test suite took half an hour per change.
