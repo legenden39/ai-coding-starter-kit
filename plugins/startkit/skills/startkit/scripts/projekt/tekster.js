@@ -207,7 +207,7 @@ const TEKSTER = {
     "ops.n.genvej": "dobbeltklik for at åbne overblikket i browseren",
     "ops.n.feedback": "din feedback på startkittet (sendes aldrig automatisk)",
     "ops.n.precommit": "nøgletjek og længdelås før commit",
-    "ops.n.hooks": "tænder vagten og færdig-tjekket i Codex (skal godkendes med /hooks)",
+    "ops.n.hooks": "tænder vagten og færdig-tjekket i {V}",
     "ops.n.ignore": "holder nøglefiler ude af git",
     "ops.brug": "Brug: node opsaet.js <projektmappe> [--toer]",
     "mappe.findes.ikke": "Mappen findes ikke: {mappe}",
@@ -218,7 +218,7 @@ const TEKSTER = {
     "ops.saetter": "Sætter op i {root}:\n",
     "ops.lang": "\nBemærk: {regelfil} bliver på {linjer} linjer (højst 80). Flyt dine egne lange afsnit til docs/, ellers stopper længdelåsen næste commit.",
     "ops.ingen.tjek": "\nBemærk: der er ingen tjek-kommandoer i profilen, så beviset kan ikke afprøve noget endnu. Tag en første test med i planen.",
-    "ops.naeste": "\nNæste skridt: tænd nøgletjekket (git config core.hooksPath .githooks), godkend hooks med /hooks i Codex, og start en ny chat.",
+    "ops.naeste": "\nNæste skridt: tænd nøgletjekket (git config core.hooksPath .githooks), tjek at hooks er indlæst i {V}, og start en ny chat.",
 
     // ---- nøglescan (noeglescan.js) ----
     "scan.ingen.sh": "Kan ikke finde 'sh'. Den følger med Git for Windows (git-scm.com). Installer Git, og prøv igen.",
@@ -425,7 +425,7 @@ const TEKSTER = {
     "ops.n.genvej": "double-click to open the overview in the browser",
     "ops.n.feedback": "your feedback on the starter kit (never sent automatically)",
     "ops.n.precommit": "key check and length lock before commit",
-    "ops.n.hooks": "switches on the guard and the done-check in Codex (must be approved with /hooks)",
+    "ops.n.hooks": "switches on the guard and the done-check in {V}",
     "ops.n.ignore": "keeps key files out of git",
     "ops.brug": "Usage: node opsaet.js <project folder> [--dry-run]",
     "mappe.findes.ikke": "The folder does not exist: {mappe}",
@@ -436,7 +436,7 @@ const TEKSTER = {
     "ops.saetter": "Setting up in {root}:\n",
     "ops.lang": "\nNote: {regelfil} will be {linjer} lines long (80 at most). Move your own long sections to docs/, or the length lock will stop the next commit.",
     "ops.ingen.tjek": "\nNote: there are no check commands in the profile, so the proof cannot try anything yet. Include a first test in the plan.",
-    "ops.naeste": "\nNext step: switch on the key check (git config core.hooksPath .githooks), approve the hooks with /hooks in Codex, and start a new chat.",
+    "ops.naeste": "\nNext step: switch on the key check (git config core.hooksPath .githooks), check that the hooks are loaded in {V}, and start a new chat.",
 
     "scan.ingen.sh": "Cannot find 'sh'. It comes with Git for Windows (git-scm.com). Install Git, and try again.",
 

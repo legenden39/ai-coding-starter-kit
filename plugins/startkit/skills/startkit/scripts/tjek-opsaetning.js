@@ -27,8 +27,10 @@ t(tekst("tj.agents"), agents && agents.includes("<!-- startkit:start") && agents
 t(tekst("tj.agents.kort"), agents && agents.split("\n").length <= 80, tekst("tj.agents.kort.h"));
 t(tekst("tj.findes", { fil: "STATUS.md" }), laes("STATUS.md") !== null, igen);
 t(tekst("tj.findes", { fil: fil("fejl") }), laes(fil("fejl")) !== null, igen);
+t(tekst("tj.findes", { fil: fil("haenger") }), laes(fil("haenger")) !== null, igen);
+t(tekst("tj.findes", { fil: fil("deling") }), laes(fil("deling")) !== null, igen);
 
-for (const navn of ["regler.js", "tekster.js", "tilstand.js", "vagt.js", "faerdig.js", "bevis.js", "overblik.js", "forbrug-gem.js", "gemmepunkt.js", "fortryd.js", "start.js", "loopstop.js", "fejl.js"]) {
+for (const navn of ["regler.js", "tekster.js", "tilstand.js", "vagt.js", "faerdig.js", "bevis.js", "overblik.js", "forbrug-gem.js", "gemmepunkt.js", "fortryd.js", "start.js", "loopstop.js", "fejl.js", "statuslinje.js"]) {
   t(tekst("tj.findes", { fil: `scripts/startkit/${navn}` }), laes(`scripts/startkit/${navn}`) !== null, igen);
 }
 

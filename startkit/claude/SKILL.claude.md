@@ -69,7 +69,7 @@ Vis først, hvad der sker: `node <skill-mappen>/scripts/opsaet.js <projektmappe>
 
 Derefter, med personens ok: `git config core.hooksPath .githooks` (tænder nøgletjekket).
 
-**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de tre fra startkittet står der: vagten under PreToolUse, færdig-tjekket under Stop, og indlæsningen af statusfilen under SessionStart. Start derefter en ny chat, så de helt sikkert er indlæst. Opsætningen har også skrevet Claude Codes egne forbudsregler for `.env`-filer i samme fil (`permissions.deny`). De er et ekstra lag, hvis en hook en dag ikke bliver kørt.
+**Personen skal se, at hooks'ene er indlæst.** Claude Code har ingen godkendelse af hver enkelt hook: den kører dem, der står i projektets indstillinger. Spørger Claude Code, om personen stoler på mappen, så forklar, hvad det betyder (Claude Code må køre projektets egne indstillinger og hooks), og lad personen svare. Bed personen skrive `/hooks` og se, at de fire fra startkittet står der: vagten under PreToolUse, færdig-tjekket under Stop, indlæsningen af statusfilen under SessionStart og loop-stoppet under PostToolUseFailure. Start derefter en ny chat, så de helt sikkert er indlæst. Opsætningen har også skrevet Claude Codes egne forbudsregler for `.env`-filer i samme fil (`permissions.deny`). De er et ekstra lag, hvis en hook en dag ikke bliver kørt.
 
 ## Fase 5: Prøv sikkerhedsnettet for øjnene af personen
 

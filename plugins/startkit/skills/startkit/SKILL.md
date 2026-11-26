@@ -71,7 +71,7 @@ Show first what will happen: `node <skill folder>/scripts/opsaet.js <project fol
 
 Then, with the person's ok: `git config core.hooksPath .githooks` (switches on the key check).
 
-**The person must see that the hooks are loaded.** Claude Code has no approval of each single hook: it runs the ones listed in the project's settings. If Claude Code asks whether the person trusts the folder, explain what that means (Claude Code may run the project's own settings and hooks), and let the person answer. Ask the person to type `/hooks` and see that the three from the starter kit are listed: the guard under PreToolUse, the done-check under Stop, and the loading of the status file under SessionStart. Then start a new chat, so they are certain to be loaded. The setup has also written Claude Code's own deny rules for `.env` files in the same file (`permissions.deny`). They are an extra layer in case a hook one day is not run.
+**The person must see that the hooks are loaded.** Claude Code has no approval of each single hook: it runs the ones listed in the project's settings. If Claude Code asks whether the person trusts the folder, explain what that means (Claude Code may run the project's own settings and hooks), and let the person answer. Ask the person to type `/hooks` and see that the four from the starter kit are listed: the guard under PreToolUse, the done-check under Stop, the loading of the status file under SessionStart, and the loop stop under PostToolUseFailure. Then start a new chat, so they are certain to be loaded. The setup has also written Claude Code's own deny rules for `.env` files in the same file (`permissions.deny`). They are an extra layer in case a hook one day is not run.
 
 ## Phase 5: Try the safety net in front of the person
 

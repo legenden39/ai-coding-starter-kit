@@ -11,6 +11,7 @@ Den afviser:
 - **Kommandoer, der smider ændringer væk**, som ikke er gemt i en commit: `git checkout .`, `git restore .` (uden `--staged`), `git checkout -f`, `git switch -f`, `git stash drop` og `git stash clear`, og `git branch -D`. Én enkelt fil må AI'en gerne rette tilbage.
 - **Sletning, der ikke kan fortrydes:** alt uden for projektmappen eller i din hjemmemappe, "alt" i en mappe (`rm -rf *`, `del /s /q *.*`), hele mapper med indhold (`rm -rf src`) og stier med en variabel i (`rm -rf "$MAPPE/"`, hvor en tom variabel rammer noget helt andet). Enkelte filer i projektet og mapper, der kan laves igen (`node_modules`, `dist`, `build`), må AI'en gerne slette.
 - **Ændringer af kontrollerne selv** (`.claude/settings.local.json`, `scripts/startkit/`, `.githooks/`, `.startkit/config.json`, beviset). Ellers kunne AI'en slå dem fra, når de er i vejen.
+- **Gentagne fejl i samme chat (loop-stop, når værktøjet melder fejl til hooks):** Fejler den samme kommando på samme måde to gange i en chat, stopper vagten én gang og beder AI'en finde årsagen først. Sker det igen, foreslår den at skrive fejlen i `STATUS.md` og starte en ny chat.
 
 Er det noget, du selv vil have gjort, så kør kommandoen i din egen terminal. Vagten stopper kun AI'en, ikke dig.
 
