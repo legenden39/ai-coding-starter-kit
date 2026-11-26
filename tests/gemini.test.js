@@ -16,6 +16,13 @@ const TJEK = path.join(KIT, "scripts", "tjek-opsaetning.js");
 const profil = () => JSON.parse(fs.readFileSync(path.join(__dirname, "eksempel-profil.json"), "utf8"));
 const laes = (rod, rel) => { try { return fs.readFileSync(path.join(rod, rel), "utf8"); } catch { return null; } };
 
+// ---- Codex beholder sin vejledning om at godkende hooks med /hooks (må ikke forsvinde med Antigravity-teksterne) ----
+for (const sprog of ["da", "en"]) {
+  const k = `const {t}=require(${JSON.stringify(path.join(KIT, "scripts", "projekt", "tekster.js"))});console.log(t("ops.n.hooks")+"|"+t("ops.naeste"))`;
+  const ud = koer("node", ["-e", k], { env: { STARTKIT_VAERKTOEJ: "codex", STARTKIT_SPROG: sprog } }).ud;
+  tjek(`codex (${sprog}): opsætningen siger stadig, at hooks skal godkendes med /hooks`, (ud.match(/\/hooks in Codex|med \/hooks i Codex/g) || []).length === 1 && /\(skal godkendes med \/hooks\)|\(must be approved with \/hooks\)/.test(ud), ud);
+}
+
 // ---- bygger: startkit/gemini/ passer til kilden ----
 let r = koer("node", [path.join(ROD, "tools", "byg-gemini.js"), "--tjek"]);
 tjek("byg-gemini --tjek: grøn", r.kode === 0, r.ud + r.fejl);
@@ -57,6 +64,19 @@ for (const sprog of ["da", "en"]) {
 
   r = vagt({ conversationId: sid, cwd: rod, hookEventName: "PreToolUse", toolCall: { id: "4", name: "write_file", args: { Path: path.join(rod, ".agents", "hooks.json"), Content: "{}" } } });
   tjek(`gemini (${sprog}): vagt beskytter .agents/hooks.json`, r.kode === 0 && JSON.parse(r.ud).decision === "deny", r.ud + r.fejl);
+
+  // Ukendte værktøjsnavne: vagten skal se på argumenterne, ikke kun på navnet (navnene er ikke dokumenteret samlet).
+  const hooksIgen = JSON.parse(laes(rod, ".agents/hooks.json") || "{}");
+  tjek(`gemini (${sprog}): vagten kaldes før alle værktøjer (matcher .*)`, hooksIgen.startkit.PreToolUse[0].matcher === ".*", JSON.stringify(hooksIgen.startkit.PreToolUse));
+  const svar = (obj) => { const u = vagt(obj); try { return JSON.parse(u.ud).decision; } catch { return u.ud + u.fejl; } };
+  tjek(`gemini (${sprog}): ukendt skriveværktøj (TargetFile) på .agents/hooks.json afvises`, svar({ conversationId: sid, cwd: rod, toolCall: { name: "write_to_file", args: { TargetFile: path.join(rod, ".agents", "hooks.json"), CodeContent: "{}" } } }) === "deny");
+  tjek(`gemini (${sprog}): ukendt rette-værktøj med indlejrede ændringer i scripts/startkit afvises`, svar({ conversationId: sid, cwd: rod, toolCall: { name: "multi_replace_file_content", args: { TargetFile: path.join(rod, "scripts", "startkit", "vagt.js"), ReplacementChunks: [{ TargetContent: "a", ReplacementContent: "b" }] } } }) === "deny");
+  tjek(`gemini (${sprog}): view_file på .env afvises`, svar({ conversationId: sid, cwd: rod, toolCall: { name: "view_file", args: { AbsolutePath: path.join(rod, ".env") } } }) === "deny");
+  tjek(`gemini (${sprog}): view_file på kittets egne scripts er tilladt (læsning)`, svar({ conversationId: sid, cwd: rod, toolCall: { name: "view_file", args: { AbsolutePath: path.join(rod, "scripts", "startkit", "vagt.js") } } }) === "allow");
+  tjek(`gemini (${sprog}): ukendt skriveværktøj med en nøgle i indholdet afvises`, svar({ conversationId: sid, cwd: rod, toolCall: { name: "write_to_file", args: { TargetFile: path.join(rod, "app.js"), CodeContent: `const k = "${falskNoegle()}";` } } }) === "deny");
+  tjek(`gemini (${sprog}): ukendt skriveværktøj på en almindelig fil er tilladt`, svar({ conversationId: sid, cwd: rod, toolCall: { name: "write_to_file", args: { TargetFile: path.join(rod, "app.js"), CodeContent: "console.log(1);" } } }) === "allow");
+  r = koer("node", [OPSAET, rod, sprog === "en" ? "--dry-run" : "--toer"], { env });
+  tjek(`gemini (${sprog}): opsætningen nævner ikke Codex' /hooks-godkendelse`, !/[ (]\/hooks\b/.test(r.ud) && /Antigravity/.test(r.ud), r.ud);
 
   r = vagt({ conversationId: sid, cwd: rod, hookEventName: "PreToolUse", toolCall: { id: "5", name: "edit_file", args: { Path: path.join(rod, "app.js"), Replacement: `const k = "${falskNoegle()}";` } } });
   tjek(`gemini (${sprog}): vagt afviser nøgle i edit_file`, r.kode === 0 && JSON.parse(r.ud).decision === "deny", r.ud + r.fejl);

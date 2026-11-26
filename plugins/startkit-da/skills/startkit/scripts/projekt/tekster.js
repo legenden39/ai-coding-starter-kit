@@ -32,10 +32,12 @@ function vaerktoej() {
 //   dokumentationen; Codex har ingen sådan hændelse. Loop-stoppet (loopstop.js) er derfor kun en lås i Claude Code.
 //   hookvaerktoejer: de værktøjer, vagten skal kaldes før. Claude Code læser filer med sit eget værktøj (Read),
 //   så dér skal vagten også med, ellers kunne en .env-fil læses uden om den.
+//   Antigravity: navnene på værktøjerne er ikke dokumenteret samlet (kun run_command er set i praksis), så vagten kaldes
+//   før alle værktøjer (".*"), og reglerne ser på argumenterne i stedet for navnet (regler.js, agyFund).
 const VAERKTOEJER = {
   codex: { V: "Codex", regelfil: "AGENTS.md", hookfil: ".codex/hooks.json", forbrug: "/status", start: "$startkit", hookvaerktoejer: "Bash|apply_patch|Edit|Write", starthook: false, fejlhook: false },
   claude: { V: "Claude Code", regelfil: "CLAUDE.md", hookfil: ".claude/settings.local.json", forbrug: "/usage", start: "/startkit", hookvaerktoejer: "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|Read|Grep", starthook: true, fejlhook: true },
-  gemini: { V: "Antigravity", regelfil: "GEMINI.md", hookfil: ".agents/hooks.json", forbrug: "Settings", start: "/startkit", hookvaerktoejer: "run_command|edit_file|write_file|read_file", starthook: true, fejlhook: true },
+  gemini: { V: "Antigravity", regelfil: "GEMINI.md", hookfil: ".agents/hooks.json", forbrug: "Settings", start: "/startkit", hookvaerktoejer: ".*", starthook: true, fejlhook: true },
 };
 // Claude Codes egne forbudsregler for hemmelige filer. De er et ekstra lag ved siden af vagten: kører en hook ikke
 // (det er set på Windows), stopper de stadig læsning og ændring af filerne. .env.example er med vilje ikke på listen.
@@ -210,7 +212,7 @@ const TEKSTER = {
     "ops.n.genvej": "dobbeltklik for at åbne overblikket i browseren",
     "ops.n.feedback": "din feedback på startkittet (sendes aldrig automatisk)",
     "ops.n.precommit": "nøgletjek og længdelås før commit",
-    "ops.n.hooks": "tænder vagten og færdig-tjekket i {V}",
+    "ops.n.hooks": "tænder vagten og færdig-tjekket i Codex (skal godkendes med /hooks)",
     "ops.n.ignore": "holder nøglefiler ude af git",
     "ops.brug": "Brug: node opsaet.js <projektmappe> [--toer]",
     "mappe.findes.ikke": "Mappen findes ikke: {mappe}",
@@ -221,7 +223,7 @@ const TEKSTER = {
     "ops.saetter": "Sætter op i {root}:\n",
     "ops.lang": "\nBemærk: {regelfil} bliver på {linjer} linjer (højst 80). Flyt dine egne lange afsnit til docs/, ellers stopper længdelåsen næste commit.",
     "ops.ingen.tjek": "\nBemærk: der er ingen tjek-kommandoer i profilen, så beviset kan ikke afprøve noget endnu. Tag en første test med i planen.",
-    "ops.naeste": "\nNæste skridt: tænd nøgletjekket (git config core.hooksPath .githooks), tjek at hooks er indlæst i {V}, og start en ny chat.",
+    "ops.naeste": "\nNæste skridt: tænd nøgletjekket (git config core.hooksPath .githooks), godkend hooks med /hooks i Codex, og start en ny chat.",
 
     // ---- nøglescan (noeglescan.js) ----
     "scan.ingen.sh": "Kan ikke finde 'sh'. Den følger med Git for Windows (git-scm.com). Installer Git, og prøv igen.",
@@ -428,7 +430,7 @@ const TEKSTER = {
     "ops.n.genvej": "double-click to open the overview in the browser",
     "ops.n.feedback": "your feedback on the starter kit (never sent automatically)",
     "ops.n.precommit": "key check and length lock before commit",
-    "ops.n.hooks": "switches on the guard and the done-check in {V}",
+    "ops.n.hooks": "switches on the guard and the done-check in Codex (must be approved with /hooks)",
     "ops.n.ignore": "keeps key files out of git",
     "ops.brug": "Usage: node opsaet.js <project folder> [--dry-run]",
     "mappe.findes.ikke": "The folder does not exist: {mappe}",
@@ -439,7 +441,7 @@ const TEKSTER = {
     "ops.saetter": "Setting up in {root}:\n",
     "ops.lang": "\nNote: {regelfil} will be {linjer} lines long (80 at most). Move your own long sections to docs/, or the length lock will stop the next commit.",
     "ops.ingen.tjek": "\nNote: there are no check commands in the profile, so the proof cannot try anything yet. Include a first test in the plan.",
-    "ops.naeste": "\nNext step: switch on the key check (git config core.hooksPath .githooks), check that the hooks are loaded in {V}, and start a new chat.",
+    "ops.naeste": "\nNext step: switch on the key check (git config core.hooksPath .githooks), approve the hooks with /hooks in Codex, and start a new chat.",
 
     "scan.ingen.sh": "Cannot find 'sh'. It comes with Git for Windows (git-scm.com). Install Git, and try again.",
 
@@ -505,9 +507,22 @@ const TEKSTER_CLAUDE = {
   },
 };
 
+// Det samme for Antigravity: hooks i .agents/hooks.json indlæses af sig selv.
+const TEKSTER_GEMINI = {
+  da: {
+    "ops.n.hooks": "tænder vagten, færdig-tjekket og loop-stoppet i Antigravity",
+    "ops.naeste": "\nNæste skridt: tænd nøgletjekket (git config core.hooksPath .githooks), og start en ny chat i Antigravity.",
+  },
+  en: {
+    "ops.n.hooks": "switches on the guard, the done-check and the loop stop in Antigravity",
+    "ops.naeste": "\nNext step: switch on the key check (git config core.hooksPath .githooks), and start a new chat in Antigravity.",
+  },
+};
+
 // Henter en tekst på det aktuelle sprog og sætter værdier ind, hvor der står {navn}.
 function t(noegle, vaerdier = {}) {
-  const tekst = (vaerktoej() === "claude" ? TEKSTER_CLAUDE[sprog()][noegle] : undefined) ?? TEKSTER[sprog()][noegle] ?? TEKSTER.da[noegle];
+  const saer = vaerktoej() === "claude" ? TEKSTER_CLAUDE : vaerktoej() === "gemini" ? TEKSTER_GEMINI : null;
+  const tekst = (saer ? saer[sprog()][noegle] : undefined) ?? TEKSTER[sprog()][noegle] ?? TEKSTER.da[noegle];
   if (tekst === undefined) throw new Error(`Ukendt tekst: ${noegle}`);
   const alle = { ...vt(), ...vaerdier };
   return tekst.replace(/\{(\w+)\}/g, (hele, k) => (k in alle ? String(alle[k]) : hele));
@@ -519,4 +534,4 @@ function laesConfig(raa) {
   return { tjek: c.tjek ?? c.checks, fuld_tjek: c.fuld_tjek ?? c.full_checks, fuld_dage: c.fuld_dage ?? c.full_every_days, modelguide: c.modelguide ?? c.model_guide, graense_procent: c.graense_procent ?? c.limit_percent, vagt: c.vagt ?? c.guard };
 }
 
-module.exports = { t, sprog, fil, laesConfig, vaerktoej, vt, TEKSTER, TEKSTER_CLAUDE, FILER, VAERKTOEJER, FORBUDSREGLER };
+module.exports = { t, sprog, fil, laesConfig, vaerktoej, vt, TEKSTER, TEKSTER_CLAUDE, TEKSTER_GEMINI, FILER, VAERKTOEJER, FORBUDSREGLER };

@@ -268,3 +268,10 @@ Ordret output fra `node tests/run.js` (de røde linjer):
 Afprøvet 26. nov. 2026 med en midlertidig `.agents/hooks.json` (`PreToolUse`, matcher `run_command`), som kørte et lille Node-script og skrev tidspunkt + modtaget JSON til en midlertidig logfil (slettet igen bagefter).
 - Resultat: **Virker.** Antigravity kaldte hooken både i en frisk session og i den aktive chat og sendte gyldigt `camelCase`-JSON på stdin (`conversationId`, `cwd`, `hookEventName: "PreToolUse"`, `toolCall.name: "run_command"`, `toolCall.args.CommandLine`).
 
+
+## Gennemgang af Claude (Opus, 26. nov. 2026)
+
+- **Rettet:** vagten i Antigravity kendte kun gættede værktøjsnavne (`edit_file`, `write_file`, `read_file`) og argumentnavne (`Path`, `Content`). Kun `run_command` med `CommandLine` er set i praksis. Nu er matcheren `".*"`, og `regler.js` (`agyArgs`) ser på alle argumenter: navne, der ender på path/file/uri/dir, er stier; resten er indhold. Værktøjer, hvis navn ligner læsning (view, read, list, find, grep, search), må kun ikke røre `.env`. Matcheren ovenfor i Del 2 er derfor forældet.
+- **Rettet:** Codex-teksten "godkend hooks med /hooks" var fjernet for alle; den er tilbage, og Antigravity har sin egen tekst (`TEKSTER_GEMINI`).
+- **Rettet:** eksemplet i `haenger-sammen.md` / `what-goes-together.md` er neutralt.
+- **Ikke afprøvet:** at Antigravity accepterer `".*"` som matcher (eksemplet `browser_.*` i dokumentationen tyder på det, men det er kun læst af Gemini), om `continuationActive` kun er sand efter et "continue" (ellers kører færdig-tjekket aldrig), `install.ps1` med `-Vaerktoej gemini` (kræver Windows), og hele forløbet i en rigtig Antigravity-chat.

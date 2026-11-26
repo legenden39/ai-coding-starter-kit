@@ -16,7 +16,7 @@ const path = require("path");
 
 const GRAENSE = 2; // så mange gange skal den samme fejl komme, før der stoppes første gang
 const TAELLER = /^(Bash|PowerShell|run_command)$/; // kun kommandoer tælles: en fejlet læsning eller rettelse er ikke en løkke
-const STOPPES = /^(Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|apply_patch|run_command|edit_file|write_file)$/; // læsning stoppes aldrig: den er en del af at finde årsagen
+const STOPPES = /^(Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|apply_patch)$/; // læsning stoppes aldrig: den er en del af at finde årsagen
 
 const fil = (id) => path.join(os.tmpdir(), `startkit-${String(id || "ukendt").replace(/[^\w-]/g, "_").slice(0, 80)}-fejl.json`);
 
@@ -82,7 +82,9 @@ function noter(input = {}) {
 // Et stop bliver "brugt", når det er givet, så den næste handling går igennem.
 function skalStoppe(input = {}) {
   const sid = sidAf(input);
-  if (!sid || !STOPPES.test(navnAf(input))) return null;
+  // Antigravitys værktøjsnavne er ikke dokumenteret samlet: dér stoppes alt, der ikke ligner læsning (se regler.js).
+  const agy = input.toolCall && !input.tool_name;
+  if (!sid || (agy ? require("./regler").erAgyLaesning(navnAf(input)) : !STOPPES.test(navnAf(input)))) return null;
   if (!fs.existsSync(fil(sid))) return null;
   const data = laes(sid);
   const ramt = Object.values(data).filter((p) => p && p.antal >= GRAENSE && p.antal > (p.stoppet || 0)).sort((a, b) => b.antal - a.antal)[0];
