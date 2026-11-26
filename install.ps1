@@ -1,20 +1,21 @@
-# Installerer startkittet som en skill til Codex eller til Claude Code.
+# Installerer startkittet som en skill til Codex, Claude Code eller Antigravity (Gemini).
 # Det eneste, scriptet goer, er at kopiere mappen "startkit" til din brugermappe:
-# under .agents\skills (Codex) eller under .claude\skills (Claude Code).
+# under .agents\skills (Codex), .claude\skills (Claude Code) eller .gemini\config\skills (Antigravity).
 # Det henter ikke noget fra nettet og aendrer ingen indstillinger.
 # (Teksten er skrevet uden danske bogstaver med vilje, saa den vises rigtigt i alle terminaler.)
 #
 # -Til <mappe> bruges kun af testene, saa de ikke roerer din rigtige brugermappe.
 # -Sprog en    installerer den engelske udgave (det er det, install-english.cmd goer). Uden den er det dansk.
-# -Vaerktoej claude    installerer udgaven til Claude Code (det er det, installer-claude.cmd goer). Uden den er det Codex.
+# -Vaerktoej claude|gemini    installerer udgaven til Claude Code eller Antigravity. Uden den er det Codex.
 param([string]$Til, [string]$Sprog = "da", [string]$Vaerktoej = "codex")
 $ErrorActionPreference = "Stop"
 
 $en = ($Sprog -eq "en")
 $claude = ($Vaerktoej -eq "claude")
-$navn = if ($claude) { "Claude Code" } else { "Codex" }
-$skillsMappe = if ($claude) { ".claude\skills\startkit" } else { ".agents\skills\startkit" }
-$start = if ($claude) { "/startkit" } else { "`$startkit" }
+$gemini = ($Vaerktoej -eq "gemini")
+$navn = if ($claude) { "Claude Code" } elseif ($gemini) { "Antigravity" } else { "Codex" }
+$skillsMappe = if ($claude) { ".claude\skills\startkit" } elseif ($gemini) { ".gemini\config\skills\startkit" } else { ".agents\skills\startkit" }
+$start = if ($claude -or $gemini) { "/startkit" } else { "`$startkit" }
 # Sig <dansk> <engelsk>: skriver teksten paa det valgte sprog.
 function Sig([string]$da, [string]$eng) { if ($en) { Write-Host $eng } else { Write-Host $da } }
 
@@ -66,6 +67,13 @@ if ($claude) {
   $skill = if ($en) { "claude\en\SKILL.claude.en.md" } else { "claude\SKILL.claude.md" }
   Copy-Item -Force (Join-Path $til $skill) (Join-Path $til "SKILL.md")
   Set-Content -Path (Join-Path $til "scripts\projekt\vaerktoej.json") -Value '{"vaerktoej": "claude"}' -Encoding ASCII
+}
+if ($gemini) {
+  # Udgaven til Antigravity (Gemini): dens instruktioner laegges oeverst (paa det valgte sprog), og kittets programmer
+  # faar at vide, at vaerktoejet er gemini (Antigravity).
+  $skill = if ($en) { "gemini\en\SKILL.gemini.en.md" } else { "gemini\SKILL.gemini.md" }
+  Copy-Item -Force (Join-Path $til $skill) (Join-Path $til "SKILL.md")
+  Set-Content -Path (Join-Path $til "scripts\projekt\vaerktoej.json") -Value '{"vaerktoej": "gemini"}' -Encoding ASCII
 }
 
 Write-Host ""

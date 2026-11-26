@@ -6,7 +6,7 @@ English · [Dansk](README.da.md)
 
 **Turn your AI into a partner you can trust.** The starter kit sets up fixed rules and safety nets in your project, so the AI does not forget, does not delete your work, and does not say "done" before it works. You don't need to know how to code.
 
-Works with **Claude Code** and **Codex** (ChatGPT) · in English and Danish · free.
+Works with **Claude Code**, **Codex** (ChatGPT) and **Antigravity** (Gemini) · in English and Danish · free.
 
 ## How it works
 
@@ -28,7 +28,7 @@ flowchart LR
 
 The kit never chooses for you. It shows what will happen first and waits for your yes.
 
-<sub>* Repeats being stopped automatically (loop stop) only works in Claude Code. In Codex it is a rule the AI has to follow.</sub>
+<sub>* Repeats being stopped automatically (loop stop) works in Claude Code and Antigravity. In Codex it is a rule the AI has to follow.</sub>
 
 ## Get started
 
@@ -41,11 +41,11 @@ The kit never chooses for you. It shows what will happen first and waits for you
 
 Then open a folder for your project, start a new chat, and type `/startkit`.
 
-**With Codex, or with a file:**
+**With Codex, Antigravity, or with a file:**
 
 1. Download **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**, and extract it.
-2. Double-click `install-english.cmd` (for Claude Code: `install-claude-english.cmd`).
-3. Open a folder for your project, and type `$startkit` (Claude Code: `/startkit`).
+2. Double-click `install-english.cmd` (Claude Code: `install-claude-english.cmd`, Antigravity: `install-gemini-english.cmd`).
+3. Open a folder for your project, and type `$startkit` (Claude Code and Antigravity: `/startkit`).
 
 Missing Git or Node? The kit checks for you and helps. **Stuck?** Type "I am stuck" in the chat.
 
