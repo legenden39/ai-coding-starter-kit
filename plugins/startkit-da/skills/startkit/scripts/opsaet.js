@@ -16,12 +16,14 @@ const ASSETS = path.join(__dirname, "..", "assets");
 // De engelske skabeloner ligger i en/assets og hedder noget andet. Resten (nøgletjekket, .gitignore-tillægget) er fælles.
 const EN_ASSETS = path.join(__dirname, "..", "en", "assets");
 const EN_NAVNE = { "AGENTS.skabelon.md": "AGENTS.template.md", "projektstatus.skabelon.md": "project-status.template.md", "gentagne-fejl.md": "recurring-mistakes.md", "foer-du-deler.md": "before-you-share.md", "hvorfor-blev-jeg-stoppet.md": "why-was-i-stopped.md", "fortryd.md": "undo.md", "forloeb.skabelon.md": "progress.template.md", "feedback.skabelon.md": "feedback.template.md", "overblik.cmd": "overview.cmd", "haenger-sammen.md": "what-goes-together.md" };
-// Udgaven til Claude Code har sine egne udgaver af de få skabeloner, der nævner værktøjet (mappen claude). Resten er fælles.
+// Udgaverne til Claude Code og Antigravity har deres egne udgaver af de få skabeloner, der nævner værktøjet. Resten er fælles.
 const CLAUDE = path.join(__dirname, "..", "claude");
+const GEMINI = path.join(__dirname, "..", "gemini");
 function skabelon(navn) {
   const en = sprog() === "en" && EN_NAVNE[navn];
   const steder = [];
   if (vaerktoej() === "claude") steder.push(en ? path.join(CLAUDE, "en", "assets", EN_NAVNE[navn]) : path.join(CLAUDE, "assets", navn));
+  if (vaerktoej() === "gemini") steder.push(en ? path.join(GEMINI, "en", "assets", EN_NAVNE[navn]) : path.join(GEMINI, "assets", navn));
   steder.push(en ? path.join(EN_ASSETS, EN_NAVNE[navn]) : path.join(ASSETS, navn));
   for (const sted of steder) { const tekst = laes(sted); if (tekst !== null) return tekst; }
   return null;
@@ -110,6 +112,17 @@ function flettHooks(eksisterendeTekst, root) {
     try { data = JSON.parse(eksisterendeTekst); } catch { throw new Error(t("ops.hooks.json")); }
   }
   if (!data || typeof data !== "object" || Array.isArray(data)) data = {};
+  // Antigravity bruger navngivne top-niveauer i .agents/hooks.json (fx "startkit": { SessionStart, PreToolUse, PostToolUse, Stop }).
+  if (vaerktoej() === "gemini") {
+    const sti = (fil) => `node "${path.join(root, "scripts", "startkit", fil).replace(/\\/g, "/")}"`;
+    data.startkit = {
+      SessionStart: [{ type: "command", command: sti("start.js"), timeout: 15 }],
+      PreToolUse: [{ matcher: vt("hookvaerktoejer"), hooks: [{ type: "command", command: sti("vagt.js"), timeout: 30 }] }],
+      PostToolUse: [{ matcher: "run_command", hooks: [{ type: "command", command: sti("fejl.js"), timeout: 15 }] }],
+      Stop: [{ type: "command", command: sti("faerdig.js"), timeout: 60 }],
+    };
+    return JSON.stringify(data, null, 2) + "\n";
+  }
   if (!data.hooks || typeof data.hooks !== "object") data.hooks = {};
   for (const [event, gruppe] of Object.entries(voresHooks(root))) {
     const andre = (Array.isArray(data.hooks[event]) ? data.hooks[event] : []).filter((g) => !erVores(g));
@@ -174,7 +187,7 @@ function plan(root, raa) {
   // Projektets scripts skal tale samme sprog som kittet. Dansk er standard og behøver ingen fil.
   if (en || fs.existsSync(p("scripts", "startkit", "sprog.json"))) saet("scripts/startkit/sprog.json", JSON.stringify({ sprog: sprog() }) + "\n", t("ops.n.scripts"));
   // ... og vide, hvilket AI-værktøj de er sat op til. Codex er standard og behøver ingen fil.
-  if (vaerktoej() === "claude" || fs.existsSync(p("scripts", "startkit", "vaerktoej.json"))) saet("scripts/startkit/vaerktoej.json", JSON.stringify({ vaerktoej: vaerktoej() }) + "\n", t("ops.n.scripts"));
+  if (vaerktoej() !== "codex" || fs.existsSync(p("scripts", "startkit", "vaerktoej.json"))) saet("scripts/startkit/vaerktoej.json", JSON.stringify({ vaerktoej: vaerktoej() }) + "\n", t("ops.n.scripts"));
   // Windows-genvej (dobbeltklik). Skrives med CRLF, som .cmd-filer forventer.
   saet(fil("genvej"), skabelon("overblik.cmd").replace(/\n/g, "\r\n"), t("ops.n.genvej"));
   kunHvisMangler(".startkit/feedback.md", feedbackSkabelon(), t("ops.n.feedback"));

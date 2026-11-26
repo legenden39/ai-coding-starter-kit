@@ -27,8 +27,10 @@ t(tekst("tj.agents"), agents && agents.includes("<!-- startkit:start") && agents
 t(tekst("tj.agents.kort"), agents && agents.split("\n").length <= 80, tekst("tj.agents.kort.h"));
 t(tekst("tj.findes", { fil: "STATUS.md" }), laes("STATUS.md") !== null, igen);
 t(tekst("tj.findes", { fil: fil("fejl") }), laes(fil("fejl")) !== null, igen);
+t(tekst("tj.findes", { fil: fil("haenger") }), laes(fil("haenger")) !== null, igen);
+t(tekst("tj.findes", { fil: fil("deling") }), laes(fil("deling")) !== null, igen);
 
-for (const navn of ["regler.js", "tekster.js", "tilstand.js", "vagt.js", "faerdig.js", "bevis.js", "overblik.js", "forbrug-gem.js", "gemmepunkt.js", "fortryd.js", "start.js", "loopstop.js", "fejl.js"]) {
+for (const navn of ["regler.js", "tekster.js", "tilstand.js", "vagt.js", "faerdig.js", "bevis.js", "overblik.js", "forbrug-gem.js", "gemmepunkt.js", "fortryd.js", "start.js", "loopstop.js", "fejl.js", "statuslinje.js"]) {
   t(tekst("tj.findes", { fil: `scripts/startkit/${navn}` }), laes(`scripts/startkit/${navn}`) !== null, igen);
 }
 
@@ -36,14 +38,21 @@ t(tekst("tj.genvej", { fil: fil("genvej") }), laes(fil("genvej")) !== null, igen
 
 let hooks = null;
 try { hooks = JSON.parse(laes(vt("hookfil"))); } catch { /* håndteres nedenfor */ }
-const kommandoer = (event) => ((hooks && hooks.hooks && hooks.hooks[event]) || []).flatMap((g) => (g.hooks || []).map((h) => String(h.command || "")));
+const kommandoer = (event) => {
+  if (!hooks) return [];
+  if (vaerktoej() === "gemini") {
+    const poster = (hooks.startkit && hooks.startkit[event]) || [];
+    return poster.flatMap((g) => (Array.isArray(g.hooks) ? g.hooks : [g]).map((h) => String((h && h.command) || "")));
+  }
+  return ((hooks.hooks && hooks.hooks[event]) || []).flatMap((g) => (g.hooks || []).map((h) => String(h.command || "")));
+};
 const peger = (event, fil) => kommandoer(event).some((k) => { const m = k.match(/"([^"]+)"/); return m && m[1].endsWith(`scripts/startkit/${fil}`) && fs.existsSync(m[1]); });
 t(tekst("tj.hooks"), hooks, tekst("tj.hooks.h"));
 t(tekst("tj.vagt"), peger("PreToolUse", "vagt.js"), tekst("tj.flyttet"));
 t(tekst("tj.faerdig"), peger("Stop", "faerdig.js"), tekst("tj.flyttet"));
 
 if (vt("starthook")) t(tekst("tj.start"), peger("SessionStart", "start.js"), tekst("tj.flyttet"));
-if (vt("fejlhook")) t(tekst("tj.loop"), peger("PostToolUseFailure", "fejl.js"), tekst("tj.flyttet"));
+if (vt("fejlhook")) t(tekst("tj.loop"), peger(vaerktoej() === "gemini" ? "PostToolUse" : "PostToolUseFailure", "fejl.js"), tekst("tj.flyttet"));
 t(tekst("tj.findes", { fil: fil("fortryd") }), laes(fil("fortryd")) !== null, igen);
 if (vaerktoej() === "claude") {
   const deny = (hooks && hooks.permissions && hooks.permissions.deny) || [];
@@ -65,8 +74,12 @@ t(tekst("tj.env"), /^\.env$/m.test(gi), igen);
 // Prøv vagten for alvor: send den et forbudt kald, og se, at den afviser.
 let vagtVirker = false;
 try {
-  const ud = execFileSync("node", [p("scripts", "startkit", "vagt.js")], { cwd: root, encoding: "utf8", input: JSON.stringify({ tool_name: "Bash", tool_input: { command: "git commit --no-verify -m x" }, cwd: root }) });
-  vagtVirker = JSON.parse(ud).hookSpecificOutput.permissionDecision === "deny";
+  const proeve = vaerktoej() === "gemini"
+    ? { toolCall: { name: "run_command", args: { CommandLine: "git commit --no-verify -m x" } }, cwd: root }
+    : { tool_name: "Bash", tool_input: { command: "git commit --no-verify -m x" }, cwd: root };
+  const ud = execFileSync("node", [p("scripts", "startkit", "vagt.js")], { cwd: root, encoding: "utf8", input: JSON.stringify(proeve) });
+  const svar = JSON.parse(ud);
+  vagtVirker = vaerktoej() === "gemini" ? svar.decision === "deny" : svar.hookSpecificOutput.permissionDecision === "deny";
 } catch { /* vagtVirker forbliver false */ }
 t(tekst("tj.afviser"), vagtVirker, tekst("tj.afviser.h"));
 

@@ -23,6 +23,7 @@ function normSti(p) {
 const BESKYTTET = [
   /(^|\/)\.codex\/(hooks\.json|config\.toml)$/,
   /(^|\/)\.claude\/settings(\.local)?\.json$/,
+  /(^|\/)\.agents\/hooks\.json$/,
   /(^|\/)scripts\/startkit(\/|$)/,
   /(^|\/)\.githooks(\/|$)/,
   /(^|\/)\.git\/hooks(\/|$)/,
@@ -31,6 +32,7 @@ const BESKYTTET = [
 const BESKYTTET_I_TEKST = [
   /\.codex\/(hooks\.json|config\.toml)/,
   /\.claude\/settings(\.local)?\.json/,
+  /\.agents\/hooks\.json/,
   /scripts\/startkit\b/,
   /\.githooks\b/,
   /\.git\/hooks\b/,
@@ -301,11 +303,41 @@ function somTekst(raa) {
   return String(raa ?? "");
 }
 
+// Antigravity: navnene på værktøjerne og deres argumenter er ikke dokumenteret samlet (kun run_command med CommandLine
+// er set i praksis). Derfor ser vagten på alle argumenter, uanset hvad værktøjet hedder: et argument, hvis navn ender
+// på path/file/uri/dir (fx TargetFile, AbsolutePath), er en sti; resten er indhold. Et værktøj, der ligner læsning
+// (view, read, list, find, grep, search), må se kittets kontroller, men aldrig en .env-fil. Alt andet behandles som ændring.
+const AGY_LAESER = /(^|_)(view|read|list|find|grep|search|glob)(_|$)/i;
+const AGY_STI = /(path|paths|file|files|uri|dir|directory|folder)$|^target$/i;
+const AGY_KOMMANDO = /^(command|commandline|cwd)$/i;
+function agyArgs(args) {
+  const stier = [], indhold = [];
+  const gaa = (v, noegle) => {
+    if (typeof v === "string") { if (AGY_STI.test(noegle)) stier.push(v); else if (!AGY_KOMMANDO.test(noegle)) indhold.push(v); }
+    else if (Array.isArray(v)) v.forEach((x) => gaa(x, noegle));
+    else if (v && typeof v === "object") for (const [k, x] of Object.entries(v)) gaa(x, k);
+  };
+  gaa(args, "");
+  return { stier, indhold: indhold.join("\n") };
+}
+const erAgyLaesning = (navn) => AGY_LAESER.test(navn);
+
 function decide(input = {}) {
-  const navn = String(input.tool_name || "");
-  const ti = input.tool_input || {};
-  const tekst = somTekst(ti.command ?? ti.input ?? ti.patch ?? "");
+  const tc = input.toolCall && typeof input.toolCall === "object" ? input.toolCall : null;
+  const navn = String(input.tool_name || (tc && tc.name) || "");
+  const ti = input.tool_input || (tc && tc.args) || {};
+  const tekst = somTekst(ti.command ?? ti.CommandLine ?? ti.input ?? ti.patch ?? "");
   const fund = [];
+  if (tc && !input.tool_name) {
+    const { stier, indhold } = agyArgs(ti);
+    if (erAgyLaesning(navn)) {
+      const f = stier.find(erEnvFil);
+      return f ? deny("vagt.env.fil", { f }) : allow();
+    }
+    fund.push(filRegler(stier, [patchTilfoejet(tekst), indhold].filter(Boolean).join("\n")));
+    fund.push(shellRegler(tekst, { cwd: input.cwd, rod: input.projektrod }));
+    return fund.find(Boolean) || allow();
+  }
   // Claude Code læser og søger med egne værktøjer. De må gerne se kittets kontroller, men aldrig en .env-fil.
   if (/^(Read|Grep|Glob)$/.test(navn)) {
     const f = [ti.file_path, ti.path].filter(Boolean).find(erEnvFil);
@@ -322,4 +354,4 @@ function decide(input = {}) {
   return fund.find(Boolean) || allow();
 }
 
-module.exports = { decide, normSti, harNoegle, NOEGLE };
+module.exports = { decide, normSti, harNoegle, NOEGLE, erAgyLaesning };

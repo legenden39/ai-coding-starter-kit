@@ -31,7 +31,7 @@ jobs:
         if: steps.v.outputs.findes == 'nej'
         run: |
           mkdir -p pakke/ai-coding-starter-kit
-          cp -r startkit installer.cmd install-english.cmd installer-claude.cmd install-claude-english.cmd install.ps1 README.md README.da.md CHANGELOG.md CHANGELOG.da.md TEACHING.md UNDERVISNING.md LICENSE pakke/ai-coding-starter-kit/
+          cp -r startkit installer.cmd install-english.cmd installer-claude.cmd install-claude-english.cmd installer-gemini.cmd install-gemini-english.cmd install.ps1 README.md README.da.md CHANGELOG.md CHANGELOG.da.md TEACHING.md UNDERVISNING.md LICENSE pakke/ai-coding-starter-kit/
           cd pakke && zip -q -r ../ai-coding-starter-kit.zip ai-coding-starter-kit
       - name: Læg udgivelsen ud
         if: steps.v.outputs.findes == 'nej'

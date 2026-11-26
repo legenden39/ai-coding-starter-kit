@@ -6,7 +6,7 @@
 
 **Gør din AI til en makker, du kan stole på.** Startkittet sætter faste regler og sikkerhedsnet op i dit projekt, så AI'en ikke glemmer, ikke sletter dit arbejde og ikke siger "færdig", før det virker. Du behøver ikke kunne kode.
 
-Virker med **Claude Code** og **Codex** (ChatGPT) · på dansk og engelsk · gratis.
+Virker med **Claude Code**, **Codex** (ChatGPT) og **Antigravity** (Gemini) · på dansk og engelsk · gratis.
 
 ## Sådan virker det
 
@@ -28,7 +28,7 @@ flowchart LR
 
 Kittet vælger aldrig for dig. Det viser først, hvad der sker, og venter på dit ja.
 
-<sub>* At gentagelser stoppes af sig selv (loop-stop) virker kun i Claude Code. I Codex er det en regel, AI'en skal følge.</sub>
+<sub>* At gentagelser stoppes af sig selv (loop-stop) virker i Claude Code og Antigravity. I Codex er det en regel, AI'en skal følge.</sub>
 
 ## Kom i gang
 
@@ -41,11 +41,11 @@ Kittet vælger aldrig for dig. Det viser først, hvad der sker, og venter på di
 
 Åbn så en mappe til dit projekt, start en ny chat, og skriv `/startkit`.
 
-**Med Codex, eller med en fil:**
+**Med Codex, Antigravity eller med en fil:**
 
 1. Hent **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**, og pak den ud.
-2. Dobbeltklik på `installer.cmd` (til Claude Code: `installer-claude.cmd`).
-3. Åbn en mappe til dit projekt, og skriv `$startkit` (Claude Code: `/startkit`).
+2. Dobbeltklik på `installer.cmd` (Claude Code: `installer-claude.cmd`, Antigravity: `installer-gemini.cmd`).
+3. Åbn en mappe til dit projekt, og skriv `$startkit` (Claude Code og Antigravity: `/startkit`).
 
 Mangler du Git eller Node? Kittet tjekker det selv og hjælper dig. **Sidder du fast?** Skriv "jeg sidder fast" i chatten.
 
@@ -301,7 +301,7 @@ Der er to statusfiler, og de er ikke det samme: `STATUS.md` handler om dit proje
 <details>
 <summary><b>Fjern det igen</b></summary>
 
-Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<dig>\.claude\skills\startkit`). Herunder står Codex' filnavne; i Claude Code hedder de to filer `.claude/settings.local.json` og `CLAUDE.md`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json` (i Claude Code også `statusLine` og `blockWritesOutsideWorkingDirectories`, hvis du ikke vil beholde dem), fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, slet `overblik.cmd`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
+Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<dig>\.claude\skills\startkit`). Herunder står Codex' filnavne; i Claude Code hedder de to filer `.claude/settings.local.json` og `CLAUDE.md`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json` (i Claude Code også `statusLine` og `blockWritesOutsideWorkingDirectories`, hvis du ikke vil beholde dem), fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, slet `overblik.cmd`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md`, `docs/haenger-sammen.md`, `docs/foer-du-deler.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
 
 </details>
 

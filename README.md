@@ -6,7 +6,7 @@ English · [Dansk](README.da.md)
 
 **Turn your AI into a partner you can trust.** The starter kit sets up fixed rules and safety nets in your project, so the AI does not forget, does not delete your work, and does not say "done" before it works. You don't need to know how to code.
 
-Works with **Claude Code** and **Codex** (ChatGPT) · in English and Danish · free.
+Works with **Claude Code**, **Codex** (ChatGPT) and **Antigravity** (Gemini) · in English and Danish · free.
 
 ## How it works
 
@@ -28,7 +28,7 @@ flowchart LR
 
 The kit never chooses for you. It shows what will happen first and waits for your yes.
 
-<sub>* Repeats being stopped automatically (loop stop) only works in Claude Code. In Codex it is a rule the AI has to follow.</sub>
+<sub>* Repeats being stopped automatically (loop stop) works in Claude Code and Antigravity. In Codex it is a rule the AI has to follow.</sub>
 
 ## Get started
 
@@ -41,11 +41,11 @@ The kit never chooses for you. It shows what will happen first and waits for you
 
 Then open a folder for your project, start a new chat, and type `/startkit`.
 
-**With Codex, or with a file:**
+**With Codex, Antigravity, or with a file:**
 
 1. Download **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**, and extract it.
-2. Double-click `install-english.cmd` (for Claude Code: `install-claude-english.cmd`).
-3. Open a folder for your project, and type `$startkit` (Claude Code: `/startkit`).
+2. Double-click `install-english.cmd` (Claude Code: `install-claude-english.cmd`, Antigravity: `install-gemini-english.cmd`).
+3. Open a folder for your project, and type `$startkit` (Claude Code and Antigravity: `/startkit`).
 
 Missing Git or Node? The kit checks for you and helps. **Stuck?** Type "I am stuck" in the chat.
 
@@ -71,7 +71,7 @@ The starter kit asks at most 2-3 things at a time.
 
 Afterwards (optional, in a new chat): the thorough interview about the project, mapping, research and plan.
 
-**Stuck?** Just write "jeg sidder fast" ("I am stuck") or say that you did not understand. The kit then explains it another way.
+**Stuck?** Just write "I am stuck" or say that you did not understand. The kit then explains it another way.
 
 You can pause at any time. Type `$startkit` again another day, and it continues where you left off. The more detailed your answers, the better the result fits you.
 
@@ -317,7 +317,7 @@ There are two status files, and they are not the same: `STATUS.md` is about your
 <details>
 <summary><b>Remove it again</b></summary>
 
-Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Users\<you>\.claude\skills\startkit`). Codex's file names are used below; in Claude Code the two files are called `.claude/settings.local.json` and `CLAUDE.md`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json` (in Claude Code also `statusLine` and `blockWritesOutsideWorkingDirectories`, if you do not want to keep them), remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
+Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Users\<you>\.claude\skills\startkit`). Codex's file names are used below; in Claude Code the two files are called `.claude/settings.local.json` and `CLAUDE.md`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json` (in Claude Code also `statusLine` and `blockWritesOutsideWorkingDirectories`, if you do not want to keep them), remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md`, `docs/what-goes-together.md`, `docs/before-you-share.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
 
 </details>
 
@@ -356,7 +356,7 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Use
 | The help with installing Superpowers in Claude Code | **Not tried** |
 | Double-clicking `install-english.cmd` on a real computer | **Not tried** |
 | The English edition run through Codex with a real person | **Not tried** |
-| Double-clicking `installer.cmd` and `overblik.cmd` on someone else's computer (Windows may warn) | **Not tried** |
+| Double-clicking `installer.cmd` and `overview.cmd` on someone else's computer (Windows may warn) | **Not tried** |
 | The run with the small interview, the feedback questions and the notes along the way, run through Codex | **Not tried** |
 | The kit used with a class | **Not tried** |
 | That Codex actually runs the hooks the way the documentation describes | **Not tried** |

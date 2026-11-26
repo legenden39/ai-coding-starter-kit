@@ -11,6 +11,7 @@ It refuses:
 - **Commands that throw away changes** that are not saved in a commit: `git checkout .`, `git restore .` (without `--staged`), `git checkout -f`, `git switch -f`, `git stash drop` and `git stash clear`, and `git branch -D`. A single file the AI may restore.
 - **Deletion that cannot be undone:** anything outside the project folder or in your home folder, "everything" in a folder (`rm -rf *`, `del /s /q *.*`), whole folders with contents (`rm -rf src`), and paths with a variable in them (`rm -rf "$FOLDER/"`, where an empty variable hits something completely different). Single files in the project, and folders that can be recreated (`node_modules`, `dist`, `build`), the AI may delete.
 - **Changes to the controls themselves** (`.claude/settings.local.json`, `scripts/startkit/`, `.githooks/`, `.startkit/config.json`, the proof). Otherwise the AI could switch them off when they are in the way.
+- **Repeated errors in the same chat (loop stop, when the tool reports errors to hooks):** If the same command fails in the same way twice in a chat, the guard stops once and asks the AI to find the cause first. If it happens again, it suggests writing the error in `STATUS.md` and starting a new chat.
 
 If it is something you want done yourself, run the command in your own terminal. The guard only stops the AI, not you.
 
@@ -39,4 +40,4 @@ Write it in `STATUS.md` under "Open problems", and run the command yourself in t
 ## The file names are Danish
 
 The kit was first written in Danish, and the programs in `scripts/startkit/` kept their Danish names:
-`vagt.js` is the guard, `faerdig.js` the done-check, `bevis.js` the proof, `overblik.js` the overview, `forbrug-gem.js` saves your usage numbers, `regler.js` holds the guard's rules, `tekster.js` the messages and `tilstand.js` shared helpers.
+`vagt.js` is the guard, `faerdig.js` the done-check, `bevis.js` the proof, `overblik.js` the overview, `forbrug-gem.js` saves your usage numbers, `fortryd.js` and `gemmepunkt.js` handle save points and undo, `start.js` loads status at chat start, `loopstop.js` and `fejl.js` count repeated errors, `statuslinje.js` shows chat fullness, `regler.js` holds the guard's rules, `tekster.js` the messages and `tilstand.js` shared helpers.

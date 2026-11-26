@@ -5,26 +5,29 @@
 const fs = require("fs");
 const path = require("path");
 const { rod, fingeraftryk, laesStart } = require("./tilstand");
-const { t } = require("./tekster");
+const { t, vaerktoej } = require("./tekster");
 
-function fortsaet(reason) { fs.writeSync(1, JSON.stringify({ decision: "block", reason })); }
+let erAgy = vaerktoej() === "gemini";
+function fortsaet(reason) { fs.writeSync(1, JSON.stringify({ decision: erAgy ? "continue" : "block", reason })); }
+function stopOk() { if (erAgy) fs.writeSync(1, "{}"); process.exit(0); }
 
 try {
   const input = JSON.parse(fs.readFileSync(0, "utf8") || "{}");
-  if (input.stop_hook_active) process.exit(0); // er allerede blevet bedt om det én gang
+  if ("continuationActive" in input || "conversationId" in input) erAgy = true;
+  if (input.stop_hook_active || input.continuationActive) stopOk(); // er allerede blevet bedt om det én gang
   const r = rod(input.cwd);
-  if (!r) process.exit(0); // ikke et git-projekt: intet at sammenligne med
-  const start = laesStart(input.session_id);
-  if (!start) process.exit(0); // intet værktøj er brugt i denne chat
+  if (!r) stopOk(); // ikke et git-projekt: intet at sammenligne med
+  const start = laesStart(input.session_id || input.conversationId);
+  if (!start) stopOk(); // intet værktøj er brugt i denne chat
   const nu = fingeraftryk(r);
-  if (!nu || nu === start) process.exit(0); // koden er ikke ændret
+  if (!nu || nu === start) stopOk(); // koden er ikke ændret
 
   let bevis = null;
   try { bevis = JSON.parse(fs.readFileSync(path.join(r, ".startkit", "bevis.json"), "utf8")); } catch { /* intet bevis endnu */ }
-  if (bevis && bevis.ok === true && bevis.fingeraftryk === nu) process.exit(0);
+  if (bevis && bevis.ok === true && bevis.fingeraftryk === nu) stopOk();
 
   const hvorfor = t(!bevis ? "faerdig.intet" : bevis.ok !== true ? "faerdig.roedt" : "faerdig.aendret");
   fortsaet(t("faerdig.besked", { hvorfor }));
 } catch {
-  process.exit(0); // et defekt færdig-tjek må ikke låse chatten
+  stopOk(); // et defekt færdig-tjek må ikke låse chatten
 }
