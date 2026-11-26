@@ -8,6 +8,12 @@ All editions are betas. None of them has been tried in Codex by the person who m
 
 ## Not released yet
 
+Nothing yet.
+
+## 0.10.0-beta (November 2026)
+
+The kit builds only the foundation (six short questions instead of the long interview), a short and visual README, loop stop and five improvements from a real project.
+
 - **Status line, write block and security check:** in Claude Code a status line now shows how much of the chat has been used, and says at 70 % that it is time for a new chat (`scripts/startkit/statuslinje.js`); the documentation describes the status line in the terminal, not in the desktop app. The setup sets `permissions.blockWritesOutsideWorkingDirectories`, so the AI does not write files outside the project folder (Claude Code only). A status line or a choice the person made themselves is kept. The rules file offers a weekly security check that only reads, and the project steps suggest forbidding direct deploys. Both languages, tests in `forbedringer`. Not tried in a real chat.
 
 - **Does the new thing fit with the rest?** New file in the project: `docs/what-goes-together.md`, a list of things that belong together ("a new page for a place also needs a walkthrough and a menu item"). The rules file and the done-check ask the AI to look at things of the same kind, say what the new one lacks, and suggest new lines and a test when it matters. Locks in the list are checked by the proof as in the mistake list. Both languages, tests in `forbedringer`. The idea comes from a real project where a new page did not get the walkthrough the other pages had.
