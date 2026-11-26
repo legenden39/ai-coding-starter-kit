@@ -120,6 +120,11 @@ function flettHooks(eksisterendeTekst, root) {
     if (!data.permissions || typeof data.permissions !== "object" || Array.isArray(data.permissions)) data.permissions = {};
     const har = Array.isArray(data.permissions.deny) ? data.permissions.deny : [];
     data.permissions.deny = [...har, ...FORBUDSREGLER.filter((r) => !har.includes(r))];
+    // AI'en må ikke skrive filer uden for projektmappen. Har personen selv sat det til false, bevares det.
+    if (data.permissions.blockWritesOutsideWorkingDirectories === undefined) data.permissions.blockWritesOutsideWorkingDirectories = true;
+    // Statuslinjen viser, hvor fuld chatten er. En statuslinje, personen selv har sat op, røres ikke.
+    const voresLinje = `node "${path.join(root, "scripts", "startkit", "statuslinje.js").replace(/\\/g, "/")}"`;
+    if (!data.statusLine || /scripts\/startkit\/statuslinje\.js/.test(String(data.statusLine.command || "").replace(/\\/g, "/"))) data.statusLine = { type: "command", command: voresLinje };
   }
   return JSON.stringify(data, null, 2) + "\n";
 }

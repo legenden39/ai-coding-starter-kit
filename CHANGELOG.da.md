@@ -8,6 +8,8 @@ Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet 
 
 ## Ikke udgivet endnu
 
+- **Statuslinje, spærring og sikkerhedstjek:** i Claude Code viser en statuslinje nu, hvor meget af chatten der er brugt, og siger ved 70 %, at det er tid til en ny chat (`scripts/startkit/statuslinje.js`); dokumentationen beskriver statuslinjen i terminalen, ikke i skrivebordsappen. Opsætningen sætter `permissions.blockWritesOutsideWorkingDirectories`, så AI'en ikke skriver filer uden for projektmappen (kun Claude Code). En statuslinje eller et valg, personen selv har lavet, bevares. Regelfilen tilbyder et ugentligt sikkerhedstjek, der kun læser, og projekttrinnet foreslår forbud mod direkte udrulning. Begge sprog, test i `forbedringer`. Ikke afprøvet i en rigtig chat.
+
 - **Passer det nye ind i resten?** Ny fil i projektet: `docs/haenger-sammen.md`, en liste over ting, der hører sammen ("en ny side for et sted skal også have en gennemgang og et menupunkt"). Regelfilen og færdig-tjekket beder AI'en se på ting af samme slags, sige, hvad det nye mangler, og foreslå nye linjer og en test, når det er vigtigt. Låse i listen tjekkes af beviset som i fejllisten. Begge sprog, test i `forbedringer`. Idéen kommer fra et rigtigt projekt, hvor en ny side ikke fik den gennemgang, de andre sider havde.
 
 - **Låsene i fejllisten tjekkes:** står der en sti i backticks under "Låst af" i `docs/gentagne-fejl.md`, bliver beviset rødt, hvis filen forsvinder, og det siger hvilken. Et punkt, der er låst med "tekstregel" eller "nej", tjekkes ikke. Listen siger nu også, at AI'en spørger, om et punkt kan fjernes, når det ikke er sket i flere måneder. Begge sprog, test i `forbedringer`.

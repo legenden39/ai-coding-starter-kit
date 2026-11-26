@@ -68,4 +68,40 @@ for (const [sprog, liste] of [["da", "docs/haenger-sammen.md"], ["en", "docs/wha
   tjek(`${sprog}: opsætningen lægger ${liste} i projektet`, r.status === 0 && fs.existsSync(path.join(rod, liste)), r.stdout + r.stderr);
 }
 
+// ---- statuslinjen (kun Claude Code) ----
+for (const [sprog, ny, ok, fuld] of [["da", /^Chatten: ny$/, /^Chatten: 45 % brugt$/, /^Chatten: 72 % brugt · skift snart til en ny chat/], ["en", /^Chat: new$/, /^Chat: 45 % used$/, /^Chat: 72 % used · switch to a new chat soon/]]) {
+  const linje = (input) => spawnSync("node", [path.join(KIT, "scripts", "projekt", "statuslinje.js")], { input, encoding: "utf8", env: { ...process.env, STARTKIT_SPROG: sprog } });
+  let r = linje(JSON.stringify({ context_window: { used_percentage: null } }));
+  tjek(`${sprog}: statuslinjen uden tal (tidligt i chatten)`, r.status === 0 && ny.test(r.stdout), r.stdout + r.stderr);
+  r = linje(JSON.stringify({ context_window: { used_percentage: 44.6 } }));
+  tjek(`${sprog}: statuslinjen viser, hvor meget af chatten der er brugt`, ok.test(r.stdout), r.stdout);
+  r = linje(JSON.stringify({ context_window: { used_percentage: 72 } }));
+  tjek(`${sprog}: ved 70 % eller mere siger den, at det er tid til en ny chat`, fuld.test(r.stdout), r.stdout);
+  r = linje("ikke json");
+  tjek(`${sprog}: ødelagt input får ikke statuslinjen til at fejle`, r.status === 0 && ny.test(r.stdout), r.stdout + r.stderr);
+}
+
+// ---- opsætningen i Claude Code: statuslinje og spærring mod at skrive uden for projektmappen ----
+const opsaetSom = (vaerktoej, rod) => spawnSync("node", [path.join(KIT, "scripts", "opsaet.js"), rod], { encoding: "utf8", env: { ...process.env, STARTKIT_SPROG: "da", STARTKIT_VAERKTOEJ: vaerktoej } });
+const medProfil = () => { const rod = nytProjekt(); skriv(rod, ".startkit/profil.json", fs.readFileSync(path.join(__dirname, "eksempel-profil.json"), "utf8")); return rod; };
+let rod = medProfil();
+let r = opsaetSom("claude", rod);
+let ind = {}; try { ind = JSON.parse(fs.readFileSync(path.join(rod, ".claude", "settings.local.json"), "utf8")); } catch { /* ingen fil */ }
+tjek("claude: opsætningen spærrer skrivning uden for projektmappen", r.status === 0 && ind.permissions && ind.permissions.blockWritesOutsideWorkingDirectories === true, r.stdout + r.stderr);
+tjek("claude: opsætningen sætter statuslinjen op med kittets script", ind.statusLine && ind.statusLine.type === "command" && /scripts\/startkit\/statuslinje\.js/.test(ind.statusLine.command) && fs.existsSync(path.join(rod, "scripts", "startkit", "statuslinje.js")));
+rod = medProfil();
+skriv(rod, ".claude/settings.local.json", JSON.stringify({ statusLine: { type: "command", command: "min-egen.sh" }, permissions: { blockWritesOutsideWorkingDirectories: false } }));
+opsaetSom("claude", rod);
+ind = JSON.parse(fs.readFileSync(path.join(rod, ".claude", "settings.local.json"), "utf8"));
+tjek("claude: personens egen statuslinje og eget valg om spærringen bevares", ind.statusLine.command === "min-egen.sh" && ind.permissions.blockWritesOutsideWorkingDirectories === false, JSON.stringify(ind));
+rod = medProfil();
+opsaetSom("codex", rod);
+const codex = fs.readFileSync(path.join(rod, ".codex", "hooks.json"), "utf8");
+tjek("codex: ingen statuslinje eller Claude-indstillinger i Codex' fil", !/statusLine|blockWritesOutside/.test(codex));
+
+// ---- ugentligt sikkerhedstjek ----
+tjek("da: regelfilen har det ugentlige sikkerhedstjek, der kun læser", /Én gang om ugen: tilbyd et sikkerhedstjek, der kun læser/.test(laes("assets", "AGENTS.skabelon.md")));
+tjek("en: regelfilen har det ugentlige sikkerhedstjek, der kun læser", /Once a week: offer a security check that only reads/.test(laes("en", "assets", "AGENTS.template.md")));
+tjek("projekttrinnet foreslår forbud mod direkte udrulning, på begge sprog", /den direkte kommando forbydes/.test(laes("references", "projekt-trin.md")) && /the direct command is forbidden/.test(laes("en", "references", "project-steps.md")));
+
 slut("forbedringer");

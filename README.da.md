@@ -301,7 +301,7 @@ Der er to statusfiler, og de er ikke det samme: `STATUS.md` handler om dit proje
 <details>
 <summary><b>Fjern det igen</b></summary>
 
-Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<dig>\.claude\skills\startkit`). Herunder står Codex' filnavne; i Claude Code hedder de to filer `.claude/settings.local.json` og `CLAUDE.md`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json`, fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, slet `overblik.cmd`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
+Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<dig>\.claude\skills\startkit`). Herunder står Codex' filnavne; i Claude Code hedder de to filer `.claude/settings.local.json` og `CLAUDE.md`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json` (i Claude Code også `statusLine` og `blockWritesOutsideWorkingDirectories`, hvis du ikke vil beholde dem), fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, slet `overblik.cmd`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
 
 </details>
 

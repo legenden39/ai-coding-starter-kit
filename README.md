@@ -317,7 +317,7 @@ There are two status files, and they are not the same: `STATUS.md` is about your
 <details>
 <summary><b>Remove it again</b></summary>
 
-Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Users\<you>\.claude\skills\startkit`). Codex's file names are used below; in Claude Code the two files are called `.claude/settings.local.json` and `CLAUDE.md`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
+Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Users\<you>\.claude\skills\startkit`). Codex's file names are used below; in Claude Code the two files are called `.claude/settings.local.json` and `CLAUDE.md`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json` (in Claude Code also `statusLine` and `blockWritesOutsideWorkingDirectories`, if you do not want to keep them), remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
 
 </details>
 

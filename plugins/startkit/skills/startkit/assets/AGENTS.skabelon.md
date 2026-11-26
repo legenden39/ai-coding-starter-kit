@@ -15,6 +15,7 @@ Ejer: {{NAVN}}. Kun ejeren godkender nye eller ændrede aftaler.
 - Sig først "færdig", når `node scripts/startkit/bevis.js` er grøn, du har prøvet det som en bruger (åbnet siden, trykket på knappen, kørt programmet) og sagt, hvad du så, og hvad du ikke har afprøvet. Beviset kører selv den fulde test mindst én gang om ugen; `--fuld` tvinger den.
 - Før en opgave: saml alle dine spørgsmål i én liste, og vis en kort plan. Ejerens ja til planen dækker det, der står i den; stop kun, hvis noget fejler, eller noget skal laves anderledes end aftalt.
 - Tilføjer du noget nyt: se på ting af samme slags og i `docs/haenger-sammen.md`, og sig, hvad de har, som det nye mangler. Ser du et mønster, så foreslå en linje i listen, og en test, når det er vigtigt.
+- Én gang om ugen: tilbyd et sikkerhedstjek, der kun læser (nøglescannet `sh .githooks/pre-commit --scan`, og fx `npm audit`, hvis projektet bruger npm). Skriv fund og dato i `STATUS.md`; ret intet uden ejerens ja.
 - Slut hver tur med arbejde, der kører, eller ét konkret spørgsmål øverst i svaret. Skriv aldrig bare "jeg venter".
 - Ret årsagen, ikke symptomet. Kan du ikke finde årsagen, så sig det.
 - Opdatér `STATUS.md`, hver gang et delmål er nået, ikke kun til sidst. Så kan en chat, der bliver afbrudt af forbrugsgrænsen, tages op igen uden at miste tråden.
