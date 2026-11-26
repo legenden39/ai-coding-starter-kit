@@ -83,6 +83,17 @@ Der er fire ting, du selv skal gøre, før startkittet kan tage over. Regn med 1
 
 Skal du bruge kittet på et hold? Se [vejledningen til undervisere](UNDERVISNING.md).
 
+### Hurtig start (har du allerede Claude Code, Git og Node)
+
+1. Skriv de to linjer i Claude Code, én ad gangen:
+   ```
+   /plugin marketplace add legenden39/ai-coding-starter-kit
+   /plugin install startkit-da@ai-coding-starter-kit
+   ```
+2. Åbn en mappe til dit projekt, start en ny chat, og skriv `/startkit`.
+
+Kittet stiller seks korte spørgsmål og sætter så fundamentet op: regler, sikkerhedsnet, gemmepunkter og fejlliste. Bruger du Codex, eller mangler du noget af det ovenfor, så følg trinnene herunder.
+
 ### Trin 1: Få Codex eller Claude Code
 
 Du skal kun bruge det ene. Har du allerede et abonnement på ChatGPT eller Claude, så vælg det værktøj, der hører til.

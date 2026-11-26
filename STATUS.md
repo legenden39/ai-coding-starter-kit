@@ -8,6 +8,7 @@
 
 ## Sidst lavet (26. nov. 2026)
 - Ny gren `claude/fundament-som-standard` fra `main` (lokal, ikke pushet): fundament-sporet (16. nov.) er committet, og grenen med loop-stop (`claude/modest-cannon-81wyft`) er flettet oven på. Koden flettede uden konflikter; kun ændringslogge og denne fil skulle samles i hånden. Mål: en udgivelse, hvor folk installerer hurtigt og får fundamentet med det samme uden det lange interview.
+- Hurtig start (to linjer i Claude Code + `/startkit`) øverst i "Kom i gang" i begge README'er. Prøve-vejledning til ejeren: `docs/afproevning-fundament.md`. Grenen er pushet efter ejerens ja (ingen pull request). Tjekket før push: nøglescan (`--scan`) og testen `rent`. Ikke tjekket: hurtig start på Windows og Mac.
 
 ## Før det (19. nov. 2026)
 - Gennemgang af loop-stop (commit `11c12bb`) med Opus 5.5. Hook-opsætningen passer til den officielle dokumentation (`PostToolUseFailure`, matcher `Bash|PowerShell`, felterne `error` og `is_interrupt`; kun læst, ikke afprøvet i en chat). Højst ét stop pr. fejl: ja. Rettet: (1) uddraget kunne indeholde adgangskoder (`https://bruger:kode@...`, `password=...`), nu skjult, og tællerens fil laves kun læselig for ejeren; (2) en Windows-sti i `rens()` slugte teksten frem til en senere `/`, så to forskellige fejl kunne tælle som én. Nye tests på dansk og engelsk. `node tools/byg.js --tjek` og `node tests/run.js` er grønne. Grenen `claude/modest-cannon-81wyft` ligger på GitHub (den er altså pushet).

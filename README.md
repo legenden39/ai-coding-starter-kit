@@ -84,6 +84,17 @@ There are four things you have to do yourself before the starter kit can take ov
 
 Going to use the kit with a class? See the [guide for teachers](TEACHING.md).
 
+### Quick start (if you already have Claude Code, Git and Node)
+
+1. Type these two lines in Claude Code, one at a time:
+   ```
+   /plugin marketplace add legenden39/ai-coding-starter-kit
+   /plugin install startkit@ai-coding-starter-kit
+   ```
+2. Open a folder for your project, start a new chat, and type `/startkit`.
+
+The kit asks six short questions and then sets up the foundation: rules, safety nets, restore points and a list of repeated mistakes. Using Codex, or missing any of the above? Then follow the steps below.
+
 ### Step 1: Get Codex or Claude Code
 
 You only need one of them. If you already have a ChatGPT or Claude subscription, choose the tool that goes with it.
