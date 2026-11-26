@@ -97,6 +97,8 @@ function voresHooks(root) {
   };
   // Claude Code: læs statusfilen ind, når en chat begynder, fortsætter, bliver ryddet eller kortet ned.
   if (vt("starthook")) ud.SessionStart = { matcher: "startup|resume|clear|compact", hooks: [{ type: "command", command: sti("start.js"), timeout: 15 }] };
+  // Claude Code: tæl kommandoer, der fejler, så vagten kan stoppe en løkke (se loopstop.js). Codex har ingen hændelse for fejl.
+  if (vt("fejlhook")) ud.PostToolUseFailure = { matcher: "Bash|PowerShell", hooks: [{ type: "command", command: sti("fejl.js"), timeout: 15 }] };
   return ud;
 }
 const erVores = (gruppe) => Array.isArray(gruppe && gruppe.hooks) && gruppe.hooks.some((h) => /scripts\/startkit\//.test(String((h && h.command) || "").replace(/\\/g, "/")));

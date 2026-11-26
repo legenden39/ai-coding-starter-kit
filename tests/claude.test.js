@@ -246,7 +246,7 @@ git(rod, "config", "core.hooksPath", ".githooks");
 r = koer("node", [TJEK, rod], { sprog: "en" });
 tjek("engelsk: tjek af opsætningen er grønt", r.kode === 0 && /Everything is set up/.test(r.ud) && /CLAUDE\.md exists/.test(r.ud) && !/Codex/.test(r.ud) && !DANSKE_BOGSTAVER.test(r.ud), r.ud + r.fejl);
 const x = koer("node", [path.join(rod, "scripts", "startkit", "vagt.js")], { cwd: rod, vaerktoej: "ingen", input: JSON.stringify({ session_id: "claude-en-" + process.pid, cwd: rod, hook_event_name: "PreToolUse", tool_name: "Read", tool_input: { file_path: path.join(rod, ".env") } }) });
-tjek("engelsk: vagten afviser læsning af .env på engelsk", /"deny"/.test(x.ud) && /is a \.env file/.test(x.ud) && /why-was-i-stopped\.md/.test(x.ud), x.ud + x.fejl);
+tjek("engelsk: vagten afviser læsning af .env på engelsk", /"deny"/.test(x.ud) && /is a file with the project's keys/.test(x.ud) && /why-was-i-stopped\.md/.test(x.ud), x.ud + x.fejl);
 try { fs.unlinkSync(path.join(os.tmpdir(), `startkit-claude-en-${process.pid}.json`)); } catch { /* ikke vigtigt */ }
 
 // ---- installation i hånden, som README beskriver: kopiér mappen, læg Claude-udgavens SKILL.md øverst, og skriv vaerktoej.json ----
