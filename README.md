@@ -2,7 +2,7 @@
 
 English · [Dansk](README.da.md)
 
-> **Beta, version 0.9.0-beta.** A trial edition: there will be bugs. See the [changelog](CHANGELOG.md).
+> **Beta, version 0.10.0-beta.** A trial edition: there will be bugs. See the [changelog](CHANGELOG.md).
 
 **Turn your AI into a partner you can trust.** The starter kit sets up fixed rules and safety nets in your project, so the AI does not forget, does not delete your work, and does not say "done" before it works. You don't need to know how to code.
 

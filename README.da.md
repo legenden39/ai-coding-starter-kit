@@ -2,7 +2,7 @@
 
 [English](README.md) · Dansk
 
-> **Beta, version 0.9.0-beta.** En prøveudgave: der vil være fejl. Se [ændringer](CHANGELOG.da.md).
+> **Beta, version 0.10.0-beta.** En prøveudgave: der vil være fejl. Se [ændringer](CHANGELOG.da.md).
 
 **Gør din AI til en makker, du kan stole på.** Startkittet sætter faste regler og sikkerhedsnet op i dit projekt, så AI'en ikke glemmer, ikke sletter dit arbejde og ikke siger "færdig", før det virker. Du behøver ikke kunne kode.
 
