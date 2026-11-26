@@ -234,3 +234,24 @@ Intet er bygget endnu. Fordi Antigravity **faktisk har** både regelfiler (`GEMI
 Vælg **Mulighed A**. Så får Antigravity det fulde sikkerhedsnet i et overskueligt skridt, som vi kan afprøve direkte her i Antigravity, og hvis du senere vil have den som plugin, kan vi lægge **Mulighed B** ovenpå.
 
 **Hvad vælger du: Mulighed A, B eller C?** (Eller vil du have noget rettet fra Del 1 først?)
+
+---
+
+## Røde tests
+
+Ordret output fra `node tests/run.js` (de røde linjer):
+
+```text
+  ❌ tælle-grep: der findes en sh, hvor grep-starter kan tælles
+     prøvet: sh, C:\Program Files\Git\usr\bin\sh.exe, C:\Program Files\Git\bin\sh.exe
+❌ noeglescan: 0/1 tjek
+  ❌ rent: .github\FUNDING.yml
+  ❌ rent: plugins\startkit\skills\startkit\assets\haenger-sammen.md
+  ❌ rent: plugins\startkit-da\skills\startkit\assets\haenger-sammen.md
+  ❌ rent: README.da.md
+  ❌ rent: README.md
+  ❌ rent: startkit\assets\haenger-sammen.md
+❌ opsaet: 400/406 tjek
+
+2 testfil(er) er røde.
+```
