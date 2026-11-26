@@ -8,7 +8,7 @@ All editions are betas. None of them has been tried in Codex by the person who m
 
 ## Not released yet
 
-- **Quick start in the README:** two lines in Claude Code and `/startkit`, at the top of "Get started". The long steps are unchanged below it. Both languages. The plugin route is still only tried on Linux.
+- **New, shorter README:** the top now holds only the essentials: a drawing of the flow, a table of what you get (without and with the kit), and three steps to get started. Everything else (caveats, step by step, safety, glossary, what has been tried) is unchanged further down, folded away. Both languages. The plugin route is still only tried on Linux.
 
 - **The kit builds only the foundation:** the run was too big, because it also interviewed about the project itself, researched solutions and built a tailored layer, and the user lost track of where they were. The run is now: introduction, computer check, key scan, a small interview (six questions about how the AI should behave), the foundation (rules, guard, done-check, key check, save points, mistakes list), a try-out of the safety net, and a wrap-up (overview, first commit, backup, feedback). The choice between a short and a full path is gone, and the phases are renumbered 1-6. The thorough interview, mapping, research and plan, and the tailored layer now live in a separate, optional project step (`en/references/project-steps.md`), taken afterwards in a new chat. `short-path.md` is now `small-interview.md`. Kit rule 12: stay with the foundation. The introduction, progress template, README, teaching files and messages are updated, and the tests follow the new run. The new run has not been taken through a real chat.
 

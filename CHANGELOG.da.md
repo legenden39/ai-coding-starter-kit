@@ -8,7 +8,7 @@ Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet 
 
 ## Ikke udgivet endnu
 
-- **Hurtig start i README:** to linjer i Claude Code og `/startkit`, øverst i "Kom i gang". De lange trin står uændret under den. Begge sprog. Plugin-vejen er stadig kun afprøvet på Linux.
+- **Ny, kortere README:** øverst står kun det vigtigste: en tegning af forløbet, en tabel over, hvad man får (uden og med kittet), og tre trin til at komme i gang. Alt det andet (forbehold, trin for trin, sikkerhed, ordliste, hvad der er afprøvet) står uændret længere nede, foldet sammen. Begge sprog. Plugin-vejen er stadig kun afprøvet på Linux.
 
 - **Kittet bygger kun fundamentet:** forløbet var for stort, fordi det også interviewede om selve projektet, undersøgte løsninger og byggede et skræddersyet lag, og brugeren mistede overblikket. Nu er forløbet: introduktion, tjek af computeren, nøglescan, et lille interview (seks spørgsmål om, hvordan AI'en skal opføre sig), fundamentet (regler, vagt, færdig-tjek, nøgletjek, gemmepunkter, fejlliste), prøve af sikkerhedsnettet og afslutning (overblik, første commit, sikkerhedskopi, feedback). Valget mellem kort og fuld vej er væk, og faserne er omnummereret 1-6. Det grundige interview, kortlægning, undersøgelse og plan og det skræddersyede lag ligger nu i et eget, valgfrit projekttrin (`references/projekt-trin.md`), som først tages bagefter i en ny chat. `kort-vej.md` hedder nu `lille-interview.md`. Regel 12 i kittet: hold dig til fundamentet. Introduktion, forløbsskabelon, README, undervisningsfiler og tekster er rettet, og testene følger det nye forløb. Det nye forløb er ikke kørt igennem i en rigtig chat.
 

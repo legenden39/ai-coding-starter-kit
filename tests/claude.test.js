@@ -323,7 +323,7 @@ const udgiv = laes(ROD, ".github/workflows/release.yml") || "";
 tjek("udgivelsen: ZIP-filen rummer også installationen til Claude Code", ["installer-claude.cmd", "install-claude-english.cmd"].every((f) => udgiv.includes(f)) && !/tools/.test(udgiv.split("Pak kittet")[1].split("Læg udgivelsen ud")[0]));
 
 // ---- siderne udenom ----
-for (const [f, tabel] of [["README.md", "## Codex or Claude Code?"], ["README.da.md", "## Codex eller Claude Code?"]]) {
+for (const [f, tabel] of [["README.md", "<summary><b>Codex or Claude Code?</b></summary>"], ["README.da.md", "<summary><b>Codex eller Claude Code?</b></summary>"]]) {
   const t = laes(ROD, f) || "";
   tjek(`${f}: forklarer valget mellem Codex og Claude Code og begge installationer til Claude Code`, t.includes(tabel) && ["installer-claude.cmd", "install-claude-english.cmd", "`/startkit`", "`CLAUDE.md`", "`.claude/settings.local.json`", ".claude\\skills\\startkit", '{"vaerktoej": "claude"}', "claude.com/download"].every((x) => t.includes(x)));
   tjek(`${f}: forklarer installation som plugin, og at /startkit fra pluginnet ikke er prøvet på Windows`, t.includes("/plugin marketplace add legenden39/ai-coding-starter-kit") && /\/plugin install startkit(-da)?@ai-coding-starter-kit/.test(t) && /(Plugin-udgaven startet med `\/startkit` på Windows|The plugin edition started with `\/startkit` on Windows) \| \*\*(Ikke afprøvet|Not tried)\*\*/.test(t));
