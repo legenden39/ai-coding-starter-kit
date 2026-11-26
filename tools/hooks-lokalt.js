@@ -33,8 +33,8 @@ if (!/^\/scripts\/startkit\/$/m.test(har)) skriv(excludeFil, har.replace(/\s*$/,
 
 // 3. Hooks i .claude/settings.local.json (ligger uden for git). Kun kittets egne poster røres.
 const sti = (fil) => `STARTKIT_VAERKTOEJ=claude node "${slash(p("startkit", "scripts", "projekt", fil))}"`;
-const vores = { PreToolUse: { matcher: "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|Read|Grep", hooks: [{ type: "command", command: sti("vagt.js"), timeout: 30 }] }, Stop: { hooks: [{ type: "command", command: sti("faerdig.js"), timeout: 60 }] } };
-const erVores = (g) => Array.isArray(g && g.hooks) && g.hooks.some((h) => /startkit\/scripts\/projekt\/(vagt|faerdig)\.js/.test(slash(String((h && h.command) || ""))));
+const vores = { PreToolUse: { matcher: "Bash|PowerShell|Edit|Write|MultiEdit|NotebookEdit|Read|Grep", hooks: [{ type: "command", command: sti("vagt.js"), timeout: 30 }] }, Stop: { hooks: [{ type: "command", command: sti("faerdig.js"), timeout: 60 }] }, PostToolUseFailure: { matcher: "Bash|PowerShell", hooks: [{ type: "command", command: sti("fejl.js"), timeout: 15 }] } };
+const erVores = (g) => Array.isArray(g && g.hooks) && g.hooks.some((h) => /startkit\/scripts\/projekt\/(vagt|faerdig|fejl)\.js/.test(slash(String((h && h.command) || ""))));
 const settings = laesJson(p(".claude", "settings.local.json"));
 settings.hooks = settings.hooks && typeof settings.hooks === "object" ? settings.hooks : {};
 for (const [event, gruppe] of Object.entries(vores)) settings.hooks[event] = [...(Array.isArray(settings.hooks[event]) ? settings.hooks[event] : []).filter((g) => !erVores(g)), gruppe];

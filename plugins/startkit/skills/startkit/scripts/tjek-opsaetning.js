@@ -3,7 +3,7 @@
 //   node tjek-opsaetning.js <projektmappe>
 //
 // Det her kan scriptet IKKE se: om hooks er godkendt (Codex) eller indlæst (Claude Code), og om de faktisk bliver kørt.
-// Det prøves i startkittets fase 7.
+// Det prøves i startkittets fase 5.
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
@@ -28,7 +28,7 @@ t(tekst("tj.agents.kort"), agents && agents.split("\n").length <= 80, tekst("tj.
 t(tekst("tj.findes", { fil: "STATUS.md" }), laes("STATUS.md") !== null, igen);
 t(tekst("tj.findes", { fil: fil("fejl") }), laes(fil("fejl")) !== null, igen);
 
-for (const navn of ["regler.js", "tekster.js", "tilstand.js", "vagt.js", "faerdig.js", "bevis.js", "overblik.js", "forbrug-gem.js", "gemmepunkt.js", "fortryd.js", "start.js"]) {
+for (const navn of ["regler.js", "tekster.js", "tilstand.js", "vagt.js", "faerdig.js", "bevis.js", "overblik.js", "forbrug-gem.js", "gemmepunkt.js", "fortryd.js", "start.js", "loopstop.js", "fejl.js"]) {
   t(tekst("tj.findes", { fil: `scripts/startkit/${navn}` }), laes(`scripts/startkit/${navn}`) !== null, igen);
 }
 
@@ -43,6 +43,7 @@ t(tekst("tj.vagt"), peger("PreToolUse", "vagt.js"), tekst("tj.flyttet"));
 t(tekst("tj.faerdig"), peger("Stop", "faerdig.js"), tekst("tj.flyttet"));
 
 if (vt("starthook")) t(tekst("tj.start"), peger("SessionStart", "start.js"), tekst("tj.flyttet"));
+if (vt("fejlhook")) t(tekst("tj.loop"), peger("PostToolUseFailure", "fejl.js"), tekst("tj.flyttet"));
 t(tekst("tj.findes", { fil: fil("fortryd") }), laes(fil("fortryd")) !== null, igen);
 if (vaerktoej() === "claude") {
   const deny = (hooks && hooks.permissions && hooks.permissions.deny) || [];

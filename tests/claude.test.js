@@ -246,7 +246,7 @@ git(rod, "config", "core.hooksPath", ".githooks");
 r = koer("node", [TJEK, rod], { sprog: "en" });
 tjek("engelsk: tjek af opsætningen er grønt", r.kode === 0 && /Everything is set up/.test(r.ud) && /CLAUDE\.md exists/.test(r.ud) && !/Codex/.test(r.ud) && !DANSKE_BOGSTAVER.test(r.ud), r.ud + r.fejl);
 const x = koer("node", [path.join(rod, "scripts", "startkit", "vagt.js")], { cwd: rod, vaerktoej: "ingen", input: JSON.stringify({ session_id: "claude-en-" + process.pid, cwd: rod, hook_event_name: "PreToolUse", tool_name: "Read", tool_input: { file_path: path.join(rod, ".env") } }) });
-tjek("engelsk: vagten afviser læsning af .env på engelsk", /"deny"/.test(x.ud) && /is a \.env file/.test(x.ud) && /why-was-i-stopped\.md/.test(x.ud), x.ud + x.fejl);
+tjek("engelsk: vagten afviser læsning af .env på engelsk", /"deny"/.test(x.ud) && /is a file with the project's keys/.test(x.ud) && /why-was-i-stopped\.md/.test(x.ud), x.ud + x.fejl);
 try { fs.unlinkSync(path.join(os.tmpdir(), `startkit-claude-en-${process.pid}.json`)); } catch { /* ikke vigtigt */ }
 
 // ---- installation i hånden, som README beskriver: kopiér mappen, læg Claude-udgavens SKILL.md øverst, og skriv vaerktoej.json ----
@@ -323,7 +323,7 @@ const udgiv = laes(ROD, ".github/workflows/release.yml") || "";
 tjek("udgivelsen: ZIP-filen rummer også installationen til Claude Code", ["installer-claude.cmd", "install-claude-english.cmd"].every((f) => udgiv.includes(f)) && !/tools/.test(udgiv.split("Pak kittet")[1].split("Læg udgivelsen ud")[0]));
 
 // ---- siderne udenom ----
-for (const [f, tabel] of [["README.md", "## Codex or Claude Code?"], ["README.da.md", "## Codex eller Claude Code?"]]) {
+for (const [f, tabel] of [["README.md", "<summary><b>Codex or Claude Code?</b></summary>"], ["README.da.md", "<summary><b>Codex eller Claude Code?</b></summary>"]]) {
   const t = laes(ROD, f) || "";
   tjek(`${f}: forklarer valget mellem Codex og Claude Code og begge installationer til Claude Code`, t.includes(tabel) && ["installer-claude.cmd", "install-claude-english.cmd", "`/startkit`", "`CLAUDE.md`", "`.claude/settings.local.json`", ".claude\\skills\\startkit", '{"vaerktoej": "claude"}', "claude.com/download"].every((x) => t.includes(x)));
   tjek(`${f}: forklarer installation som plugin, og at /startkit fra pluginnet ikke er prøvet på Windows`, t.includes("/plugin marketplace add legenden39/ai-coding-starter-kit") && /\/plugin install startkit(-da)?@ai-coding-starter-kit/.test(t) && /(Plugin-udgaven startet med `\/startkit` på Windows|The plugin edition started with `\/startkit` on Windows) \| \*\*(Ikke afprøvet|Not tried)\*\*/.test(t));

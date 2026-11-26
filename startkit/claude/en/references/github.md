@@ -1,4 +1,4 @@
-# Backup on GitHub (phase 9, optional)
+# Backup on GitHub (phase 6, optional)
 
 The purpose is that the person's project is somewhere other than on one computer. If the computer breaks, the work is still there. It is a backup, not a publication: the project is uploaded as **private**, so only the person can see it.
 

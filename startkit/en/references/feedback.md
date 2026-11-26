@@ -1,4 +1,4 @@
-# Feedback on the starter kit (all the way, and at the end in phase 9)
+# Feedback on the starter kit (all the way, and at the end in phase 6)
 
 The starter kit is a beta. It only gets better if those who try it tell where it went wrong. Your job is to make that easy: you write things down along the way, and the person only has to answer five short questions at the end.
 
@@ -27,7 +27,7 @@ Tell the person in the introduction that they can write "I'm stuck" or "I didn't
 
 ## At the end: five short questions
 
-Ask them in phase 9, one or two at a time. Say first that it takes two minutes, and that the answers are what make the kit better for the next person. The person may skip.
+Ask them in phase 6, one or two at a time. Say first that it takes two minutes, and that the answers are what make the kit better for the next person. The person may skip.
 
 1. Where did you get stuck?
 2. What did you not understand?
@@ -35,7 +35,7 @@ Ask them in phase 9, one or two at a time. Say first that it takes two minutes, 
 4. How long did it take?
 5. Would you recommend it to someone else? Why, or why not?
 
-Write the answers in using the person's own words. Fill in "About the run" (short or full path, level, which phases were completed, operating system).
+Write the answers in using the person's own words. Fill in "About the run" (level, which phases were completed, operating system).
 
 ## Before the file is sent
 

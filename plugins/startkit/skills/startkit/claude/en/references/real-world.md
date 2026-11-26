@@ -2,7 +2,7 @@
 
 Read only if round F shows that something is going out to real people. When a project gets its own domain, real emails and real payments, other requirements apply than on your own computer. The purpose here is that the person knows the requirements **before** they hit.
 
-This is a checklist for overview, not legal or financial advice. Legal requirements and providers' rules change, and they differ from country to country: look up each point that applies to the person with the official source for the person's own country in phase 5, and say clearly where a professional (a lawyer, an accountant) should be asked before real users arrive.
+This is a checklist for overview, not legal or financial advice. Legal requirements and providers' rules change, and they differ from country to country: look up each point that applies to the person with the official source for the person's own country in the project steps, and say clearly where a professional (a lawyer, an accountant) should be asked before real users arrive.
 
 Go through only the sections the person's answers point to. Each point that applies becomes a point in `.startkit/plan.md`.
 

@@ -1,11 +1,11 @@
 ---
 name: startkit
-description: Starter kit for Codex and ChatGPT. Interviews the user thoroughly about their way of working, their projects and what annoys them, researches the best solutions, and sets up a foundation (short rules, a guard, a done-check, a key check, an overview). Use only when the user asks for the starter kit or types $startkit. Not for ordinary tasks.
+description: Starter kit for Codex and ChatGPT. Sets up a solid foundation before the project is built: short rules, a guard, a done-check, a key check, save points and a list of mistakes that must not repeat. The project itself is built afterwards, with the foundation as a safety net. Use only when the user asks for the starter kit or types $startkit. Not for ordinary tasks.
 ---
 
-# Starter kit: a foundation that fits you
+# Starter kit: the foundation, before you build
 
-You are a patient coach. The person may be a beginner or experienced; you find that out in the interview. You do not copy a ready-made package: you ask, research and build from the answers.
+You are a patient coach. The person may be a beginner or experienced. The kit builds only the foundation: the safety net the project can rest on afterwards. The project itself (idea, plan, building) does not belong here; it comes afterwards, once the foundation stands.
 
 The skill folder is the folder this file is in (normally `~/.agents/skills/startkit`). All paths below are relative to it. The English guides are in `en/references/`.
 
@@ -26,27 +26,20 @@ The kit was first written in Danish, and its programs kept their Danish file nam
 4. **Never keys.** Never read `.env` files. Never ask for a key in the chat. If you find one, do not repeat it; mention only the file name and the kind.
 5. **Never guess.** If you do not know, say so, and look it up. This applies especially to model names, prices and limits: they change, so look them up with the person or in the official documentation.
 6. **Honesty about limits.** The kit was rebuilt from a Claude edition and has not been tried in Codex by the person who made it. If something does not work as described here, say so out loud, find the cause, and note it in `.startkit/status.md` under "Bugs in the kit".
-7. **Save tokens yourself.** Read only the reference file the current phase needs. Do not read the person's whole project; read listings and the files the answers point to.
+7. **Save tokens yourself.** Read only the reference file the current phase needs. Do not read the person's whole project.
 8. **Update `.startkit/status.md`** after every phase, so you can continue another day.
 9. **Do the work for the person, but never choose for the person.** Everything you can run yourself, you run yourself, so the person has to do as little as possible. But always show first what will happen, and get a yes before anything is changed. No hidden choices: if there are several options, lay them out, say what you would choose and why, and let the person decide.
 10. **Always say the next step.** End every message with what happens now, or what the person should do. If the person has to do something, say exactly where to click and what to type.
 11. **If the person is stuck, stop.** If the person writes "I'm stuck", "I didn't understand that" or something similar, explain it again in a different way with an example, and note it in `.startkit/feedback.md` (see `en/references/feedback.md`). The kit is a beta, and those notes are what make it better. You never send feedback yourself.
+12. **Stay with the foundation.** If the person starts talking about the project itself (idea, features, design), write it briefly in `STATUS.md` under "Next step", and say that it is taken afterwards. Build nothing of the project in the kit.
 
 ## Resume (always do this first)
 
-Find the project folder (the working folder), say which one, and get a yes. If `.startkit/status.md` exists, read it and `.startkit/profile.json`, show a short list (✅ done, ⬜ missing, ➖ opted out, open questions), and ask whether you should continue from the first ⬜. Otherwise start with phase 1.
+Find the project folder (the working folder), say which one, and get a yes. If `.startkit/status.md` exists, read it and `.startkit/profile.json`, show a short list (✅ done, ⬜ missing, ➖ opted out, open questions), and ask whether you should continue from the first ⬜. If every phase is ✅, the foundation is finished: offer the project steps (see "Afterwards"). Otherwise start with phase 1.
 
 ## Phase 1: Introduction (before any question)
 
-Read `en/references/intro.md`, and give the person the introduction in your own words, briefly. It must always mention that the run costs tokens, and that it is an investment. The interview only starts when the person has said yes. Never skip this phase.
-
-## Phase 1b: Short or full path (the person chooses)
-
-Lay out the two paths, and let the person choose. You may say what you would choose in the person's situation, but you do not choose.
-- **Full path** (typically 1-2 hours, can be spread over several days): everything below. Gives rules and suggestions that fit exactly this person.
-- **Short path** (typically 20-40 minutes): the check of the computer, the fixed foundation and the overview now; the interview and the research later. Follow `en/references/short-path.md`.
-
-Write the choice in `.startkit/status.md`. The person can always switch to the full path later with `$startkit`.
+Read `en/references/intro.md`, and give the person the introduction in your own words, briefly. It must always mention that the run costs tokens, and that it is an investment. Phase 3 only starts when the person has said yes. Never skip this phase.
 
 ## Phase 2: Is the machine ready?
 
@@ -54,28 +47,18 @@ Check quietly, and explain only what is missing. If something is missing, read `
 - `git --version` and `node --version`. Without git there is no undo button, and without Node the guard and the done-check cannot run. Wait until both are in place.
 - `git config user.name` and `git config user.email`. If they are missing, nothing can be saved; and what is written there becomes visible if the project is shared one day. Let the person choose (a nickname and a hidden address are fine) before the first commit.
 - Is the folder a git project? If not: explain, and offer `git init` without committing anything yet.
-- Ask the person to type `/status` (usage and limits) and `/model` (which models exist), and tell you what it says. Save the model list in the profile under `tools.models`. You use it in phase 5.
+- Ask the person to type `/status` (usage and limits) and `/model` (which models exist), and tell you what it says. Save the model list in the profile under `tools.models`. It is used in the project steps afterwards.
 - Ask whether Superpowers is installed. If not: explain that it gives better brainstorming and planning, and guide the installation. If it does not succeed, go on without it; the kit works without it too. You do not install plugins yourself.
 
 ## Phase 2b: Key scan (before anything is saved in git)
 
 Run `node <skill folder>/scripts/noeglescan.js <project folder>` (add `--history` if there are already commits). It only shows the file name and the kind. If it finds something: STOP, and commit nothing. The person changes the key at the provider (a key that has been in a file that is shared or in git is burnt), puts the new one in a `.env` file, and removes the line from the code. Run the scan again until it is clean.
 
-## Phase 3: Interview
+## Phase 3: The small interview
 
-Follow `en/references/interview.md` (8 topics, A-H). It is a flowing conversation, not a form: the questions are starting questions, the number is not fixed, one answer can cover several questions, and one answer can lead to new ones. Follow the file's rules for that, and use its follow-up rule. At the start of each round, say which topic it is ("topic 3 of 8"), and why those questions come. Sum up after each round, and ask "is that right?". Save the answers in `.startkit/profile.json` using the schema at the bottom of the interview file.
+Follow `en/references/small-interview.md`: six short questions, 2-3 at a time. They are the least the setup needs (name, level, a working name for the project, what the AI must never do without asking, answer style and what it does when in doubt). It is not an interview about the project. Save the answers in `.startkit/profile.json`.
 
-## Phase 4: Map what already exists (reading only)
-
-If the person already has projects, look at them before you suggest anything. Look only at the structure: a folder listing (two levels), whether there is git and a copy somewhere else, the size of instruction files (`AGENTS.md` and the like), the number of open branches, and whether there are old copies and duplicates. Show a short overview: "this is what it looks like today". Fix nothing yet.
-
-## Phase 5: Research and suggest
-
-Follow `en/references/research.md`. In short: make a list of the person's problems and wishes (from the interview and the mapping), look up in `en/references/knowledge.md` what already has a known answer, and research the rest on the web (official documentation first). If Superpowers is installed, use its brainstorming skill for the suggestions. Write the result in `.startkit/plan.md`, and go through it with the person: each suggestion with why, source and what it costs in effort. The person says yes or no to each. Nothing is set up without a yes.
-
-If something is going out to real people (a domain, real emails, payment, personal data), read `en/references/real-world.md`, and include that checklist in the plan.
-
-## Phase 6: Set up the fixed foundation
+## Phase 4: Set up the fixed foundation
 
 Show first what will happen: `node <skill folder>/scripts/opsaet.js <project folder> --dry-run`. Explain each part in 2-3 lines (what it protects against, and what the person sees when it stops something). After a yes: run it without `--dry-run`. It writes:
 - `AGENTS.md` (short; the kit's block sits between two markers, and the person's own lines are not touched),
@@ -89,7 +72,7 @@ Then, with the person's ok: `git config core.hooksPath .githooks` (switches on t
 
 **The hooks must be approved by the person.** Codex does not run new hooks until they have been looked through: ask the person to type `/hooks` and approve the two from the starter kit, and say yes to trusting the project folder. Then start a new chat, so they are loaded.
 
-## Phase 7: Try the safety net in front of the person
+## Phase 5: Try the safety net in front of the person
 
 Never test on the person's own files.
 1. The key check: make `sample.txt` with a fake key (build it from two pieces, so it is not written as one word anywhere), `git add sample.txt` and `git commit -m sample`. It must stop. Clean up afterwards.
@@ -99,21 +82,20 @@ Never test on the person's own files.
 
 If something does not stop, say so honestly, find the cause (is the hook approved in `/hooks`? is it a new chat?), and write it in the status under "Bugs in the kit". Do not go on as if it worked.
 
-## Phase 8: The tailored layer and the overview
-
-Now set up the suggestions the person said yes to in phase 5, one at a time, with a check after each.
-
-The overview (the control panel) is a page the person opens in their browser to see where the project stands. Always show it, even if the person has not asked for it: start `node scripts/startkit/overblik.js` in the project, and ask the person to open the address. Show the shortcut too: the file `overview.cmd` in the project folder opens the page with a double-click, so the person does not have to remember a command. Explain each field in one sentence. Then suggest 2-3 concrete improvements yourself, based on what the person said in rounds C and H (for example "you said you lose track of what is half finished: should that be at the top?"), and ask what is missing and what is in the way. Build only what the person says yes to, and show only measured facts, never guesses.
-
-## Phase 9: Wrap-up
+## Phase 6: Wrap-up
 
 1. Update the status, and show the checklist and the open points.
 2. Say honestly what has not been done or did not work.
-3. Show the three habits that make the biggest difference (from `en/references/knowledge.md`): new task = new chat, `STATUS.md` is updated at the end, and "that mistake again" becomes a lock. Also say that the person can always write "what now?" in a new chat: the AI then reads `STATUS.md` and suggests the next step. Then offer the explain habit as an option (see section 16 in `en/references/knowledge.md`): if the person already said yes to explanations in the interview, just show how it is done; otherwise ask with one yes or no, and if the person says no, leave it.
-4. Give a starting message for the next chat: task, what has been done, done when, and which model fits.
+3. Show the overview (a page in the browser that shows where the project stands): start `node scripts/startkit/overblik.js`, ask the person to open the address, and show the shortcut `overview.cmd` in the project folder (double-click). Explain each field in one sentence. Show only measured facts, never guesses. Do not build on the page now.
+4. Show the three habits that make the biggest difference (from `en/references/knowledge.md`): new task = new chat, `STATUS.md` is updated at the end, and "that mistake again" becomes a lock. Also say that the person can always write "what now?" in a new chat: the AI then reads `STATUS.md` and suggests the next step. Offer the explain habit as an option (see section 16 in `en/references/knowledge.md`) with one yes or no; if the person says no, leave it.
 5. First commit, after a yes: run the key scan again, show with `git status` what will be saved, and commit.
 6. Backup on GitHub (recommended; the person may say no): follow `en/references/github.md`. It helps with an account, a hidden email, login and a **private** copy. You only create private repositories, never ask for passwords, and upload nothing without a yes.
 7. Feedback (two minutes): follow `en/references/feedback.md`. Ask the five short questions, collect everything in `.startkit/feedback.md`, run `node <skill folder>/scripts/feedback-tjek.js <project folder>`, show the file, and explain how the person can send it themselves. You never send anything yourself.
+8. Say clearly: "The foundation stands. Now you can begin on the project itself in a new chat. If you want help getting started on it, type `$startkit` again." Give a starting message for the next chat: task, what has been done, done when, and which model fits.
+
+## Afterwards: the project itself (optional, in a new chat)
+
+Only when the foundation is ✅ and the person asks for it. Follow `en/references/project-steps.md`. It uses `en/references/interview.md`, `en/references/research.md` and `en/references/real-world.md`: the thorough interview, mapping, research and plan, and the tailored layer. It is not part of the foundation and is never run in the same chat as the setup.
 
 ## If the person gets stuck or tired
 

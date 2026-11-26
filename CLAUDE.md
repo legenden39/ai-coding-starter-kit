@@ -7,7 +7,7 @@ Kun ejeren godkender udgivelser, push og pull requests. Tal dansk, enkelt og ær
 - Læs `STATUS.md` (hvor vi er) og `docs/gentagne-fejl.md` (fejl, der ikke må ske igen).
 - Sig i én linje, hvad du har forstået, at opgaven er, før du går i gang.
 - Én opgave pr. chat. En ny opgave hører til i en ny chat.
-- Ved hver ny opgave: sig i én linje, om den kræver en stærk model eller kan klares af en billig. Stærk (i dag Fable): fejlsøgning, gennemgang, design af kittet, vagten og andre sikkerhedsregler. Billig (i dag Sonnet): tekst, ændringslog, simple tests, at køre kommandoer. Passer din model ikke til opgaven, eller skifter ejeren til en for svag midt i den, så sig det, før du fortsætter.
+- Ved hver ny opgave: sig i én linje, om den kræver en stærk model eller kan klares af en billig. Stærk (i dag Opus): fejlsøgning, gennemgang, design af kittet, vagten og andre sikkerhedsregler. Billig (i dag Sonnet): tekst, ændringslog, simple tests, at køre kommandoer. Passer din model ikke til opgaven, eller skifter ejeren til en for svag midt i den, så sig det, før du fortsætter.
 
 ## Sådan er projektet bygget
 - Kilden ligger i `startkit/`. Mapperne `startkit/claude/` og `plugins/` er GENERERET: ret aldrig i dem. Ret kilden, og kør `node tools/byg.js`.

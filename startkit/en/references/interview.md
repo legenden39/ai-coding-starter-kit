@@ -336,7 +336,7 @@ Field: person.other
 
 ## Profile schema (`.startkit/profile.json`)
 
-Save the answers using the fields' names. Never keys or passwords. The setup uses these fields directly, and they must be filled in before phase 6:
+Save the answers using the fields' names. Never keys or passwords. The setup uses these fields directly, and they must be filled in before phase 4:
 
 ```json
 {
@@ -358,4 +358,4 @@ Save the answers using the fields' names. Never keys or passwords. The setup use
 
 Write the entries in `never_without_ok` so they fit after "Ask the owner before you: …" (for example "delete files"), and `when_in_doubt` so it fits after "If you are in doubt: …" (for example "ask the owner").
 
-`check_commands` are the commands that prove that the project works (for example `npm test`). Find them together with the person based on D3. If there are none yet, leave the list empty, and include "a first test" in the plan in phase 5.
+`check_commands` are the commands that prove that the project works (for example `npm test`). Find them together with the person based on D3. If there are none yet, leave the list empty, and include "a first test" in the plan in the project steps.

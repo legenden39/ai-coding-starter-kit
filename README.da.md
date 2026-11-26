@@ -1,14 +1,84 @@
-# AI Coding Starter Kit (til ChatGPT / Codex og til Claude Code)
+# AI Coding Starter Kit
 
 [English](README.md) · Dansk
 
-> **Beta, version 0.9.0-beta.** Det her er en prøveudgave. Udgaven til Codex er ikke afprøvet i Codex af den, der har lavet den. Udgaven til Claude Code er ny: dens sikkerhedsnet er prøvet i Claude Code på Linux, men ikke på Windows, og hele forløbet er ikke kørt igennem af et menneske. Der vil være fejl. Prøver du den, så giv feedback: kittet hjælper dig med det til sidst. Se [ændringer](CHANGELOG.da.md).
+> **Beta, version 0.9.0-beta.** En prøveudgave: der vil være fejl. Se [ændringer](CHANGELOG.da.md).
 
-**Vil du bygge noget med AI, men ved ikke, hvor du skal starte, eller er du træt af, at AI'en laver de samme fejl igen og igen? Så er det her til dig.**
+**Gør din AI til en makker, du kan stole på.** Startkittet sætter faste regler og sikkerhedsnet op i dit projekt, så AI'en ikke glemmer, ikke sletter dit arbejde og ikke siger "færdig", før det virker. Du behøver ikke kunne kode.
 
-Du behøver ikke kunne kode, og du behøver ikke kende de ord, der bliver brugt herunder. De bliver forklaret undervejs, og der er en ordliste nederst.
+Virker med **Claude Code** og **Codex** (ChatGPT) · på dansk og engelsk · gratis.
 
-## Hvad er problemet?
+## Sådan virker det
+
+```mermaid
+flowchart LR
+  A["1. Installér"] --> B["2. Skriv /startkit"] --> C["3. Svar på 6 korte spørgsmål"] --> D["4. Se sikkerhedsnettet virke"] --> E["Byg trygt"]
+```
+
+## Det får du
+
+| | Uden kittet | Med kittet |
+|---|---|---|
+| 📋 **Faste regler** | AI'en glemmer, hvad I aftalte i går | Den læser dine regler i starten af hver chat |
+| 🛑 **Vagt** | Den kan slette dit arbejde eller lægge hemmelige koder forkert | Den bliver stoppet, før det sker |
+| 💾 **Gemmepunkter** | En ødelagt fil er væk | Hver chat starter med en kopi, du kan hente tilbage |
+| ✅ **Færdig-tjek** | Den siger "færdig", og det virker ikke | Den må først sige "færdig", når det er prøvet |
+| 🔁 **Fejlliste** | Den laver den samme fejl igen og igen | Fejlen skrives ned, og gentagelser bliver stoppet* |
+| 🗺️ **Overblik** | Du ved ikke, hvor du er | Én side viser, hvad der er lavet, og hvad der er næste skridt |
+
+Kittet vælger aldrig for dig. Det viser først, hvad der sker, og venter på dit ja.
+
+<sub>* At gentagelser stoppes af sig selv (loop-stop) virker kun i Claude Code. I Codex er det en regel, AI'en skal følge.</sub>
+
+## Kom i gang
+
+**Med Claude Code** (hurtigst). Skriv de to linjer i Claude Code, én ad gangen:
+
+```
+/plugin marketplace add legenden39/ai-coding-starter-kit
+/plugin install startkit-da@ai-coding-starter-kit
+```
+
+Åbn så en mappe til dit projekt, start en ny chat, og skriv `/startkit`.
+
+**Med Codex, eller med en fil:**
+
+1. Hent **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**, og pak den ud.
+2. Dobbeltklik på `installer.cmd` (til Claude Code: `installer-claude.cmd`).
+3. Åbn en mappe til dit projekt, og skriv `$startkit` (Claude Code: `/startkit`).
+
+Mangler du Git eller Node? Kittet tjekker det selv og hjælper dig. **Sidder du fast?** Skriv "jeg sidder fast" i chatten.
+
+## Vil du vide mere?
+
+Klik på en overskrift for at folde den ud.
+
+
+<details>
+<summary><b>Hvad sker der, når du skriver /startkit?</b></summary>
+
+Startkittet taler dansk og spørger højst om 2-3 ting ad gangen.
+
+1. **Introduktion.** Du får at vide, hvad du skal igennem, og hvorfor, før der kommer et eneste spørgsmål.
+   Hele forløbet tager typisk 20-40 minutter.
+2. **Tjek af computeren.** Mangler Git, Node eller noget andet, bliver du hjulpet igennem. Du får også hjælp til at vælge det navn og den e-mail, der bliver stemplet på dit arbejde, så du ikke kommer til at dele noget, du ikke ville.
+3. **Superpowers.** Det er en gratis tilføjelse til Codex, som får AI'en til at stille spørgsmål og lægge en plan, før den bygger. Startkittet viser dig, hvordan du installerer den. Den kan undværes.
+4. **Det lille interview.** Seks korte spørgsmål om, hvordan AI'en skal opføre sig hos dig. Ikke om projektet.
+5. **Fundamentet** sættes op og prøves for øjnene af dig, så du ser, at sikkerhedsnettene faktisk stopper noget.
+6. **Overblikssiden** vises. Bagefter åbner du den ved at dobbeltklikke på filen `overblik.cmd` i din projektmappe.
+7. **Privat sikkerhedskopi på GitHub.** Du bliver hjulpet med konto, skjult e-mail og login. Den kan vælges fra.
+8. **Feedback.** Fem korte spørgsmål, to minutter. Se "Giv feedback" herunder.
+
+Bagefter (valgfrit, i en ny chat): det grundige interview om projektet, kortlægning, undersøgelse og plan.
+
+**Sidder du fast?** Skriv bare "jeg sidder fast" eller "det her forstod jeg ikke". Så forklarer kittet det på en anden måde.
+
+Du kan holde pause når som helst. Skriv `$startkit` igen en anden dag, så fortsætter den, hvor du slap. Jo mere uddybende du svarer, jo bedre passer resultatet til dig.
+
+</details>
+
+<details>
+<summary><b>Hvorfor findes kittet?</b></summary>
 
 Når man bygger noget sammen med en AI, løber næsten alle ind i de samme ting:
 
@@ -21,35 +91,10 @@ Når man bygger noget sammen med en AI, løber næsten alle ind i de samme ting:
 
 Det skyldes sjældent, at du gør noget forkert. Det skyldes, at der mangler et fundament: nogle faste regler og sikkerhedsnet, som AI'en skal arbejde inden for. De fleste opdager det først efter måneder med frustration.
 
-## Hvad gør startkittet ved det?
+</details>
 
-Startkittet er en hjælper, du starter inde i dit AI-værktøj. Den tager dig i hånden fra A til Z:
-
-1. **Den hjælper dig med at få værktøjerne på plads.** Mangler der noget på din computer, viser den dig, hvordan du installerer det, ét skridt ad gangen.
-2. **Den interviewer dig.** Hvad vil du bygge? Hvad irriterer dig? Hvordan vil du have, at AI'en taler til dig?
-3. **Den undersøger løsninger** på netop dine problemer og lægger en plan frem. Du siger ja eller nej til hvert forslag.
-4. **Den sætter fundamentet op** i dit projekt og prøver sammen med dig, at det virker.
-5. **Den viser dig en overbliksside,** som du åbner i din browser, og bygger den til efter dine ønsker.
-6. **Den hjælper dig med en privat sikkerhedskopi** på nettet, så dit arbejde ikke kun ligger på én computer.
-
-Kittet gør arbejdet for dig, men det vælger aldrig for dig. Det viser altid først, hvad der sker, og venter på dit ja.
-
-Bagefter kan du gå i gang med at bygge, uden at skulle være bange for de fejl, der står øverst.
-
-### Det får du
-
-| Det her | betyder for dig |
-|---|---|
-| Korte, faste regler | AI'en læser dem i starten af hver samtale, så du ikke skal forklare det samme igen. |
-| En statusfil | Der står altid, hvor du er: hvad der er lavet, og hvad der er næste skridt. |
-| En vagt | Den stopper AI'en, før den sletter dit arbejde eller lægger en hemmelig kode det forkerte sted. |
-| Et færdig-tjek | AI'en må først sige "færdig", når det er prøvet, at det virker. |
-| Et nøgletjek | Hemmelige koder (nøgler) bliver stoppet, før de bliver gemt et sted, hvor andre kan se dem. |
-| En huskeliste over fejl | Fejl, der er sket to gange, bliver skrevet ned og låst, så de ikke sker en tredje gang. |
-| En overbliksside | Én side i din browser, der viser, hvor projektet står lige nu. |
-| En privat sikkerhedskopi | Dit projekt ligger også på GitHub, hvor kun du kan se det. |
-
-## Codex eller Claude Code?
+<details>
+<summary><b>Codex eller Claude Code?</b></summary>
 
 Kittet findes til to AI-værktøjer: **Codex** (fra OpenAI, firmaet bag ChatGPT) og **Claude Code** (fra Anthropic, firmaet bag Claude). Du vælger, når du installerer. Forløbet, reglerne og programmerne er de samme; kun navnene på nogle filer og kommandoer er forskellige.
 
@@ -66,7 +111,10 @@ Resten af denne side er skrevet med Codex' navne. Bruger du Claude Code, så læ
 | Se dit forbrug | `/status` | `/usage` |
 | Ny chat | `/new` | `/clear` |
 
-## Læs det her først (ærligt forbehold)
+</details>
+
+<details>
+<summary><b>Ærligt forbehold: hvad er ikke prøvet</b></summary>
 
 Kittet er bygget om fra en udgave til Claude. Den, der har lavet det, bruger ikke ChatGPT og har derfor **ikke kunnet afprøve det i Codex**. De enkelte dele er testet hver for sig (se nederst), men hele forløbet er ikke kørt igennem i Codex af et menneske. Der kan derfor være fejl, og knapper kan sidde et andet sted, end der står her.
 
@@ -76,13 +124,16 @@ Støder du på en fejl, så bed Codex skrive den ned (den ved, hvor), og meld de
 
 Kittet er lavet til Windows. Linux bliver testet automatisk hos GitHub, hver gang noget ændres. Mac er ikke afprøvet.
 
-## Kom i gang
+</details>
+
+<details>
+<summary><b>Trin for trin: installation, hvis du mangler noget</b></summary>
 
 Der er fire ting, du selv skal gøre, før startkittet kan tage over. Regn med 15-30 minutter, hvis du starter helt fra bunden.
 
 Skal du bruge kittet på et hold? Se [vejledningen til undervisere](UNDERVISNING.md).
 
-### Trin 1: Få Codex eller Claude Code
+#### Trin 1: Få Codex eller Claude Code
 
 Du skal kun bruge det ene. Har du allerede et abonnement på ChatGPT eller Claude, så vælg det værktøj, der hører til.
 
@@ -101,7 +152,7 @@ Claude Code er Anthropics værktøj til at bygge med AI. Det er det samme firma 
 - Hent appen til Windows på [claude.com/download](https://claude.com/download), åbn den, og log ind med din Claude-konto. Claude Code er fanen **Code** i appen.
 - Claude Code kræver et betalt abonnement. Hvilke der giver adgang, og hvor meget forbrug du har, står på [claude.com/pricing](https://claude.com/pricing). Det ændrer sig, så tjek det dér.
 
-### Trin 2: Få Git og Node
+#### Trin 2: Få Git og Node
 
 Det er to gratis programmer, som startkittet bruger bag kulisserne.
 
@@ -110,7 +161,7 @@ Det er to gratis programmer, som startkittet bruger bag kulisserne.
 
 Er du i tvivl, om du har dem? Spring bare videre. Startkittet tjekker det og hjælper dig, hvis noget mangler.
 
-### Trin 3: Hent og installér startkittet
+#### Trin 3: Hent og installér startkittet
 
 1. Hent kittet: **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**. Linket giver dig altid den nyeste udgave.
 2. Find filen i din mappe "Overførsler", højreklik på den, og vælg **Udpak alle**. Læg mappen et sted, du kan finde igen, fx i Dokumenter.
@@ -139,7 +190,7 @@ Den vej er prøvet i Claude Code på Linux fra en kopi af lageret, men ikke på 
 
 </details>
 
-### Trin 4: Start startkittet
+#### Trin 4: Start startkittet
 
 1. Lav en mappe til det, du vil bygge (eller brug en, du allerede har). Har du ikke en idé endnu, så lav bare en tom mappe, der hedder fx `mit-foerste-projekt`.
 2. Åbn Codex, og åbn den mappe som projekt. I Claude Code: vælg mappen, før du starter en chat (i en terminal: åbn mappen, og skriv `claude`).
@@ -151,27 +202,10 @@ Den vej er prøvet i Claude Code på Linux fra en kopi af lageret, men ikke på 
 
 Nu tager startkittet over og fortæller dig, hvad der skal ske. Dukker den ikke op, så luk Codex, åbn det igen, og prøv en gang til. Du kan også skrive `/skills` og vælge den på listen.
 
-## Hvad sker der så?
+</details>
 
-Startkittet taler dansk og spørger højst om 2-3 ting ad gangen.
-
-1. **Introduktion.** Du får at vide, hvad du skal igennem, og hvorfor, før der kommer et eneste spørgsmål.
-   Derefter vælger du selv vej: den **korte** (computeren tjekkes, sikkerhedsnettene og overblikket sættes op; typisk 20-40 minutter) eller den **fulde** (alt herunder; typisk 1-2 timer, som kan deles over flere dage). Du kan altid tage resten senere.
-2. **Tjek af computeren.** Mangler Git, Node eller noget andet, bliver du hjulpet igennem. Du får også hjælp til at vælge det navn og den e-mail, der bliver stemplet på dit arbejde, så du ikke kommer til at dele noget, du ikke ville.
-3. **Superpowers.** Det er en gratis tilføjelse til Codex, som får AI'en til at stille spørgsmål og lægge en plan, før den bygger. Startkittet viser dig, hvordan du installerer den. Den kan undværes.
-4. **Interview** om 8 emner. Det er en samtale, ikke et skema: antallet af spørgsmål er ikke fast. Svarer du grundigt, bliver der færre. Typisk 30-60 minutter.
-5. **Kortlægning** af det, du allerede har. Der bliver ikke ændret noget.
-6. **Undersøgelse og plan.** Du siger ja eller nej til hvert forslag.
-7. **Fundamentet** sættes op og prøves for øjnene af dig, så du ser, at sikkerhedsnettene faktisk stopper noget.
-8. **Overblikssiden** vises, og du får forslag til, hvad den skal vise for netop dig. Bagefter åbner du den ved at dobbeltklikke på filen `overblik.cmd` i din projektmappe.
-9. **Privat sikkerhedskopi på GitHub.** Du bliver hjulpet med konto, skjult e-mail og login. Den kan vælges fra.
-10. **Feedback.** Fem korte spørgsmål, to minutter. Se "Giv feedback" herunder.
-
-**Sidder du fast?** Skriv bare "jeg sidder fast" eller "det her forstod jeg ikke". Så forklarer kittet det på en anden måde.
-
-Du kan holde pause når som helst. Skriv `$startkit` igen en anden dag, så fortsætter den, hvor du slap. Jo mere uddybende du svarer, jo bedre passer resultatet til dig.
-
-## Giv feedback (det er derfor, det er en beta)
+<details>
+<summary><b>Giv feedback (det er derfor, det er en beta)</b></summary>
 
 Kittet noterer undervejs, når noget er uklart eller går galt, og til sidst stiller det fem korte spørgsmål: hvor gik du i stå, hvad forstod du ikke, hvad var overflødigt, hvor lang tid tog det, og ville du anbefale det.
 
@@ -180,15 +214,21 @@ Det hele samles i én fil i dit projekt: `.startkit/feedback.md`. **Kittet sende
 - Send filen (eller kopiér teksten) til den, du fik kittet fra.
 - Opret en sag på GitHub: fanen **Issues** øverst på denne side, **New issue**, vælg "Beta-feedback". Alt dér er offentligt.
 
-## Det koster forbrug, og det er meningen
+</details>
+
+<details>
+<summary><b>Det koster forbrug, og det er meningen</b></summary>
 
 Et AI-abonnement har en grænse for, hvor meget du kan bruge. Det måles i "tokens", som groft sagt er mængden af tekst, AI'en læser og skriver.
 
-At køre startkittet igennem bruger en del af dit forbrug: interviewet er en lang samtale, og undersøgelsen bagefter læser kilder på nettet. Se det som en investering. Du bruger forbrug én gang på at bygge fundamentet, og bagefter sparer du det hver dag, fordi du ikke skal forklare det samme forfra eller rette de samme fejl igen. Der kan ikke loves et tal for, hvor meget du sparer.
+At køre startkittet igennem bruger en del af dit forbrug: forløbet er en samtale med en del trin. Se det som en investering. Du bruger forbrug én gang på at bygge fundamentet, og bagefter sparer du det hver dag, fordi du ikke skal forklare det samme forfra eller rette de samme fejl igen. Der kan ikke loves et tal for, hvor meget du sparer.
 
 Skriv `/status` i Codex for at se dit forbrug, før du starter. Du kan dele forløbet over flere dage; alt bliver gemt.
 
-## Er det sikkert?
+</details>
+
+<details>
+<summary><b>Er det sikkert?</b></summary>
 
 - **Kittet sender ingenting nogen steder hen.** Dets programmer kører kun på din egen computer.
 - **Det gemmer aldrig dine hemmelige koder.** Nøgletjekket læser dine filer på din egen computer for at finde koder, der ligger forkert, men det viser kun filens navn og kodens slags.
@@ -200,14 +240,20 @@ Skriv `/status` i Codex for at se dit forbrug, før du starter. Du kan dele forl
 
 Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 
-## Hvem står bag, og hvad kan du regne med?
+</details>
+
+<details>
+<summary><b>Hvem står bag, og hvad kan du regne med?</b></summary>
 
 - **Kittet er ikke tilknyttet OpenAI eller Anthropic.** Det er lavet af én person, som selv er ny til teknik, sammen med AI. Det er ikke lavet, godkendt eller støttet af OpenAI eller Anthropic. Navnene Codex, ChatGPT, Claude og Claude Code tilhører deres ejere og bruges kun til at sige, hvilke værktøjer kittet virker sammen med.
 - **Det er gratis, en beta og uden garanti.** Det er lavet i fritiden. Der er ingen aftale om svartid, og jeg kan ikke love, at en fejl bliver rettet.
 - **Hjælp gælder selve kittet, ikke dit projekt.** Fejl og forslag til kittet kan du skrive under **Issues** (se "Giv feedback"). Jeg læser dem, når jeg har tid, men kan ikke love et svar. Jeg kan ikke hjælpe med at bygge dit projekt eller løse fejl i det.
 - **Ingen tæller dig.** Kittet har ingen telemetri: det sender ingen oplysninger om dig eller din brug af sted. Det eneste, der tælles, er besøg på denne side og hvor mange gange kittet hentes. Det gør GitHub, ikke kittet, og jeg ser kun tal, ingen navne.
 
-## Ordliste
+</details>
+
+<details>
+<summary><b>Ordliste</b></summary>
 
 | Ord | Betyder |
 |---|---|
@@ -226,7 +272,10 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 | **Token** | Måleenheden for, hvor meget tekst AI'en læser og skriver. Dit forbrug tælles i tokens. |
 | **Model** | Selve AI'en. Der findes flere: nogle er hurtige og billige, andre klogere og dyrere. |
 
-## For de nysgerrige: hvad lægger kittet i dit projekt?
+</details>
+
+<details>
+<summary><b>For de nysgerrige: hvad lægger kittet i dit projekt?</b></summary>
 
 | Fil | Hvad den gør |
 |---|---|
@@ -244,13 +293,19 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 
 Der er to statusfiler, og de er ikke det samme: `STATUS.md` handler om dit projekt og bliver brugt hver dag. `.startkit/status.md` handler kun om, hvor langt du er i startkittets eget forløb, og det er dér, fejl i kittet skrives ned.
 
-`.codex/hooks.json` (og `.claude/settings.local.json` i Claude Code) indeholder den fulde sti til projektmappen, og den rummer typisk dit brugernavn på computeren (`C:\Users\<dig>\...`). Startkittet holder derfor filen ude af git, så den ikke kommer med, hvis du deler projektet. Stien passer alligevel kun til din egen computer. `.startkit/profil.json` rummer dine svar fra interviewet; du bliver spurgt, om den skal med i sikkerhedskopien.
+`.codex/hooks.json` (og `.claude/settings.local.json` i Claude Code) indeholder den fulde sti til projektmappen, og den rummer typisk dit brugernavn på computeren (`C:\Users\<dig>\...`). Startkittet holder derfor filen ude af git, så den ikke kommer med, hvis du deler projektet. Stien passer alligevel kun til din egen computer. `.startkit/profil.json` rummer dine svar fra det lille interview; du bliver spurgt, om den skal med i sikkerhedskopien.
 
-## Fjern det igen
+</details>
+
+<details>
+<summary><b>Fjern det igen</b></summary>
 
 Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<dig>\.claude\skills\startkit`). Herunder står Codex' filnavne; i Claude Code hedder de to filer `.claude/settings.local.json` og `CLAUDE.md`. I et projekt: slet `scripts/startkit/`, `.githooks/`, `.startkit/` og startkittets poster i `.codex/hooks.json`, fjern blokken mellem `startkit:start` og `startkit:slut` i `AGENTS.md`, slet `overblik.cmd`, og kør `git config --unset core.hooksPath`. `STATUS.md`, `docs/gentagne-fejl.md` og linjerne under "Tilføjet af startkittet" i `.gitignore` er dine egne nu; behold dem, eller slet dem, som du vil.
 
-## Hvad er afprøvet, og hvad er ikke?
+</details>
+
+<details>
+<summary><b>Hvad er afprøvet, og hvad er ikke?</b></summary>
 
 | Del | Status |
 |---|---|
@@ -285,7 +340,7 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<di
 | Dobbeltklik på `install-english.cmd` på en rigtig computer | **Ikke afprøvet** |
 | Den engelske udgave kørt gennem Codex med et rigtigt menneske | **Ikke afprøvet** |
 | Dobbeltklik på `installer.cmd` og `overblik.cmd` på en fremmed computer (Windows kan advare) | **Ikke afprøvet** |
-| Den korte vej, feedback-spørgsmålene og noterne undervejs, kørt gennem Codex | **Ikke afprøvet** |
+| Forløbet med det lille interview, feedback-spørgsmålene og noterne undervejs, kørt gennem Codex | **Ikke afprøvet** |
 | Kittet brugt på et hold | **Ikke afprøvet** |
 | At Codex faktisk kører hooks'ene, som dokumentationen beskriver | **Ikke afprøvet** |
 | At vagten også bliver kaldt, når Codex retter filer (og ikke kun ved kommandoer) | **Ikke afprøvet** |
@@ -301,18 +356,29 @@ Kør testene selv med `node tests/run.js` (kræver git og Node).
 
 Fakta om Codex, Claude Code, GitHub og Superpowers (hvor skills og hooks ligger, hvordan en hook svarer, grænser for `AGENTS.md`, hvor knapperne sidder) er slået op i udgivernes egen dokumentation i november 2026. Ændrer de noget, kan dele af kittet holde op med at passe.
 
-## Meld en fejl
+</details>
+
+<details>
+<summary><b>Meld en fejl</b></summary>
 
 Tryk på fanen **Issues** øverst på denne side, og tryk **New issue**. Skriv tre ting: hvad du gjorde, hvad der skete, og hvad du havde forventet. Kopiér gerne det, Codex har skrevet under "Fejl i kittet" i filen `.startkit/status.md`.
 
 Skriv aldrig nøgler, adgangskoder eller personlige oplysninger i en sag; alt dér er offentligt. Tjek også, at det, du kopierer ind, ikke indeholder stier med dit brugernavn, hvis du ikke vil dele det.
 
-## Støt arbejdet
+</details>
+
+<details>
+<summary><b>Støt arbejdet</b></summary>
 
 Kittet er gratis, og det bliver ved med at være gratis. Du skal ikke betale noget for at bruge det, og intet er holdt tilbage.
 
 Har det sparet dig tid, og vil du gerne hjælpe med, at der kommer flere værktøjer som dette, kan du give en donation her: [paypal.me/KasperJensen798](https://paypal.me/KasperJensen798). Feedback hjælper lige så meget.
 
-## Licens
+</details>
+
+<details>
+<summary><b>Licens</b></summary>
 
 MIT. Du må bruge, ændre og dele kittet frit, så længe licensteksten følger med. Se filen `LICENSE`. Kittet kommer uden garanti. Det er et uofficielt hobbyprojekt og har ikke noget med OpenAI eller Anthropic at gøre.
+
+</details>

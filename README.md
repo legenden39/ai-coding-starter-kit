@@ -1,16 +1,84 @@
-# AI Coding Starter Kit (for ChatGPT / Codex and for Claude Code)
+# AI Coding Starter Kit
 
 English · [Dansk](README.da.md)
 
-> **Beta, version 0.9.0-beta.** This is a trial edition. The edition for Codex has not been tried in Codex by the person who made it. The edition for Claude Code is new: its safety nets have been tried in Claude Code on Linux, but not on Windows, and the whole flow has not been run through by a human. There will be bugs. If you try it, please give feedback: the kit helps you with that at the end. See the [changelog](CHANGELOG.md).
+> **Beta, version 0.9.0-beta.** A trial edition: there will be bugs. See the [changelog](CHANGELOG.md).
 
-**Do you want to build something with AI but don't know where to start, or are you tired of the AI making the same mistakes over and over? Then this is for you.**
+**Turn your AI into a partner you can trust.** The starter kit sets up fixed rules and safety nets in your project, so the AI does not forget, does not delete your work, and does not say "done" before it works. You don't need to know how to code.
 
-You don't need to know how to code, and you don't need to know the words used below. They are explained along the way, and there is a glossary at the bottom.
+Works with **Claude Code** and **Codex** (ChatGPT) · in English and Danish · free.
 
-> **The kit speaks English or Danish.** You choose when you install it: `install-english.cmd` gives you the English edition, `installer.cmd` the Danish one (for Claude Code: `install-claude-english.cmd` and `installer-claude.cmd`). The English edition was translated from the Danish one and has been tried by fewer people. A few file names in the kit are still Danish; they are explained [further down](#the-file-names-are-danish).
+## How it works
 
-## What is the problem?
+```mermaid
+flowchart LR
+  A["1. Install"] --> B["2. Type /startkit"] --> C["3. Answer 6 short questions"] --> D["4. See the safety net work"] --> E["Build safely"]
+```
+
+## What you get
+
+| | Without the kit | With the kit |
+|---|---|---|
+| 📋 **Fixed rules** | The AI forgets what you agreed yesterday | It reads your rules at the start of every chat |
+| 🛑 **Guard** | It can delete your work or put secret keys in the wrong place | It is stopped before that happens |
+| 💾 **Restore points** | A broken file is gone | Every chat starts with a copy you can get back |
+| ✅ **Done-check** | It says "done", and it does not work | It may only say "done" once it has been tried |
+| 🔁 **Mistake list** | It makes the same mistake again and again | The mistake is written down, and repeats are stopped* |
+| 🗺️ **Overview** | You don't know where you are | One page shows what is done and what is next |
+
+The kit never chooses for you. It shows what will happen first and waits for your yes.
+
+<sub>* Repeats being stopped automatically (loop stop) only works in Claude Code. In Codex it is a rule the AI has to follow.</sub>
+
+## Get started
+
+**With Claude Code** (fastest). Type these two lines in Claude Code, one at a time:
+
+```
+/plugin marketplace add legenden39/ai-coding-starter-kit
+/plugin install startkit@ai-coding-starter-kit
+```
+
+Then open a folder for your project, start a new chat, and type `/startkit`.
+
+**With Codex, or with a file:**
+
+1. Download **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**, and extract it.
+2. Double-click `install-english.cmd` (for Claude Code: `install-claude-english.cmd`).
+3. Open a folder for your project, and type `$startkit` (Claude Code: `/startkit`).
+
+Missing Git or Node? The kit checks for you and helps. **Stuck?** Type "I am stuck" in the chat.
+
+## Want to know more?
+
+Click a heading to open it.
+
+
+<details>
+<summary><b>What happens when you type /startkit?</b></summary>
+
+The starter kit asks at most 2-3 things at a time.
+
+1. **Introduction.** You are told what you are about to go through, and why, before a single question is asked.
+   The whole run typically takes 20-40 minutes.
+2. **Check of your computer.** If Git, Node or anything else is missing, you are helped through it. You also get help choosing the name and email that are stamped on your work, so you don't end up sharing something you did not mean to.
+3. **Superpowers.** A free add-on for Codex that makes the AI ask questions and make a plan before it builds. The starter kit shows you how to install it. You can do without it.
+4. **The small interview.** Six short questions about how the AI should behave for you. Not about the project.
+5. **The foundation** is set up and tried out in front of you, so you see that the safety nets actually stop something.
+6. **The overview page** is shown. Afterwards you open it by double-clicking the file `overview.cmd` in your project folder (`overblik.cmd` in the Danish edition).
+7. **Private backup on GitHub.** You are helped with an account, a hidden email and signing in. You can opt out.
+8. **Feedback.** Five short questions, two minutes. See "Give feedback" below.
+
+Afterwards (optional, in a new chat): the thorough interview about the project, mapping, research and plan.
+
+**Stuck?** Just write "jeg sidder fast" ("I am stuck") or say that you did not understand. The kit then explains it another way.
+
+You can pause at any time. Type `$startkit` again another day, and it continues where you left off. The more detailed your answers, the better the result fits you.
+
+</details>
+
+<details>
+<summary><b>Why does the kit exist?</b></summary>
 
 When you build something together with an AI, almost everyone runs into the same things:
 
@@ -23,35 +91,10 @@ When you build something together with an AI, almost everyone runs into the same
 
 This is rarely because you are doing something wrong. It is because a foundation is missing: some fixed rules and safety nets that the AI has to work within. Most people only discover that after months of frustration.
 
-## What does the starter kit do about it?
+</details>
 
-The starter kit is a helper you start inside your AI tool. It takes you by the hand from A to Z:
-
-1. **It helps you get the tools in place.** If something is missing on your computer, it shows you how to install it, one step at a time.
-2. **It interviews you.** What do you want to build? What annoys you? How do you want the AI to talk to you?
-3. **It researches solutions** to your particular problems and presents a plan. You say yes or no to each proposal.
-4. **It sets up the foundation** in your project and tries out, together with you, that it works.
-5. **It shows you an overview page** that you open in your browser, and extends it to your wishes.
-6. **It helps you make a private backup** online, so your work does not live on one computer only.
-
-The kit does the work for you, but it never chooses for you. It always shows what will happen first, and waits for your yes.
-
-Afterwards you can start building without having to worry about the mistakes listed above.
-
-### What you get
-
-| This | means for you |
-|---|---|
-| Short, fixed rules | The AI reads them at the start of every conversation, so you don't have to explain the same things again. |
-| A status file | It always says where you are: what has been done, and what the next step is. |
-| A guard | It stops the AI before it deletes your work or puts a secret code in the wrong place. |
-| A done-check | The AI may only say "done" once it has been tried that it works. |
-| A key check | Secret codes (keys) are stopped before they are saved somewhere others can see them. |
-| A list of repeated mistakes | Mistakes that happened twice are written down and locked, so they don't happen a third time. |
-| An overview page | One page in your browser that shows where the project stands right now. |
-| A private backup | Your project also lives on GitHub, where only you can see it. |
-
-## Codex or Claude Code?
+<details>
+<summary><b>Codex or Claude Code?</b></summary>
 
 The kit exists for two AI tools: **Codex** (from OpenAI, the company behind ChatGPT) and **Claude Code** (from Anthropic, the company behind Claude). You choose when you install. The flow, the rules and the programs are the same; only the names of some files and commands differ.
 
@@ -68,7 +111,10 @@ The rest of this page is written with Codex's names. If you use Claude Code, rea
 | See your usage | `/status` | `/usage` |
 | New chat | `/new` | `/clear` |
 
-## Read this first (honest caveat)
+</details>
+
+<details>
+<summary><b>Honest caveat: what has not been tried</b></summary>
 
 The kit was rebuilt from an edition made for Claude. The person who made it does not use ChatGPT and has therefore **not been able to try it in Codex**. The individual parts are tested separately (see below), but the whole flow has not been run through in Codex by a human. So there may be bugs, and buttons may be in a different place than described here.
 
@@ -78,13 +124,16 @@ If you hit a bug, ask Codex to write it down (it knows where), and please report
 
 The kit is made for Windows. Linux is tested automatically at GitHub every time something changes. Mac is untested.
 
-## Get started
+</details>
+
+<details>
+<summary><b>Step by step: installation, if something is missing</b></summary>
 
 There are four things you have to do yourself before the starter kit can take over. Expect 15-30 minutes if you start from scratch.
 
 Going to use the kit with a class? See the [guide for teachers](TEACHING.md).
 
-### Step 1: Get Codex or Claude Code
+#### Step 1: Get Codex or Claude Code
 
 You only need one of them. If you already have a ChatGPT or Claude subscription, choose the tool that goes with it.
 
@@ -103,7 +152,7 @@ Claude Code is Anthropic's tool for building with AI. It is from the same compan
 - Get the Windows app at [claude.com/download](https://claude.com/download), open it, and sign in with your Claude account. Claude Code is the **Code** tab in the app.
 - Claude Code requires a paid subscription. Which plans give access, and how much usage you get, is on [claude.com/pricing](https://claude.com/pricing). It changes, so check it there.
 
-### Step 2: Get Git and Node
+#### Step 2: Get Git and Node
 
 These are two free programs the starter kit uses behind the scenes.
 
@@ -112,7 +161,7 @@ These are two free programs the starter kit uses behind the scenes.
 
 Not sure whether you have them? Just move on. The starter kit checks and helps you if something is missing.
 
-### Step 3: Download and install the starter kit
+#### Step 3: Download and install the starter kit
 
 1. Download the kit: **[ai-coding-starter-kit.zip](https://github.com/legenden39/ai-coding-starter-kit/releases/latest/download/ai-coding-starter-kit.zip)**. The link always gives you the newest edition.
 2. Find the file in your "Downloads" folder, right-click it, and choose **Extract All**. Put the folder somewhere you can find again, for example in Documents.
@@ -141,7 +190,7 @@ This way has been tried in Claude Code on Linux from a copy of the repository, b
 
 </details>
 
-### Step 4: Start the starter kit
+#### Step 4: Start the starter kit
 
 1. Make a folder for what you want to build (or use one you already have). If you don't have an idea yet, just make an empty folder called, for example, `my-first-project`.
 2. Open Codex, and open that folder as a project. In Claude Code: choose the folder before you start a chat (in a terminal: open the folder, and type `claude`).
@@ -153,27 +202,10 @@ This way has been tried in Claude Code on Linux from a copy of the repository, b
 
 Now the starter kit takes over and tells you what will happen. If it does not show up, close Codex, open it again, and try once more. You can also type `/skills` and pick it from the list.
 
-## What happens then?
+</details>
 
-The starter kit asks at most 2-3 things at a time.
-
-1. **Introduction.** You are told what you are about to go through, and why, before a single question is asked.
-   Then you choose your own path: the **short** one (the computer is checked, the safety nets and the overview are set up; typically 20-40 minutes) or the **full** one (everything below; typically 1-2 hours, which can be spread over several days). You can always do the rest later.
-2. **Check of your computer.** If Git, Node or anything else is missing, you are helped through it. You also get help choosing the name and email that are stamped on your work, so you don't end up sharing something you did not mean to.
-3. **Superpowers.** A free add-on for Codex that makes the AI ask questions and make a plan before it builds. The starter kit shows you how to install it. You can do without it.
-4. **Interview** on 8 topics. It is a conversation, not a form: the number of questions is not fixed. If you answer thoroughly, there are fewer. Typically 30-60 minutes.
-5. **Mapping** of what you already have. Nothing is changed.
-6. **Research and plan.** You say yes or no to each proposal.
-7. **The foundation** is set up and tried out in front of you, so you see that the safety nets actually stop something.
-8. **The overview page** is shown, and you get suggestions for what it should show for you in particular. Afterwards you open it by double-clicking the file `overview.cmd` in your project folder (`overblik.cmd` in the Danish edition).
-9. **Private backup on GitHub.** You are helped with an account, a hidden email and signing in. You can opt out.
-10. **Feedback.** Five short questions, two minutes. See "Give feedback" below.
-
-**Stuck?** Just write "jeg sidder fast" ("I am stuck") or say that you did not understand. The kit then explains it another way.
-
-You can pause at any time. Type `$startkit` again another day, and it continues where you left off. The more detailed your answers, the better the result fits you.
-
-## Give feedback (that is why it is a beta)
+<details>
+<summary><b>Give feedback (that is why it is a beta)</b></summary>
 
 The kit takes notes along the way when something is unclear or goes wrong, and at the end it asks five short questions: where did you get stuck, what did you not understand, what was unnecessary, how long did it take, and would you recommend it.
 
@@ -182,15 +214,21 @@ Everything is collected in one file in your project: `.startkit/feedback.md`. **
 - Send the file (or paste the text) to whoever you got the kit from.
 - Open an issue on GitHub: the **Issues** tab at the top of this page, **New issue**, choose "Beta-feedback". Everything there is public.
 
-## It costs usage, and that is on purpose
+</details>
+
+<details>
+<summary><b>It costs usage, and that is on purpose</b></summary>
 
 An AI subscription has a limit on how much you can use. It is measured in "tokens", which is roughly the amount of text the AI reads and writes.
 
-Running the starter kit uses a fair share of your usage: the interview is a long conversation, and the research afterwards reads sources on the web. See it as an investment. You spend usage once on building the foundation, and afterwards you save it every day, because you don't have to explain the same things again or fix the same mistakes again. No number can be promised for how much you save.
+Running the starter kit uses a fair share of your usage: the run is a conversation with a number of steps. See it as an investment. You spend usage once on building the foundation, and afterwards you save it every day, because you don't have to explain the same things again or fix the same mistakes again. No number can be promised for how much you save.
 
 Type `/status` in Codex to see your usage before you start. You can spread the flow over several days; everything is saved.
 
-## Is it safe?
+</details>
+
+<details>
+<summary><b>Is it safe?</b></summary>
 
 - **The kit sends nothing anywhere.** Its programs run only on your own computer.
 - **It never stores your secret codes.** The key check reads your files on your own computer to find codes that are in the wrong place, but it only shows the file's name and the kind of code.
@@ -202,14 +240,20 @@ Type `/status` in Codex to see your usage before you start. You can spread the f
 
 Everything in the kit is open, so anyone can read what it does.
 
-## Who is behind this, and what can you expect?
+</details>
+
+<details>
+<summary><b>Who is behind this, and what can you expect?</b></summary>
 
 - **The kit is not affiliated with OpenAI or Anthropic.** It is made by one person, who is new to tech themselves, together with AI. It is not made, approved or supported by OpenAI or Anthropic. The names Codex, ChatGPT, Claude and Claude Code belong to their owners and are used only to say which tools the kit works with.
 - **It is free, a beta and comes with no guarantee.** It is made in spare time. There is no agreed response time, and I cannot promise that a bug will be fixed.
 - **Help covers the kit itself, not your project.** You can write bugs and suggestions for the kit under **Issues** (see "Give feedback"). I read them when I have time, but cannot promise a reply. I cannot help build your project or fix errors in it.
 - **Nobody counts you.** The kit has no telemetry: it sends no information about you or how you use it. The only things counted are visits to this page and how many times the kit is downloaded. GitHub does that, not the kit, and I only see numbers, no names.
 
-## Glossary
+</details>
+
+<details>
+<summary><b>Glossary</b></summary>
 
 | Word | Means |
 |---|---|
@@ -228,7 +272,10 @@ Everything in the kit is open, so anyone can read what it does.
 | **Token** | The unit for how much text the AI reads and writes. Your usage is counted in tokens. |
 | **Model** | The AI itself. There are several: some are fast and cheap, others smarter and more expensive. |
 
-## For the curious: what does the kit put in your project?
+</details>
+
+<details>
+<summary><b>For the curious: what does the kit put in your project?</b></summary>
 
 | File | What it does |
 |---|---|
@@ -244,7 +291,7 @@ Everything in the kit is open, so anyone can read what it does.
 | `scripts/startkit/fortryd.js` and `.startkit/how-to-undo.md` | The undo help: at the start of every chat a save point of your files is taken automatically, and the program restores them. The page explains how. |
 | `.startkit/` | Your profile, the plan, settings, your feedback, and the explanation "why was I stopped". |
 
-### The file names are Danish
+#### The file names are Danish
 
 The kit was first written in Danish. Everything you read, and everything the AI is told, is in English in the English edition, but the programs kept their Danish file names, because the two editions share them:
 
@@ -262,13 +309,19 @@ In the Danish edition, three files in your project have Danish names too: `docs/
 
 There are two status files, and they are not the same: `STATUS.md` is about your project and is used every day. `.startkit/status.md` is only about how far you are in the kit's own flow, and that is where bugs in the kit are written down.
 
-`.codex/hooks.json` (and `.claude/settings.local.json` in Claude Code) contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). The starter kit therefore keeps the file out of git, so it does not come along if you share the project. The path only fits your own computer anyway. `.startkit/profile.json` holds your answers from the interview; you are asked whether it should be part of the backup.
+`.codex/hooks.json` (and `.claude/settings.local.json` in Claude Code) contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). The starter kit therefore keeps the file out of git, so it does not come along if you share the project. The path only fits your own computer anyway. `.startkit/profile.json` holds your answers from the small interview; you are asked whether it should be part of the backup.
 
-## Remove it again
+</details>
+
+<details>
+<summary><b>Remove it again</b></summary>
 
 Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Users\<you>\.claude\skills\startkit`). Codex's file names are used below; in Claude Code the two files are called `.claude/settings.local.json` and `CLAUDE.md`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
 
-## What has been tried, and what has not?
+</details>
+
+<details>
+<summary><b>What has been tried, and what has not?</b></summary>
 
 | Part | Status |
 |---|---|
@@ -303,7 +356,7 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Use
 | Double-clicking `install-english.cmd` on a real computer | **Not tried** |
 | The English edition run through Codex with a real person | **Not tried** |
 | Double-clicking `installer.cmd` and `overblik.cmd` on someone else's computer (Windows may warn) | **Not tried** |
-| The short path, the feedback questions and the notes along the way, run through Codex | **Not tried** |
+| The run with the small interview, the feedback questions and the notes along the way, run through Codex | **Not tried** |
 | The kit used with a class | **Not tried** |
 | That Codex actually runs the hooks the way the documentation describes | **Not tried** |
 | That the guard is also called when Codex edits files (and not only for commands) | **Not tried** |
@@ -319,18 +372,29 @@ Run the tests yourself with `node tests/run.js` (requires git and Node).
 
 Facts about Codex, Claude Code, GitHub and Superpowers (where skills and hooks live, how a hook responds, limits for `AGENTS.md`, where the buttons are) were looked up in the publishers' own documentation in November 2026. If they change something, parts of the kit may stop matching.
 
-## Report a bug
+</details>
+
+<details>
+<summary><b>Report a bug</b></summary>
 
 Press the **Issues** tab at the top of this page, and press **New issue**. Write three things: what you did, what happened, and what you expected. Feel free to copy what Codex wrote under "Bugs in the kit" in the file `.startkit/status.md`. English and Danish are both fine.
 
 Never write keys, passwords or personal information in an issue; everything there is public. Also check that what you paste does not contain paths with your user name, if you do not want to share it.
 
-## Support the work
+</details>
+
+<details>
+<summary><b>Support the work</b></summary>
 
 The kit is free, and it stays free. You do not have to pay anything to use it, and nothing is held back.
 
 If it saved you time, and you would like to help more tools like this get made, you can leave a donation here: [paypal.me/KasperJensen798](https://paypal.me/KasperJensen798). Feedback helps just as much.
 
-## License
+</details>
+
+<details>
+<summary><b>License</b></summary>
 
 MIT. You may use, change and share the kit freely, as long as the license text is included. See the file `LICENSE`. The kit comes with no warranty. It is an unofficial hobby project and is not affiliated with OpenAI or Anthropic.
+
+</details>

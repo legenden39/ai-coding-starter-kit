@@ -1,6 +1,6 @@
 # What most people do not know (experience that saves months)
 
-Use this file in phase 5: look up the person's problems here before you search the web. Each point has a problem, a cause and a solution. Explain them in your own words, and only those that fit the person's answers. Facts about Claude Code were looked up in the official documentation in November 2026; check them again if something does not fit.
+Use this file in the project steps and for the habits in phase 6: look up the person's problems here before you search the web. Each point has a problem, a cause and a solution. Explain them in your own words, and only those that fit the person's answers. Facts about Claude Code were looked up in the official documentation in November 2026; check them again if something does not fit.
 
 ## 1. A text rule gets forgotten. A hook or a test does not.
 

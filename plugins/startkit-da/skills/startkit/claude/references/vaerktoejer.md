@@ -29,7 +29,7 @@ Tjek: `git config user.name` og `git config user.email`. Vis personen, hvad der 
 
 Forklar valget, og lad personen bestemme:
 - **Navn:** et kaldenavn er helt i orden. Det behøver ikke være det rigtige navn.
-- **E-mail:** har personen en GitHub-konto, eller vil personen have en sikkerhedskopi på GitHub (anbefales, se fase 9), så tag trin 1 og 2 i `claude/references/github.md` nu. Dér får personen en særlig adresse fra GitHub, som ikke afslører den rigtige. Vil personen ikke bruge GitHub, så brug `ikke-sat@example.invalid`; den kan ændres senere.
+- **E-mail:** har personen en GitHub-konto, eller vil personen have en sikkerhedskopi på GitHub (anbefales, se fase 6), så tag trin 1 og 2 i `claude/references/github.md` nu. Dér får personen en særlig adresse fra GitHub, som ikke afslører den rigtige. Vil personen ikke bruge GitHub, så brug `ikke-sat@example.invalid`; den kan ændres senere.
 
 Sæt dem, når personen har valgt. Spørg, om det skal gælde alle projekter på computeren (`git config --global user.name "…"` og `git config --global user.email "…"`) eller kun dette (samme kommandoer uden `--global`, kørt i projektmappen).
 
@@ -45,7 +45,7 @@ Tjek: åbn et nyt terminalvindue, og kør `node --version`. Tallet skal være 18
 
 ## Superpowers (anbefales, men kan undværes)
 
-Hvad: en gratis tilføjelse (et plugin) til Claude Code. Den får AI'en til at stille spørgsmål og lægge en plan, før den bygger, i stedet for at kaste sig ud i det. Startkittet bruger den i fase 5, hvis den er der.
+Hvad: en gratis tilføjelse (et plugin) til Claude Code. Den får AI'en til at stille spørgsmål og lægge en plan, før den bygger, i stedet for at kaste sig ud i det. Startkittet bruger den i projekttrinnet, hvis den er der.
 
 Sådan:
 1. Bed personen skrive dette i chatten og trykke Enter: `/plugin install superpowers@claude-plugins-official`

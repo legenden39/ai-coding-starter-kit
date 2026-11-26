@@ -1,4 +1,4 @@
-# Fase 5: undersøg og foreslå
+# Projekttrin 3: undersøg og foreslå
 
 Formålet er at finde de løsninger, der passer til netop denne person. Hverken personen eller du har facit på forhånd. Du må ikke bare bygge ud fra det, du tror; du skal undersøge det.
 
@@ -57,7 +57,7 @@ Regler for forslagene:
 
 ## Trin 5: Gennemgå med personen
 
-Gå forslagene igennem ét ad gangen, vigtigste først. Få ja, nej eller senere til hvert, og skriv svaret ind. Slut med en kort rækkefølge: "Først sætter vi det faste fundament op (fase 6), derefter 1, 3 og 5."
+Gå forslagene igennem ét ad gangen, vigtigste først. Få ja, nej eller senere til hvert, og skriv svaret ind. Slut med en kort rækkefølge: "Først sætter vi det faste fundament op (allerede gjort), derefter 1, 3 og 5."
 
 ## Modelguiden (laves altid)
 
