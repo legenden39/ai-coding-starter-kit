@@ -34,6 +34,7 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
+- Gemini i Antigravity: opgaven står i `docs/opgave-gemini.md` (gennemgang, find ud af hvad Antigravity kan, og en Gemini-udgave efter ejerens valg). Gemini arbejder på grenen `gemini/gennemgang-og-udgave` og pusher ikke; Claude gennemgår bagefter. Fakta om Antigravity er IKKE slået op af Claude (netværket her når ikke Googles sider).
 - Prøv hele forløbet i en rigtig chat i et testprojekt (`docs/afproevning-fundament.md`).
 - Forbedringer fra ejerens andet projekt (gennemgået 26. nov.; kun idéerne, intet om projektet). Ejeren har valgt alle fire; én opgave pr. chat, i denne rækkefølge:
   1. Kun relevante tests ved en ændring; fuld test én gang om ugen (markør for seneste grønne fulde kørsel). Opus.
