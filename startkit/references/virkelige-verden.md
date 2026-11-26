@@ -2,7 +2,7 @@
 
 Læses kun, hvis runde F viser, at noget skal ud til rigtige mennesker. Når et projekt får eget domæne, rigtige mails og rigtige betalinger, gælder der andre krav end på ens egen computer. Formålet her er, at personen kender kravene **før** de rammer.
 
-Dette er en tjekliste til overblik, ikke juridisk eller økonomisk rådgivning. Lovkrav og udbyderes regler ændrer sig: slå hvert punkt, der gælder personen, op hos den officielle kilde i fase 5, og sig tydeligt, hvor en fagperson (jurist, revisor) bør spørges, før rigtige brugere kommer til.
+Dette er en tjekliste til overblik, ikke juridisk eller økonomisk rådgivning. Lovkrav og udbyderes regler ændrer sig: slå hvert punkt, der gælder personen, op hos den officielle kilde i projekttrinnet, og sig tydeligt, hvor en fagperson (jurist, revisor) bør spørges, før rigtige brugere kommer til.
 
 Gå kun de afsnit igennem, som personens svar peger på. Hvert punkt, der gælder, bliver et punkt i `.startkit/plan.md`.
 

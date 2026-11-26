@@ -91,17 +91,19 @@ tjek("GitHub-skabelonen: advarer om, at alt er offentligt", /Alt, du skriver her
 
 // ---- kontrol hos personen, og den korte vej som et valg ----
 tjek("SKILL.md: gør arbejdet for personen, men vælger aldrig for personen", /vælg aldrig for personen/.test(skill) && /Ingen skjulte valg/.test(skill) && /Sig altid næste skridt/.test(skill));
-tjek("SKILL.md: kort eller fuld vej vælges af personen, efter introduktionen og før maskintjekket", skill.indexOf("Fase 1: Introduktion") < skill.indexOf("Fase 1b: Kort eller fuld vej") && skill.indexOf("Fase 1b: Kort eller fuld vej") < skill.indexOf("Fase 2: Er maskinen klar?") && /men du vælger ikke/.test(skill));
-const kort = kit("references/kort-vej.md");
-tjek("kort vej: siger ærligt, hvad den ikke giver, og hvordan man tager resten senere", /Giver ikke endnu/.test(kort) && /Sig det ærligt, før personen vælger/.test(kort) && /\$startkit/.test(kort));
+tjek("SKILL.md: kun fundamentet, uden valg af vej, og projektet hører til bagefter", !/Kort eller fuld vej/.test(skill) && skill.indexOf("Fase 1: Introduktion") < skill.indexOf("Fase 2: Er maskinen klar?") && /Hold dig til fundamentet/.test(skill) && /references\/projekt-trin\.md/.test(skill));
+const kort = kit("references/lille-interview.md");
+const trin = kit("references/projekt-trin.md");
+tjek("lille interview: siger ærligt, at reglerne er generelle, og hvordan projektet tages bagefter", /generelle/.test(kort) && /Sig det ærligt/.test(kort) && /\$startkit/.test(kort));
+tjek("projekttrin: er valgfrit, kommer efter fundamentet og har interview, kortlægning, undersøgelse og skræddersyet lag", /IKKE en del af fundamentet/.test(trin) && ["## Trin 1: Det grundige interview", "## Trin 2:", "## Trin 3:", "## Trin 4:"].every((o) => trin.includes(o)));
 const { valider } = require(path.join(KIT, "scripts", "opsaet.js"));
 const kortProfil = { vej: "kort", person: { navn: "Prøve", niveau: "slet ikke" }, valgt_projekt: "Mit første projekt", projekter: [{ navn: "Mit første projekt", beskrivelse: "Et sted at prøve ting af." }], regler: { aldrig_uden_ok: ["sletter filer"], svarform: "Forklar undervejs.", ved_tvivl: "spørg" }, tjek_kommandoer: [] };
-tjek("kort vej: det lille interview giver en profil, opsætningen kan bruge", valider(kortProfil).length === 0 && ["person.navn", "projekter[].navn", "projekter[].beskrivelse", "regler.aldrig_uden_ok", "regler.svarform"].every((felt) => kort.includes(felt)), JSON.stringify(valider(kortProfil)));
+tjek("lille interview: giver en profil, opsætningen kan bruge", valider(kortProfil).length === 0 && ["person.navn", "projekter[].navn", "projekter[].beskrivelse", "regler.aldrig_uden_ok", "regler.svarform"].every((felt) => kort.includes(felt)), JSON.stringify(valider(kortProfil)));
 const kortProjekt = nytProjekt();
 skriv(kortProjekt, ".startkit/profil.json", JSON.stringify(kortProfil));
 r = koer("node", [path.join(KIT, "scripts", "opsaet.js"), kortProjekt]);
-tjek("kort vej: opsætningen kører på den korte profil", r.kode === 0 && fs.existsSync(path.join(kortProjekt, "AGENTS.md")) && fs.existsSync(path.join(kortProjekt, "overblik.cmd")), r.ud + r.fejl);
-tjek("forløbsskabelonen: har vej, sikkerhedskopi og feedback", ["Vej:", "9b", "9c"].every((s) => kit("assets/forloeb.skabelon.md").includes(s)));
+tjek("lille interview: opsætningen kører på den lille profil", r.kode === 0 && fs.existsSync(path.join(kortProjekt, "AGENTS.md")) && fs.existsSync(path.join(kortProjekt, "overblik.cmd")), r.ud + r.fejl);
+tjek("forløbsskabelonen: har fundamentet, sikkerhedskopi og projekttrinnet bagefter", ["2b", "6b", "Bagefter"].every((s) => kit("assets/forloeb.skabelon.md").includes(s)));
 
 // ---- undervisning ----
 const und = rod("UNDERVISNING.md");

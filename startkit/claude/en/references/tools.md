@@ -29,7 +29,7 @@ Check: `git config user.name` and `git config user.email`. Show the person what 
 
 Explain the choice, and let the person decide:
 - **Name:** a nickname is perfectly fine. It does not have to be the real name.
-- **Email:** if the person has a GitHub account, or wants a backup on GitHub (recommended, see phase 9), do steps 1 and 2 in `claude/en/references/github.md` now. There the person gets a special address from GitHub that does not reveal the real one. If the person does not want to use GitHub, use `not-set@example.invalid`; it can be changed later.
+- **Email:** if the person has a GitHub account, or wants a backup on GitHub (recommended, see phase 6), do steps 1 and 2 in `claude/en/references/github.md` now. There the person gets a special address from GitHub that does not reveal the real one. If the person does not want to use GitHub, use `not-set@example.invalid`; it can be changed later.
 
 Set them when the person has chosen. Ask whether it should apply to all projects on the computer (`git config --global user.name "…"` and `git config --global user.email "…"`) or only this one (the same commands without `--global`, run in the project folder).
 
@@ -45,7 +45,7 @@ Check: open a new terminal window, and run `node --version`. The number must be 
 
 ## Superpowers (recommended, but you can do without)
 
-What: a free add-on (a plugin) for Claude Code. It makes the AI ask questions and lay out a plan before it builds, instead of diving straight in. The starter kit uses it in phase 5 if it is there.
+What: a free add-on (a plugin) for Claude Code. It makes the AI ask questions and lay out a plan before it builds, instead of diving straight in. The starter kit uses it in the project steps if it is there.
 
 How:
 1. Ask the person to type this in the chat and press Enter: `/plugin install superpowers@claude-plugins-official`

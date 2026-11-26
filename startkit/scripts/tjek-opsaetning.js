@@ -3,7 +3,7 @@
 //   node tjek-opsaetning.js <projektmappe>
 //
 // Det her kan scriptet IKKE se: om hooks er godkendt (Codex) eller indlæst (Claude Code), og om de faktisk bliver kørt.
-// Det prøves i startkittets fase 7.
+// Det prøves i startkittets fase 5.
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");

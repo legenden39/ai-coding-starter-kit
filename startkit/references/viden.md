@@ -1,6 +1,6 @@
 # Det, de fleste ikke ved (erfaringer, der sparer måneder)
 
-Brug denne fil i fase 5: slå personens problemer op her, før du søger på nettet. Hvert punkt har et problem, en årsag og en løsning. Forklar dem med dine egne ord, og kun dem, der passer til personens svar. Fakta om Codex er slået op i den officielle dokumentation i november 2026; tjek dem igen, hvis noget ikke passer.
+Brug denne fil i projekttrinnet og til vanerne i fase 6: slå personens problemer op her, før du søger på nettet. Hvert punkt har et problem, en årsag og en løsning. Forklar dem med dine egne ord, og kun dem, der passer til personens svar. Fakta om Codex er slået op i den officielle dokumentation i november 2026; tjek dem igen, hvis noget ikke passer.
 
 ## 1. En tekstregel bliver glemt. En hook eller en test bliver ikke.
 

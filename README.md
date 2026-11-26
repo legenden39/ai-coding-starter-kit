@@ -28,7 +28,7 @@ This is rarely because you are doing something wrong. It is because a foundation
 The starter kit is a helper you start inside your AI tool. It takes you by the hand from A to Z:
 
 1. **It helps you get the tools in place.** If something is missing on your computer, it shows you how to install it, one step at a time.
-2. **It interviews you.** What do you want to build? What annoys you? How do you want the AI to talk to you?
+2. **It asks six short questions** about how the AI should behave for you. Not about the project itself.
 3. **It researches solutions** to your particular problems and presents a plan. You say yes or no to each proposal.
 4. **It sets up the foundation** in your project and tries out, together with you, that it works.
 5. **It shows you an overview page** that you open in your browser, and extends it to your wishes.
@@ -158,16 +158,16 @@ Now the starter kit takes over and tells you what will happen. If it does not sh
 The starter kit asks at most 2-3 things at a time.
 
 1. **Introduction.** You are told what you are about to go through, and why, before a single question is asked.
-   Then you choose your own path: the **short** one (the computer is checked, the safety nets and the overview are set up; typically 20-40 minutes) or the **full** one (everything below; typically 1-2 hours, which can be spread over several days). You can always do the rest later.
+   The whole run typically takes 20-40 minutes.
 2. **Check of your computer.** If Git, Node or anything else is missing, you are helped through it. You also get help choosing the name and email that are stamped on your work, so you don't end up sharing something you did not mean to.
 3. **Superpowers.** A free add-on for Codex that makes the AI ask questions and make a plan before it builds. The starter kit shows you how to install it. You can do without it.
-4. **Interview** on 8 topics. It is a conversation, not a form: the number of questions is not fixed. If you answer thoroughly, there are fewer. Typically 30-60 minutes.
-5. **Mapping** of what you already have. Nothing is changed.
-6. **Research and plan.** You say yes or no to each proposal.
-7. **The foundation** is set up and tried out in front of you, so you see that the safety nets actually stop something.
-8. **The overview page** is shown, and you get suggestions for what it should show for you in particular. Afterwards you open it by double-clicking the file `overview.cmd` in your project folder (`overblik.cmd` in the Danish edition).
-9. **Private backup on GitHub.** You are helped with an account, a hidden email and signing in. You can opt out.
-10. **Feedback.** Five short questions, two minutes. See "Give feedback" below.
+4. **The small interview.** Six short questions about how the AI should behave for you. Not about the project.
+5. **The foundation** is set up and tried out in front of you, so you see that the safety nets actually stop something.
+6. **The overview page** is shown. Afterwards you open it by double-clicking the file `overview.cmd` in your project folder (`overblik.cmd` in the Danish edition).
+7. **Private backup on GitHub.** You are helped with an account, a hidden email and signing in. You can opt out.
+8. **Feedback.** Five short questions, two minutes. See "Give feedback" below.
+
+Afterwards (optional, in a new chat): the thorough interview about the project, mapping, research and plan.
 
 **Stuck?** Just write "jeg sidder fast" ("I am stuck") or say that you did not understand. The kit then explains it another way.
 
@@ -186,7 +186,7 @@ Everything is collected in one file in your project: `.startkit/feedback.md`. **
 
 An AI subscription has a limit on how much you can use. It is measured in "tokens", which is roughly the amount of text the AI reads and writes.
 
-Running the starter kit uses a fair share of your usage: the interview is a long conversation, and the research afterwards reads sources on the web. See it as an investment. You spend usage once on building the foundation, and afterwards you save it every day, because you don't have to explain the same things again or fix the same mistakes again. No number can be promised for how much you save.
+Running the starter kit uses a fair share of your usage: the run is a conversation with a number of steps. See it as an investment. You spend usage once on building the foundation, and afterwards you save it every day, because you don't have to explain the same things again or fix the same mistakes again. No number can be promised for how much you save.
 
 Type `/status` in Codex to see your usage before you start. You can spread the flow over several days; everything is saved.
 
@@ -262,7 +262,7 @@ In the Danish edition, three files in your project have Danish names too: `docs/
 
 There are two status files, and they are not the same: `STATUS.md` is about your project and is used every day. `.startkit/status.md` is only about how far you are in the kit's own flow, and that is where bugs in the kit are written down.
 
-`.codex/hooks.json` (and `.claude/settings.local.json` in Claude Code) contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). The starter kit therefore keeps the file out of git, so it does not come along if you share the project. The path only fits your own computer anyway. `.startkit/profile.json` holds your answers from the interview; you are asked whether it should be part of the backup.
+`.codex/hooks.json` (and `.claude/settings.local.json` in Claude Code) contains the full path to the project folder, which typically includes your user name on the computer (`C:\Users\<you>\...`). The starter kit therefore keeps the file out of git, so it does not come along if you share the project. The path only fits your own computer anyway. `.startkit/profile.json` holds your answers from the small interview; you are asked whether it should be part of the backup.
 
 ## Remove it again
 
@@ -303,7 +303,7 @@ Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Use
 | Double-clicking `install-english.cmd` on a real computer | **Not tried** |
 | The English edition run through Codex with a real person | **Not tried** |
 | Double-clicking `installer.cmd` and `overblik.cmd` on someone else's computer (Windows may warn) | **Not tried** |
-| The short path, the feedback questions and the notes along the way, run through Codex | **Not tried** |
+| The run with the small interview, the feedback questions and the notes along the way, run through Codex | **Not tried** |
 | The kit used with a class | **Not tried** |
 | That Codex actually runs the hooks the way the documentation describes | **Not tried** |
 | That the guard is also called when Codex edits files (and not only for commands) | **Not tried** |

@@ -1,19 +1,19 @@
 # Starter kit: how far are we?
 
-Path: (short or full; ⏳ means "waits for the full path")
+The kit builds only the foundation. The project itself comes afterwards (optional project steps, see the bottom).
 
-- ⬜ 1 Introduction and choice of path
+- ⬜ 1 Introduction
 - ⬜ 2 The machine is ready (git, name and email in git, Node, model list, Superpowers)
 - ⬜ 2b Key scan
-- ⬜ 3 Interview (rounds A-H)
-- ⬜ 4 Mapping of what already exists
-- ⬜ 5 Research and plan (.startkit/plan.md)
-- ⬜ 6 Fixed foundation set up, hooks seen with /hooks
-- ⬜ 7 The safety net has been tried
-- ⬜ 8 Tailored layer and overview
-- ⬜ 9 Wrap-up and first commit
-- ⬜ 9b Private backup on GitHub (optional)
-- ⬜ 9c Feedback: five short questions (.startkit/feedback.md)
+- ⬜ 3 The small interview (six questions)
+- ⬜ 4 Fixed foundation set up, hooks seen with /hooks
+- ⬜ 5 The safety net has been tried
+- ⬜ 6 Wrap-up: overview, first commit, feedback (.startkit/feedback.md)
+- ⬜ 6b Private backup on GitHub (optional)
+
+## Afterwards (optional, in a new chat, once the foundation is ✅)
+
+- ⬜ Project steps: thorough interview, mapping, research and plan, tailored layer
 
 ## Open questions
 

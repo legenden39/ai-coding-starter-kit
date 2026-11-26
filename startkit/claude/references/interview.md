@@ -336,7 +336,7 @@ Felt: person.andet
 
 ## Profilskema (`.startkit/profil.json`)
 
-Gem svarene med felternes navne. Aldrig nøgler eller adgangskoder. Disse felter bruger opsætningen direkte og skal være udfyldt, før fase 6:
+Gem svarene med felternes navne. Aldrig nøgler eller adgangskoder. Disse felter bruger opsætningen direkte og skal være udfyldt, før fase 4:
 
 ```json
 {
@@ -356,4 +356,4 @@ Gem svarene med felternes navne. Aldrig nøgler eller adgangskoder. Disse felter
 }
 ```
 
-`tjek_kommandoer` er de kommandoer, der beviser, at projektet virker (fx `npm test`). Find dem sammen med personen ud fra D3. Findes der ingen endnu, så lad listen være tom, og tag "en første test" med i planen i fase 5.
+`tjek_kommandoer` er de kommandoer, der beviser, at projektet virker (fx `npm test`). Find dem sammen med personen ud fra D3. Findes der ingen endnu, så lad listen være tom, og tag "en første test" med i planen i projekttrinnet.

@@ -1,19 +1,19 @@
 # Startkit: hvor langt er vi?
 
-Vej: (kort eller fuld; ⏳ betyder "venter til den fulde vej")
+Kittet bygger kun fundamentet. Selve projektet kommer bagefter (valgfrit projekttrin, se bunden).
 
-- ⬜ 1 Introduktion og valg af vej
+- ⬜ 1 Introduktion
 - ⬜ 2 Maskinen er klar (git, navn og e-mail i git, Node, modelliste, Superpowers)
 - ⬜ 2b Nøglescan
-- ⬜ 3 Interview (runde A-H)
-- ⬜ 4 Kortlægning af det, der findes
-- ⬜ 5 Undersøgelse og plan (.startkit/plan.md)
-- ⬜ 6 Fast fundament sat op, hooks set med /hooks
-- ⬜ 7 Sikkerhedsnettet er prøvet
-- ⬜ 8 Skræddersyet lag og overblik
-- ⬜ 9 Afslutning og første commit
-- ⬜ 9b Privat sikkerhedskopi på GitHub (kan vælges fra)
-- ⬜ 9c Feedback: fem korte spørgsmål (.startkit/feedback.md)
+- ⬜ 3 Det lille interview (seks spørgsmål)
+- ⬜ 4 Fast fundament sat op, hooks set med /hooks
+- ⬜ 5 Sikkerhedsnettet er prøvet
+- ⬜ 6 Afslutning: overblik, første commit, feedback (.startkit/feedback.md)
+- ⬜ 6b Privat sikkerhedskopi på GitHub (kan vælges fra)
+
+## Bagefter (valgfrit, i en ny chat, når fundamentet er ✅)
+
+- ⬜ Projekttrin: grundigt interview, kortlægning, undersøgelse og plan, skræddersyet lag
 
 ## Åbne spørgsmål
 

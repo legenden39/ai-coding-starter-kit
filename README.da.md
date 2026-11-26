@@ -26,11 +26,12 @@ Det skyldes sjældent, at du gør noget forkert. Det skyldes, at der mangler et 
 Startkittet er en hjælper, du starter inde i dit AI-værktøj. Den tager dig i hånden fra A til Z:
 
 1. **Den hjælper dig med at få værktøjerne på plads.** Mangler der noget på din computer, viser den dig, hvordan du installerer det, ét skridt ad gangen.
-2. **Den interviewer dig.** Hvad vil du bygge? Hvad irriterer dig? Hvordan vil du have, at AI'en taler til dig?
-3. **Den undersøger løsninger** på netop dine problemer og lægger en plan frem. Du siger ja eller nej til hvert forslag.
-4. **Den sætter fundamentet op** i dit projekt og prøver sammen med dig, at det virker.
-5. **Den viser dig en overbliksside,** som du åbner i din browser, og bygger den til efter dine ønsker.
-6. **Den hjælper dig med en privat sikkerhedskopi** på nettet, så dit arbejde ikke kun ligger på én computer.
+2. **Den stiller seks korte spørgsmål** om, hvordan AI'en skal opføre sig hos dig. Ikke om selve projektet.
+3. **Den sætter fundamentet op** i dit projekt (regler, vagt, færdig-tjek, nøgletjek, gemmepunkter og en liste over fejl, der ikke må gentages) og prøver sammen med dig, at det virker.
+4. **Den viser dig en overbliksside,** som du åbner i din browser.
+5. **Den hjælper dig med en privat sikkerhedskopi** på nettet, så dit arbejde ikke kun ligger på én computer.
+
+Kittet bygger kun fundamentet. Selve projektet (idé, plan, bygning) kommer bagefter, i en ny chat, med fundamentet som sikkerhedsnet. Vil du have hjælp til at komme fra idé til plan, kan du tage det som et valgfrit trin bagefter.
 
 Kittet gør arbejdet for dig, men det vælger aldrig for dig. Det viser altid først, hvad der sker, og venter på dit ja.
 
@@ -156,16 +157,16 @@ Nu tager startkittet over og fortæller dig, hvad der skal ske. Dukker den ikke 
 Startkittet taler dansk og spørger højst om 2-3 ting ad gangen.
 
 1. **Introduktion.** Du får at vide, hvad du skal igennem, og hvorfor, før der kommer et eneste spørgsmål.
-   Derefter vælger du selv vej: den **korte** (computeren tjekkes, sikkerhedsnettene og overblikket sættes op; typisk 20-40 minutter) eller den **fulde** (alt herunder; typisk 1-2 timer, som kan deles over flere dage). Du kan altid tage resten senere.
+   Hele forløbet tager typisk 20-40 minutter.
 2. **Tjek af computeren.** Mangler Git, Node eller noget andet, bliver du hjulpet igennem. Du får også hjælp til at vælge det navn og den e-mail, der bliver stemplet på dit arbejde, så du ikke kommer til at dele noget, du ikke ville.
 3. **Superpowers.** Det er en gratis tilføjelse til Codex, som får AI'en til at stille spørgsmål og lægge en plan, før den bygger. Startkittet viser dig, hvordan du installerer den. Den kan undværes.
-4. **Interview** om 8 emner. Det er en samtale, ikke et skema: antallet af spørgsmål er ikke fast. Svarer du grundigt, bliver der færre. Typisk 30-60 minutter.
-5. **Kortlægning** af det, du allerede har. Der bliver ikke ændret noget.
-6. **Undersøgelse og plan.** Du siger ja eller nej til hvert forslag.
-7. **Fundamentet** sættes op og prøves for øjnene af dig, så du ser, at sikkerhedsnettene faktisk stopper noget.
-8. **Overblikssiden** vises, og du får forslag til, hvad den skal vise for netop dig. Bagefter åbner du den ved at dobbeltklikke på filen `overblik.cmd` i din projektmappe.
-9. **Privat sikkerhedskopi på GitHub.** Du bliver hjulpet med konto, skjult e-mail og login. Den kan vælges fra.
-10. **Feedback.** Fem korte spørgsmål, to minutter. Se "Giv feedback" herunder.
+4. **Det lille interview.** Seks korte spørgsmål om, hvordan AI'en skal opføre sig hos dig. Ikke om projektet.
+5. **Fundamentet** sættes op og prøves for øjnene af dig, så du ser, at sikkerhedsnettene faktisk stopper noget.
+6. **Overblikssiden** vises. Bagefter åbner du den ved at dobbeltklikke på filen `overblik.cmd` i din projektmappe.
+7. **Privat sikkerhedskopi på GitHub.** Du bliver hjulpet med konto, skjult e-mail og login. Den kan vælges fra.
+8. **Feedback.** Fem korte spørgsmål, to minutter. Se "Giv feedback" herunder.
+
+Bagefter (valgfrit, i en ny chat): det grundige interview om projektet, kortlægning, undersøgelse og plan.
 
 **Sidder du fast?** Skriv bare "jeg sidder fast" eller "det her forstod jeg ikke". Så forklarer kittet det på en anden måde.
 
@@ -184,7 +185,7 @@ Det hele samles i én fil i dit projekt: `.startkit/feedback.md`. **Kittet sende
 
 Et AI-abonnement har en grænse for, hvor meget du kan bruge. Det måles i "tokens", som groft sagt er mængden af tekst, AI'en læser og skriver.
 
-At køre startkittet igennem bruger en del af dit forbrug: interviewet er en lang samtale, og undersøgelsen bagefter læser kilder på nettet. Se det som en investering. Du bruger forbrug én gang på at bygge fundamentet, og bagefter sparer du det hver dag, fordi du ikke skal forklare det samme forfra eller rette de samme fejl igen. Der kan ikke loves et tal for, hvor meget du sparer.
+At køre startkittet igennem bruger en del af dit forbrug: forløbet er en samtale med en del trin. Se det som en investering. Du bruger forbrug én gang på at bygge fundamentet, og bagefter sparer du det hver dag, fordi du ikke skal forklare det samme forfra eller rette de samme fejl igen. Der kan ikke loves et tal for, hvor meget du sparer.
 
 Skriv `/status` i Codex for at se dit forbrug, før du starter. Du kan dele forløbet over flere dage; alt bliver gemt.
 
@@ -244,7 +245,7 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 
 Der er to statusfiler, og de er ikke det samme: `STATUS.md` handler om dit projekt og bliver brugt hver dag. `.startkit/status.md` handler kun om, hvor langt du er i startkittets eget forløb, og det er dér, fejl i kittet skrives ned.
 
-`.codex/hooks.json` (og `.claude/settings.local.json` i Claude Code) indeholder den fulde sti til projektmappen, og den rummer typisk dit brugernavn på computeren (`C:\Users\<dig>\...`). Startkittet holder derfor filen ude af git, så den ikke kommer med, hvis du deler projektet. Stien passer alligevel kun til din egen computer. `.startkit/profil.json` rummer dine svar fra interviewet; du bliver spurgt, om den skal med i sikkerhedskopien.
+`.codex/hooks.json` (og `.claude/settings.local.json` i Claude Code) indeholder den fulde sti til projektmappen, og den rummer typisk dit brugernavn på computeren (`C:\Users\<dig>\...`). Startkittet holder derfor filen ude af git, så den ikke kommer med, hvis du deler projektet. Stien passer alligevel kun til din egen computer. `.startkit/profil.json` rummer dine svar fra det lille interview; du bliver spurgt, om den skal med i sikkerhedskopien.
 
 ## Fjern det igen
 
@@ -285,7 +286,7 @@ Slet mappen `C:\Users\<dig>\.agents\skills\startkit` (Claude Code: `C:\Users\<di
 | Dobbeltklik på `install-english.cmd` på en rigtig computer | **Ikke afprøvet** |
 | Den engelske udgave kørt gennem Codex med et rigtigt menneske | **Ikke afprøvet** |
 | Dobbeltklik på `installer.cmd` og `overblik.cmd` på en fremmed computer (Windows kan advare) | **Ikke afprøvet** |
-| Den korte vej, feedback-spørgsmålene og noterne undervejs, kørt gennem Codex | **Ikke afprøvet** |
+| Forløbet med det lille interview, feedback-spørgsmålene og noterne undervejs, kørt gennem Codex | **Ikke afprøvet** |
 | Kittet brugt på et hold | **Ikke afprøvet** |
 | At Codex faktisk kører hooks'ene, som dokumentationen beskriver | **Ikke afprøvet** |
 | At vagten også bliver kaldt, når Codex retter filer (og ikke kun ved kommandoer) | **Ikke afprøvet** |

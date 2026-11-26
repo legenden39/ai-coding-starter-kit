@@ -7,7 +7,7 @@
 //  * Viser kun målte fakta, aldrig gæt. Skriver aldrig til projektet. Ingen internet, ingen nøgler.
 //  * Lytter kun på din egen computer (127.0.0.1).
 //
-// Dette er udgangspunktet. Siden bygges videre efter dine egne ønsker (se startkittets fase 8).
+// Dette er udgangspunktet. Siden bygges videre efter dine egne ønsker (se projekttrinnet i startkittet).
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
