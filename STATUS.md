@@ -32,8 +32,12 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
-- Prøv hele forløbet i en rigtig chat i et testprojekt: installation, lille interview, fundament, sikkerhedsnet og loop-stop.
-- Gør README og installationen kortere (trin 1-4 er lange), på begge sprog.
+- Prøv hele forløbet i en rigtig chat i et testprojekt (`docs/afproevning-fundament.md`).
+- Forbedringer fra ejerens andet projekt (gennemgået 26. nov.; kun idéerne, intet om projektet). Ejeren har valgt alle fire; én opgave pr. chat, i denne rækkefølge:
+  1. Kun relevante tests ved en ændring; fuld test én gang om ugen (markør for seneste grønne fulde kørsel). Opus.
+  2. Ét samlet ja (saml spørgsmål, vis plan, ét ja dækker hele vejen; stop kun ved fejl eller afvigelse) og ingen stilstand (hver tur slutter med arbejde, der kører, eller ét spørgsmål på en knap øverst). Opus.
+  3. Stærkere fejlliste (låsens sti står i listen og tjekkes af en test; "sidst udløst"; spørg om fjernelse efter måneder) og bevis som bruger ("færdig" kræver også, at funktionen er prøvet som bruger). Opus.
+  4. Statuslinje med hvor fuld chatten er (skift ved ca. 70 %), forbud mod direkte udrulning og skrivning uden for projektmappen, ugentligt sikkerhedstjek (kun læsning). Opus til forbuddene, Sonnet til resten.
 - Ejeren sætter version og udgiver. Sprog-sporet (`confident-jones-ecb9ed`) kan komme bagefter.
 - `interview.md` (8 runder) og `research.md` bruges nu kun af projekttrinnet; overvej senere, om de skal kortes.
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
