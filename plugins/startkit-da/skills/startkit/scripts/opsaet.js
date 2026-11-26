@@ -15,7 +15,7 @@ const { t, sprog, fil, vaerktoej, vt, FORBUDSREGLER } = require("./projekt/tekst
 const ASSETS = path.join(__dirname, "..", "assets");
 // De engelske skabeloner ligger i en/assets og hedder noget andet. Resten (nøgletjekket, .gitignore-tillægget) er fælles.
 const EN_ASSETS = path.join(__dirname, "..", "en", "assets");
-const EN_NAVNE = { "AGENTS.skabelon.md": "AGENTS.template.md", "projektstatus.skabelon.md": "project-status.template.md", "gentagne-fejl.md": "recurring-mistakes.md", "foer-du-deler.md": "before-you-share.md", "hvorfor-blev-jeg-stoppet.md": "why-was-i-stopped.md", "fortryd.md": "undo.md", "forloeb.skabelon.md": "progress.template.md", "feedback.skabelon.md": "feedback.template.md", "overblik.cmd": "overview.cmd" };
+const EN_NAVNE = { "AGENTS.skabelon.md": "AGENTS.template.md", "projektstatus.skabelon.md": "project-status.template.md", "gentagne-fejl.md": "recurring-mistakes.md", "foer-du-deler.md": "before-you-share.md", "hvorfor-blev-jeg-stoppet.md": "why-was-i-stopped.md", "fortryd.md": "undo.md", "forloeb.skabelon.md": "progress.template.md", "feedback.skabelon.md": "feedback.template.md", "overblik.cmd": "overview.cmd", "haenger-sammen.md": "what-goes-together.md" };
 // Udgaven til Claude Code har sine egne udgaver af de få skabeloner, der nævner værktøjet (mappen claude). Resten er fælles.
 const CLAUDE = path.join(__dirname, "..", "claude");
 function skabelon(navn) {
@@ -41,6 +41,7 @@ function normaliser(profil) {
   flyt(p, "projects", "projekter");
   flyt(p, "rules", "regler");
   flyt(p, "check_commands", "tjek_kommandoer");
+  flyt(p, "full_check_commands", "fuld_tjek_kommandoer");
   if (Array.isArray(p.projekter)) p.projekter = p.projekter.map((x) => { if (!x || typeof x !== "object") return x; const y = { ...x }; flyt(y, "name", "navn"); flyt(y, "description", "beskrivelse"); return y; });
   if (p.regler && typeof p.regler === "object") { p.regler = { ...p.regler }; flyt(p.regler, "never_without_ok", "aldrig_uden_ok"); flyt(p.regler, "answer_style", "svarform"); flyt(p.regler, "when_in_doubt", "ved_tvivl"); }
   return p;
@@ -58,7 +59,7 @@ function valider(raa) {
   const regler = profil.regler || {};
   if (!Array.isArray(regler.aldrig_uden_ok) || !regler.aldrig_uden_ok.filter(tekst).length) fejl.push(t("ops.aldrig"));
   if (!tekst(regler.svarform)) fejl.push(t("ops.svarform"));
-  if (profil.tjek_kommandoer !== undefined && !(Array.isArray(profil.tjek_kommandoer) && profil.tjek_kommandoer.every((k) => typeof k === "string"))) fejl.push(t("ops.tjek"));
+  for (const felt of ["tjek_kommandoer", "fuld_tjek_kommandoer"]) if (profil[felt] !== undefined && !(Array.isArray(profil[felt]) && profil[felt].every((k) => typeof k === "string"))) fejl.push(t("ops.tjek"));
   if (harNoegle(JSON.stringify(profil))) fejl.push(t("ops.noegle"));
   return fejl;
 }
@@ -119,6 +120,11 @@ function flettHooks(eksisterendeTekst, root) {
     if (!data.permissions || typeof data.permissions !== "object" || Array.isArray(data.permissions)) data.permissions = {};
     const har = Array.isArray(data.permissions.deny) ? data.permissions.deny : [];
     data.permissions.deny = [...har, ...FORBUDSREGLER.filter((r) => !har.includes(r))];
+    // AI'en må ikke skrive filer uden for projektmappen. Har personen selv sat det til false, bevares det.
+    if (data.permissions.blockWritesOutsideWorkingDirectories === undefined) data.permissions.blockWritesOutsideWorkingDirectories = true;
+    // Statuslinjen viser, hvor fuld chatten er. En statuslinje, personen selv har sat op, røres ikke.
+    const voresLinje = `node "${path.join(root, "scripts", "startkit", "statuslinje.js").replace(/\\/g, "/")}"`;
+    if (!data.statusLine || /scripts\/startkit\/statuslinje\.js/.test(String(data.statusLine.command || "").replace(/\\/g, "/"))) data.statusLine = { type: "command", command: voresLinje };
   }
   return JSON.stringify(data, null, 2) + "\n";
 }
@@ -152,12 +158,14 @@ function plan(root, raa) {
   const valgt = projekter.find((x) => x.navn === profil.valgt_projekt) || projekter[0];
 
   const tjek = profil.tjek_kommandoer || [];
-  const config = en ? { checks: tjek, model_guide: [], limit_percent: 85 } : { tjek, modelguide: [], graense_procent: 85 };
+  const fuldTjek = profil.fuld_tjek_kommandoer || [];
+  const config = en ? { checks: tjek, full_checks: fuldTjek, full_every_days: 7, model_guide: [], limit_percent: 85 } : { tjek, fuld_tjek: fuldTjek, fuld_dage: 7, modelguide: [], graense_procent: 85 };
   const regelfil = vt("regelfil"), hookfil = vt("hookfil");
   saet(regelfil, flettAgents(laes(p(regelfil)), agentsBlok(profil)), t("ops.n.agents"));
   kunHvisMangler("STATUS.md", skabelon("projektstatus.skabelon.md").replace(/\{\{PROJEKT\}\}/g, enLinje(valgt.navn)), t("ops.n.status"));
   kunHvisMangler(fil("fejl"), skabelon("gentagne-fejl.md"), t("ops.n.fejl"));
   kunHvisMangler(fil("deling"), skabelon("foer-du-deler.md"), t("ops.n.deling"));
+  kunHvisMangler(fil("haenger"), skabelon("haenger-sammen.md"), t("ops.n.haenger"));
   saet(fil("hvorfor"), skabelon("hvorfor-blev-jeg-stoppet.md"), t("ops.n.hvorfor"));
   saet(fil("fortryd"), skabelon("fortryd.md"), t("ops.n.fortryd"));
   kunHvisMangler(".startkit/status.md", skabelon("forloeb.skabelon.md"), t("ops.n.forloeb"));

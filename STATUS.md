@@ -7,6 +7,7 @@
 - Kittets hooks på kittet selv (valg c, pull request 25): se nedenfor. Ikke udgivet i en ny version endnu.
 
 ## Sidst lavet (26. nov. 2026)
+- Forbedringerne bygges i træk på grenen `claude/plan-fra-andet-projekt` (ejerens valg: ét samlet ja; push først til sidst). Ejerens svar: tests i to niveauer; regler + spørgsmål i færdig-tjekket; lås-tjek + hænger-sammen-liste (uden "sidst udløst"); alle tre dele af forbedring 4. **1 færdig:** fuld test én gang om ugen (`bevis.js`, test `fuldtest`). **2 færdig:** regler om ét samlet ja, ingen stilstand og prøv som bruger; færdig-tjekket beder om det (test `forbedringer`). **3 færdig:** beviset bliver rødt, hvis en lås i fejllisten forsvinder. **5 færdig:** `docs/haenger-sammen.md` + søskende-tjek i regel og færdig-tjek; låse i listen tjekkes. **4 færdig:** statuslinje (Claude Code, terminal), spærring mod at skrive uden for projektmappen, regel om ugentligt sikkerhedstjek, forslag om forbud mod direkte udrulning i projekttrinnet. Alle fem forbedringer er committet lokalt; ikke pushet. IKKE afprøvet: noget af det i en rigtig chat; statuslinjen i skrivebordsappen.
 - Ny gren `claude/fundament-som-standard` fra `main` (lokal, ikke pushet): fundament-sporet (16. nov.) er committet, og grenen med loop-stop (`claude/modest-cannon-81wyft`) er flettet oven på. Koden flettede uden konflikter; kun ændringslogge og denne fil skulle samles i hånden. Mål: en udgivelse, hvor folk installerer hurtigt og får fundamentet med det samme uden det lange interview.
 - Hurtig start (to linjer i Claude Code + `/startkit`) øverst i "Kom i gang" i begge README'er. Prøve-vejledning til ejeren: `docs/afproevning-fundament.md`. Grenen er pushet efter ejerens ja (ingen pull request). Derefter: README gjort kort og visuel på begge sprog (tegning, tabel, tre trin; resten foldet sammen); `tests/claude.test.js` leder nu efter den sammenfoldede overskrift. Næste: ejeren kommenterer README på GitHub, derefter pull request til `main`. Tjekket før push: nøglescan (`--scan`) og testen `rent`. Ikke tjekket: hurtig start på Windows og Mac.
 
@@ -32,8 +33,13 @@
 - Gennemgang af grenen: lagt oven på 0.8.0-beta (ændringsloggen har fået et nyt "Ikke udgivet endnu"), og testen `rent` springer nu også `.git` over, når den er en fil, så den er grøn i en worktree.
 
 ## Næste skridt
-- Prøv hele forløbet i en rigtig chat i et testprojekt: installation, lille interview, fundament, sikkerhedsnet og loop-stop.
-- Gør README og installationen kortere (trin 1-4 er lange), på begge sprog.
+- Prøv hele forløbet i en rigtig chat i et testprojekt (`docs/afproevning-fundament.md`).
+- Forbedringer fra ejerens andet projekt (gennemgået 26. nov.; kun idéerne, intet om projektet). Ejeren har valgt alle fire; én opgave pr. chat, i denne rækkefølge:
+  1. Kun relevante tests ved en ændring; fuld test én gang om ugen (markør for seneste grønne fulde kørsel). Opus.
+  2. Ét samlet ja (saml spørgsmål, vis plan, ét ja dækker hele vejen; stop kun ved fejl eller afvigelse) og ingen stilstand (hver tur slutter med arbejde, der kører, eller ét spørgsmål på en knap øverst). Opus.
+  3. Stærkere fejlliste (låsens sti står i listen og tjekkes af en test; "sidst udløst"; spørg om fjernelse efter måneder) og bevis som bruger ("færdig" kræver også, at funktionen er prøvet som bruger). Opus.
+  4. Statuslinje med hvor fuld chatten er (skift ved ca. 70 %), forbud mod direkte udrulning og skrivning uden for projektmappen, ugentligt sikkerhedstjek (kun læsning). Opus til forbuddene, Sonnet til resten.
+  5. Passer det nye ind i resten? Når noget nyt tilføjes, skal AI'en se på ting af samme slags ("søskende") og sige, hvad de har, som det nye mangler (fx en gennemgang, et menupunkt, en oversættelse, en linje i README). Tre trin: (a) søskende-tjek før "færdig", med forslag, som ejeren siger ja eller nej til; (b) en "hænger sammen"-liste i projektet, som AI'en foreslår nye linjer til, når den ser et mønster; (c) en lås med en test, når det er vigtigt ("alle steder har en gennemgang"). Ejerens valg 26. nov.: alle tre trin. Opus.
 - Ejeren sætter version og udgiver. Sprog-sporet (`confident-jones-ecb9ed`) kan komme bagefter.
 - `interview.md` (8 runder) og `research.md` bruges nu kun af projekttrinnet; overvej senere, om de skal kortes.
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).

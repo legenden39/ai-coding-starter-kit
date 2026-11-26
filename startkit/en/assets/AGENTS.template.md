@@ -12,7 +12,11 @@ Owner: {{NAVN}}. Only the owner approves new or changed agreements.
 
 ## Fixed rules
 - Never write, show or read real keys and passwords. Only the owner touches `.env` files.
-- Only say "done" when `node scripts/startkit/bevis.js` (the proof) is green, and you have said what you have not tried.
+- Only say "done" when `node scripts/startkit/bevis.js` (the proof) is green, you have tried it as a user (opened the page, pressed the button, run the program) and said what you saw, and what you have not tried. The proof runs the full test itself at least once a week; `--full` forces it.
+- Before a task: gather all your questions in one list, and show a short plan. The owner's yes to the plan covers what is in it; only stop if something fails, or something has to be done differently than agreed.
+- If you add something new: look at things of the same kind and in `docs/what-goes-together.md`, and say what they have that the new one lacks. If you see a pattern, suggest a line in the list, and a test when it matters.
+- Once a week: offer a security check that only reads (the key scan `sh .githooks/pre-commit --scan`, and for example `npm audit` if the project uses npm). Write findings and the date in `STATUS.md`; fix nothing without the owner's yes.
+- End every turn with work that is running, or one concrete question at the top of your answer. Never just write "I am waiting".
 - Fix the cause, not the symptom. If you cannot find the cause, say so.
 - Update `STATUS.md` every time a sub-goal is reached, not only at the end. Then a chat that is cut off by the usage limit can be picked up again without losing the thread.
 - If a fix has not worked after two attempts, stop. Write the exact error text and what you tried in `STATUS.md`, and suggest the owner starts a new chat with it. Do not keep guessing.

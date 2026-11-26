@@ -41,8 +41,8 @@ const vt = (navn) => (navn ? VAERKTOEJER[vaerktoej()][navn] : VAERKTOEJER[vaerkt
 
 // De filer i projektet, personen selv ser, hedder noget forskelligt på de to sprog.
 const FILER = {
-  da: { fejl: "docs/gentagne-fejl.md", deling: "docs/foer-du-deler.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", fortryd: ".startkit/saadan-fortryder-du.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
-  en: { fejl: "docs/recurring-mistakes.md", deling: "docs/before-you-share.md", hvorfor: ".startkit/why-was-i-stopped.md", fortryd: ".startkit/how-to-undo.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
+  da: { haenger: "docs/haenger-sammen.md", fejl: "docs/gentagne-fejl.md", deling: "docs/foer-du-deler.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", fortryd: ".startkit/saadan-fortryder-du.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
+  en: { haenger: "docs/what-goes-together.md", fejl: "docs/recurring-mistakes.md", deling: "docs/before-you-share.md", hvorfor: ".startkit/why-was-i-stopped.md", fortryd: ".startkit/how-to-undo.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
 };
 const fil = (navn) => FILER[sprog()][navn];
 
@@ -82,7 +82,7 @@ const TEKSTER = {
     "faerdig.intet": "Der findes ikke noget bevis endnu.",
     "faerdig.roedt": "Det seneste bevis er rødt.",
     "faerdig.aendret": "Koden er ændret, siden beviset blev taget.",
-    "faerdig.besked": "Ikke færdig endnu: koden er ændret i denne chat, og det er ikke vist, at den virker. Hvorfor: {hvorfor} Hvad nu: kør beviset, altså projektets egne tjek (node scripts/startkit/bevis.js). Er det rødt, så find og ret årsagen, ikke symptomet, og kør det igen. Fortæl derefter ejeren kort: hvad der er lavet, hvad beviset viste, og hvad du IKKE har afprøvet.",
+    "faerdig.besked": "Ikke færdig endnu: koden er ændret i denne chat, og det er ikke vist, at den virker. Hvorfor: {hvorfor} Hvad nu: kør beviset, altså projektets egne tjek (node scripts/startkit/bevis.js). Er det rødt, så find og ret årsagen, ikke symptomet, og kør det igen. Prøv det derefter som en bruger (åbn siden, tryk på knappen, kør programmet). Er noget nyt tilføjet, så se på ting af samme slags og i docs/haenger-sammen.md: har de noget, det nye mangler? Fortæl så ejeren kort: hvad der er lavet, hvad beviset viste, hvad du så, da du prøvede det som bruger, og hvad du IKKE har afprøvet.",
 
     // ---- beviset (bevis.js) ----
     "ikke.git": "Ikke et git-projekt. Kør først: git init",
@@ -92,6 +92,16 @@ const TEKSTER = {
     "bevis.ingen2": "Sig det ærligt til ejeren, og foreslå en første test. Kommandoer tilføjes i .startkit/config.json (det gør ejeren selv).",
     "bevis.groent": "Bevis: GRØNT. Alle tjek gik igennem.",
     "bevis.roedt": "Bevis: RØDT. Find og ret årsagen, og kør beviset igen.",
+    "bevis.fuld.nu": "Den fulde test køres nu, fordi {hvorfor}. Den tager længere tid end de hurtige tjek.",
+    "bevis.fuld.aldrig": "den aldrig er kørt grøn før",
+    "statuslinje.ny": "Chatten: ny",
+    "statuslinje.ok": "Chatten: {procent} % brugt",
+    "statuslinje.fuld": "Chatten: {procent} % brugt · skift snart til en ny chat (opdatér STATUS.md først)",
+    "bevis.laas.navn": "låsene i fejllisten",
+    "bevis.laas.vaek": "  ❌ En lås i {fejlfil} findes ikke længere: {stier}. Så er fejlen ikke låst mere. Sæt låsen tilbage, eller ret stien i listen, og sig det til ejeren.",
+    "bevis.fuld.gammel": "den sidst var grøn for {dage} dage siden (den køres mindst hver {graense}. dag)",
+    "bevis.fuld.bedt": "du bad om den (--fuld)",
+    "bevis.fuld.ikke": "Den fulde test er ikke kørt: den var grøn for {dage} dage siden. Vil du køre den alligevel: node scripts/startkit/bevis.js --fuld",
 
     // ---- forbrug (forbrug-gem.js) ----
     "forbrug.brug": "Brug: node scripts/startkit/forbrug-gem.js --5t <procent> --uge <procent>   (tal mellem 0 og 100)",
@@ -188,6 +198,7 @@ const TEKSTER = {
     "ops.n.status": "hvor vi er, fra gang til gang",
     "ops.n.fejl": "fejl, der ikke må ske igen",
     "ops.n.deling": "tjekliste til, før noget deles med andre",
+    "ops.n.haenger": "ting, der hører sammen, så en ny af slagsen får det samme som de andre",
     "ops.n.hvorfor": "forklaring af kontrollerne",
     "ops.n.fortryd": "sådan går du tilbage, når noget er gået galt",
     "ops.n.forloeb": "hvor langt startkittet er",
@@ -295,7 +306,7 @@ const TEKSTER = {
     "faerdig.intet": "There is no proof yet.",
     "faerdig.roedt": "The latest proof is red.",
     "faerdig.aendret": "The code has changed since the proof was taken.",
-    "faerdig.besked": "Not done yet: the code has changed in this chat, and it has not been shown to work. Why: {hvorfor} What now: run the proof, meaning the project's own checks (node scripts/startkit/bevis.js). If it is red, find and fix the cause, not the symptom, and run it again. Then tell the owner briefly: what was done, what the proof showed, and what you have NOT tried.",
+    "faerdig.besked": "Not done yet: the code has changed in this chat, and it has not been shown to work. Why: {hvorfor} What now: run the proof, meaning the project's own checks (node scripts/startkit/bevis.js). If it is red, find and fix the cause, not the symptom, and run it again. Then try it as a user (open the page, press the button, run the program). If something new was added, look at things of the same kind and in docs/what-goes-together.md: do they have something the new one lacks? Then tell the owner briefly: what was done, what the proof showed, what you saw when you tried it as a user, and what you have NOT tried.",
 
     "ikke.git": "Not a git project. Run this first: git init",
     "bevis.groen": "  ✅ green",
@@ -304,6 +315,16 @@ const TEKSTER = {
     "bevis.ingen2": "Tell the owner honestly, and suggest a first test. Commands are added in .startkit/config.json (the owner does that).",
     "bevis.groent": "Proof: GREEN. All checks passed.",
     "bevis.roedt": "Proof: RED. Find and fix the cause, and run the proof again.",
+    "bevis.fuld.nu": "The full test is being run now, because {hvorfor}. It takes longer than the quick checks.",
+    "bevis.fuld.aldrig": "it has never been run green before",
+    "statuslinje.ny": "Chat: new",
+    "statuslinje.ok": "Chat: {procent} % used",
+    "statuslinje.fuld": "Chat: {procent} % used · switch to a new chat soon (update STATUS.md first)",
+    "bevis.laas.navn": "the locks in the mistake list",
+    "bevis.laas.vaek": "  ❌ A lock in {fejlfil} no longer exists: {stier}. Then the mistake is not locked any more. Put the lock back, or fix the path in the list, and tell the owner.",
+    "bevis.fuld.gammel": "it was last green {dage} days ago (it is run at least every {graense} days)",
+    "bevis.fuld.bedt": "you asked for it (--full)",
+    "bevis.fuld.ikke": "The full test was not run: it was green {dage} days ago. To run it anyway: node scripts/startkit/bevis.js --full",
 
     "forbrug.brug": "Usage: node scripts/startkit/forbrug-gem.js --5h <percent> --week <percent>   (numbers between 0 and 100)",
     "forbrug.gemt": "Usage saved.",
@@ -395,6 +416,7 @@ const TEKSTER = {
     "ops.n.status": "where we are, from one session to the next",
     "ops.n.fejl": "mistakes that must not happen again",
     "ops.n.deling": "checklist for before something is shared with others",
+    "ops.n.haenger": "things that belong together, so a new one of the kind gets the same as the others",
     "ops.n.hvorfor": "explanation of the controls",
     "ops.n.fortryd": "how to go back when something has gone wrong",
     "ops.n.forloeb": "how far the starter kit has come",
@@ -491,7 +513,7 @@ function t(noegle, vaerdier = {}) {
 // Indstillingerne (.startkit/config.json) har danske eller engelske navne. Her får de ét sæt navne.
 function laesConfig(raa) {
   const c = raa && typeof raa === "object" ? raa : {};
-  return { tjek: c.tjek ?? c.checks, modelguide: c.modelguide ?? c.model_guide, graense_procent: c.graense_procent ?? c.limit_percent, vagt: c.vagt ?? c.guard };
+  return { tjek: c.tjek ?? c.checks, fuld_tjek: c.fuld_tjek ?? c.full_checks, fuld_dage: c.fuld_dage ?? c.full_every_days, modelguide: c.modelguide ?? c.model_guide, graense_procent: c.graense_procent ?? c.limit_percent, vagt: c.vagt ?? c.guard };
 }
 
 module.exports = { t, sprog, fil, laesConfig, vaerktoej, vt, TEKSTER, TEKSTER_CLAUDE, FILER, VAERKTOEJER, FORBUDSREGLER };

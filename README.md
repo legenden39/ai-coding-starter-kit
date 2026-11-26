@@ -281,7 +281,8 @@ Everything in the kit is open, so anyone can read what it does.
 |---|---|
 | `AGENTS.md` (in Claude Code: `CLAUDE.md`) | Short, fixed rules that the AI reads in every chat. Your own lines are not touched. |
 | `STATUS.md` | Where you are: now, last done, next step, open problems. |
-| `docs/recurring-mistakes.md` | Mistakes that must not happen again, and whether they are locked by a hook or a test. |
+| `docs/recurring-mistakes.md` | Mistakes that must not happen again, and whether they are locked by a hook or a test. If a lock disappears, the proof turns red. |
+| `docs/what-goes-together.md` | Things that belong together: when a new one of the kind arrives, it should also get the same as the others. |
 | `scripts/startkit/vagt.js` | The guard: stops keys in code, deletion of work, and skipping of checks. |
 | `scripts/startkit/faerdig.js` and `bevis.js` | The done-check: "done" requires green proof for the code as it is right now. |
 | `.githooks/pre-commit` | Key check before every commit, and a lock on the length of `AGENTS.md`. |
@@ -316,7 +317,7 @@ There are two status files, and they are not the same: `STATUS.md` is about your
 <details>
 <summary><b>Remove it again</b></summary>
 
-Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Users\<you>\.claude\skills\startkit`). Codex's file names are used below; in Claude Code the two files are called `.claude/settings.local.json` and `CLAUDE.md`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json`, remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
+Delete the folder `C:\Users\<you>\.agents\skills\startkit` (Claude Code: `C:\Users\<you>\.claude\skills\startkit`). Codex's file names are used below; in Claude Code the two files are called `.claude/settings.local.json` and `CLAUDE.md`. In a project: delete `scripts/startkit/`, `.githooks/`, `.startkit/` and the kit's entries in `.codex/hooks.json` (in Claude Code also `statusLine` and `blockWritesOutsideWorkingDirectories`, if you do not want to keep them), remove the block between `startkit:start` and `startkit:slut` in `AGENTS.md`, delete `overview.cmd`, and run `git config --unset core.hooksPath`. `STATUS.md`, `docs/recurring-mistakes.md` and the lines under "Added by the starter kit" in `.gitignore` are yours now; keep them or delete them as you like.
 
 </details>
 

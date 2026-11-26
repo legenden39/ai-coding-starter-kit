@@ -15,7 +15,7 @@ Ask only these, 2-3 at a time. Use the follow-up rule from `claude/en/references
 5. Do you want explanations along the way, or just the result? (field: `rules.answer_style`)
 6. What should the AI do when it is in doubt: ask, or choose itself and say so? (field: `rules.when_in_doubt`)
 
-If there is already code in the folder, find one command together with the person that shows that it works (field: `check_commands`). Otherwise leave the list empty, and say that the done-check can only try something once there is a test.
+If there is already code in the folder, find one command together with the person that shows that it works (field: `check_commands`). Otherwise leave the list empty, and say that the done-check can only try something once there is a test. If the full test takes long (more than a couple of minutes), put a quick command in `check_commands` and the full one in `full_check_commands`: the proof then runs the full one itself when it was last green more than 7 days ago.
 
 Save the answers in `.startkit/profile.json` using the schema at the bottom of `claude/en/references/interview.md`.
 
