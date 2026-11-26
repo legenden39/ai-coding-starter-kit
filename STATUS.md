@@ -38,6 +38,7 @@
   2. Ét samlet ja (saml spørgsmål, vis plan, ét ja dækker hele vejen; stop kun ved fejl eller afvigelse) og ingen stilstand (hver tur slutter med arbejde, der kører, eller ét spørgsmål på en knap øverst). Opus.
   3. Stærkere fejlliste (låsens sti står i listen og tjekkes af en test; "sidst udløst"; spørg om fjernelse efter måneder) og bevis som bruger ("færdig" kræver også, at funktionen er prøvet som bruger). Opus.
   4. Statuslinje med hvor fuld chatten er (skift ved ca. 70 %), forbud mod direkte udrulning og skrivning uden for projektmappen, ugentligt sikkerhedstjek (kun læsning). Opus til forbuddene, Sonnet til resten.
+  5. Passer det nye ind i resten? Når noget nyt tilføjes, skal AI'en se på ting af samme slags ("søskende") og sige, hvad de har, som det nye mangler (fx en gennemgang, et menupunkt, en oversættelse, en linje i README). Tre trin: (a) søskende-tjek før "færdig", med forslag, som ejeren siger ja eller nej til; (b) en "hænger sammen"-liste i projektet, som AI'en foreslår nye linjer til, når den ser et mønster; (c) en lås med en test, når det er vigtigt ("alle steder har en gennemgang"). Ejerens valg 26. nov.: alle tre trin. Opus.
 - Ejeren sætter version og udgiver. Sprog-sporet (`confident-jones-ecb9ed`) kan komme bagefter.
 - `interview.md` (8 runder) og `research.md` bruges nu kun af projekttrinnet; overvej senere, om de skal kortes.
 - Hvis ejeren vil have en lås: prøv hook'en igen i en ny chat (almindelig kopi, terminal først, med kontrol-hook).
