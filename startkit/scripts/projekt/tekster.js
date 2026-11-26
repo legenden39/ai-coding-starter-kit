@@ -41,8 +41,8 @@ const vt = (navn) => (navn ? VAERKTOEJER[vaerktoej()][navn] : VAERKTOEJER[vaerkt
 
 // De filer i projektet, personen selv ser, hedder noget forskelligt på de to sprog.
 const FILER = {
-  da: { fejl: "docs/gentagne-fejl.md", deling: "docs/foer-du-deler.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", fortryd: ".startkit/saadan-fortryder-du.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
-  en: { fejl: "docs/recurring-mistakes.md", deling: "docs/before-you-share.md", hvorfor: ".startkit/why-was-i-stopped.md", fortryd: ".startkit/how-to-undo.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
+  da: { haenger: "docs/haenger-sammen.md", fejl: "docs/gentagne-fejl.md", deling: "docs/foer-du-deler.md", hvorfor: ".startkit/hvorfor-blev-jeg-stoppet.md", fortryd: ".startkit/saadan-fortryder-du.md", genvej: "overblik.cmd", profil: ".startkit/profil.json" },
+  en: { haenger: "docs/what-goes-together.md", fejl: "docs/recurring-mistakes.md", deling: "docs/before-you-share.md", hvorfor: ".startkit/why-was-i-stopped.md", fortryd: ".startkit/how-to-undo.md", genvej: "overview.cmd", profil: ".startkit/profile.json" },
 };
 const fil = (navn) => FILER[sprog()][navn];
 
@@ -82,7 +82,7 @@ const TEKSTER = {
     "faerdig.intet": "Der findes ikke noget bevis endnu.",
     "faerdig.roedt": "Det seneste bevis er rødt.",
     "faerdig.aendret": "Koden er ændret, siden beviset blev taget.",
-    "faerdig.besked": "Ikke færdig endnu: koden er ændret i denne chat, og det er ikke vist, at den virker. Hvorfor: {hvorfor} Hvad nu: kør beviset, altså projektets egne tjek (node scripts/startkit/bevis.js). Er det rødt, så find og ret årsagen, ikke symptomet, og kør det igen. Prøv det derefter som en bruger (åbn siden, tryk på knappen, kør programmet). Fortæl så ejeren kort: hvad der er lavet, hvad beviset viste, hvad du så, da du prøvede det som bruger, og hvad du IKKE har afprøvet.",
+    "faerdig.besked": "Ikke færdig endnu: koden er ændret i denne chat, og det er ikke vist, at den virker. Hvorfor: {hvorfor} Hvad nu: kør beviset, altså projektets egne tjek (node scripts/startkit/bevis.js). Er det rødt, så find og ret årsagen, ikke symptomet, og kør det igen. Prøv det derefter som en bruger (åbn siden, tryk på knappen, kør programmet). Er noget nyt tilføjet, så se på ting af samme slags og i docs/haenger-sammen.md: har de noget, det nye mangler? Fortæl så ejeren kort: hvad der er lavet, hvad beviset viste, hvad du så, da du prøvede det som bruger, og hvad du IKKE har afprøvet.",
 
     // ---- beviset (bevis.js) ----
     "ikke.git": "Ikke et git-projekt. Kør først: git init",
@@ -195,6 +195,7 @@ const TEKSTER = {
     "ops.n.status": "hvor vi er, fra gang til gang",
     "ops.n.fejl": "fejl, der ikke må ske igen",
     "ops.n.deling": "tjekliste til, før noget deles med andre",
+    "ops.n.haenger": "ting, der hører sammen, så en ny af slagsen får det samme som de andre",
     "ops.n.hvorfor": "forklaring af kontrollerne",
     "ops.n.fortryd": "sådan går du tilbage, når noget er gået galt",
     "ops.n.forloeb": "hvor langt startkittet er",
@@ -302,7 +303,7 @@ const TEKSTER = {
     "faerdig.intet": "There is no proof yet.",
     "faerdig.roedt": "The latest proof is red.",
     "faerdig.aendret": "The code has changed since the proof was taken.",
-    "faerdig.besked": "Not done yet: the code has changed in this chat, and it has not been shown to work. Why: {hvorfor} What now: run the proof, meaning the project's own checks (node scripts/startkit/bevis.js). If it is red, find and fix the cause, not the symptom, and run it again. Then try it as a user (open the page, press the button, run the program). Then tell the owner briefly: what was done, what the proof showed, what you saw when you tried it as a user, and what you have NOT tried.",
+    "faerdig.besked": "Not done yet: the code has changed in this chat, and it has not been shown to work. Why: {hvorfor} What now: run the proof, meaning the project's own checks (node scripts/startkit/bevis.js). If it is red, find and fix the cause, not the symptom, and run it again. Then try it as a user (open the page, press the button, run the program). If something new was added, look at things of the same kind and in docs/what-goes-together.md: do they have something the new one lacks? Then tell the owner briefly: what was done, what the proof showed, what you saw when you tried it as a user, and what you have NOT tried.",
 
     "ikke.git": "Not a git project. Run this first: git init",
     "bevis.groen": "  ✅ green",
@@ -409,6 +410,7 @@ const TEKSTER = {
     "ops.n.status": "where we are, from one session to the next",
     "ops.n.fejl": "mistakes that must not happen again",
     "ops.n.deling": "checklist for before something is shared with others",
+    "ops.n.haenger": "things that belong together, so a new one of the kind gets the same as the others",
     "ops.n.hvorfor": "explanation of the controls",
     "ops.n.fortryd": "how to go back when something has gone wrong",
     "ops.n.forloeb": "how far the starter kit has come",

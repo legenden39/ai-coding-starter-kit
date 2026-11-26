@@ -8,6 +8,8 @@ Alle udgaver er betaer. Ingen af dem er afprøvet i Codex af den, der har lavet 
 
 ## Ikke udgivet endnu
 
+- **Passer det nye ind i resten?** Ny fil i projektet: `docs/haenger-sammen.md`, en liste over ting, der hører sammen ("en ny side for et sted skal også have en gennemgang og et menupunkt"). Regelfilen og færdig-tjekket beder AI'en se på ting af samme slags, sige, hvad det nye mangler, og foreslå nye linjer og en test, når det er vigtigt. Låse i listen tjekkes af beviset som i fejllisten. Begge sprog, test i `forbedringer`. Idéen kommer fra et rigtigt projekt, hvor en ny side ikke fik den gennemgang, de andre sider havde.
+
 - **Låsene i fejllisten tjekkes:** står der en sti i backticks under "Låst af" i `docs/gentagne-fejl.md`, bliver beviset rødt, hvis filen forsvinder, og det siger hvilken. Et punkt, der er låst med "tekstregel" eller "nej", tjekkes ikke. Listen siger nu også, at AI'en spørger, om et punkt kan fjernes, når det ikke er sket i flere måneder. Begge sprog, test i `forbedringer`.
 
 - **Ét samlet ja, ingen stilstand, prøv det som bruger:** regelfilen siger nu, at AI'en samler sine spørgsmål i én liste og viser en plan, som ejerens ja dækker; at hver tur slutter med arbejde, der kører, eller ét spørgsmål øverst; og at "færdig" også kræver, at det er prøvet som en bruger. Færdig-tjekket beder om det samme, når det stopper AI'en. Begge sprog, ny test `forbedringer`. Kun tekst og en besked: om AI'en følger det, er ikke afprøvet.

@@ -31,10 +31,10 @@ const bedt = process.argv.includes("--fuld") || process.argv.includes("--full");
 const koerFuld = fuld.length > 0 && (bedt || dage === null || dage >= graense);
 if (koerFuld) console.log(t("bevis.fuld.nu", { hvorfor: bedt ? t("bevis.fuld.bedt") : dage === null ? t("bevis.fuld.aldrig") : t("bevis.fuld.gammel", { dage, graense }) }));
 
-// Låsene i fejllisten: står der en sti i backticks under "Låst af", skal filen findes. Ellers er låsen væk.
-function manglendeLaase() {
+// Låsene i fejllisten og i "hænger sammen": står der en sti i backticks under "Låst af", skal filen findes. Ellers er låsen væk.
+function manglendeLaase(liste) {
   let tekst = "";
-  try { tekst = fs.readFileSync(path.join(r, fil("fejl")), "utf8"); } catch { return []; }
+  try { tekst = fs.readFileSync(path.join(r, liste), "utf8"); } catch { return []; }
   const mangler = [];
   for (const linje of tekst.split(/\r?\n/)) {
     if (!/^\s*\|/.test(linje) || /^\s*\|[\s|:-]+\|?\s*$/.test(linje)) continue;
@@ -50,11 +50,14 @@ function manglendeLaase() {
 }
 
 const resultater = [];
-const vaek = manglendeLaase();
-if (vaek.length) {
-  console.log(t("bevis.laas.vaek", { fejlfil: fil("fejl"), stier: vaek.join(", ") }));
-  resultater.push({ kommando: t("bevis.laas.navn"), ok: false });
+const vaek = [];
+for (const liste of [fil("fejl"), fil("haenger")]) {
+  const her = manglendeLaase(liste);
+  if (!her.length) continue;
+  vaek.push(...her);
+  console.log(t("bevis.laas.vaek", { fejlfil: liste, stier: her.join(", ") }));
 }
+if (vaek.length) resultater.push({ kommando: t("bevis.laas.navn"), ok: false });
 for (const kommando of vaek.length ? [] : koerFuld ? [...tjek, ...fuld] : tjek) {
   console.log(`\n▶ ${kommando}`);
   let ok = true;

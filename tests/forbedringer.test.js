@@ -46,4 +46,26 @@ for (const [sprog, fejlfil, vaek] of [["da", "docs/gentagne-fejl.md", /En lås i
   tjek(`${sprog}: forsvinder en lås, er beviset rødt og siger hvilken`, r.kode === 1 && vaek.test(r.ud), r.ud);
 }
 
+// ---- "hænger sammen": skabelonen lægges i projektet, og dens låse tjekkes også ----
+for (const [sprog, liste, regel, besked] of [
+  ["da", "docs/haenger-sammen.md", /se på ting af samme slags og i `docs\/haenger-sammen\.md`/, /En lås i docs\/haenger-sammen\.md findes ikke længere: tests\/steder\.test\.js/],
+  ["en", "docs/what-goes-together.md", /look at things of the same kind and in `docs\/what-goes-together\.md`/, /A lock in docs\/what-goes-together\.md no longer exists: tests\/steder\.test\.js/],
+]) {
+  const skabelon = laes(...(sprog === "da" ? ["assets", "haenger-sammen.md"] : ["en", "assets", "what-goes-together.md"]));
+  tjek(`${sprog}: skabelonen til "hænger sammen" har en tabel med en lås-kolonne`, /\| (Låst af|Locked by) \|/.test(skabelon));
+  tjek(`${sprog}: regelfilen peger på "hænger sammen"`, regel.test(laes(...(sprog === "da" ? ["assets", "AGENTS.skabelon.md"] : ["en", "assets", "AGENTS.template.md"]))));
+  const rod = nytProjekt();
+  kopierScripts(rod);
+  skriv(rod, ".startkit/config.json", JSON.stringify({ tjek: ["node -v"] }));
+  skriv(rod, liste, skabelon + "| side for et sted | gennemgang | `tests/steder.test.js` |\n");
+  const r = spawnSync("node", [path.join(rod, "scripts", "startkit", "bevis.js")], { cwd: rod, encoding: "utf8", env: { ...process.env, STARTKIT_SPROG: sprog } });
+  tjek(`${sprog}: en manglende lås i "hænger sammen" gør beviset rødt`, r.status === 1 && besked.test(r.stdout), r.stdout);
+}
+for (const [sprog, liste] of [["da", "docs/haenger-sammen.md"], ["en", "docs/what-goes-together.md"]]) {
+  const rod = nytProjekt();
+  skriv(rod, ".startkit/profil.json", fs.readFileSync(path.join(__dirname, "eksempel-profil.json"), "utf8"));
+  const r = spawnSync("node", [path.join(KIT, "scripts", "opsaet.js"), rod], { encoding: "utf8", env: { ...process.env, STARTKIT_SPROG: sprog } });
+  tjek(`${sprog}: opsætningen lægger ${liste} i projektet`, r.status === 0 && fs.existsSync(path.join(rod, liste)), r.stdout + r.stderr);
+}
+
 slut("forbedringer");

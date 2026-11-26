@@ -281,7 +281,8 @@ Alt i kittet er åbent, så enhver kan læse, hvad det gør.
 |---|---|
 | `AGENTS.md` (i Claude Code: `CLAUDE.md`) | Korte, faste regler, som AI'en læser i hver chat. Dine egne linjer røres ikke. |
 | `STATUS.md` | Hvor du er: nu, sidst lavet, næste skridt, åbne problemer. |
-| `docs/gentagne-fejl.md` | Fejl, der ikke må ske igen, og om de er låst af en hook eller test. |
+| `docs/gentagne-fejl.md` | Fejl, der ikke må ske igen, og om de er låst af en hook eller test. Forsvinder en lås, bliver beviset rødt. |
+| `docs/haenger-sammen.md` | Ting, der hører sammen: når der kommer en ny af slagsen, skal den også have det samme som de andre. |
 | `scripts/startkit/vagt.js` | Vagten: stopper nøgler i kode, sletning af arbejde, og at kontroller springes over. |
 | `scripts/startkit/faerdig.js` og `bevis.js` | Færdig-tjekket: "færdig" kræver et grønt bevis for den kode, der ligger der nu. |
 | `.githooks/pre-commit` | Nøgletjek før hver commit, og en lås på længden af `AGENTS.md`. |

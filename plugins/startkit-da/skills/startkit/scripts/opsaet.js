@@ -15,7 +15,7 @@ const { t, sprog, fil, vaerktoej, vt, FORBUDSREGLER } = require("./projekt/tekst
 const ASSETS = path.join(__dirname, "..", "assets");
 // De engelske skabeloner ligger i en/assets og hedder noget andet. Resten (nøgletjekket, .gitignore-tillægget) er fælles.
 const EN_ASSETS = path.join(__dirname, "..", "en", "assets");
-const EN_NAVNE = { "AGENTS.skabelon.md": "AGENTS.template.md", "projektstatus.skabelon.md": "project-status.template.md", "gentagne-fejl.md": "recurring-mistakes.md", "foer-du-deler.md": "before-you-share.md", "hvorfor-blev-jeg-stoppet.md": "why-was-i-stopped.md", "fortryd.md": "undo.md", "forloeb.skabelon.md": "progress.template.md", "feedback.skabelon.md": "feedback.template.md", "overblik.cmd": "overview.cmd" };
+const EN_NAVNE = { "AGENTS.skabelon.md": "AGENTS.template.md", "projektstatus.skabelon.md": "project-status.template.md", "gentagne-fejl.md": "recurring-mistakes.md", "foer-du-deler.md": "before-you-share.md", "hvorfor-blev-jeg-stoppet.md": "why-was-i-stopped.md", "fortryd.md": "undo.md", "forloeb.skabelon.md": "progress.template.md", "feedback.skabelon.md": "feedback.template.md", "overblik.cmd": "overview.cmd", "haenger-sammen.md": "what-goes-together.md" };
 // Udgaven til Claude Code har sine egne udgaver af de få skabeloner, der nævner værktøjet (mappen claude). Resten er fælles.
 const CLAUDE = path.join(__dirname, "..", "claude");
 function skabelon(navn) {
@@ -160,6 +160,7 @@ function plan(root, raa) {
   kunHvisMangler("STATUS.md", skabelon("projektstatus.skabelon.md").replace(/\{\{PROJEKT\}\}/g, enLinje(valgt.navn)), t("ops.n.status"));
   kunHvisMangler(fil("fejl"), skabelon("gentagne-fejl.md"), t("ops.n.fejl"));
   kunHvisMangler(fil("deling"), skabelon("foer-du-deler.md"), t("ops.n.deling"));
+  kunHvisMangler(fil("haenger"), skabelon("haenger-sammen.md"), t("ops.n.haenger"));
   saet(fil("hvorfor"), skabelon("hvorfor-blev-jeg-stoppet.md"), t("ops.n.hvorfor"));
   saet(fil("fortryd"), skabelon("fortryd.md"), t("ops.n.fortryd"));
   kunHvisMangler(".startkit/status.md", skabelon("forloeb.skabelon.md"), t("ops.n.forloeb"));

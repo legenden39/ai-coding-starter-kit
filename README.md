@@ -281,7 +281,8 @@ Everything in the kit is open, so anyone can read what it does.
 |---|---|
 | `AGENTS.md` (in Claude Code: `CLAUDE.md`) | Short, fixed rules that the AI reads in every chat. Your own lines are not touched. |
 | `STATUS.md` | Where you are: now, last done, next step, open problems. |
-| `docs/recurring-mistakes.md` | Mistakes that must not happen again, and whether they are locked by a hook or a test. |
+| `docs/recurring-mistakes.md` | Mistakes that must not happen again, and whether they are locked by a hook or a test. If a lock disappears, the proof turns red. |
+| `docs/what-goes-together.md` | Things that belong together: when a new one of the kind arrives, it should also get the same as the others. |
 | `scripts/startkit/vagt.js` | The guard: stops keys in code, deletion of work, and skipping of checks. |
 | `scripts/startkit/faerdig.js` and `bevis.js` | The done-check: "done" requires green proof for the code as it is right now. |
 | `.githooks/pre-commit` | Key check before every commit, and a lock on the length of `AGENTS.md`. |
