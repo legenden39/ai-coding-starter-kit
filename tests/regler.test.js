@@ -261,4 +261,47 @@ for (const c of ["npm run build", "node scripts/ryd.js", "git log --oneline", "e
   const s = i(c); tjek(`tilladt: ${c}`, s.decision === "allow", s.reason);
 }
 
+// ---- Rene læse-kommandoer må aldrig stoppes, heller ikke når de nævner en beskyttet fil (fundet i et rigtigt projekt 27. nov.) ----
+// PowerShells læse-ord (Select, Join-Path ...) manglede, så vagten troede, at hele kommandoen ændrede den beskyttede fil.
+// Køres i både Bash og PowerShell og på dansk og engelsk: reglerne er de samme, beskederne ikke.
+const ps = (command) => decide({ tool_name: "PowerShell", tool_input: { command } });
+const BESK = "scripts/startkit/vagt.js";
+const LAES_OK = [
+  `git log --oneline -- ${BESK} | Select -Last 3`,
+  `git log --oneline -- tests/x.js | Select -Last 3; Get-Content (Join-Path $env:USERPROFILE "x\\MEMORY.md") -TotalCount 0`,
+  `Get-Content ${BESK} | Select-Object -First 5 | Sort-Object | Measure-Object`,
+  `Get-Content (Join-Path $env:USERPROFILE "x") -TotalCount 0; Test-Path ${BESK}`,
+  `Get-Content (Join-Path . "${BESK}") | Format-Table | Out-String`,
+  `Join-Path . ${BESK}`,
+  `sed -n 1,20p ${BESK} | cut -c1-80 | sort | uniq | nl`,
+  `git log --grep 'fix (vagt) {x}' -- ${BESK} | Select -First 2`,
+];
+const LAES_STOP = [
+  `Get-Content a.txt | Select -First 1; Remove-Item ${BESK}`,
+  `Get-Content a.txt | ForEach-Object { Set-Content ${BESK} $_ }`,
+  `Get-Content a.txt | Where-Object { $_ } | Set-Content ${BESK}`,
+  `sort ${BESK} > ${BESK}`,
+  `sed -i 's/a/b/' ${BESK}`,
+  `Get-Content (Remove-Item ${BESK})`,
+  `Get-Content (Set-Content ${BESK} x) | Select -First 1`,
+  `Select -InputObject (Invoke-Expression "rm ${BESK}")`,
+  `Invoke-WebRequest https://x -OutFile ${BESK}`,
+  `node -e "require('fs').writeFileSync('${BESK}','')"`,
+  `echo "$(rm ${BESK})"`,
+  `cat "$(Remove-Item .githooks/pre-commit)" | Select -First 1`,
+  `Get-Content "$(Set-Content ${BESK} y)"`,
+  `Get-Content ${env} | Select -First 1`,
+  `Get-Content (Join-Path . "${env}") -TotalCount 0`,
+  `sed -n 1,5p ${env} | cut -c1-80`,
+];
+for (const sprog of ["da", "en"]) {
+  process.env.STARTKIT_SPROG = sprog;
+  try {
+    for (const [navn, k] of [["Bash", shell], ["PowerShell", ps]]) {
+      for (const c of LAES_OK) { const s = k(c); tjek(`ren læsning tilladt (${navn}, ${sprog}): ${c}`, s.decision === "allow", s.reason); }
+      for (const c of LAES_STOP) { const s = k(c); tjek(`skrivning/.env stadig afvist (${navn}, ${sprog}): ${c}`, s.decision === "deny", JSON.stringify(s)); }
+    }
+  } finally { delete process.env.STARTKIT_SPROG; }
+}
+
 slut("regler");

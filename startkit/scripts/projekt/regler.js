@@ -223,10 +223,12 @@ function regelFind(args, ctx) {
 }
 
 // Kommandoer, der kun læser eller kører kittets egne scripts: nævner de en beskyttet sti, er det ikke en ændring.
-const KUN_LAESNING = /^(cat|head|tail|ls|dir|type|cd|pwd|echo|grep|rg|wc|get-content|gc|get-childitem|gci|select-string|test-path|git\s+(diff|log|show|status|ls-files|add|commit)|git\s+config\s+core\.hookspath\s+\.githooks\/?|node\s+[\w:./_-]*scripts\/startkit\/(bevis|overblik|forbrug-gem|fortryd|start)\.js|sh\s+[\w:./_-]*\.githooks\/pre-commit)(\s|$)/i;
+const KUN_LAESNING = /^(cat|head|tail|ls|dir|type|cd|pwd|echo|grep|rg|wc|get-content|gc|get-childitem|gci|select-string|test-path|join-path|git\s+(diff|log|show|status|ls-files|add|commit)|git\s+config\s+core\.hookspath\s+\.githooks\/?|node\s+[\w:./_-]*scripts\/startkit\/(bevis|overblik|forbrug-gem|fortryd|start)\.js|sh\s+[\w:./_-]*\.githooks\/pre-commit)(\s|$)/i;
 // Små programmer, der kun former tekst, de får ind (typisk efter et |): git diff ... | cut -c1-100. De ændrer ingen filer.
-// awk, tee og xargs er med vilje ikke med: de kan skrive filer eller starte andre programmer.
-const FILTER = /^(cut|tr|wc|nl|column|more|less|findstr|select-object|sort-object|measure-object|format-table|format-list|out-string)(\s|$)/i;
+// awk, tee og xargs er med vilje ikke med: de kan skrive filer eller starte andre programmer. Det samme gælder PowerShells
+// ForEach-Object, Where-Object og Invoke-Expression: de kører den kode, de får ({ ... } eller tekst).
+// select og sort er PowerShells korte navne for Select-Object og Sort-Object.
+const FILTER = /^(cut|tr|wc|nl|column|more|less|findstr|select|select-object|sort-object|measure-object|format-table|format-list|out-string)(\s|$)/i;
 // git-kommandoer, der kun læser. Foran dem må stå de tilvalg, der ikke ændrer noget (--no-pager, -P, -C <mappe>).
 // -c er ikke med: det kan sætte et alias eller et program, som git så kører.
 const GIT_LAESER = /^git(\s+(--no-pager|-P|-C\s+\S+))*\s+(diff|log|show|status|ls-files|blame|shortlog|rev-parse)(\s|$)/; // med vilje ikke /i: -C (mappe) er ikke -c (indstilling)
@@ -240,8 +242,17 @@ function segmentLaeser(seg) {
   return false;
 }
 function kunLaesning(command) {
-  // Tekst i anførselstegn gøres "flad", så et mellemrum eller et | inde i en sti ikke deler kommandoen.
-  const flad = skraa(command).replace(/"([^"]*)"|'([^']*)'/g, (_, a, b) => (a ?? b ?? "").replace(/[\s;|&<>]/g, "_"));
+  // Tekst i anførselstegn gøres "flad", så et mellemrum eller et | inde i en sti ikke deler kommandoen. I "..." køres $( ... )
+  // stadig (både i bash og PowerShell), så dér bevares parenteserne og tjekkes nedenfor; kun '...' er ren tekst.
+  let flad = skraa(command).replace(/"([^"]*)"|'([^']*)'/g, (_, a, b) => (a !== undefined ? a.replace(/[\s;|&<>]/g, "_") : b.replace(/[\s;|&<>(){}$]/g, "_")));
+  // PowerShell kører det, der står i ( ... ), $( ... ) og { ... }, før resten: Get-Content (Join-Path ...). Det indre skal
+  // også kun læse; ellers kunne Get-Content (Remove-Item fil) slippe igennem. Inderste først, til der ikke er flere.
+  for (let n = 0; /[(){}]/.test(flad); n++) {
+    const m = flad.match(/\$?[({]([^(){}]*)[)}]/);
+    if (!m || n > 50) return false; // skæve parenteser: kan ikke læses sikkert
+    if (m[1].trim() && !kunLaesning(m[1])) return false;
+    flad = flad.replace(m[0], "_");
+  }
   const uden = flad.replace(/\d*>&\d+|\d*>\s*\/dev\/null|\d*>\s*\$null|\d*>\s*nul\b/gi, "");
   if (/[<>]/.test(uden)) return false;
   return uden.split(/&&|\|\||;|\||&|\n/).map((s) => s.trim()).filter(Boolean).every(segmentLaeser);
